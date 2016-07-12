@@ -7,6 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKConnector/ShareSDKConnector.h>
+#import "WeiboSDK.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +20,42 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+    ViewController * vc = [[ViewController alloc] init];
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    self.window.rootViewController = nav;
+    
+    [self.window makeKeyAndVisible];
+    
+    [ShareSDK registerApp:@"14cd112af4f4c"
+     
+          activePlatforms:@[
+                            @(SSDKPlatformTypeSinaWeibo)]
+                 onImport:^(SSDKPlatformType platformType){
+         switch (platformType){
+             case SSDKPlatformTypeSinaWeibo:
+                 [ShareSDKConnector connectWeibo:[WeiboSDK class]];
+                 break;
+            
+             default:
+                 break;
+         }
+     }
+          onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo){
+         
+         switch (platformType){
+             case SSDKPlatformTypeSinaWeibo:
+                 //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
+                 [appInfo SSDKSetupSinaWeiboByAppKey:@"4010495604"
+                                           appSecret:@"659740b5af735acdb55dcb4788108058"
+                                         redirectUri:@"http://www.sharesdk.cn"
+                                            authType:SSDKAuthTypeBoth];
+                 break;
+                    default:
+                 break;
+         }
+     }];
+    
     return YES;
 }
 

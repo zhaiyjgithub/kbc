@@ -15,6 +15,7 @@
 		CB7411891D347B14002B8FB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB7411871D347B14002B8FB5 /* LaunchScreen.storyboard */; };
 		CB7411941D347B14002B8FB5 /* scanreaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7411931D347B14002B8FB5 /* scanreaderTests.m */; };
 		CB74119F1D347B14002B8FB5 /* scanreaderUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74119E1D347B14002B8FB5 /* scanreaderUITests.m */; };
+		CB7411B21D348E2B002B8FB5 /* buy_dot.png in Resources */ = {isa = PBXBuildFile; fileRef = CB7411B11D348E2B002B8FB5 /* buy_dot.png */; };
 		E5BAE1CCCB7B6A4103D606F2 /* libPods-scanreader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F7A3B784229D292DC0FC5F6 /* libPods-scanreader.a */; };
 /* End PBXBuildFile section */
 
@@ -41,12 +42,12 @@
 		BE41DAAFFD8A4D526A8427FD /* Pods-scanreader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scanreader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-scanreader/Pods-scanreader.debug.xcconfig"; sourceTree = "<group>"; };
 		CB7411761D347B14002B8FB5 /* scanreader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = scanreader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB74117A1D347B14002B8FB5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		CB74117C1D347B14002B8FB5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		CB74117D1D347B14002B8FB5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		CB74117C1D347B14002B8FB5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = scanreader/AppDelegate.h; sourceTree = "<group>"; };
+		CB74117D1D347B14002B8FB5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = scanreader/AppDelegate.m; sourceTree = "<group>"; };
 		CB74117F1D347B14002B8FB5 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		CB7411801D347B14002B8FB5 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CB7411831D347B14002B8FB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		CB7411851D347B14002B8FB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CB7411851D347B14002B8FB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = scanreader/Assets.xcassets; sourceTree = "<group>"; };
 		CB7411881D347B14002B8FB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB74118A1D347B14002B8FB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB74118F1D347B14002B8FB5 /* scanreaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = scanreaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +56,8 @@
 		CB74119A1D347B14002B8FB5 /* scanreaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = scanreaderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB74119E1D347B14002B8FB5 /* scanreaderUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = scanreaderUITests.m; sourceTree = "<group>"; };
 		CB7411A01D347B14002B8FB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB7411B01D3486B6002B8FB5 /* globalHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = globalHeader.h; path = scanreader/globalHeader.h; sourceTree = "<group>"; };
+		CB7411B11D348E2B002B8FB5 /* buy_dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buy_dot.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +97,13 @@
 		CB74116D1D347B13002B8FB5 = {
 			isa = PBXGroup;
 			children = (
+				CB7411B11D348E2B002B8FB5 /* buy_dot.png */,
+				CB7411B01D3486B6002B8FB5 /* globalHeader.h */,
+				CB7411851D347B14002B8FB5 /* Assets.xcassets */,
+				CB74117C1D347B14002B8FB5 /* AppDelegate.h */,
+				CB74117D1D347B14002B8FB5 /* AppDelegate.m */,
+				CB7411AC1D3484B3002B8FB5 /* Application */,
+				CB7411AE1D3484CF002B8FB5 /* Base */,
 				CB7411781D347B14002B8FB5 /* scanreader */,
 				CB7411921D347B14002B8FB5 /* scanreaderTests */,
 				CB74119D1D347B14002B8FB5 /* scanreaderUITests */,
@@ -116,12 +126,7 @@
 		CB7411781D347B14002B8FB5 /* scanreader */ = {
 			isa = PBXGroup;
 			children = (
-				CB74117C1D347B14002B8FB5 /* AppDelegate.h */,
-				CB74117D1D347B14002B8FB5 /* AppDelegate.m */,
-				CB74117F1D347B14002B8FB5 /* ViewController.h */,
-				CB7411801D347B14002B8FB5 /* ViewController.m */,
 				CB7411821D347B14002B8FB5 /* Main.storyboard */,
-				CB7411851D347B14002B8FB5 /* Assets.xcassets */,
 				CB7411871D347B14002B8FB5 /* LaunchScreen.storyboard */,
 				CB74118A1D347B14002B8FB5 /* Info.plist */,
 				CB7411791D347B14002B8FB5 /* Supporting Files */,
@@ -153,6 +158,24 @@
 				CB7411A01D347B14002B8FB5 /* Info.plist */,
 			);
 			path = scanreaderUITests;
+			sourceTree = "<group>";
+		};
+		CB7411AC1D3484B3002B8FB5 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				CB74117F1D347B14002B8FB5 /* ViewController.h */,
+				CB7411801D347B14002B8FB5 /* ViewController.m */,
+			);
+			name = Application;
+			path = scanreader;
+			sourceTree = "<group>";
+		};
+		CB7411AE1D3484CF002B8FB5 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Base;
+			path = scanreader;
 			sourceTree = "<group>";
 		};
 		F55A30E3507DECA6812F6CB2 /* Pods */ = {
@@ -271,6 +294,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB7411B21D348E2B002B8FB5 /* buy_dot.png in Resources */,
 				CB7411891D347B14002B8FB5 /* LaunchScreen.storyboard in Resources */,
 				CB7411861D347B14002B8FB5 /* Assets.xcassets in Resources */,
 				CB7411841D347B14002B8FB5 /* Main.storyboard in Resources */,

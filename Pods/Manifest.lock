@@ -14,25 +14,44 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
+  - LKDBHelper (2.2.1):
+    - FMDB
   - MOBFoundation (1.5.1)
   - ShareSDK3 (3.2.5):
     - ShareSDK3/ShareSDK (= 3.2.5)
   - ShareSDK3/ShareSDK (3.2.5)
   - ShareSDK3/ShareSDKPlatforms/SinaWeibo (3.2.5)
+  - ShareSDK3/ShareSDKPlatforms/WeChat (3.2.5)
   - ShareSDK3/ShareSDKUI (3.2.5)
+  - SVProgressHUD (2.0.3)
+  - YYKit (1.0.5):
+    - YYKit/no-arc (= 1.0.5)
+  - YYKit/no-arc (1.0.5)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
+  - FMDB
+  - LKDBHelper
   - MOBFoundation
   - ShareSDK3
   - ShareSDK3/ShareSDKPlatforms/SinaWeibo
+  - ShareSDK3/ShareSDKPlatforms/WeChat
   - ShareSDK3/ShareSDKUI
+  - SVProgressHUD
+  - YYKit
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
+  LKDBHelper: a8d2ac92cde1f462a3314ab5e2629a527eb0cc54
   MOBFoundation: 79efc94db961fe5a08cf32de69166f6a29a3b2b5
   ShareSDK3: ccdd8ec971044703e7722e19c2f3b38fb03775e2
+  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+  YYKit: f2654fe525de2283648db957bddb37ddd8e06549
 
-PODFILE CHECKSUM: c0898409028710408277d57890d424ca0960ce23
+PODFILE CHECKSUM: f0a317cb3c958f8efb0747ec2efa164b9a797c06
 
 COCOAPODS: 1.0.1
