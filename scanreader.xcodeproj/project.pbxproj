@@ -13,6 +13,9 @@
 		CB7411891D347B14002B8FB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB7411871D347B14002B8FB5 /* LaunchScreen.storyboard */; };
 		CB7411941D347B14002B8FB5 /* scanreaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7411931D347B14002B8FB5 /* scanreaderTests.m */; };
 		CB74119F1D347B14002B8FB5 /* scanreaderUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74119E1D347B14002B8FB5 /* scanreaderUITests.m */; };
+		CBCF4F841D367F3500DD7015 /* SR_FoundMainImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCF4F831D367F3500DD7015 /* SR_FoundMainImageViewCell.m */; };
+		CBCF4F871D36958800DD7015 /* SR_FoundMainVoiceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCF4F861D36958800DD7015 /* SR_FoundMainVoiceViewCell.m */; };
+		CBCF4F8A1D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCF4F891D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m */; };
 		CBD1D5FF1D36198A00539056 /* SR_LoginBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD1D5FE1D36198A00539056 /* SR_LoginBtn.m */; };
 		CBD1D6041D3621E100539056 /* SR_MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD1D6031D3621E100539056 /* SR_MineViewController.m */; };
 		CBD1D6091D3622E500539056 /* SR_RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD1D6081D3622E500539056 /* SR_RegisterViewController.m */; };
@@ -66,6 +69,12 @@
 		CB74119E1D347B14002B8FB5 /* scanreaderUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = scanreaderUITests.m; sourceTree = "<group>"; };
 		CB7411A01D347B14002B8FB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB7411B01D3486B6002B8FB5 /* globalHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = globalHeader.h; path = scanreader/globalHeader.h; sourceTree = "<group>"; };
+		CBCF4F821D367F3500DD7015 /* SR_FoundMainImageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainImageViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainImageViewCell.h; sourceTree = "<group>"; };
+		CBCF4F831D367F3500DD7015 /* SR_FoundMainImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainImageViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainImageViewCell.m; sourceTree = "<group>"; };
+		CBCF4F851D36958800DD7015 /* SR_FoundMainVoiceViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainVoiceViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainVoiceViewCell.h; sourceTree = "<group>"; };
+		CBCF4F861D36958800DD7015 /* SR_FoundMainVoiceViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainVoiceViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainVoiceViewCell.m; sourceTree = "<group>"; };
+		CBCF4F881D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainCollectionViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainCollectionViewCell.h; sourceTree = "<group>"; };
+		CBCF4F891D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainCollectionViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainCollectionViewCell.m; sourceTree = "<group>"; };
 		CBD1D5FD1D36198A00539056 /* SR_LoginBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_LoginBtn.h; path = Base/View/SR_LoginBtn.h; sourceTree = "<group>"; };
 		CBD1D5FE1D36198A00539056 /* SR_LoginBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_LoginBtn.m; path = Base/View/SR_LoginBtn.m; sourceTree = "<group>"; };
 		CBD1D6021D3621E100539056 /* SR_MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineViewController.h; path = Application/SR_Mine/SR_MineViewController.h; sourceTree = "<group>"; };
@@ -340,6 +349,12 @@
 			children = (
 				CBD1D61D1D363F0400539056 /* SR_AddBtnView.h */,
 				CBD1D61E1D363F0400539056 /* SR_AddBtnView.m */,
+				CBCF4F821D367F3500DD7015 /* SR_FoundMainImageViewCell.h */,
+				CBCF4F831D367F3500DD7015 /* SR_FoundMainImageViewCell.m */,
+				CBCF4F851D36958800DD7015 /* SR_FoundMainVoiceViewCell.h */,
+				CBCF4F861D36958800DD7015 /* SR_FoundMainVoiceViewCell.m */,
+				CBCF4F881D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.h */,
+				CBCF4F891D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -594,11 +609,14 @@
 				CBFEA9041D35F4F5007276B6 /* SR_TabbarViewController.m in Sources */,
 				CBD1D6091D3622E500539056 /* SR_RegisterViewController.m in Sources */,
 				CBD1D6191D363AC700539056 /* SR_OthersMineViewController.m in Sources */,
+				CBCF4F8A1D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m in Sources */,
 				CBFEA9161D35F6F8007276B6 /* SR_ScanMainViewController.m in Sources */,
 				CBFEA9221D35FC15007276B6 /* SR_LoginViewController.m in Sources */,
 				CBD1D6131D3636F400539056 /* SR_OthersMineViewCell.m in Sources */,
 				CBD1D61F1D363F0400539056 /* SR_AddBtnView.m in Sources */,
 				CBD1D5FF1D36198A00539056 /* SR_LoginBtn.m in Sources */,
+				CBCF4F871D36958800DD7015 /* SR_FoundMainVoiceViewCell.m in Sources */,
+				CBCF4F841D367F3500DD7015 /* SR_FoundMainImageViewCell.m in Sources */,
 				CBFEA90A1D35F576007276B6 /* SR_BaseTableViewController.m in Sources */,
 				CBFEA9111D35F691007276B6 /* SR_FoundMainViewController.m in Sources */,
 			);
