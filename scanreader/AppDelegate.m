@@ -7,10 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
 #import "WeiboSDK.h"
+#import "SR_TabbarViewController.h"
 
 @interface AppDelegate ()
 
@@ -21,11 +21,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
-    ViewController * vc = [[ViewController alloc] init];
-    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    self.window.rootViewController = nav;
-    
+    self.window.rootViewController = [[SR_TabbarViewController alloc] init];;
     [self.window makeKeyAndVisible];
+    [self setNavigationBarStyle];
     
     [ShareSDK registerApp:@"14cd112af4f4c"
      
@@ -46,6 +44,7 @@
          switch (platformType){
              case SSDKPlatformTypeSinaWeibo:
                  //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
+                 //如果出现跳转授权失败，一般都是新浪开发平台的bundleid与当前项目的不匹配
                  [appInfo SSDKSetupSinaWeiboByAppKey:@"4010495604"
                                            appSecret:@"659740b5af735acdb55dcb4788108058"
                                          redirectUri:@"http://www.sharesdk.cn"
@@ -79,6 +78,13 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)setNavigationBarStyle{
+    [UINavigationBar appearance].barTintColor = [UIColor blackColor];
+    [UINavigationBar appearance].barStyle = UIBarStyleBlack;
+    [UINavigationBar appearance].tintColor = [UIColor whiteColor];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 @end

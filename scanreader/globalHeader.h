@@ -25,15 +25,17 @@
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
 #define kScreenWidth  [UIScreen mainScreen].bounds.size.width
 
+#define baseColor  kColor(78,225,221)
+
 //// 1.通过RGB的三个值获得RGB颜色
 #define kColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 #define kColorAlpha(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]
 
 //// 2.定义全局的调试输出接口
 #ifdef DEBUG
-#define DDLog(...) NSLog(__VA_ARGS__)
+#define SSLog(...) NSLog(__VA_ARGS__)
 #else
-#define DDLog(...)
+#define SSLog(...)
 #endif
 
 #endif /* globalHeader_h */

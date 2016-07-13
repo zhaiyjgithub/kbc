@@ -9,13 +9,25 @@
 /* Begin PBXBuildFile section */
 		CB74117B1D347B14002B8FB5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74117A1D347B14002B8FB5 /* main.m */; };
 		CB74117E1D347B14002B8FB5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74117D1D347B14002B8FB5 /* AppDelegate.m */; };
-		CB7411811D347B14002B8FB5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7411801D347B14002B8FB5 /* ViewController.m */; };
-		CB7411841D347B14002B8FB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB7411821D347B14002B8FB5 /* Main.storyboard */; };
 		CB7411861D347B14002B8FB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB7411851D347B14002B8FB5 /* Assets.xcassets */; };
 		CB7411891D347B14002B8FB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB7411871D347B14002B8FB5 /* LaunchScreen.storyboard */; };
 		CB7411941D347B14002B8FB5 /* scanreaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7411931D347B14002B8FB5 /* scanreaderTests.m */; };
 		CB74119F1D347B14002B8FB5 /* scanreaderUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74119E1D347B14002B8FB5 /* scanreaderUITests.m */; };
-		CB7411B21D348E2B002B8FB5 /* buy_dot.png in Resources */ = {isa = PBXBuildFile; fileRef = CB7411B11D348E2B002B8FB5 /* buy_dot.png */; };
+		CBD1D5FF1D36198A00539056 /* SR_LoginBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD1D5FE1D36198A00539056 /* SR_LoginBtn.m */; };
+		CBD1D6041D3621E100539056 /* SR_MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD1D6031D3621E100539056 /* SR_MineViewController.m */; };
+		CBD1D6091D3622E500539056 /* SR_RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD1D6081D3622E500539056 /* SR_RegisterViewController.m */; };
+		CBD1D60D1D36279A00539056 /* SR_MineViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD1D60C1D36279A00539056 /* SR_MineViewCell.m */; };
+		CBD1D6101D3628C100539056 /* SR_OAthouButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD1D60F1D3628C100539056 /* SR_OAthouButton.m */; };
+		CBD1D6131D3636F400539056 /* SR_OthersMineViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD1D6121D3636F400539056 /* SR_OthersMineViewCell.m */; };
+		CBD1D6191D363AC700539056 /* SR_OthersMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD1D6181D363AC700539056 /* SR_OthersMineViewController.m */; };
+		CBD1D61F1D363F0400539056 /* SR_AddBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD1D61E1D363F0400539056 /* SR_AddBtnView.m */; };
+		CBFEA9041D35F4F5007276B6 /* SR_TabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9031D35F4F5007276B6 /* SR_TabbarViewController.m */; };
+		CBFEA90A1D35F576007276B6 /* SR_BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9091D35F576007276B6 /* SR_BaseTableViewController.m */; };
+		CBFEA9111D35F691007276B6 /* SR_FoundMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9101D35F691007276B6 /* SR_FoundMainViewController.m */; };
+		CBFEA9161D35F6F8007276B6 /* SR_ScanMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9151D35F6F8007276B6 /* SR_ScanMainViewController.m */; };
+		CBFEA91B1D35F754007276B6 /* SR_RecorMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA91A1D35F754007276B6 /* SR_RecorMainViewController.m */; };
+		CBFEA91E1D35FB22007276B6 /* SR_BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA91D1D35FB22007276B6 /* SR_BaseModel.m */; };
+		CBFEA9221D35FC15007276B6 /* SR_LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9211D35FC15007276B6 /* SR_LoginViewController.m */; };
 		E5BAE1CCCB7B6A4103D606F2 /* libPods-scanreader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F7A3B784229D292DC0FC5F6 /* libPods-scanreader.a */; };
 /* End PBXBuildFile section */
 
@@ -44,9 +56,6 @@
 		CB74117A1D347B14002B8FB5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CB74117C1D347B14002B8FB5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = scanreader/AppDelegate.h; sourceTree = "<group>"; };
 		CB74117D1D347B14002B8FB5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = scanreader/AppDelegate.m; sourceTree = "<group>"; };
-		CB74117F1D347B14002B8FB5 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		CB7411801D347B14002B8FB5 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		CB7411831D347B14002B8FB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CB7411851D347B14002B8FB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = scanreader/Assets.xcassets; sourceTree = "<group>"; };
 		CB7411881D347B14002B8FB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB74118A1D347B14002B8FB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,7 +66,36 @@
 		CB74119E1D347B14002B8FB5 /* scanreaderUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = scanreaderUITests.m; sourceTree = "<group>"; };
 		CB7411A01D347B14002B8FB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB7411B01D3486B6002B8FB5 /* globalHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = globalHeader.h; path = scanreader/globalHeader.h; sourceTree = "<group>"; };
-		CB7411B11D348E2B002B8FB5 /* buy_dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buy_dot.png; sourceTree = "<group>"; };
+		CBD1D5FD1D36198A00539056 /* SR_LoginBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_LoginBtn.h; path = Base/View/SR_LoginBtn.h; sourceTree = "<group>"; };
+		CBD1D5FE1D36198A00539056 /* SR_LoginBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_LoginBtn.m; path = Base/View/SR_LoginBtn.m; sourceTree = "<group>"; };
+		CBD1D6021D3621E100539056 /* SR_MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineViewController.h; path = Application/SR_Mine/SR_MineViewController.h; sourceTree = "<group>"; };
+		CBD1D6031D3621E100539056 /* SR_MineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineViewController.m; path = Application/SR_Mine/SR_MineViewController.m; sourceTree = "<group>"; };
+		CBD1D6071D3622E500539056 /* SR_RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_RegisterViewController.h; path = Application/SR_Register/SR_RegisterViewController.h; sourceTree = "<group>"; };
+		CBD1D6081D3622E500539056 /* SR_RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_RegisterViewController.m; path = Application/SR_Register/SR_RegisterViewController.m; sourceTree = "<group>"; };
+		CBD1D60B1D36279A00539056 /* SR_MineViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineViewCell.h; path = Application/SR_Mine/SR_MineViewCell.h; sourceTree = "<group>"; };
+		CBD1D60C1D36279A00539056 /* SR_MineViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineViewCell.m; path = Application/SR_Mine/SR_MineViewCell.m; sourceTree = "<group>"; };
+		CBD1D60E1D3628C100539056 /* SR_OAthouButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_OAthouButton.h; path = Application/SR_Mine/SR_OAthouButton.h; sourceTree = "<group>"; };
+		CBD1D60F1D3628C100539056 /* SR_OAthouButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_OAthouButton.m; path = Application/SR_Mine/SR_OAthouButton.m; sourceTree = "<group>"; };
+		CBD1D6111D3636F400539056 /* SR_OthersMineViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_OthersMineViewCell.h; path = Application/SR_Mine/SR_OthersMineViewCell.h; sourceTree = "<group>"; };
+		CBD1D6121D3636F400539056 /* SR_OthersMineViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_OthersMineViewCell.m; path = Application/SR_Mine/SR_OthersMineViewCell.m; sourceTree = "<group>"; };
+		CBD1D6171D363AC700539056 /* SR_OthersMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_OthersMineViewController.h; path = Application/SR_Mine/SR_OthersMineViewController.h; sourceTree = "<group>"; };
+		CBD1D6181D363AC700539056 /* SR_OthersMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_OthersMineViewController.m; path = Application/SR_Mine/SR_OthersMineViewController.m; sourceTree = "<group>"; };
+		CBD1D61D1D363F0400539056 /* SR_AddBtnView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_AddBtnView.h; path = Application/SR_Found/SR_FoundMain/SR_AddBtnView.h; sourceTree = "<group>"; };
+		CBD1D61E1D363F0400539056 /* SR_AddBtnView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_AddBtnView.m; path = Application/SR_Found/SR_FoundMain/SR_AddBtnView.m; sourceTree = "<group>"; };
+		CBFEA9021D35F4F5007276B6 /* SR_TabbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_TabbarViewController.h; path = Base/Controller/SR_TabbarViewController.h; sourceTree = "<group>"; };
+		CBFEA9031D35F4F5007276B6 /* SR_TabbarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_TabbarViewController.m; path = Base/Controller/SR_TabbarViewController.m; sourceTree = "<group>"; };
+		CBFEA9081D35F576007276B6 /* SR_BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_BaseTableViewController.h; path = Base/Controller/SR_BaseTableViewController.h; sourceTree = "<group>"; };
+		CBFEA9091D35F576007276B6 /* SR_BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_BaseTableViewController.m; path = Base/Controller/SR_BaseTableViewController.m; sourceTree = "<group>"; };
+		CBFEA90F1D35F691007276B6 /* SR_FoundMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainViewController.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainViewController.h; sourceTree = "<group>"; };
+		CBFEA9101D35F691007276B6 /* SR_FoundMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainViewController.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainViewController.m; sourceTree = "<group>"; };
+		CBFEA9141D35F6F8007276B6 /* SR_ScanMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ScanMainViewController.h; path = Application/SR_Scan/SS_ScanMain/SR_ScanMainViewController.h; sourceTree = "<group>"; };
+		CBFEA9151D35F6F8007276B6 /* SR_ScanMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_ScanMainViewController.m; path = Application/SR_Scan/SS_ScanMain/SR_ScanMainViewController.m; sourceTree = "<group>"; };
+		CBFEA9191D35F754007276B6 /* SR_RecorMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_RecorMainViewController.h; path = Application/SR_Record/SR_RecordMain/SR_RecorMainViewController.h; sourceTree = "<group>"; };
+		CBFEA91A1D35F754007276B6 /* SR_RecorMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_RecorMainViewController.m; path = Application/SR_Record/SR_RecordMain/SR_RecorMainViewController.m; sourceTree = "<group>"; };
+		CBFEA91C1D35FB22007276B6 /* SR_BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_BaseModel.h; path = Base/Model/SR_BaseModel.h; sourceTree = "<group>"; };
+		CBFEA91D1D35FB22007276B6 /* SR_BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_BaseModel.m; path = Base/Model/SR_BaseModel.m; sourceTree = "<group>"; };
+		CBFEA9201D35FC15007276B6 /* SR_LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_LoginViewController.h; path = Application/SR_Login/SR_LoginViewController.h; sourceTree = "<group>"; };
+		CBFEA9211D35FC15007276B6 /* SR_LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_LoginViewController.m; path = Application/SR_Login/SR_LoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +135,6 @@
 		CB74116D1D347B13002B8FB5 = {
 			isa = PBXGroup;
 			children = (
-				CB7411B11D348E2B002B8FB5 /* buy_dot.png */,
 				CB7411B01D3486B6002B8FB5 /* globalHeader.h */,
 				CB7411851D347B14002B8FB5 /* Assets.xcassets */,
 				CB74117C1D347B14002B8FB5 /* AppDelegate.h */,
@@ -126,7 +163,6 @@
 		CB7411781D347B14002B8FB5 /* scanreader */ = {
 			isa = PBXGroup;
 			children = (
-				CB7411821D347B14002B8FB5 /* Main.storyboard */,
 				CB7411871D347B14002B8FB5 /* LaunchScreen.storyboard */,
 				CB74118A1D347B14002B8FB5 /* Info.plist */,
 				CB7411791D347B14002B8FB5 /* Supporting Files */,
@@ -163,8 +199,12 @@
 		CB7411AC1D3484B3002B8FB5 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				CB74117F1D347B14002B8FB5 /* ViewController.h */,
-				CB7411801D347B14002B8FB5 /* ViewController.m */,
+				CBD1D6051D3622B500539056 /* SR_Register */,
+				CBD1D6001D3621B000539056 /* SR_Mine */,
+				CBFEA91F1D35FB8A007276B6 /* SR_Login */,
+				CBFEA9051D35F50F007276B6 /* SR_Found(发现) */,
+				CBFEA9061D35F51C007276B6 /* SR_Scan(扫描) */,
+				CBFEA9071D35F527007276B6 /* SR_Record(记录) */,
 			);
 			name = Application;
 			path = scanreader;
@@ -173,9 +213,185 @@
 		CB7411AE1D3484CF002B8FB5 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				CBFEA9011D35ECC0007276B6 /* Model */,
+				CBFEA9001D35ECB7007276B6 /* View */,
+				CBFEA8FF1D35ECAE007276B6 /* Controller */,
 			);
 			name = Base;
 			path = scanreader;
+			sourceTree = "<group>";
+		};
+		CBD1D6001D3621B000539056 /* SR_Mine */ = {
+			isa = PBXGroup;
+			children = (
+				CBD1D60A1D36277900539056 /* View */,
+				CBD1D6011D3621B700539056 /* Controller */,
+			);
+			name = SR_Mine;
+			sourceTree = "<group>";
+		};
+		CBD1D6011D3621B700539056 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CBD1D6171D363AC700539056 /* SR_OthersMineViewController.h */,
+				CBD1D6181D363AC700539056 /* SR_OthersMineViewController.m */,
+				CBD1D6021D3621E100539056 /* SR_MineViewController.h */,
+				CBD1D6031D3621E100539056 /* SR_MineViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		CBD1D6051D3622B500539056 /* SR_Register */ = {
+			isa = PBXGroup;
+			children = (
+				CBD1D6071D3622E500539056 /* SR_RegisterViewController.h */,
+				CBD1D6081D3622E500539056 /* SR_RegisterViewController.m */,
+			);
+			name = SR_Register;
+			sourceTree = "<group>";
+		};
+		CBD1D60A1D36277900539056 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CBD1D60B1D36279A00539056 /* SR_MineViewCell.h */,
+				CBD1D60C1D36279A00539056 /* SR_MineViewCell.m */,
+				CBD1D60E1D3628C100539056 /* SR_OAthouButton.h */,
+				CBD1D60F1D3628C100539056 /* SR_OAthouButton.m */,
+				CBD1D6111D3636F400539056 /* SR_OthersMineViewCell.h */,
+				CBD1D6121D3636F400539056 /* SR_OthersMineViewCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		CBFEA8FF1D35ECAE007276B6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CBFEA9021D35F4F5007276B6 /* SR_TabbarViewController.h */,
+				CBFEA9031D35F4F5007276B6 /* SR_TabbarViewController.m */,
+				CBFEA9081D35F576007276B6 /* SR_BaseTableViewController.h */,
+				CBFEA9091D35F576007276B6 /* SR_BaseTableViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		CBFEA9001D35ECB7007276B6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CBD1D5FD1D36198A00539056 /* SR_LoginBtn.h */,
+				CBD1D5FE1D36198A00539056 /* SR_LoginBtn.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		CBFEA9011D35ECC0007276B6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CBFEA91C1D35FB22007276B6 /* SR_BaseModel.h */,
+				CBFEA91D1D35FB22007276B6 /* SR_BaseModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		CBFEA9051D35F50F007276B6 /* SR_Found(发现) */ = {
+			isa = PBXGroup;
+			children = (
+				CBFEA90B1D35F613007276B6 /* SR_FoundMain */,
+			);
+			name = "SR_Found(发现)";
+			sourceTree = "<group>";
+		};
+		CBFEA9061D35F51C007276B6 /* SR_Scan(扫描) */ = {
+			isa = PBXGroup;
+			children = (
+				CBFEA9121D35F6B5007276B6 /* SS_ScanMain */,
+			);
+			name = "SR_Scan(扫描)";
+			sourceTree = "<group>";
+		};
+		CBFEA9071D35F527007276B6 /* SR_Record(记录) */ = {
+			isa = PBXGroup;
+			children = (
+				CBFEA9171D35F70D007276B6 /* SR_Record */,
+			);
+			name = "SR_Record(记录)";
+			sourceTree = "<group>";
+		};
+		CBFEA90B1D35F613007276B6 /* SR_FoundMain */ = {
+			isa = PBXGroup;
+			children = (
+				CBFEA90E1D35F641007276B6 /* Model */,
+				CBFEA90D1D35F63A007276B6 /* View */,
+				CBFEA90C1D35F631007276B6 /* Controller */,
+			);
+			name = SR_FoundMain;
+			sourceTree = "<group>";
+		};
+		CBFEA90C1D35F631007276B6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CBFEA90F1D35F691007276B6 /* SR_FoundMainViewController.h */,
+				CBFEA9101D35F691007276B6 /* SR_FoundMainViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		CBFEA90D1D35F63A007276B6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CBD1D61D1D363F0400539056 /* SR_AddBtnView.h */,
+				CBD1D61E1D363F0400539056 /* SR_AddBtnView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		CBFEA90E1D35F641007276B6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		CBFEA9121D35F6B5007276B6 /* SS_ScanMain */ = {
+			isa = PBXGroup;
+			children = (
+				CBFEA9131D35F6BF007276B6 /* Controller */,
+			);
+			name = SS_ScanMain;
+			sourceTree = "<group>";
+		};
+		CBFEA9131D35F6BF007276B6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CBFEA9141D35F6F8007276B6 /* SR_ScanMainViewController.h */,
+				CBFEA9151D35F6F8007276B6 /* SR_ScanMainViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		CBFEA9171D35F70D007276B6 /* SR_Record */ = {
+			isa = PBXGroup;
+			children = (
+				CBFEA9181D35F715007276B6 /* Controller */,
+			);
+			name = SR_Record;
+			sourceTree = "<group>";
+		};
+		CBFEA9181D35F715007276B6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CBFEA9191D35F754007276B6 /* SR_RecorMainViewController.h */,
+				CBFEA91A1D35F754007276B6 /* SR_RecorMainViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		CBFEA91F1D35FB8A007276B6 /* SR_Login */ = {
+			isa = PBXGroup;
+			children = (
+				CBFEA9201D35FC15007276B6 /* SR_LoginViewController.h */,
+				CBFEA9211D35FC15007276B6 /* SR_LoginViewController.m */,
+			);
+			name = SR_Login;
 			sourceTree = "<group>";
 		};
 		F55A30E3507DECA6812F6CB2 /* Pods */ = {
@@ -294,10 +510,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB7411B21D348E2B002B8FB5 /* buy_dot.png in Resources */,
 				CB7411891D347B14002B8FB5 /* LaunchScreen.storyboard in Resources */,
 				CB7411861D347B14002B8FB5 /* Assets.xcassets in Resources */,
-				CB7411841D347B14002B8FB5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,9 +584,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB7411811D347B14002B8FB5 /* ViewController.m in Sources */,
 				CB74117E1D347B14002B8FB5 /* AppDelegate.m in Sources */,
+				CBD1D6041D3621E100539056 /* SR_MineViewController.m in Sources */,
+				CBFEA91E1D35FB22007276B6 /* SR_BaseModel.m in Sources */,
+				CBD1D60D1D36279A00539056 /* SR_MineViewCell.m in Sources */,
+				CBFEA91B1D35F754007276B6 /* SR_RecorMainViewController.m in Sources */,
 				CB74117B1D347B14002B8FB5 /* main.m in Sources */,
+				CBD1D6101D3628C100539056 /* SR_OAthouButton.m in Sources */,
+				CBFEA9041D35F4F5007276B6 /* SR_TabbarViewController.m in Sources */,
+				CBD1D6091D3622E500539056 /* SR_RegisterViewController.m in Sources */,
+				CBD1D6191D363AC700539056 /* SR_OthersMineViewController.m in Sources */,
+				CBFEA9161D35F6F8007276B6 /* SR_ScanMainViewController.m in Sources */,
+				CBFEA9221D35FC15007276B6 /* SR_LoginViewController.m in Sources */,
+				CBD1D6131D3636F400539056 /* SR_OthersMineViewCell.m in Sources */,
+				CBD1D61F1D363F0400539056 /* SR_AddBtnView.m in Sources */,
+				CBD1D5FF1D36198A00539056 /* SR_LoginBtn.m in Sources */,
+				CBFEA90A1D35F576007276B6 /* SR_BaseTableViewController.m in Sources */,
+				CBFEA9111D35F691007276B6 /* SR_FoundMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,14 +636,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		CB7411821D347B14002B8FB5 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CB7411831D347B14002B8FB5 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CB7411871D347B14002B8FB5 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
