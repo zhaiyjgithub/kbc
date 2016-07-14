@@ -14,6 +14,8 @@
 #import "SR_FoundMainImageViewCell.h"
 #import "SR_FoundMainVoiceViewCell.h"
 
+#import "SR_MineSendMessageViewController.h"
+
 #import "globalHeader.h"
 
 @interface SR_FoundMainViewController ()<addBtnDelegate,UISearchBarDelegate>
@@ -25,6 +27,12 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     self.title = @"发现";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:(UIBarButtonSystemItemAdd) target:self action:@selector(clickLeft)];
+}
+
+- (void)clickLeft{
+    SR_MineSendMessageViewController * vc = [[SR_MineSendMessageViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
