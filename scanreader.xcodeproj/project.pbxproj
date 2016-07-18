@@ -16,6 +16,7 @@
 		CB7411891D347B14002B8FB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB7411871D347B14002B8FB5 /* LaunchScreen.storyboard */; };
 		CB7411941D347B14002B8FB5 /* scanreaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7411931D347B14002B8FB5 /* scanreaderTests.m */; };
 		CB74119F1D347B14002B8FB5 /* scanreaderUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74119E1D347B14002B8FB5 /* scanreaderUITests.m */; };
+		CBA87BDC1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA87BDB1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m */; };
 		CBCF4F841D367F3500DD7015 /* SR_FoundMainImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCF4F831D367F3500DD7015 /* SR_FoundMainImageViewCell.m */; };
 		CBCF4F871D36958800DD7015 /* SR_FoundMainVoiceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCF4F861D36958800DD7015 /* SR_FoundMainVoiceViewCell.m */; };
 		CBCF4F8A1D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCF4F891D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m */; };
@@ -78,6 +79,8 @@
 		CB74119E1D347B14002B8FB5 /* scanreaderUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = scanreaderUITests.m; sourceTree = "<group>"; };
 		CB7411A01D347B14002B8FB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB7411B01D3486B6002B8FB5 /* globalHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = globalHeader.h; path = scanreader/globalHeader.h; sourceTree = "<group>"; };
+		CBA87BDA1D3C73ED006C0648 /* SR_FoundSearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundSearchTableViewController.h; path = Application/SR_Found/SR_FoundMain/SR_FoundSearchTableViewController.h; sourceTree = "<group>"; };
+		CBA87BDB1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundSearchTableViewController.m; path = Application/SR_Found/SR_FoundMain/SR_FoundSearchTableViewController.m; sourceTree = "<group>"; };
 		CBCF4F821D367F3500DD7015 /* SR_FoundMainImageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainImageViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainImageViewCell.h; sourceTree = "<group>"; };
 		CBCF4F831D367F3500DD7015 /* SR_FoundMainImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainImageViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainImageViewCell.m; sourceTree = "<group>"; };
 		CBCF4F851D36958800DD7015 /* SR_FoundMainVoiceViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainVoiceViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainVoiceViewCell.h; sourceTree = "<group>"; };
@@ -355,6 +358,8 @@
 			children = (
 				CBFEA90F1D35F691007276B6 /* SR_FoundMainViewController.h */,
 				CBFEA9101D35F691007276B6 /* SR_FoundMainViewController.m */,
+				CBA87BDA1D3C73ED006C0648 /* SR_FoundSearchTableViewController.h */,
+				CBA87BDB1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -633,6 +638,7 @@
 				CBD1D61F1D363F0400539056 /* SR_AddBtnView.m in Sources */,
 				CB719F331D37412B005F5CFB /* SR_MineMessageSendTextViewViewCell.m in Sources */,
 				CBD1D5FF1D36198A00539056 /* SR_LoginBtn.m in Sources */,
+				CBA87BDC1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m in Sources */,
 				CBCF4F871D36958800DD7015 /* SR_FoundMainVoiceViewCell.m in Sources */,
 				CBCF4F841D367F3500DD7015 /* SR_FoundMainImageViewCell.m in Sources */,
 				CBFEA90A1D35F576007276B6 /* SR_BaseTableViewController.m in Sources */,

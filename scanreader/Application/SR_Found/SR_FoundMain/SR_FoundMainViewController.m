@@ -15,6 +15,7 @@
 #import "SR_FoundMainVoiceViewCell.h"
 
 #import "SR_MineSendMessageViewController.h"
+#import "SR_FoundSearchTableViewController.h"
 
 #import "globalHeader.h"
 
@@ -31,7 +32,7 @@
 }
 
 - (void)clickLeft{
-    SR_MineSendMessageViewController * vc = [[SR_MineSendMessageViewController alloc] init];
+     SR_FoundSearchTableViewController * vc = [[SR_FoundSearchTableViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -44,7 +45,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 125;
+    return 81;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -101,13 +102,9 @@
     notiLabel.textAlignment = NSTextAlignmentCenter;
     [headerView addSubview:notiLabel];
     
-    UISearchBar * searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, notiLabel.frame.size.height + notiLabel.frame.origin.y, kScreenWidth, 44)];
-    searchBar.delegate = self;
-    [headerView addSubview:searchBar];
-    
     NSArray * titles = @[@"动态",@"读书会"];
     for (int i = 0; i < 2; i ++) {
-        UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(i*(kScreenWidth/2), searchBar.frame.origin.y + searchBar.frame.size.height, kScreenWidth/2, 42)];
+        UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(i*(kScreenWidth/2), notiLabel.frame.origin.y + notiLabel.frame.size.height, kScreenWidth/2, 42)];
         
         if (i == 0) {
             if (self.isSelectBookClubBtn) {//当前选中了动态按钮
@@ -135,9 +132,13 @@
         [headerView addSubview:btn];
     }
     
-    UIView * lineView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2, searchBar.frame.size.height + searchBar.frame.origin.y + 2, 1, 40)];
+    UIView * lineView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2, notiLabel.frame.size.height + notiLabel.frame.origin.y + 2, 1, 40)];
     lineView.backgroundColor = [UIColor lightGrayColor];
     [headerView addSubview:lineView];
+    
+    UIView * notiLabelBottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, notiLabel.frame.origin.y + notiLabel.frame.size.height, kScreenWidth, 0.5)];
+    notiLabelBottomLineView.backgroundColor = [UIColor lightGrayColor];
+    [headerView addSubview:notiLabelBottomLineView];
     
     return headerView;
 }

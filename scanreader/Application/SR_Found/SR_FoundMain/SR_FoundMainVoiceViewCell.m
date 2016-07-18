@@ -75,5 +75,9 @@
     SSLog(@"click voice btn");
 }
 
+- (void)clickHeaderBtn{
+    
+}
+
 
 @end
