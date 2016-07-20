@@ -23,6 +23,12 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"注册";
     [self setupRegisterView];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:(UIBarButtonSystemItemCancel) target:self action:@selector(clickLeftBarItem)];
+}
+
+- (void)clickLeftBarItem{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)setupRegisterView{
@@ -67,14 +73,15 @@
             self.checkCodeTextield = textfield;
         }
         textfield.delegate = self;
+        textfield.textColor = [UIColor blackColor];
         textfield.font = [UIFont systemFontOfSize:14.0];
         [self.view addSubview:textfield];
-        UIView * lineView = [[UIView alloc] initWithFrame:CGRectMake(15, textfield.frame.size.height + textfield.frame.origin.y + 15 , kScreenWidth - 30, 1)];
+        UIView * lineView = [[UIView alloc] initWithFrame:CGRectMake(15, textfield.frame.size.height + textfield.frame.origin.y + 15 , kScreenWidth - 30, 0.5)];
         lineView.backgroundColor = [UIColor lightGrayColor];
         [self.view addSubview:lineView];
     }
     self.registerBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    self.registerBtn.frame = CGRectMake(15, 244 + 64, kScreenWidth - 30, 58);
+    self.registerBtn.frame = CGRectMake(15, 224 + 64, kScreenWidth - 30, 58);
     self.registerBtn.backgroundColor = baseColor;
     self.registerBtn.layer.cornerRadius = 29;
     [self.registerBtn setTitle:@"注册" forState:(UIControlStateNormal)];

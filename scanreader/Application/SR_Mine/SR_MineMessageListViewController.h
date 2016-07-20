@@ -8,6 +8,6 @@
 
 #import "SR_BaseTableViewController.h"
 
-@interface SR_MineSendMessageViewController : SR_BaseTableViewController
+@interface SR_MineMessageListViewController : SR_BaseTableViewController
 
 @end

@@ -14,7 +14,7 @@
 #import "SR_FoundMainImageViewCell.h"
 #import "SR_FoundMainVoiceViewCell.h"
 
-#import "SR_MineSendMessageViewController.h"
+#import "SR_MineMessageSendViewController.h"
 #import "SR_FoundSearchTableViewController.h"
 
 #import "globalHeader.h"
@@ -31,9 +31,12 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:(UIBarButtonSystemItemAdd) target:self action:@selector(clickLeft)];
 }
 
+
 - (void)clickLeft{
-     SR_FoundSearchTableViewController * vc = [[SR_FoundSearchTableViewController alloc] init];
+    self.hidesBottomBarWhenPushed = YES;
+     SR_MineMessageSendViewController * vc = [[SR_MineMessageSendViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

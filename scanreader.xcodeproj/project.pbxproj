@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CB719F301D373D5E005F5CFB /* SR_MineMessageHeaderInfoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB719F2F1D373D5E005F5CFB /* SR_MineMessageHeaderInfoViewCell.m */; };
-		CB719F331D37412B005F5CFB /* SR_MineMessageSendTextViewViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB719F321D37412B005F5CFB /* SR_MineMessageSendTextViewViewCell.m */; };
-		CB719F361D3742CB005F5CFB /* SR_MineSendMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB719F351D3742CB005F5CFB /* SR_MineSendMessageViewController.m */; };
+		CB0F0C0D1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */; };
+		CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB719F351D3742CB005F5CFB /* SR_MineMessageListViewController.m */; };
 		CB74117B1D347B14002B8FB5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74117A1D347B14002B8FB5 /* main.m */; };
 		CB74117E1D347B14002B8FB5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74117D1D347B14002B8FB5 /* AppDelegate.m */; };
 		CB7411861D347B14002B8FB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB7411851D347B14002B8FB5 /* Assets.xcassets */; };
@@ -59,12 +58,10 @@
 		0607A39CD5C3930A77C71A15 /* Pods-scanreader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scanreader.release.xcconfig"; path = "Pods/Target Support Files/Pods-scanreader/Pods-scanreader.release.xcconfig"; sourceTree = "<group>"; };
 		4F7A3B784229D292DC0FC5F6 /* libPods-scanreader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-scanreader.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE41DAAFFD8A4D526A8427FD /* Pods-scanreader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scanreader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-scanreader/Pods-scanreader.debug.xcconfig"; sourceTree = "<group>"; };
-		CB719F2E1D373D5E005F5CFB /* SR_MineMessageHeaderInfoViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageHeaderInfoViewCell.h; path = Application/SR_Mine/SR_MineMessageHeaderInfoViewCell.h; sourceTree = "<group>"; };
-		CB719F2F1D373D5E005F5CFB /* SR_MineMessageHeaderInfoViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageHeaderInfoViewCell.m; path = Application/SR_Mine/SR_MineMessageHeaderInfoViewCell.m; sourceTree = "<group>"; };
-		CB719F311D37412B005F5CFB /* SR_MineMessageSendTextViewViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageSendTextViewViewCell.h; path = Application/SR_Mine/SR_MineMessageSendTextViewViewCell.h; sourceTree = "<group>"; };
-		CB719F321D37412B005F5CFB /* SR_MineMessageSendTextViewViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageSendTextViewViewCell.m; path = Application/SR_Mine/SR_MineMessageSendTextViewViewCell.m; sourceTree = "<group>"; };
-		CB719F341D3742CB005F5CFB /* SR_MineSendMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineSendMessageViewController.h; path = Application/SR_Mine/SR_MineSendMessageViewController.h; sourceTree = "<group>"; };
-		CB719F351D3742CB005F5CFB /* SR_MineSendMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineSendMessageViewController.m; path = Application/SR_Mine/SR_MineSendMessageViewController.m; sourceTree = "<group>"; };
+		CB0F0C0B1D3DDDD200F60E5C /* SR_MineMessageSendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageSendViewController.h; path = Application/SR_Mine/SR_MineMessageSendViewController.h; sourceTree = "<group>"; };
+		CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageSendViewController.m; path = Application/SR_Mine/SR_MineMessageSendViewController.m; sourceTree = "<group>"; };
+		CB719F341D3742CB005F5CFB /* SR_MineMessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageListViewController.h; path = Application/SR_Mine/SR_MineMessageListViewController.h; sourceTree = "<group>"; };
+		CB719F351D3742CB005F5CFB /* SR_MineMessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageListViewController.m; path = Application/SR_Mine/SR_MineMessageListViewController.m; sourceTree = "<group>"; };
 		CB7411761D347B14002B8FB5 /* scanreader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = scanreader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB74117A1D347B14002B8FB5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CB74117C1D347B14002B8FB5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = scanreader/AppDelegate.h; sourceTree = "<group>"; };
@@ -258,8 +255,10 @@
 				CBD1D6181D363AC700539056 /* SR_OthersMineViewController.m */,
 				CBD1D6021D3621E100539056 /* SR_MineViewController.h */,
 				CBD1D6031D3621E100539056 /* SR_MineViewController.m */,
-				CB719F341D3742CB005F5CFB /* SR_MineSendMessageViewController.h */,
-				CB719F351D3742CB005F5CFB /* SR_MineSendMessageViewController.m */,
+				CB719F341D3742CB005F5CFB /* SR_MineMessageListViewController.h */,
+				CB719F351D3742CB005F5CFB /* SR_MineMessageListViewController.m */,
+				CB0F0C0B1D3DDDD200F60E5C /* SR_MineMessageSendViewController.h */,
+				CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -282,10 +281,6 @@
 				CBD1D60F1D3628C100539056 /* SR_OAthouButton.m */,
 				CBD1D6111D3636F400539056 /* SR_OthersMineViewCell.h */,
 				CBD1D6121D3636F400539056 /* SR_OthersMineViewCell.m */,
-				CB719F2E1D373D5E005F5CFB /* SR_MineMessageHeaderInfoViewCell.h */,
-				CB719F2F1D373D5E005F5CFB /* SR_MineMessageHeaderInfoViewCell.m */,
-				CB719F311D37412B005F5CFB /* SR_MineMessageSendTextViewViewCell.h */,
-				CB719F321D37412B005F5CFB /* SR_MineMessageSendTextViewViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -624,6 +619,7 @@
 				CBFEA91E1D35FB22007276B6 /* SR_BaseModel.m in Sources */,
 				CBD1D60D1D36279A00539056 /* SR_MineViewCell.m in Sources */,
 				CBFEA91B1D35F754007276B6 /* SR_RecorMainViewController.m in Sources */,
+				CB0F0C0D1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m in Sources */,
 				CB74117B1D347B14002B8FB5 /* main.m in Sources */,
 				CBD1D6101D3628C100539056 /* SR_OAthouButton.m in Sources */,
 				CBFEA9041D35F4F5007276B6 /* SR_TabbarViewController.m in Sources */,
@@ -632,11 +628,9 @@
 				CBCF4F8A1D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m in Sources */,
 				CBFEA9161D35F6F8007276B6 /* SR_ScanMainViewController.m in Sources */,
 				CBFEA9221D35FC15007276B6 /* SR_LoginViewController.m in Sources */,
-				CB719F361D3742CB005F5CFB /* SR_MineSendMessageViewController.m in Sources */,
-				CB719F301D373D5E005F5CFB /* SR_MineMessageHeaderInfoViewCell.m in Sources */,
+				CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */,
 				CBD1D6131D3636F400539056 /* SR_OthersMineViewCell.m in Sources */,
 				CBD1D61F1D363F0400539056 /* SR_AddBtnView.m in Sources */,
-				CB719F331D37412B005F5CFB /* SR_MineMessageSendTextViewViewCell.m in Sources */,
 				CBD1D5FF1D36198A00539056 /* SR_LoginBtn.m in Sources */,
 				CBA87BDC1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m in Sources */,
 				CBCF4F871D36958800DD7015 /* SR_FoundMainVoiceViewCell.m in Sources */,

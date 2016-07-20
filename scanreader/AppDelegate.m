@@ -11,6 +11,7 @@
 #import <ShareSDKConnector/ShareSDKConnector.h>
 #import "WeiboSDK.h"
 #import "SR_TabbarViewController.h"
+#import "SR_LoginViewController.h"
 
 @interface AppDelegate ()
 
@@ -21,7 +22,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = [[SR_TabbarViewController alloc] init];;
+    SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
+    self.window.rootViewController = loginVC;
+   // self.window.rootViewController = [[SR_TabbarViewController alloc] init];;
     [self.window makeKeyAndVisible];
     [self setNavigationBarStyle];
     
