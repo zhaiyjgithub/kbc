@@ -25,8 +25,8 @@
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
 #define kScreenWidth  [UIScreen mainScreen].bounds.size.width
 
-#define baseColor  kColor(78,225,221)
-
+#define baseColor  kColor(0x43,0xde,0xd9)
+#define baseblackColor  kColor(0x2b,0x2b,0x2b)
 //// 1.通过RGB的三个值获得RGB颜色
 #define kColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 #define kColorAlpha(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]

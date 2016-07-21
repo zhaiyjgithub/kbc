@@ -9,15 +9,19 @@
 #import <UIKit/UIKit.h>
 
 typedef void(^foundMainImageViewCellBlock)(void);
+typedef void(^foundMainImageViewCellInterBlock)(void);
 
 @interface SR_FoundMainImageViewCell : UITableViewCell
 @property(nonatomic,strong)UILabel * titleLabel;
 @property(nonatomic,strong)UILabel * timeLabel;
 @property(nonatomic,strong)UIImageView * recordImageView;
 @property(nonatomic,strong)UIImageView * subtitleImageView;
-@property(nonatomic,strong)UILabel * subtitleLabel;
-@property(nonatomic,strong)UILabel * messageAndMembersLabel;
+@property(nonatomic,strong)UIButton * subtitleButton;
+@property(nonatomic,strong)UILabel * messageLabel;
+@property(nonatomic,strong)UILabel * bookFriendsLabel;
 @property(nonatomic,strong)UIButton * headerBtn;
 @property(nonatomic,strong)foundMainImageViewCellBlock block;
+@property(nonatomic,strong)foundMainImageViewCellInterBlock interBlock;
 - (void)addBlock:(foundMainImageViewCellBlock)block;
+- (void)addInterBlock:(foundMainImageViewCellInterBlock)interBlock;
 @end

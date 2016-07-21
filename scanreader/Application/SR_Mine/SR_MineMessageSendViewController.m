@@ -55,21 +55,12 @@
     NSTimeInterval animationDuration;
     [animationDurationValue getValue:&animationDuration];
     CGRect keyBoardRect = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-    SSLog(@"keybaord rect show:%@",NSStringFromCGRect(keyBoardRect));
     if (!keyBoardRect.size.height) {
         return;
     }
     [UIView animateWithDuration:animationDuration animations:^{
-        CGFloat heightOfKeyboradToOrigin = kScreenHeight - keyBoardRect.size.height;
-        CGFloat bottomPoint = kScreenHeight/2 + 172/2;
-        
-        CGFloat diffLength = heightOfKeyboradToOrigin > bottomPoint ? 0 : (bottomPoint - heightOfKeyboradToOrigin);
-//        if (diffLength > 1.0) {
-//            self.center = CGPointMake(kScreenWidth/2, kScreenHeight/2 - diffLength - 60);
-//        }else{
-//            self.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
-//        }
-        
+    
+    
     }];
     
 }
@@ -81,8 +72,6 @@
     NSTimeInterval animationDuration;
     [animationDurationValue getValue:&animationDuration];
     [UIView animateWithDuration:animationDuration animations:^{
-//        self.frame = CGRectMake(0, 0, 300, 172);
-//        self.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
     }];
     
 }

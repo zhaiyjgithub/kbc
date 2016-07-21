@@ -27,6 +27,17 @@
 		CBD1D6131D3636F400539056 /* SR_OthersMineViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD1D6121D3636F400539056 /* SR_OthersMineViewCell.m */; };
 		CBD1D6191D363AC700539056 /* SR_OthersMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD1D6181D363AC700539056 /* SR_OthersMineViewController.m */; };
 		CBD1D61F1D363F0400539056 /* SR_AddBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD1D61E1D363F0400539056 /* SR_AddBtnView.m */; };
+		CBE47DF41D4067180046C89C /* SR_ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47DF31D4067180046C89C /* SR_ForgotPasswordViewController.m */; };
+		CBE47DF71D406F190046C89C /* SR_FoundInterBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47DF61D406F190046C89C /* SR_FoundInterBtn.m */; };
+		CBE47DFA1D407CAE0046C89C /* SR_FoundMainVoiceSelfViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47DF91D407CAE0046C89C /* SR_FoundMainVoiceSelfViewCell.m */; };
+		CBE47DFD1D407DAF0046C89C /* SR_FoundMainImageSelfViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47DFC1D407DAF0046C89C /* SR_FoundMainImageSelfViewCell.m */; };
+		CBE47E001D407E930046C89C /* SR_FoundMainTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47DFF1D407E930046C89C /* SR_FoundMainTextViewCell.m */; };
+		CBE47E031D407F200046C89C /* SR_FoundMainTextSelfViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E021D407F200046C89C /* SR_FoundMainTextSelfViewCell.m */; };
+		CBE47E081D40A1950046C89C /* SR_FoundMainDynamicViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E071D40A1950046C89C /* SR_FoundMainDynamicViewCell.m */; };
+		CBE47E0E1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E0D1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.m */; };
+		CBE47E111D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E101D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m */; };
+		CBE47E141D40B1170046C89C /* SR_InterPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E131D40B1170046C89C /* SR_InterPageViewController.m */; };
+		CBE47E181D40BC1C0046C89C /* SR_RecordMainTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E171D40BC1C0046C89C /* SR_RecordMainTagButton.m */; };
 		CBFEA9041D35F4F5007276B6 /* SR_TabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9031D35F4F5007276B6 /* SR_TabbarViewController.m */; };
 		CBFEA90A1D35F576007276B6 /* SR_BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9091D35F576007276B6 /* SR_BaseTableViewController.m */; };
 		CBFEA9111D35F691007276B6 /* SR_FoundMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9101D35F691007276B6 /* SR_FoundMainViewController.m */; };
@@ -100,6 +111,28 @@
 		CBD1D6181D363AC700539056 /* SR_OthersMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_OthersMineViewController.m; path = Application/SR_Mine/SR_OthersMineViewController.m; sourceTree = "<group>"; };
 		CBD1D61D1D363F0400539056 /* SR_AddBtnView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_AddBtnView.h; path = Application/SR_Found/SR_FoundMain/SR_AddBtnView.h; sourceTree = "<group>"; };
 		CBD1D61E1D363F0400539056 /* SR_AddBtnView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_AddBtnView.m; path = Application/SR_Found/SR_FoundMain/SR_AddBtnView.m; sourceTree = "<group>"; };
+		CBE47DF21D4067180046C89C /* SR_ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ForgotPasswordViewController.h; path = Application/SR_ForgotPassword/SR_ForgotPasswordViewController.h; sourceTree = "<group>"; };
+		CBE47DF31D4067180046C89C /* SR_ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_ForgotPasswordViewController.m; path = Application/SR_ForgotPassword/SR_ForgotPasswordViewController.m; sourceTree = "<group>"; };
+		CBE47DF51D406F190046C89C /* SR_FoundInterBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundInterBtn.h; path = Application/SR_Found/SR_FoundMain/SR_FoundInterBtn.h; sourceTree = "<group>"; };
+		CBE47DF61D406F190046C89C /* SR_FoundInterBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundInterBtn.m; path = Application/SR_Found/SR_FoundMain/SR_FoundInterBtn.m; sourceTree = "<group>"; };
+		CBE47DF81D407CAE0046C89C /* SR_FoundMainVoiceSelfViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainVoiceSelfViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainVoiceSelfViewCell.h; sourceTree = "<group>"; };
+		CBE47DF91D407CAE0046C89C /* SR_FoundMainVoiceSelfViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainVoiceSelfViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainVoiceSelfViewCell.m; sourceTree = "<group>"; };
+		CBE47DFB1D407DAF0046C89C /* SR_FoundMainImageSelfViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainImageSelfViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainImageSelfViewCell.h; sourceTree = "<group>"; };
+		CBE47DFC1D407DAF0046C89C /* SR_FoundMainImageSelfViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainImageSelfViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainImageSelfViewCell.m; sourceTree = "<group>"; };
+		CBE47DFE1D407E930046C89C /* SR_FoundMainTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainTextViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainTextViewCell.h; sourceTree = "<group>"; };
+		CBE47DFF1D407E930046C89C /* SR_FoundMainTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainTextViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainTextViewCell.m; sourceTree = "<group>"; };
+		CBE47E011D407F200046C89C /* SR_FoundMainTextSelfViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainTextSelfViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainTextSelfViewCell.h; sourceTree = "<group>"; };
+		CBE47E021D407F200046C89C /* SR_FoundMainTextSelfViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainTextSelfViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainTextSelfViewCell.m; sourceTree = "<group>"; };
+		CBE47E061D40A1950046C89C /* SR_FoundMainDynamicViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainDynamicViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainDynamicViewCell.h; sourceTree = "<group>"; };
+		CBE47E071D40A1950046C89C /* SR_FoundMainDynamicViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainDynamicViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainDynamicViewCell.m; sourceTree = "<group>"; };
+		CBE47E0C1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainBookClubBookMarkListViewController.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainBookClubBookMarkListViewController.h; sourceTree = "<group>"; };
+		CBE47E0D1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainBookClubBookMarkListViewController.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainBookClubBookMarkListViewController.m; sourceTree = "<group>"; };
+		CBE47E0F1D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainBookClubItemDetailViewController.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainBookClubItemDetailViewController.h; sourceTree = "<group>"; };
+		CBE47E101D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainBookClubItemDetailViewController.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainBookClubItemDetailViewController.m; sourceTree = "<group>"; };
+		CBE47E121D40B1170046C89C /* SR_InterPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_InterPageViewController.h; path = Application/SR_InterPage/SR_InterPageViewController.h; sourceTree = "<group>"; };
+		CBE47E131D40B1170046C89C /* SR_InterPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_InterPageViewController.m; path = Application/SR_InterPage/SR_InterPageViewController.m; sourceTree = "<group>"; };
+		CBE47E161D40BC1C0046C89C /* SR_RecordMainTagButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_RecordMainTagButton.h; path = Application/SR_Record/SR_RecordMain/SR_RecordMainTagButton.h; sourceTree = "<group>"; };
+		CBE47E171D40BC1C0046C89C /* SR_RecordMainTagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_RecordMainTagButton.m; path = Application/SR_Record/SR_RecordMain/SR_RecordMainTagButton.m; sourceTree = "<group>"; };
 		CBFEA9021D35F4F5007276B6 /* SR_TabbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_TabbarViewController.h; path = Base/Controller/SR_TabbarViewController.h; sourceTree = "<group>"; };
 		CBFEA9031D35F4F5007276B6 /* SR_TabbarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_TabbarViewController.m; path = Base/Controller/SR_TabbarViewController.m; sourceTree = "<group>"; };
 		CBFEA9081D35F576007276B6 /* SR_BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_BaseTableViewController.h; path = Base/Controller/SR_BaseTableViewController.h; sourceTree = "<group>"; };
@@ -217,6 +250,7 @@
 		CB7411AC1D3484B3002B8FB5 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				CBE47DF11D4066AD0046C89C /* SR_ForgotPassword */,
 				CBD1D6051D3622B500539056 /* SR_Register */,
 				CBD1D6001D3621B000539056 /* SR_Mine */,
 				CBFEA91F1D35FB8A007276B6 /* SR_Login */,
@@ -281,6 +315,76 @@
 				CBD1D60F1D3628C100539056 /* SR_OAthouButton.m */,
 				CBD1D6111D3636F400539056 /* SR_OthersMineViewCell.h */,
 				CBD1D6121D3636F400539056 /* SR_OthersMineViewCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		CBE47DF11D4066AD0046C89C /* SR_ForgotPassword */ = {
+			isa = PBXGroup;
+			children = (
+				CBE47DF21D4067180046C89C /* SR_ForgotPasswordViewController.h */,
+				CBE47DF31D4067180046C89C /* SR_ForgotPasswordViewController.m */,
+			);
+			name = SR_ForgotPassword;
+			sourceTree = "<group>";
+		};
+		CBE47E041D40A1510046C89C /* dynamic */ = {
+			isa = PBXGroup;
+			children = (
+				CBD1D61D1D363F0400539056 /* SR_AddBtnView.h */,
+				CBD1D61E1D363F0400539056 /* SR_AddBtnView.m */,
+				CBE47DFE1D407E930046C89C /* SR_FoundMainTextViewCell.h */,
+				CBE47DFF1D407E930046C89C /* SR_FoundMainTextViewCell.m */,
+				CBCF4F821D367F3500DD7015 /* SR_FoundMainImageViewCell.h */,
+				CBCF4F831D367F3500DD7015 /* SR_FoundMainImageViewCell.m */,
+				CBCF4F851D36958800DD7015 /* SR_FoundMainVoiceViewCell.h */,
+				CBCF4F861D36958800DD7015 /* SR_FoundMainVoiceViewCell.m */,
+				CBCF4F881D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.h */,
+				CBCF4F891D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m */,
+				CBE47DF51D406F190046C89C /* SR_FoundInterBtn.h */,
+				CBE47DF61D406F190046C89C /* SR_FoundInterBtn.m */,
+				CBE47DF81D407CAE0046C89C /* SR_FoundMainVoiceSelfViewCell.h */,
+				CBE47DF91D407CAE0046C89C /* SR_FoundMainVoiceSelfViewCell.m */,
+				CBE47DFB1D407DAF0046C89C /* SR_FoundMainImageSelfViewCell.h */,
+				CBE47DFC1D407DAF0046C89C /* SR_FoundMainImageSelfViewCell.m */,
+				CBE47E011D407F200046C89C /* SR_FoundMainTextSelfViewCell.h */,
+				CBE47E021D407F200046C89C /* SR_FoundMainTextSelfViewCell.m */,
+			);
+			name = dynamic;
+			sourceTree = "<group>";
+		};
+		CBE47E051D40A1710046C89C /* BookClub */ = {
+			isa = PBXGroup;
+			children = (
+				CBE47E061D40A1950046C89C /* SR_FoundMainDynamicViewCell.h */,
+				CBE47E071D40A1950046C89C /* SR_FoundMainDynamicViewCell.m */,
+			);
+			name = BookClub;
+			sourceTree = "<group>";
+		};
+		CBE47E091D40A73D0046C89C /* Dynamic */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Dynamic;
+			sourceTree = "<group>";
+		};
+		CBE47E0A1D40A7440046C89C /* BookClub */ = {
+			isa = PBXGroup;
+			children = (
+				CBE47E0C1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.h */,
+				CBE47E0D1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.m */,
+				CBE47E0F1D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.h */,
+				CBE47E101D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m */,
+			);
+			name = BookClub;
+			sourceTree = "<group>";
+		};
+		CBE47E151D40BBF80046C89C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CBE47E161D40BC1C0046C89C /* SR_RecordMainTagButton.h */,
+				CBE47E171D40BC1C0046C89C /* SR_RecordMainTagButton.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -351,10 +455,14 @@
 		CBFEA90C1D35F631007276B6 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				CBE47E0A1D40A7440046C89C /* BookClub */,
+				CBE47E091D40A73D0046C89C /* Dynamic */,
 				CBFEA90F1D35F691007276B6 /* SR_FoundMainViewController.h */,
 				CBFEA9101D35F691007276B6 /* SR_FoundMainViewController.m */,
 				CBA87BDA1D3C73ED006C0648 /* SR_FoundSearchTableViewController.h */,
 				CBA87BDB1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m */,
+				CBE47E121D40B1170046C89C /* SR_InterPageViewController.h */,
+				CBE47E131D40B1170046C89C /* SR_InterPageViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -362,14 +470,8 @@
 		CBFEA90D1D35F63A007276B6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CBD1D61D1D363F0400539056 /* SR_AddBtnView.h */,
-				CBD1D61E1D363F0400539056 /* SR_AddBtnView.m */,
-				CBCF4F821D367F3500DD7015 /* SR_FoundMainImageViewCell.h */,
-				CBCF4F831D367F3500DD7015 /* SR_FoundMainImageViewCell.m */,
-				CBCF4F851D36958800DD7015 /* SR_FoundMainVoiceViewCell.h */,
-				CBCF4F861D36958800DD7015 /* SR_FoundMainVoiceViewCell.m */,
-				CBCF4F881D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.h */,
-				CBCF4F891D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m */,
+				CBE47E041D40A1510046C89C /* dynamic */,
+				CBE47E051D40A1710046C89C /* BookClub */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -401,6 +503,7 @@
 		CBFEA9171D35F70D007276B6 /* SR_Record */ = {
 			isa = PBXGroup;
 			children = (
+				CBE47E151D40BBF80046C89C /* View */,
 				CBFEA9181D35F715007276B6 /* Controller */,
 			);
 			name = SR_Record;
@@ -614,7 +717,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBE47E111D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m in Sources */,
 				CB74117E1D347B14002B8FB5 /* AppDelegate.m in Sources */,
+				CBE47DF41D4067180046C89C /* SR_ForgotPasswordViewController.m in Sources */,
 				CBD1D6041D3621E100539056 /* SR_MineViewController.m in Sources */,
 				CBFEA91E1D35FB22007276B6 /* SR_BaseModel.m in Sources */,
 				CBD1D60D1D36279A00539056 /* SR_MineViewCell.m in Sources */,
@@ -624,17 +729,26 @@
 				CBD1D6101D3628C100539056 /* SR_OAthouButton.m in Sources */,
 				CBFEA9041D35F4F5007276B6 /* SR_TabbarViewController.m in Sources */,
 				CBD1D6091D3622E500539056 /* SR_RegisterViewController.m in Sources */,
+				CBE47DF71D406F190046C89C /* SR_FoundInterBtn.m in Sources */,
+				CBE47E141D40B1170046C89C /* SR_InterPageViewController.m in Sources */,
 				CBD1D6191D363AC700539056 /* SR_OthersMineViewController.m in Sources */,
+				CBE47E031D407F200046C89C /* SR_FoundMainTextSelfViewCell.m in Sources */,
 				CBCF4F8A1D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m in Sources */,
+				CBE47DFA1D407CAE0046C89C /* SR_FoundMainVoiceSelfViewCell.m in Sources */,
 				CBFEA9161D35F6F8007276B6 /* SR_ScanMainViewController.m in Sources */,
+				CBE47DFD1D407DAF0046C89C /* SR_FoundMainImageSelfViewCell.m in Sources */,
 				CBFEA9221D35FC15007276B6 /* SR_LoginViewController.m in Sources */,
 				CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */,
+				CBE47E0E1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.m in Sources */,
 				CBD1D6131D3636F400539056 /* SR_OthersMineViewCell.m in Sources */,
 				CBD1D61F1D363F0400539056 /* SR_AddBtnView.m in Sources */,
 				CBD1D5FF1D36198A00539056 /* SR_LoginBtn.m in Sources */,
+				CBE47E001D407E930046C89C /* SR_FoundMainTextViewCell.m in Sources */,
 				CBA87BDC1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m in Sources */,
 				CBCF4F871D36958800DD7015 /* SR_FoundMainVoiceViewCell.m in Sources */,
+				CBE47E181D40BC1C0046C89C /* SR_RecordMainTagButton.m in Sources */,
 				CBCF4F841D367F3500DD7015 /* SR_FoundMainImageViewCell.m in Sources */,
+				CBE47E081D40A1950046C89C /* SR_FoundMainDynamicViewCell.m in Sources */,
 				CBFEA90A1D35F576007276B6 /* SR_BaseTableViewController.m in Sources */,
 				CBFEA9111D35F691007276B6 /* SR_FoundMainViewController.m in Sources */,
 			);

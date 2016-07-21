@@ -11,6 +11,7 @@
 #import "SR_LoginBtn.h"
 #import "SR_RegisterViewController.h"
 #import "SR_TabbarViewController.h"
+#import "SR_ForgotPasswordViewController.h"
 
 @interface SR_LoginViewController()<UITextFieldDelegate>
 @property(nonatomic,strong)UIView * loginBgView;
@@ -60,18 +61,17 @@
     recommandTitleLabel.font = [UIFont systemFontOfSize:14.0];
     [self.loginBgView addSubview:recommandTitleLabel];
     
-    NSArray * titles = @[@"微信登录",@"微博登录",@"QQ登录",@"豆瓣登录"];
-    CGFloat boarder = (kScreenWidth - 30 - 58*4)*1.0/3.0;
+    NSArray * imageNames = @[@"wx",@"wb",@"qq",@"db"];
+    CGFloat boarder = (kScreenWidth - 30 - 74*4)*1.0/3.0;
     for (int i = 0; i < 4; i ++) {
         UIButton * btn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        btn.frame = CGRectMake(15 + i*(58 + boarder), recommandTitleLabel.frame.origin.y + recommandTitleLabel.frame.size.height + sizeHeight(28), 58, 58);
-        [btn setTitle:titles[i] forState:UIControlStateNormal];
-       // [btn setImage:[UIImage imageNamed:@"login"] forState:UIControlStateNormal];
+        btn.frame = CGRectMake(15 + i*(74 + boarder), recommandTitleLabel.frame.origin.y + recommandTitleLabel.frame.size.height + sizeHeight(28), 74, 74);
+        [btn setImage:[UIImage imageNamed:imageNames[i]] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        btn.layer.cornerRadius = 29;
+        btn.layer.cornerRadius = 37;
         btn.tag = i;
+        btn.backgroundColor = [UIColor whiteColor];
         btn.titleLabel.font = [UIFont systemFontOfSize:10.0];
-        btn.backgroundColor = baseColor;
         [btn addTarget:self action:@selector(clickOtherLoginBtn:) forControlEvents:(UIControlEventTouchUpInside)];
         [self.loginBgView addSubview:btn];
     }
@@ -80,9 +80,10 @@
     lineView.backgroundColor = [UIColor lightGrayColor];
     [self.loginBgView addSubview:lineView];
     
+    NSArray * textFieldImages = @[@"login_phone",@"login_yzm"];
     for (int i = 0; i < 2; i ++) {
-        UIImageView * icon = [[UIImageView alloc] initWithFrame:CGRectMake(15, recommandTitleLabel.frame.origin.y + recommandTitleLabel.frame.size.height + sizeHeight(222) + i*(15 + 40), 25, 25)];
-        icon.backgroundColor = [UIColor redColor];
+        UIImageView * icon = [[UIImageView alloc] initWithFrame:CGRectMake(15, recommandTitleLabel.frame.origin.y + recommandTitleLabel.frame.size.height + sizeHeight(222) + i*(15 + 40), 23, 23)];
+        icon.image = [UIImage imageNamed:textFieldImages[i]];
         [self.loginBgView addSubview:icon];
         
         UITextField * textfield = [[UITextField alloc] initWithFrame:CGRectMake(icon.frame.origin.x + icon.frame.size.width + 10, icon.frame.origin.y, kScreenWidth - icon.frame.size.width - 30 - 10, icon.frame.size.height)];
@@ -92,13 +93,15 @@
             textfield.keyboardType = UIKeyboardTypeNamePhonePad;
             self.phoneTextField = textfield;
         }else{
-            UIButton * visiableBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 25, 25, 25)];
-            visiableBtn.backgroundColor = [UIColor redColor];
-            [visiableBtn addTarget:self action:@selector(clickPasswordRightBtn) forControlEvents:(UIControlEventTouchUpInside)];
+            UIButton * visiableBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 23, 23)];
+            visiableBtn.backgroundColor = [UIColor whiteColor];
+            [visiableBtn setImage:[UIImage imageNamed:@"login_eye_nor"] forState:(UIControlStateNormal)];
+            [visiableBtn setImage:[UIImage imageNamed:@"login_eye_hl"] forState:(UIControlStateSelected)];
+            [visiableBtn addTarget:self action:@selector(clickPasswordRightBtn:) forControlEvents:(UIControlEventTouchUpInside)];
             textfield.rightView = visiableBtn;
             textfield.rightViewMode = UITextFieldViewModeAlways;
             textfield.placeholder = @"输入登录密码";
-            textfield.secureTextEntry = YES;
+            textfield.secureTextEntry = !self.isVisable;
             textfield.keyboardType = UIKeyboardTypeASCIICapable;
             self.passwordTextField = textfield;
         }
@@ -141,14 +144,13 @@
     [self.loginBgView addSubview:registerBtn];
     
     self.bottomHeight = kScreenHeight - registerBtn.frame.origin.y;
-    SSLog(@"diffheiht:%f",self.bottomHeight);
-
 }
 
-- (void)clickPasswordRightBtn{
+- (void)clickPasswordRightBtn:(UIButton *)btn{
     SSLog(@"click righbtn");
     self.isVisable = !self.isVisable;
-    self.passwordTextField.secureTextEntry = self.isVisable;
+    [btn setSelected:self.isVisable];
+    self.passwordTextField.secureTextEntry = !self.isVisable;
 }
 
 - (void)clickLoginBtn{
@@ -167,13 +169,11 @@
         UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:resterVC];
         [self presentViewController:nav animated:YES completion:nil];
     }else{
-        //忘记密码
+        SR_ForgotPasswordViewController * forgotVC = [[SR_ForgotPasswordViewController alloc] init];
+        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:forgotVC];
+        [self presentViewController:nav animated:YES completion:nil];
     }
 }
-
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-//    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
-//}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
@@ -187,21 +187,17 @@
     NSTimeInterval animationDuration;
     [animationDurationValue getValue:&animationDuration];
     CGRect keyBoardRect = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-    SSLog(@"keybaord rect show:%@",NSStringFromCGRect(keyBoardRect));
     if (!keyBoardRect.size.height) {
         return;
     }
     [UIView animateWithDuration:animationDuration animations:^{
-        SSLog(@"react:%@",NSStringFromCGRect(keyBoardRect));
         CGFloat diffHight = keyBoardRect.size.height > self.bottomHeight ? (keyBoardRect.size.height - self.bottomHeight) : 0;
-        SSLog(@"differ:%f",diffHight);
         self.loginBgView.frame = CGRectMake(0, -diffHight, kScreenWidth, kScreenHeight);
     }];
     
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    
     NSDictionary* userInfo = [notification userInfo];
     NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval animationDuration;
