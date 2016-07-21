@@ -9,6 +9,7 @@
 #import "SR_MineViewController.h"
 #import "SR_MineViewCell.h"
 #import "globalHeader.h"
+#import "SR_LoginViewController.h"
 
 @interface SR_MineViewController ()
 @property(nonatomic,strong)UIButton * headerBtn;
@@ -18,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"我";
+    self.title = @"我的";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -34,7 +35,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 304;
+    return 152;
 }
 
 
@@ -86,6 +87,8 @@
 
 - (void)clickLoginOutBtn{
     SSLog(@"login out");
+    SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
+    [UIApplication sharedApplication].keyWindow.rootViewController = loginVC;
 }
 
 @end

@@ -9,6 +9,7 @@
 #import "SR_MineViewCell.h"
 #import "globalHeader.h"
 
+
 @implementation SR_MineViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -49,23 +50,26 @@
         [btn setTitle:titles[i] forState:(UIControlStateNormal)];
         [btn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
         [btn setTitleColor:[UIColor blackColor] forState:(UIControlStateSelected)];
-        [btn setImage:[UIImage imageNamed:@"oathu1"] forState:(UIControlStateNormal)];
-        [btn setImage:[UIImage imageNamed:@"oathu2"] forState:(UIControlStateSelected)];
+        [btn setImage:[UIImage imageNamed:@"wo_wxz"] forState:(UIControlStateNormal)];
+        [btn setImage:[UIImage imageNamed:@"wo_xz"] forState:(UIControlStateSelected)];
+        if (i == 0) {
+            [btn setSelected:YES];
+        }
         btn.tag = i+100;
         [btn addTarget:self action:@selector(clickBtn:) forControlEvents:(UIControlEventTouchUpInside)];
         [self.contentView addSubview:btn];
     }
     
-    UIButton * messageBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, self.OAthuabel.frame.origin.y + self.OAthuabel.frame.size.height + 20, 15, 12)];
-    messageBtn.backgroundColor = [UIColor redColor];
+    UIButton * messageBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, self.OAthuabel.frame.origin.y + self.OAthuabel.frame.size.height + 20, 18, 12)];
+    [messageBtn setImage:[UIImage imageNamed:@"wo_xx"] forState:(UIControlStateNormal)];
     messageBtn.tag = 102;
     [messageBtn addTarget:self action:@selector(clickBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.contentView addSubview:messageBtn];
     
-    UIButton * messageLabelBtn = [[UIButton alloc] initWithFrame:CGRectMake(messageBtn.frame.origin.x + messageBtn.frame.size.width + 5, messageBtn.frame.origin.y, 60, 15)];
+    UIButton * messageLabelBtn = [[UIButton alloc] initWithFrame:CGRectMake(messageBtn.frame.origin.x + messageBtn.frame.size.width, messageBtn.frame.origin.y - 1.5, 60, 15)];
     [messageLabelBtn setTitle:@"我的私信" forState:(UIControlStateNormal)];
     [messageLabelBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
-    messageLabelBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    messageLabelBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
     messageLabelBtn.backgroundColor = [UIColor whiteColor];
     messageLabelBtn.tag = 3;
     [messageLabelBtn addTarget:self action:@selector(clickBtn:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -73,6 +77,14 @@
 }
 
 - (void)clickBtn:(UIButton *)btn{
+    [btn setSelected:YES];
+    NSInteger tag = 100;
+    if (btn.tag == 100) {
+        tag = 101;
+    }
+    UIButton * otherBtn = (UIButton *)[self.contentView viewWithTag:tag];
+    [otherBtn setSelected:NO];
+    self.isSelectedOpen = !self.isSelectedOpen;
     if (self.block) {
         self.block(btn);
     }

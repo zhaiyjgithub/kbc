@@ -14,7 +14,7 @@
 #import "SR_FoundMainImageViewCell.h"
 #import "SR_FoundMainVoiceViewCell.h"
 #import "SR_FoundMainCollectionViewCell.h"
-#import "SR_MineMessageSendViewController.h"
+#import "SR_MineViewController.h"
 #import "SR_FoundSearchTableViewController.h"
 #import "SR_FoundMainTextViewCell.h"
 #import "SR_FoundMainTextSelfViewCell.h"
@@ -232,15 +232,8 @@
     }
 }
 
-- (void)clickLeft{
-    self.hidesBottomBarWhenPushed = YES;
-    SR_MineMessageSendViewController * vc = [[SR_MineMessageSendViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
-}
-
 - (void)clickMineItem{
-    SR_MineMessageSendViewController * mineVC = [[SR_MineMessageSendViewController alloc] init];
+    SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
     [self.navigationController pushViewController:mineVC animated:YES];
 }
 
