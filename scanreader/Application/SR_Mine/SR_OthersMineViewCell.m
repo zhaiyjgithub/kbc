@@ -61,6 +61,7 @@
     [sentBtn setImage:[UIImage imageNamed:@"oathu1"] forState:(UIControlStateNormal)];
     [sentBtn addTarget:self action:@selector(clickSendBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.contentView addSubview:sentBtn];
+    
 }
 
 - (void)clickSendBtn:(UIButton *)btn{

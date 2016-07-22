@@ -8,7 +8,8 @@
 
 #import "SR_MineMessageListViewController.h"
 #import "globalHeader.h"
-
+#import "SR_MineMessageListViewCell.h"
+#import "SR_MineMessageSendViewController.h"
 @interface SR_MineMessageListViewController ()
 
 @end
@@ -25,11 +26,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 8.0;
+    return 100;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 80;
+    return 8.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -37,8 +38,22 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString * cellId = @"SR_MineMessageListViewCell";
+    SR_MineMessageListViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (!cell) {
+        cell = [[SR_MineMessageListViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+    }
     
-    return nil;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
+    SR_MineMessageSendViewController * sendVC = [[SR_MineMessageSendViewController alloc] init];
+    [self.navigationController pushViewController:sendVC animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 

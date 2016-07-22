@@ -16,6 +16,7 @@ typedef void(^mineCellBlock)(UIButton *btn);
 @property(nonatomic,strong)UILabel * levelabel;
 @property(nonatomic,strong)UILabel * OAthuabel;
 @property(nonatomic,assign)BOOL isSelectedOpen;
+@property(nonatomic,strong)UIView * dotView;
 @property(nonatomic,strong)mineCellBlock block;
 
 - (void)addBlock:(mineCellBlock)block;

@@ -71,9 +71,15 @@
     [messageLabelBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
     messageLabelBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
     messageLabelBtn.backgroundColor = [UIColor whiteColor];
-    messageLabelBtn.tag = 3;
+    messageLabelBtn.tag = 103;
     [messageLabelBtn addTarget:self action:@selector(clickBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.contentView addSubview:messageLabelBtn];
+    
+    self.dotView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 6, 6)];
+    self.dotView.center = CGPointMake(messageBtn.frame.origin.x + messageBtn.frame.size.width, messageBtn.frame.origin.y);
+    self.dotView.backgroundColor = [UIColor redColor];
+    self.dotView.layer.cornerRadius = 3.0;
+    [self.contentView addSubview:self.dotView];
 }
 
 - (void)clickBtn:(UIButton *)btn{

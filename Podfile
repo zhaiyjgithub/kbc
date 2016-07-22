@@ -19,6 +19,7 @@ target ‘scanreader’ do
   pod 'FMDB'
   pod 'LKDBHelper'
   pod 'SVProgressHUD'
+  pod 'RKNotificationHub'
 end
 
 

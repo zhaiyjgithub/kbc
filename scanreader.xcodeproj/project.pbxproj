@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CB0F0C0D1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */; };
+		CB63C7AF1D41F141009D40A4 /* SR_MineMessageListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB63C7AE1D41F141009D40A4 /* SR_MineMessageListViewCell.m */; };
 		CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB719F351D3742CB005F5CFB /* SR_MineMessageListViewController.m */; };
 		CB74117B1D347B14002B8FB5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74117A1D347B14002B8FB5 /* main.m */; };
 		CB74117E1D347B14002B8FB5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74117D1D347B14002B8FB5 /* AppDelegate.m */; };
@@ -16,6 +17,8 @@
 		CB7411941D347B14002B8FB5 /* scanreaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7411931D347B14002B8FB5 /* scanreaderTests.m */; };
 		CB74119F1D347B14002B8FB5 /* scanreaderUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74119E1D347B14002B8FB5 /* scanreaderUITests.m */; };
 		CBA87BDC1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA87BDB1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m */; };
+		CBAF19081D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAF19071D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.m */; };
+		CBAF190B1D421C6200DC0997 /* SR_MessageDialogLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAF190A1D421C6200DC0997 /* SR_MessageDialogLabel.m */; };
 		CBCF4F841D367F3500DD7015 /* SR_FoundMainImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCF4F831D367F3500DD7015 /* SR_FoundMainImageViewCell.m */; };
 		CBCF4F871D36958800DD7015 /* SR_FoundMainVoiceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCF4F861D36958800DD7015 /* SR_FoundMainVoiceViewCell.m */; };
 		CBCF4F8A1D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCF4F891D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m */; };
@@ -71,6 +74,8 @@
 		BE41DAAFFD8A4D526A8427FD /* Pods-scanreader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scanreader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-scanreader/Pods-scanreader.debug.xcconfig"; sourceTree = "<group>"; };
 		CB0F0C0B1D3DDDD200F60E5C /* SR_MineMessageSendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageSendViewController.h; path = Application/SR_Mine/SR_MineMessageSendViewController.h; sourceTree = "<group>"; };
 		CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageSendViewController.m; path = Application/SR_Mine/SR_MineMessageSendViewController.m; sourceTree = "<group>"; };
+		CB63C7AD1D41F141009D40A4 /* SR_MineMessageListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageListViewCell.h; path = Application/SR_Mine/SR_MineMessageListViewCell.h; sourceTree = "<group>"; };
+		CB63C7AE1D41F141009D40A4 /* SR_MineMessageListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageListViewCell.m; path = Application/SR_Mine/SR_MineMessageListViewCell.m; sourceTree = "<group>"; };
 		CB719F341D3742CB005F5CFB /* SR_MineMessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageListViewController.h; path = Application/SR_Mine/SR_MineMessageListViewController.h; sourceTree = "<group>"; };
 		CB719F351D3742CB005F5CFB /* SR_MineMessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageListViewController.m; path = Application/SR_Mine/SR_MineMessageListViewController.m; sourceTree = "<group>"; };
 		CB7411761D347B14002B8FB5 /* scanreader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = scanreader.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +94,10 @@
 		CB7411B01D3486B6002B8FB5 /* globalHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = globalHeader.h; path = scanreader/globalHeader.h; sourceTree = "<group>"; };
 		CBA87BDA1D3C73ED006C0648 /* SR_FoundSearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundSearchTableViewController.h; path = Application/SR_Found/SR_FoundMain/SR_FoundSearchTableViewController.h; sourceTree = "<group>"; };
 		CBA87BDB1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundSearchTableViewController.m; path = Application/SR_Found/SR_FoundMain/SR_FoundSearchTableViewController.m; sourceTree = "<group>"; };
+		CBAF19061D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageSendDialogMineViewCell.h; path = Application/SR_Mine/SR_MineMessageSendDialogMineViewCell.h; sourceTree = "<group>"; };
+		CBAF19071D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageSendDialogMineViewCell.m; path = Application/SR_Mine/SR_MineMessageSendDialogMineViewCell.m; sourceTree = "<group>"; };
+		CBAF19091D421C6200DC0997 /* SR_MessageDialogLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MessageDialogLabel.h; path = Application/SR_Mine/SR_MessageDialogLabel.h; sourceTree = "<group>"; };
+		CBAF190A1D421C6200DC0997 /* SR_MessageDialogLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MessageDialogLabel.m; path = Application/SR_Mine/SR_MessageDialogLabel.m; sourceTree = "<group>"; };
 		CBCF4F821D367F3500DD7015 /* SR_FoundMainImageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainImageViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainImageViewCell.h; sourceTree = "<group>"; };
 		CBCF4F831D367F3500DD7015 /* SR_FoundMainImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainImageViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainImageViewCell.m; sourceTree = "<group>"; };
 		CBCF4F851D36958800DD7015 /* SR_FoundMainVoiceViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainVoiceViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainVoiceViewCell.h; sourceTree = "<group>"; };
@@ -315,6 +324,12 @@
 				CBD1D60F1D3628C100539056 /* SR_OAthouButton.m */,
 				CBD1D6111D3636F400539056 /* SR_OthersMineViewCell.h */,
 				CBD1D6121D3636F400539056 /* SR_OthersMineViewCell.m */,
+				CB63C7AD1D41F141009D40A4 /* SR_MineMessageListViewCell.h */,
+				CB63C7AE1D41F141009D40A4 /* SR_MineMessageListViewCell.m */,
+				CBAF19061D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.h */,
+				CBAF19071D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.m */,
+				CBAF19091D421C6200DC0997 /* SR_MessageDialogLabel.h */,
+				CBAF190A1D421C6200DC0997 /* SR_MessageDialogLabel.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -721,6 +736,7 @@
 				CB74117E1D347B14002B8FB5 /* AppDelegate.m in Sources */,
 				CBE47DF41D4067180046C89C /* SR_ForgotPasswordViewController.m in Sources */,
 				CBD1D6041D3621E100539056 /* SR_MineViewController.m in Sources */,
+				CBAF19081D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.m in Sources */,
 				CBFEA91E1D35FB22007276B6 /* SR_BaseModel.m in Sources */,
 				CBD1D60D1D36279A00539056 /* SR_MineViewCell.m in Sources */,
 				CBFEA91B1D35F754007276B6 /* SR_RecorMainViewController.m in Sources */,
@@ -734,6 +750,7 @@
 				CBD1D6191D363AC700539056 /* SR_OthersMineViewController.m in Sources */,
 				CBE47E031D407F200046C89C /* SR_FoundMainTextSelfViewCell.m in Sources */,
 				CBCF4F8A1D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m in Sources */,
+				CBAF190B1D421C6200DC0997 /* SR_MessageDialogLabel.m in Sources */,
 				CBE47DFA1D407CAE0046C89C /* SR_FoundMainVoiceSelfViewCell.m in Sources */,
 				CBFEA9161D35F6F8007276B6 /* SR_ScanMainViewController.m in Sources */,
 				CBE47DFD1D407DAF0046C89C /* SR_FoundMainImageSelfViewCell.m in Sources */,
@@ -741,6 +758,7 @@
 				CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */,
 				CBE47E0E1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.m in Sources */,
 				CBD1D6131D3636F400539056 /* SR_OthersMineViewCell.m in Sources */,
+				CB63C7AF1D41F141009D40A4 /* SR_MineMessageListViewCell.m in Sources */,
 				CBD1D61F1D363F0400539056 /* SR_AddBtnView.m in Sources */,
 				CBD1D5FF1D36198A00539056 /* SR_LoginBtn.m in Sources */,
 				CBE47E001D407E930046C89C /* SR_FoundMainTextViewCell.m in Sources */,
@@ -814,7 +832,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: qianyi chen (7NVDDCNK7U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: qianyi chen (7NVDDCNK7U)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -836,7 +855,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "3a7a420e-ffec-43f6-9d4b-17272e4bf304";
+				PROVISIONING_PROFILE = "66474403-eb16-47d6-95e7-96a70cc8e115";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -859,7 +878,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: qianyi chen (7NVDDCNK7U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: qianyi chen (7NVDDCNK7U)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -874,7 +894,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "3a7a420e-ffec-43f6-9d4b-17272e4bf304";
+				PROVISIONING_PROFILE = "66474403-eb16-47d6-95e7-96a70cc8e115";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -887,11 +907,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = scanreader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jb.scanreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3a7a420e-ffec-43f6-9d4b-17272e4bf304";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -901,11 +922,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = scanreader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jb.scanreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3a7a420e-ffec-43f6-9d4b-17272e4bf304";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

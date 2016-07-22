@@ -10,6 +10,7 @@
 #import "SR_MineViewCell.h"
 #import "globalHeader.h"
 #import "SR_LoginViewController.h"
+#import "SR_MineMessageListViewController.h"
 
 @interface SR_MineViewController ()
 @property(nonatomic,strong)UIButton * headerBtn;
@@ -45,8 +46,13 @@
     if (!cell) {
         cell = [[SR_MineViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
     }
+    __weak typeof(self) weakSelf = self;
     [cell addBlock:^(UIButton *btn) {
-        SSLog(@"tag:%d",btn.tag);
+        if (btn.tag == 103) {
+            SR_MineMessageListViewController * messageListVC = [[SR_MineMessageListViewController alloc] init];
+            [weakSelf.navigationController pushViewController:messageListVC animated:YES
+             ];
+        }
     }];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
