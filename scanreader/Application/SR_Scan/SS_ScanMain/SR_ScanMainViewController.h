@@ -8,6 +8,6 @@
 
 #import "SR_BaseTableViewController.h"
 
-@interface SR_ScanMainViewController : SR_BaseTableViewController
+@interface SR_ScanMainViewController : UIViewController//SR_BaseTableViewController
 
 @end

@@ -120,6 +120,8 @@
     self.loginBtn.backgroundColor = baseColor;
     self.loginBtn.layer.cornerRadius = 29;
     [self.loginBtn setTitle:@"登录" forState:(UIControlStateNormal)];
+    [self.loginBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [self.loginBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateHighlighted)];
     [self.loginBtn addTarget:self action:@selector(clickLoginBtn) forControlEvents:(UIControlEventTouchUpInside)];
     [self.loginBgView addSubview:self.loginBtn];
     

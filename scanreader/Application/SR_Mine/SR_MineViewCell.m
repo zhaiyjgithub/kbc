@@ -83,14 +83,16 @@
 }
 
 - (void)clickBtn:(UIButton *)btn{
-    [btn setSelected:YES];
-    NSInteger tag = 100;
-    if (btn.tag == 100) {
-        tag = 101;
+    if (btn.tag != 103) {
+        [btn setSelected:YES];
+        NSInteger tag = 100;
+        if (btn.tag == 100) {
+            tag = 101;
+        }
+        UIButton * otherBtn = (UIButton *)[self.contentView viewWithTag:tag];
+        [otherBtn setSelected:NO];
+        self.isSelectedOpen = !self.isSelectedOpen;
     }
-    UIButton * otherBtn = (UIButton *)[self.contentView viewWithTag:tag];
-    [otherBtn setSelected:NO];
-    self.isSelectedOpen = !self.isSelectedOpen;
     if (self.block) {
         self.block(btn);
     }
