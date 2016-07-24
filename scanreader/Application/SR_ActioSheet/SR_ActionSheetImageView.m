@@ -13,7 +13,11 @@
 #import "SR_ActionSheetImageLayout.h"
 #import "PhotoPickerTool.h"
 
-static NSString *const cellID = @"DD_MyCollectionViewCell";
+static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
+
+@interface SR_ActionSheetImageView ()
+@property(nonatomic,assign)NSInteger numOfRows;
+@end
 
 @implementation SR_ActionSheetImageView
 
@@ -25,6 +29,7 @@ static NSString *const cellID = @"DD_MyCollectionViewCell";
         [self.articleImages addObjectsFromArray:images];
         self.viewController = viewController;
         self.backgroundColor = [UIColor whiteColor];
+        self.numOfRows = 5;
         [self setupView];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -53,7 +58,7 @@ static NSString *const cellID = @"DD_MyCollectionViewCell";
     UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(15, self.titleTextField.frame.origin.y + self.titleTextField.frame.size.height + sizeHeight(10), kScreenWidth - 30, sizeHeight(260)) collectionViewLayout:layout];
     collectionView.delegate = self;
     collectionView.dataSource = self;
-    collectionView.backgroundColor = kColor(0xf3, 0xf3, 0xf3);
+    collectionView.backgroundColor = [UIColor whiteColor];
     [collectionView registerClass:[SR_ActionSheetImageCollectionViewCell class] forCellWithReuseIdentifier:cellID];
     
     self.collectionView = collectionView;
@@ -123,12 +128,20 @@ static NSString *const cellID = @"DD_MyCollectionViewCell";
     self.hidden = YES;
     if (btn.tag == 100) {//相机
         [[PhotoPickerTool sharedPhotoPickerTool] showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceTypeCamera) onViewController:self.viewController compled:^(UIImage *image, NSDictionary *editingInfo) {
+            self.handerView.enabled = YES;
+            self.handerView.hidden = NO;
+            self.hidden = NO;
         }];
     }else{
         [[PhotoPickerTool sharedPhotoPickerTool] showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceTypePhotoLibrary) onViewController:self.viewController compled:^(UIImage *image, NSDictionary *editingInfo) {
             self.handerView.enabled = YES;
             self.handerView.hidden = NO;
             self.hidden = NO;
+            self.numOfRows+=1;
+            
+            NSIndexPath * indexpath = [NSIndexPath indexPathForRow:self.numOfRows-1 inSection:0];
+            [self.collectionView insertItemsAtIndexPaths:@[indexpath]];
+            [self.collectionView scrollToItemAtIndexPath:indexpath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
         }];
     }
 }
@@ -139,7 +152,7 @@ static NSString *const cellID = @"DD_MyCollectionViewCell";
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 15;
+    return self.numOfRows;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
