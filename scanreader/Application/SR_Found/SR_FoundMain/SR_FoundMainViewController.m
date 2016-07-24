@@ -26,6 +26,8 @@
 #import "SR_FoundMainBookClubBookMarkListViewController.h"
 #import "SR_InterPageViewController.h"
 
+#import "SR_ActionSheetImageView.h"
+
 @interface SR_FoundMainViewController ()<addBtnDelegate,UISearchBarDelegate>
 @property(nonatomic,assign)BOOL isSelectBookClubBtn;
 @end
@@ -43,8 +45,10 @@
 }
 
 - (void)clickSearchItem{
-    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
-    [self.navigationController pushViewController:foundVC animated:YES];
+//    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
+//    [self.navigationController pushViewController:foundVC animated:YES];
+    SR_ActionSheetImageView * iamge = [[SR_ActionSheetImageView alloc] initActionSheetWith:@"标题" images:nil viewController:self];
+    [iamge show];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

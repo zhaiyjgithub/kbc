@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		846C6DE01D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DDF1D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		846C6DE31D44B06D00401A35 /* SR_ActionSheetImageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DE21D44B06D00401A35 /* SR_ActionSheetImageLayout.m */; settings = {ASSET_TAGS = (); }; };
+		846C6DE61D44B1AB00401A35 /* testViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DE51D44B1AB00401A35 /* testViewController.m */; settings = {ASSET_TAGS = (); }; };
+		846C6DE91D44C37F00401A35 /* SR_ActionSheetImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DE81D44C37F00401A35 /* SR_ActionSheetImageView.m */; settings = {ASSET_TAGS = (); }; };
+		848429A71D44993B00855854 /* SR_ActionSheetTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848429A61D44993B00855854 /* SR_ActionSheetTextView.m */; settings = {ASSET_TAGS = (); }; };
 		84AE3DD11D43634E00643989 /* SR_ScanResultHasBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD01D43634E00643989 /* SR_ScanResultHasBookViewController.m */; settings = {ASSET_TAGS = (); }; };
 		84AE3DD41D4366B500643989 /* SR_ScanResultNoneBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD31D4366B500643989 /* SR_ScanResultNoneBookViewController.m */; settings = {ASSET_TAGS = (); }; };
 		84AE3DD71D436E1200643989 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD61D436E1200643989 /* Tools.m */; settings = {ASSET_TAGS = (); }; };
@@ -75,6 +80,16 @@
 /* Begin PBXFileReference section */
 		0607A39CD5C3930A77C71A15 /* Pods-scanreader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scanreader.release.xcconfig"; path = "Pods/Target Support Files/Pods-scanreader/Pods-scanreader.release.xcconfig"; sourceTree = "<group>"; };
 		4F7A3B784229D292DC0FC5F6 /* libPods-scanreader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-scanreader.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		846C6DDE1D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ActionSheetImageCollectionViewCell.h; path = Application/SR_ActioSheet/SR_ActionSheetImageCollectionViewCell.h; sourceTree = "<group>"; };
+		846C6DDF1D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_ActionSheetImageCollectionViewCell.m; path = Application/SR_ActioSheet/SR_ActionSheetImageCollectionViewCell.m; sourceTree = "<group>"; };
+		846C6DE11D44B06D00401A35 /* SR_ActionSheetImageLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ActionSheetImageLayout.h; path = Application/SR_ActioSheet/SR_ActionSheetImageLayout.h; sourceTree = "<group>"; };
+		846C6DE21D44B06D00401A35 /* SR_ActionSheetImageLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_ActionSheetImageLayout.m; path = Application/SR_ActioSheet/SR_ActionSheetImageLayout.m; sourceTree = "<group>"; };
+		846C6DE41D44B1AB00401A35 /* testViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testViewController.h; sourceTree = "<group>"; };
+		846C6DE51D44B1AB00401A35 /* testViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testViewController.m; sourceTree = "<group>"; };
+		846C6DE71D44C37F00401A35 /* SR_ActionSheetImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ActionSheetImageView.h; path = Application/SR_ActioSheet/SR_ActionSheetImageView.h; sourceTree = "<group>"; };
+		846C6DE81D44C37F00401A35 /* SR_ActionSheetImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_ActionSheetImageView.m; path = Application/SR_ActioSheet/SR_ActionSheetImageView.m; sourceTree = "<group>"; };
+		848429A51D44993B00855854 /* SR_ActionSheetTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ActionSheetTextView.h; path = Application/SR_ActioSheet/SR_ActionSheetTextView.h; sourceTree = "<group>"; };
+		848429A61D44993B00855854 /* SR_ActionSheetTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_ActionSheetTextView.m; path = Application/SR_ActioSheet/SR_ActionSheetTextView.m; sourceTree = "<group>"; };
 		84AE3DCF1D43634E00643989 /* SR_ScanResultHasBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ScanResultHasBookViewController.h; path = Application/SR_Scan/SR_ScanResult/SR_ScanResultHasBookViewController.h; sourceTree = "<group>"; };
 		84AE3DD01D43634E00643989 /* SR_ScanResultHasBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_ScanResultHasBookViewController.m; path = Application/SR_Scan/SR_ScanResult/SR_ScanResultHasBookViewController.m; sourceTree = "<group>"; };
 		84AE3DD21D4366B500643989 /* SR_ScanResultNoneBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ScanResultNoneBookViewController.h; path = Application/SR_Scan/SR_ScanResult/SR_ScanResultNoneBookViewController.h; sourceTree = "<group>"; };
@@ -205,6 +220,39 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		846C6DDC1D44ACE600401A35 /* TextView */ = {
+			isa = PBXGroup;
+			children = (
+				848429A51D44993B00855854 /* SR_ActionSheetTextView.h */,
+				848429A61D44993B00855854 /* SR_ActionSheetTextView.m */,
+			);
+			name = TextView;
+			sourceTree = "<group>";
+		};
+		846C6DDD1D44ACF800401A35 /* ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				846C6DDE1D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.h */,
+				846C6DDF1D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m */,
+				846C6DE11D44B06D00401A35 /* SR_ActionSheetImageLayout.h */,
+				846C6DE21D44B06D00401A35 /* SR_ActionSheetImageLayout.m */,
+				846C6DE41D44B1AB00401A35 /* testViewController.h */,
+				846C6DE51D44B1AB00401A35 /* testViewController.m */,
+				846C6DE71D44C37F00401A35 /* SR_ActionSheetImageView.h */,
+				846C6DE81D44C37F00401A35 /* SR_ActionSheetImageView.m */,
+			);
+			name = ImageView;
+			sourceTree = "<group>";
+		};
+		848429A41D4498C400855854 /* SR_ActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				846C6DDD1D44ACF800401A35 /* ImageView */,
+				846C6DDC1D44ACE600401A35 /* TextView */,
+			);
+			name = SR_ActionSheet;
+			sourceTree = "<group>";
+		};
 		84AE3DCE1D43630600643989 /* SR_ScanResult */ = {
 			isa = PBXGroup;
 			children = (
@@ -295,6 +343,7 @@
 		CB7411AC1D3484B3002B8FB5 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				848429A41D4498C400855854 /* SR_ActionSheet */,
 				CBE47DF11D4066AD0046C89C /* SR_ForgotPassword */,
 				CBD1D6051D3622B500539056 /* SR_Register */,
 				CBD1D6001D3621B000539056 /* SR_Mine */,
@@ -773,6 +822,7 @@
 				CBE47E111D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m in Sources */,
 				CB74117E1D347B14002B8FB5 /* AppDelegate.m in Sources */,
 				CBE47DF41D4067180046C89C /* SR_ForgotPasswordViewController.m in Sources */,
+				846C6DE01D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m in Sources */,
 				CBD1D6041D3621E100539056 /* SR_MineViewController.m in Sources */,
 				CBAF19081D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.m in Sources */,
 				CBFEA91E1D35FB22007276B6 /* SR_BaseModel.m in Sources */,
@@ -793,6 +843,8 @@
 				CBAF190B1D421C6200DC0997 /* SR_MessageDialogLabel.m in Sources */,
 				84AE3DD41D4366B500643989 /* SR_ScanResultNoneBookViewController.m in Sources */,
 				84AE3DD11D43634E00643989 /* SR_ScanResultHasBookViewController.m in Sources */,
+				846C6DE61D44B1AB00401A35 /* testViewController.m in Sources */,
+				846C6DE91D44C37F00401A35 /* SR_ActionSheetImageView.m in Sources */,
 				CBE47DFA1D407CAE0046C89C /* SR_FoundMainVoiceSelfViewCell.m in Sources */,
 				CBFEA9161D35F6F8007276B6 /* SR_ScanMainViewController.m in Sources */,
 				CBE47DFD1D407DAF0046C89C /* SR_FoundMainImageSelfViewCell.m in Sources */,
@@ -800,12 +852,14 @@
 				CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */,
 				CBE47E0E1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.m in Sources */,
 				CBD1D6131D3636F400539056 /* SR_OthersMineViewCell.m in Sources */,
+				848429A71D44993B00855854 /* SR_ActionSheetTextView.m in Sources */,
 				CB63C7AF1D41F141009D40A4 /* SR_MineMessageListViewCell.m in Sources */,
 				CBD1D61F1D363F0400539056 /* SR_AddBtnView.m in Sources */,
 				CBD1D5FF1D36198A00539056 /* SR_LoginBtn.m in Sources */,
 				CBE47E001D407E930046C89C /* SR_FoundMainTextViewCell.m in Sources */,
 				CBA87BDC1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m in Sources */,
 				CBCF4F871D36958800DD7015 /* SR_FoundMainVoiceViewCell.m in Sources */,
+				846C6DE31D44B06D00401A35 /* SR_ActionSheetImageLayout.m in Sources */,
 				CBE47E181D40BC1C0046C89C /* SR_RecordMainTagButton.m in Sources */,
 				CBCF4F841D367F3500DD7015 /* SR_FoundMainImageViewCell.m in Sources */,
 				CBE47E081D40A1950046C89C /* SR_FoundMainDynamicViewCell.m in Sources */,
