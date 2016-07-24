@@ -11,6 +11,7 @@
 #import "globalHeader.h"
 #import "SR_LoginViewController.h"
 #import "SR_MineMessageListViewController.h"
+#import "PhotoPickerTool.h"
 
 @interface SR_MineViewController ()
 @property(nonatomic,strong)UIButton * headerBtn;
@@ -66,8 +67,11 @@
     headerBtn.center = headerView.center;
     headerBtn.backgroundColor = [UIColor redColor];
     headerBtn.layer.cornerRadius = 46.0;
+    headerBtn.layer.masksToBounds = YES;
+    headerBtn.layer.borderWidth = 2.0;
+    headerBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     self.headerBtn = headerBtn;
-    [headerBtn addTarget:self action:@selector(clickHeaderBtn) forControlEvents:(UIControlEventTouchUpInside)];
+    [headerBtn addTarget:self action:@selector(clickHeaderBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [headerView addSubview:headerBtn];
     return headerView;
 }
@@ -87,8 +91,11 @@
     return footerView;
 }
 
-- (void)clickHeaderBtn{
+- (void)clickHeaderBtn:(UIButton *)btn{
     SSLog(@"header btn");
+    [[PhotoPickerTool sharedPhotoPickerTool] showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceTypeCamera) onViewController:self compled:^(UIImage *image, NSDictionary *editingInfo) {
+        [btn setImage:image forState:(UIControlStateNormal)];
+    }];
 }
 
 - (void)clickLoginOutBtn{
