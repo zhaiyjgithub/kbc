@@ -22,4 +22,10 @@
 @property(nonatomic,strong)NSMutableArray * voices;
 @property(nonatomic,strong)UIButton * sendBtn;
 @property(nonatomic,strong)UITableView * tableView;
+@property(nonatomic,strong)NSTimer * timer;
+@property(nonatomic,strong)UIButton * voiceBtn;
+@property(nonatomic,strong)UIViewController * viewController;
+- (id)initActionSheetWith:(NSString *)title voices:(NSArray *)voices viewController:(UIViewController *)viewController;
+- (void)show;
+- (void)dismiss;
 @end

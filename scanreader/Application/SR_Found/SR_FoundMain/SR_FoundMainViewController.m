@@ -26,7 +26,7 @@
 #import "SR_FoundMainBookClubBookMarkListViewController.h"
 #import "SR_InterPageViewController.h"
 
-#import "SR_ActionSheetImageView.h"
+#import "SR_ActionSheetVoiceView.h"
 
 @interface SR_FoundMainViewController ()<addBtnDelegate,UISearchBarDelegate>
 @property(nonatomic,assign)BOOL isSelectBookClubBtn;
@@ -47,7 +47,7 @@
 - (void)clickSearchItem{
 //    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
 //    [self.navigationController pushViewController:foundVC animated:YES];
-    SR_ActionSheetImageView * iamge = [[SR_ActionSheetImageView alloc] initActionSheetWith:@"标题" images:nil viewController:self];
+    SR_ActionSheetVoiceView * iamge = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:nil voices:nil viewController:self];
     [iamge show];
 }
 
