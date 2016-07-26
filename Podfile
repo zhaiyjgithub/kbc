@@ -20,6 +20,7 @@ target ‘scanreader’ do
   pod 'LKDBHelper'
   pod 'SVProgressHUD'
   pod 'RKNotificationHub'
+  pod 'DDQRCode', '~> 1.0.0'
 end
 
 
