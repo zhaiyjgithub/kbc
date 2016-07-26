@@ -35,7 +35,6 @@
   
     [childVc.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:baseColor,NSForegroundColorAttributeName,nil] forState:(UIControlStateSelected)];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:childVc];
-    
     [self addChildViewController:nav];
 }
 
