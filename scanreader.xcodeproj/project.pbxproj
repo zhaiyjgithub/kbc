@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		846C6DE01D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DDF1D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		846C6DE31D44B06D00401A35 /* SR_ActionSheetImageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DE21D44B06D00401A35 /* SR_ActionSheetImageLayout.m */; settings = {ASSET_TAGS = (); }; };
-		846C6DE91D44C37F00401A35 /* SR_ActionSheetImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DE81D44C37F00401A35 /* SR_ActionSheetImageView.m */; settings = {ASSET_TAGS = (); }; };
-		848429A71D44993B00855854 /* SR_ActionSheetTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848429A61D44993B00855854 /* SR_ActionSheetTextView.m */; settings = {ASSET_TAGS = (); }; };
-		848DD4921D44FBD00061810F /* SR_ActionSheetVoiceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DD4911D44FBD00061810F /* SR_ActionSheetVoiceView.m */; settings = {ASSET_TAGS = (); }; };
-		84AE3DD11D43634E00643989 /* SR_ScanResultHasBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD01D43634E00643989 /* SR_ScanResultHasBookViewController.m */; settings = {ASSET_TAGS = (); }; };
-		84AE3DD41D4366B500643989 /* SR_ScanResultNoneBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD31D4366B500643989 /* SR_ScanResultNoneBookViewController.m */; settings = {ASSET_TAGS = (); }; };
-		84AE3DD71D436E1200643989 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD61D436E1200643989 /* Tools.m */; settings = {ASSET_TAGS = (); }; };
-		84AE3DDC1D436E6400643989 /* PhotoPickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DDA1D436E6400643989 /* PhotoPickerTool.m */; settings = {ASSET_TAGS = (); }; };
+		846C6DE01D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DDF1D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m */; };
+		846C6DE31D44B06D00401A35 /* SR_ActionSheetImageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DE21D44B06D00401A35 /* SR_ActionSheetImageLayout.m */; };
+		846C6DE91D44C37F00401A35 /* SR_ActionSheetImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DE81D44C37F00401A35 /* SR_ActionSheetImageView.m */; };
+		848429A71D44993B00855854 /* SR_ActionSheetTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848429A61D44993B00855854 /* SR_ActionSheetTextView.m */; };
+		848DD4921D44FBD00061810F /* SR_ActionSheetVoiceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DD4911D44FBD00061810F /* SR_ActionSheetVoiceView.m */; };
+		84AE3DD11D43634E00643989 /* SR_ScanResultHasBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD01D43634E00643989 /* SR_ScanResultHasBookViewController.m */; };
+		84AE3DD41D4366B500643989 /* SR_ScanResultNoneBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD31D4366B500643989 /* SR_ScanResultNoneBookViewController.m */; };
+		84AE3DD71D436E1200643989 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD61D436E1200643989 /* Tools.m */; };
+		84AE3DDC1D436E6400643989 /* PhotoPickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DDA1D436E6400643989 /* PhotoPickerTool.m */; };
 		CB0F0C0D1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */; };
 		CB63C7AF1D41F141009D40A4 /* SR_MineMessageListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB63C7AE1D41F141009D40A4 /* SR_MineMessageListViewCell.m */; };
 		CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB719F351D3742CB005F5CFB /* SR_MineMessageListViewController.m */; };
@@ -50,6 +50,7 @@
 		CBE47E111D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E101D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m */; };
 		CBE47E141D40B1170046C89C /* SR_InterPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E131D40B1170046C89C /* SR_InterPageViewController.m */; };
 		CBE47E181D40BC1C0046C89C /* SR_RecordMainTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E171D40BC1C0046C89C /* SR_RecordMainTagButton.m */; };
+		CBEAEFE21D59D98700263D9C /* httpTools.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEAEFE11D59D98700263D9C /* httpTools.m */; };
 		CBFEA9041D35F4F5007276B6 /* SR_TabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9031D35F4F5007276B6 /* SR_TabbarViewController.m */; };
 		CBFEA90A1D35F576007276B6 /* SR_BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9091D35F576007276B6 /* SR_BaseTableViewController.m */; };
 		CBFEA9111D35F691007276B6 /* SR_FoundMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9101D35F691007276B6 /* SR_FoundMainViewController.m */; };
@@ -170,6 +171,8 @@
 		CBE47E131D40B1170046C89C /* SR_InterPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_InterPageViewController.m; path = Application/SR_InterPage/SR_InterPageViewController.m; sourceTree = "<group>"; };
 		CBE47E161D40BC1C0046C89C /* SR_RecordMainTagButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_RecordMainTagButton.h; path = Application/SR_Record/SR_RecordMain/SR_RecordMainTagButton.h; sourceTree = "<group>"; };
 		CBE47E171D40BC1C0046C89C /* SR_RecordMainTagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_RecordMainTagButton.m; path = Application/SR_Record/SR_RecordMain/SR_RecordMainTagButton.m; sourceTree = "<group>"; };
+		CBEAEFE01D59D98700263D9C /* httpTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = httpTools.h; path = Base/Tool/httpTools.h; sourceTree = "<group>"; };
+		CBEAEFE11D59D98700263D9C /* httpTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = httpTools.m; path = Base/Tool/httpTools.m; sourceTree = "<group>"; };
 		CBFEA9021D35F4F5007276B6 /* SR_TabbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_TabbarViewController.h; path = Base/Controller/SR_TabbarViewController.h; sourceTree = "<group>"; };
 		CBFEA9031D35F4F5007276B6 /* SR_TabbarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_TabbarViewController.m; path = Base/Controller/SR_TabbarViewController.m; sourceTree = "<group>"; };
 		CBFEA9081D35F576007276B6 /* SR_BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_BaseTableViewController.h; path = Base/Controller/SR_BaseTableViewController.h; sourceTree = "<group>"; };
@@ -275,6 +278,8 @@
 		84AE3DD81D436E1C00643989 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				CBEAEFE01D59D98700263D9C /* httpTools.h */,
+				CBEAEFE11D59D98700263D9C /* httpTools.m */,
 				84AE3DD91D436E6400643989 /* PhotoPickerTool.h */,
 				84AE3DDA1D436E6400643989 /* PhotoPickerTool.m */,
 				84AE3DDB1D436E6400643989 /* Singleton.h */,
@@ -859,6 +864,7 @@
 				CBFEA9221D35FC15007276B6 /* SR_LoginViewController.m in Sources */,
 				CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */,
 				CBE47E0E1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.m in Sources */,
+				CBEAEFE21D59D98700263D9C /* httpTools.m in Sources */,
 				CBD1D6131D3636F400539056 /* SR_OthersMineViewCell.m in Sources */,
 				848429A71D44993B00855854 /* SR_ActionSheetTextView.m in Sources */,
 				CB63C7AF1D41F141009D40A4 /* SR_MineMessageListViewCell.m in Sources */,
@@ -1012,6 +1018,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = scanreader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1028,6 +1035,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = scanreader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

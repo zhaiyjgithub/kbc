@@ -9,5 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface Tools : NSObject
-
++ (NSString *)hmac:(NSString *)plaintext withKey:(NSString *)key;
++ (NSString *)getRadomCode:(NSInteger)length;
++ (NSString *)appendEqualSign:(NSString *)s;
 @end

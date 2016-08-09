@@ -27,6 +27,7 @@
 #import "SR_InterPageViewController.h"
 
 #import "SR_ActionSheetVoiceView.h"
+#import "httpTools.h"
 
 @interface SR_FoundMainViewController ()<addBtnDelegate,UISearchBarDelegate>
 @property(nonatomic,assign)BOOL isSelectBookClubBtn;
@@ -42,6 +43,17 @@
     UIBarButtonItem * searchItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fx_ss"] style:(UIBarButtonItemStyleDone) target:self action:@selector(clickSearchItem)];
     self.navigationItem.rightBarButtonItems = @[mineItem,searchItem];
 
+//    NSString * url = @"http://54.149.223.94:9000/";
+//    [httpTools get:@"/" andParameters:nil success:^(NSDictionary *dic) {
+//        
+//    } failure:^(NSError *error) {
+//        
+//    }];/api/user/getMobileCode
+    [httpTools post:@"/api/user/getMobileCode" andParameters:@{@"mobile":@"13533212244"} success:^(NSDictionary *dic) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)clickSearchItem{

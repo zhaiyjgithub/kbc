@@ -9,16 +9,22 @@
 #ifndef globalHeader_h
 #define globalHeader_h
 
-#define TEST_SERVER  0  //1 = 测试环境 ||  0 = 正式环境
+#define TEST_SERVER  1  //1 = 测试环境 ||  0 = 正式环境
 
 
 
 #if TEST_SERVER
 ///发包注意先关闭测试环境
-#define BASE_URL            @"http://124.173.68.156:8180/DDCoffee/"
+#define BASE_URL            @"http://www.colortu.com" //测试环境
 #else
-#define BASE_URL            @"http://211.155.18.95:8180/DDCoffee/"
+#define BASE_URL            @"http://www.colortu.com" //正式环境
 #endif
+
+#define TIME_STAMP [NSString stringWithFormat:@"%.f",[[NSDate date] timeIntervalSince1970]*1000]
+
+#define CLIENT_ID           @"ios_we3654e4w"
+#define CLIENT_SECRET       @"Erg33aegwe3654e4wfgerAr20LaeJOo"
+
 
 
 #define kScreenBounds [UIScreen mainScreen].bounds
