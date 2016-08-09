@@ -7,15 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		846C6DE01D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DDF1D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m */; };
-		846C6DE31D44B06D00401A35 /* SR_ActionSheetImageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DE21D44B06D00401A35 /* SR_ActionSheetImageLayout.m */; };
-		846C6DE91D44C37F00401A35 /* SR_ActionSheetImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DE81D44C37F00401A35 /* SR_ActionSheetImageView.m */; };
-		848429A71D44993B00855854 /* SR_ActionSheetTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848429A61D44993B00855854 /* SR_ActionSheetTextView.m */; };
-		848DD4921D44FBD00061810F /* SR_ActionSheetVoiceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DD4911D44FBD00061810F /* SR_ActionSheetVoiceView.m */; };
-		84AE3DD11D43634E00643989 /* SR_ScanResultHasBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD01D43634E00643989 /* SR_ScanResultHasBookViewController.m */; };
-		84AE3DD41D4366B500643989 /* SR_ScanResultNoneBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD31D4366B500643989 /* SR_ScanResultNoneBookViewController.m */; };
-		84AE3DD71D436E1200643989 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD61D436E1200643989 /* Tools.m */; };
-		84AE3DDC1D436E6400643989 /* PhotoPickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DDA1D436E6400643989 /* PhotoPickerTool.m */; };
+		8443ACEA1D46563A00634BC3 /* DDQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8443ACE91D46563A00634BC3 /* DDQRCodeViewController.m */; settings = {ASSET_TAGS = (); }; };
+		846C6DE01D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DDF1D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		846C6DE31D44B06D00401A35 /* SR_ActionSheetImageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DE21D44B06D00401A35 /* SR_ActionSheetImageLayout.m */; settings = {ASSET_TAGS = (); }; };
+		846C6DE91D44C37F00401A35 /* SR_ActionSheetImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DE81D44C37F00401A35 /* SR_ActionSheetImageView.m */; settings = {ASSET_TAGS = (); }; };
+		848429A71D44993B00855854 /* SR_ActionSheetTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848429A61D44993B00855854 /* SR_ActionSheetTextView.m */; settings = {ASSET_TAGS = (); }; };
+		848DD4921D44FBD00061810F /* SR_ActionSheetVoiceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DD4911D44FBD00061810F /* SR_ActionSheetVoiceView.m */; settings = {ASSET_TAGS = (); }; };
+		84AE3DD11D43634E00643989 /* SR_ScanResultHasBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD01D43634E00643989 /* SR_ScanResultHasBookViewController.m */; settings = {ASSET_TAGS = (); }; };
+		84AE3DD41D4366B500643989 /* SR_ScanResultNoneBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD31D4366B500643989 /* SR_ScanResultNoneBookViewController.m */; settings = {ASSET_TAGS = (); }; };
+		84AE3DD71D436E1200643989 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD61D436E1200643989 /* Tools.m */; settings = {ASSET_TAGS = (); }; };
+		84AE3DDC1D436E6400643989 /* PhotoPickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DDA1D436E6400643989 /* PhotoPickerTool.m */; settings = {ASSET_TAGS = (); }; };
 		CB0F0C0D1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */; };
 		CB63C7AF1D41F141009D40A4 /* SR_MineMessageListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB63C7AE1D41F141009D40A4 /* SR_MineMessageListViewCell.m */; };
 		CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB719F351D3742CB005F5CFB /* SR_MineMessageListViewController.m */; };
@@ -81,6 +82,8 @@
 /* Begin PBXFileReference section */
 		0607A39CD5C3930A77C71A15 /* Pods-scanreader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scanreader.release.xcconfig"; path = "Pods/Target Support Files/Pods-scanreader/Pods-scanreader.release.xcconfig"; sourceTree = "<group>"; };
 		4F7A3B784229D292DC0FC5F6 /* libPods-scanreader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-scanreader.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8443ACE81D46563A00634BC3 /* DDQRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDQRCodeViewController.h; path = Application/SR_Scan/SR_Scan/DDQRCodeViewController.h; sourceTree = "<group>"; };
+		8443ACE91D46563A00634BC3 /* DDQRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDQRCodeViewController.m; path = Application/SR_Scan/SR_Scan/DDQRCodeViewController.m; sourceTree = "<group>"; };
 		846C6DDE1D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ActionSheetImageCollectionViewCell.h; path = Application/SR_ActioSheet/SR_ActionSheetImageCollectionViewCell.h; sourceTree = "<group>"; };
 		846C6DDF1D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_ActionSheetImageCollectionViewCell.m; path = Application/SR_ActioSheet/SR_ActionSheetImageCollectionViewCell.m; sourceTree = "<group>"; };
 		846C6DE11D44B06D00401A35 /* SR_ActionSheetImageLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ActionSheetImageLayout.h; path = Application/SR_ActioSheet/SR_ActionSheetImageLayout.h; sourceTree = "<group>"; };
@@ -609,6 +612,8 @@
 		CBFEA9131D35F6BF007276B6 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8443ACE81D46563A00634BC3 /* DDQRCodeViewController.h */,
+				8443ACE91D46563A00634BC3 /* DDQRCodeViewController.m */,
 				CBFEA9141D35F6F8007276B6 /* SR_ScanMainViewController.h */,
 				CBFEA9151D35F6F8007276B6 /* SR_ScanMainViewController.m */,
 			);
@@ -873,6 +878,7 @@
 				CBE47E001D407E930046C89C /* SR_FoundMainTextViewCell.m in Sources */,
 				CBA87BDC1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m in Sources */,
 				CBCF4F871D36958800DD7015 /* SR_FoundMainVoiceViewCell.m in Sources */,
+				8443ACEA1D46563A00634BC3 /* DDQRCodeViewController.m in Sources */,
 				846C6DE31D44B06D00401A35 /* SR_ActionSheetImageLayout.m in Sources */,
 				CBE47E181D40BC1C0046C89C /* SR_RecordMainTagButton.m in Sources */,
 				CBCF4F841D367F3500DD7015 /* SR_FoundMainImageViewCell.m in Sources */,
@@ -965,7 +971,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "3a7a420e-ffec-43f6-9d4b-17272e4bf304";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1004,7 +1010,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "3a7a420e-ffec-43f6-9d4b-17272e4bf304";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
