@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "RequestAPI.h"
 
 @interface httpTools : NSObject
 + (void)post:(NSString *)url

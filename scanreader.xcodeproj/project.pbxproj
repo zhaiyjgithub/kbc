@@ -18,6 +18,7 @@
 		84AE3DD71D436E1200643989 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD61D436E1200643989 /* Tools.m */; };
 		84AE3DDC1D436E6400643989 /* PhotoPickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DDA1D436E6400643989 /* PhotoPickerTool.m */; };
 		CB0F0C0D1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */; };
+		CB2A65FE1D60B26C006F735B /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65FD1D60B26C006F735B /* UserInfo.m */; };
 		CB63C7AF1D41F141009D40A4 /* SR_MineMessageListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB63C7AE1D41F141009D40A4 /* SR_MineMessageListViewCell.m */; };
 		CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB719F351D3742CB005F5CFB /* SR_MineMessageListViewController.m */; };
 		CB74117B1D347B14002B8FB5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74117A1D347B14002B8FB5 /* main.m */; };
@@ -106,6 +107,9 @@
 		BE41DAAFFD8A4D526A8427FD /* Pods-scanreader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scanreader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-scanreader/Pods-scanreader.debug.xcconfig"; sourceTree = "<group>"; };
 		CB0F0C0B1D3DDDD200F60E5C /* SR_MineMessageSendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageSendViewController.h; path = Application/SR_Mine/SR_MineMessageSendViewController.h; sourceTree = "<group>"; };
 		CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageSendViewController.m; path = Application/SR_Mine/SR_MineMessageSendViewController.m; sourceTree = "<group>"; };
+		CB2A65FB1D60AB87006F735B /* requestAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = requestAPI.h; path = scanreader/requestAPI.h; sourceTree = "<group>"; };
+		CB2A65FC1D60B26C006F735B /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfo.h; path = Base/Tool/UserInfo.h; sourceTree = "<group>"; };
+		CB2A65FD1D60B26C006F735B /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Base/Tool/UserInfo.m; sourceTree = "<group>"; };
 		CB63C7AD1D41F141009D40A4 /* SR_MineMessageListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageListViewCell.h; path = Application/SR_Mine/SR_MineMessageListViewCell.h; sourceTree = "<group>"; };
 		CB63C7AE1D41F141009D40A4 /* SR_MineMessageListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageListViewCell.m; path = Application/SR_Mine/SR_MineMessageListViewCell.m; sourceTree = "<group>"; };
 		CB719F341D3742CB005F5CFB /* SR_MineMessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageListViewController.h; path = Application/SR_Mine/SR_MineMessageListViewController.h; sourceTree = "<group>"; };
@@ -288,6 +292,8 @@
 				84AE3DDB1D436E6400643989 /* Singleton.h */,
 				84AE3DD51D436E1200643989 /* Tools.h */,
 				84AE3DD61D436E1200643989 /* Tools.m */,
+				CB2A65FC1D60B26C006F735B /* UserInfo.h */,
+				CB2A65FD1D60B26C006F735B /* UserInfo.m */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -295,6 +301,7 @@
 		CB74116D1D347B13002B8FB5 = {
 			isa = PBXGroup;
 			children = (
+				CB2A65FB1D60AB87006F735B /* requestAPI.h */,
 				CB7411B01D3486B6002B8FB5 /* globalHeader.h */,
 				CB7411851D347B14002B8FB5 /* Assets.xcassets */,
 				CB74117C1D347B14002B8FB5 /* AppDelegate.h */,
@@ -857,6 +864,7 @@
 				CBE47E141D40B1170046C89C /* SR_InterPageViewController.m in Sources */,
 				CBD1D6191D363AC700539056 /* SR_OthersMineViewController.m in Sources */,
 				CBE47E031D407F200046C89C /* SR_FoundMainTextSelfViewCell.m in Sources */,
+				CB2A65FE1D60B26C006F735B /* UserInfo.m in Sources */,
 				CBCF4F8A1D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m in Sources */,
 				CBAF190B1D421C6200DC0997 /* SR_MessageDialogLabel.m in Sources */,
 				84AE3DD41D4366B500643989 /* SR_ScanResultNoneBookViewController.m in Sources */,

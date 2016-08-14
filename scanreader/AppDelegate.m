@@ -12,7 +12,10 @@
 #import "WeiboSDK.h"
 #import "SR_TabbarViewController.h"
 #import "SR_LoginViewController.h"
-
+#import "httpTools.h"
+#import "SVProgressHUD.h"
+#import "UserInfo.h"
+#import "globalHeader.h"
 @interface AppDelegate ()
 
 @end
@@ -22,10 +25,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
-    SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
-    self.window.rootViewController = loginVC;
-   // self.window.rootViewController = [[SR_TabbarViewController alloc] init];;
     [self.window makeKeyAndVisible];
+
+    NSString * phoneNumber = [UserInfo getUserPhoneNumber];
+    NSString * password = [UserInfo getUserPassword];
+    if (!phoneNumber || !password) {
+        SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
+        self.window.rootViewController = loginVC;
+    }else{
+        self.window.rootViewController = [[SR_TabbarViewController alloc] init];
+    }
     [self setNavigationBarStyle];
     
     [ShareSDK registerApp:@"14cd112af4f4c"

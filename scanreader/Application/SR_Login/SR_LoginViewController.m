@@ -12,6 +12,9 @@
 #import "SR_RegisterViewController.h"
 #import "SR_TabbarViewController.h"
 #import "SR_ForgotPasswordViewController.h"
+#import "httpTools.h"
+#import "SVProgressHUD.h"
+#import "UserInfo.h"
 
 @interface SR_LoginViewController()<UITextFieldDelegate>
 @property(nonatomic,strong)UIView * loginBgView;
@@ -156,8 +159,35 @@
 }
 
 - (void)clickLoginBtn{
-    SSLog(@"login");
-    [UIApplication sharedApplication].keyWindow.rootViewController = [[SR_TabbarViewController alloc] init];
+    if (self.phoneTextField.text.length != 11) {
+        [SVProgressHUD showErrorWithStatus:@"手机号码错误"];
+        return;
+    }
+    
+    if (!self.passwordTextField.text.length) {
+        [SVProgressHUD showErrorWithStatus:@"密码不能为空"];
+        return;
+    }
+    
+    NSDictionary * param = @{@"username":self.phoneTextField.text,@"password":self.passwordTextField.text};
+    [httpTools post:LOGIN andParameters:param success:^(NSDictionary *dic) {
+        SSLog(@"login:%@",dic);
+        if ([dic[@"status"] isEqualToString:@"1"]) {
+            NSDictionary * userDic = dic[@"data"][@"user"];
+            [UserInfo saveUserAvatarWith:userDic[@"avatar"]];
+            [UserInfo saveUserIDWith:userDic[@"id"]];
+            [UserInfo saveUserTokenWith:dic[@"data"][@"user_token"]];
+            [UserInfo saveUserNameWith:userDic[@"username"]];
+            [UserInfo saveUserPhoneNumberWith:self.phoneTextField.text];
+            [UserInfo saveUserPasswordWith:self.passwordTextField.text];
+
+            [UIApplication sharedApplication].keyWindow.rootViewController = [[SR_TabbarViewController alloc] init];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+    
+    
 }
 
 - (void)clickOtherLoginBtn:(UIButton *)btn{
@@ -165,15 +195,15 @@
 }
 
 - (void)clickBottomBtn:(UIButton *)btn{
-    SSLog(@"btn tag:%d",btn.tag);
     if (btn.tag == 100) {
-        SR_RegisterViewController * resterVC = [[SR_RegisterViewController alloc] init];
-        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:resterVC];
-        [self presentViewController:nav animated:YES completion:nil];
-    }else{
         SR_ForgotPasswordViewController * forgotVC = [[SR_ForgotPasswordViewController alloc] init];
         UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:forgotVC];
         [self presentViewController:nav animated:YES completion:nil];
+    }else{
+        SR_RegisterViewController * resterVC = [[SR_RegisterViewController alloc] init];
+        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:resterVC];
+        [self presentViewController:nav animated:YES completion:nil];
+
     }
 }
 

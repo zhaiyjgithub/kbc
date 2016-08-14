@@ -45,10 +45,21 @@
     [sessionManager POST:url parameters:requestParam progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if ([responseObject[@"status"] isEqualToString:@"1"]) {
-            success(responseObject);
+        if ([responseObject isKindOfClass:[NSString class]]) {
+            NSDictionary * dic = [Tools dictionaryWithJsonString:responseObject];
+            if ([dic[@"status"] isEqualToString:@"1"]) {
+                success(responseObject);
+            }else{
+                [SVProgressHUD showInfoWithStatus:@"msg"];
+            }
+        }else if([responseObject isKindOfClass:[NSDictionary class]]){
+            if ([responseObject[@"status"] isEqualToString:@"1"]) {
+                success(responseObject);
+            }else{
+                [SVProgressHUD showInfoWithStatus:@"msg"];
+            }
         }else{
-            [SVProgressHUD showInfoWithStatus:@"msg"];
+            [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"后台返回格式错误:%@",url]];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
        // SSLog(@"error:%@",error);
@@ -70,5 +81,7 @@
         NSLog(@"%@",error);  //这里打印错误信息
     }];
 }
+
+
 
 @end

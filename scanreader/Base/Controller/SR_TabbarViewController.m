@@ -11,6 +11,11 @@
 #import "SR_RecorMainViewController.h"
 #import "DDQRCodeViewController.h"
 #import "globalHeader.h"
+#import "httpTools.h"
+#import "SVProgressHUD.h"
+#import "UserInfo.h"
+#import "globalHeader.h"
+#import "SR_LoginViewController.h"
 
 @implementation SR_TabbarViewController
 
@@ -18,6 +23,8 @@
     [super view];
     [self setupAllChildViewControllers];
 }
+
+
 
 - (void)setupAllChildViewControllers{
     SR_FoundMainViewController * foundVC = [[SR_FoundMainViewController alloc] init];

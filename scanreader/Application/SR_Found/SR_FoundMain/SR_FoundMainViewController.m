@@ -30,7 +30,9 @@
 #import "httpTools.h"
 #import <SVProgressHUD.h>
 #import <MBProgressHUD.h>
-@interface SR_FoundMainViewController ()<addBtnDelegate,UISearchBarDelegate>
+#import "UserInfo.h"
+
+@interface SR_FoundMainViewController ()<addBtnDelegate,UISearchBarDelegate,UIAlertViewDelegate>
 @property(nonatomic,assign)BOOL isSelectBookClubBtn;
 @end
 
@@ -43,14 +45,8 @@
     UIBarButtonItem * mineItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fx_twoman"] style:(UIBarButtonItemStyleDone) target:self action:@selector(clickMineItem)];
     UIBarButtonItem * searchItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fx_ss"] style:(UIBarButtonItemStyleDone) target:self action:@selector(clickSearchItem)];
     self.navigationItem.rightBarButtonItems = @[mineItem,searchItem];
-
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    [httpTools post:@"/api/user/getMobileCode" andParameters:@{@"mobile":@"13533212244"} success:^(NSDictionary *dic) {
-        [hud hideAnimated:YES];
-        SSLog(@"res:%@",dic);
-    } failure:^(NSError *error) {
-        [hud hideAnimated:YES];
-    }];
+ 
+    [self relogin];
 }
 
 - (void)clickSearchItem{
@@ -259,5 +255,32 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     SSLog(@"search text:%@",searchText);
 }
+
+- (void)relogin{
+    NSString * phoneNumber = [UserInfo getUserPhoneNumber];
+    NSString * password = [UserInfo getUserPassword];
+    
+    NSDictionary * param = @{@"username":phoneNumber,@"password":password};
+    [httpTools post:LOGIN andParameters:param success:^(NSDictionary *dic) {
+        SSLog(@"relogin:%@",dic);
+        if ([dic[@"status"] isEqualToString:@"1"]) {
+            NSDictionary * userDic = dic[@"data"][@"user"];
+            [UserInfo saveUserAvatarWith:userDic[@"avatar"]];
+            [UserInfo saveUserIDWith:userDic[@"id"]];
+            [UserInfo saveUserTokenWith:dic[@"data"][@"user_token"]];
+            [UserInfo saveUserNameWith:userDic[@"username"]];
+        }else{//可能是token过期,就需要重新登录
+            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"获取该账号信息失败，请重新登录" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alertView show];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    [UIApplication sharedApplication].keyWindow.rootViewController = [[SR_LoginViewController alloc] init];
+}
+
 
 @end

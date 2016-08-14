@@ -12,4 +12,5 @@
 + (NSString *)hmac:(NSString *)plaintext withKey:(NSString *)key;
 + (NSString *)getRadomCode:(NSInteger)length;
 + (NSString *)appendEqualSign:(NSString *)s;
++ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
 @end

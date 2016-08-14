@@ -9,6 +9,9 @@
 #import "SR_RegisterViewController.h"
 #import "globalHeader.h"
 #import <SVProgressHUD.h>
+#import "MBProgressHUD.h"
+#import "httpTools.h"
+#import "UserInfo.h"
 
 @interface SR_RegisterViewController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UITextField * phoneTextField;
@@ -119,7 +122,23 @@
         [SVProgressHUD showErrorWithStatus:@"验证码不能为空"];
         return;
     }
-    
+    //当前验证码暂时为空
+    NSString * code = @"1234";
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    [httpTools post:REGISTER andParameters:@{@"username":@"谷歌",@"password":self.passwordTextField.text,@"mobile":self.phoneTextField.text,@"code":code} success:^(NSDictionary *dic) {
+        [hud hideAnimated:YES];
+        SSLog(@"REGISTER: %@",dic);
+        //注册成功后，覆盖原来的归档，并创建新的数据库，创建user表
+        NSDictionary * userDic = dic[@"data"][@"user"];
+        [UserInfo saveUserAvatarWith:userDic[@"avatar"]];
+        [UserInfo saveUserIDWith:userDic[@"id"]];
+        [UserInfo saveUserTokenWith:userDic[@"user_token"]];
+        [UserInfo saveUserNameWith:userDic[@"username"]];
+        [UserInfo saveUserPhoneNumberWith:self.phoneTextField.text];
+        [UserInfo saveUserPasswordWith:self.passwordTextField.text];
+    } failure:^(NSError *error) {
+        [hud hideAnimated:YES];
+    }];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
