@@ -20,7 +20,7 @@
 #define BASE_URL            @"http://www.colortu.com" //正式环境
 #endif
 
-#define TIME_STAMP [NSString stringWithFormat:@"%.f",[[NSDate date] timeIntervalSince1970]*1000]
+#define TIME_STAMP [NSString stringWithFormat:@"%.f",[[NSDate date] timeIntervalSince1970]]
 
 #define CLIENT_ID           @"ios_we3654e4w"
 #define CLIENT_SECRET       @"Erg33aegwe3654e4wfgerAr20LaeJOo"

@@ -8,6 +8,8 @@
 
 #import "SR_RegisterViewController.h"
 #import "globalHeader.h"
+#import <SVProgressHUD.h>
+
 @interface SR_RegisterViewController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UITextField * phoneTextField;
 @property(nonatomic,strong)UITextField * passwordTextField;
@@ -87,6 +89,7 @@
     self.registerBtn.backgroundColor = baseColor;
     self.registerBtn.layer.cornerRadius = 29;
     [self.registerBtn setTitle:@"注册" forState:(UIControlStateNormal)];
+    [self.registerBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateHighlighted)];
     [self.registerBtn addTarget:self action:@selector(clickregisterBtn) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:self.registerBtn];
 }
@@ -102,7 +105,21 @@
 }
 
 - (void)clickregisterBtn{
-    SSLog(@"login");
+    if (self.phoneTextField.text.length != 11) {
+        [SVProgressHUD showErrorWithStatus:@"手机号码错误"];
+        return;
+    }
+    
+    if (!self.passwordTextField.text.length) {
+        [SVProgressHUD showErrorWithStatus:@"密码不能为空"];
+        return;
+    }
+    
+    if (!self.checkCodeTextield.text.length) {
+        [SVProgressHUD showErrorWithStatus:@"验证码不能为空"];
+        return;
+    }
+    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

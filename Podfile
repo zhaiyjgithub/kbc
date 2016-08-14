@@ -21,6 +21,7 @@ target ‘scanreader’ do
   pod 'SVProgressHUD'
   pod 'RKNotificationHub'
   pod 'DDQRCode', '~> 1.0.0'
+  pod 'MBProgressHUD', '~> 1.0.0'
 end
 
 

@@ -10,6 +10,7 @@
 #import <AFNetworking.h>
 #import "globalHeader.h"
 #import "Tools.h"
+#import <SVProgressHUD.h>
 @implementation httpTools
 
 + (void)post:(NSString *)url
@@ -24,31 +25,34 @@
     NSString * timeStmp = TIME_STAMP;
     NSString * nonce = [Tools getRadomCode:6];
     NSString * toHash = [NSString stringWithFormat:@"%@%@%@%@",CLIENT_SECRET,timeStmp,nonce,url];
-    NSLog(@"tohash:%@",toHash);
+  //  NSLog(@"加密前签名:%@",toHash);
     NSString * res = [Tools hmac:toHash withKey:CLIENT_SECRET];
-    NSLog(@"res:%@",res);
+  //  NSLog(@"加密后签名:%@",res);
     
     NSData *resData = [res dataUsingEncoding:NSUTF8StringEncoding];
     NSString * signature = [resData base64EncodedStringWithOptions:0];
-    NSLog(@"signature:%@,length:%d",signature,signature.length);
-    signature = [Tools appendEqualSign:signature];
-    NSLog(@"new signature:%@,new length:%d",signature,signature.length);
+ //   NSLog(@"base64签名:%@,length:%d",signature,signature.length);
+//    signature = [Tools appendEqualSign:signature];
+//    NSLog(@"new signature:%@,new length:%d",signature,signature.length);
     NSDictionary * baseParams = @{@"client_id":CLIENT_ID,@"sign":signature,@"timestamp":timeStmp,
                                   @"nonce":nonce};
     NSMutableDictionary * requestParam = [[NSMutableDictionary alloc] init];
     [requestParam addEntriesFromDictionary:baseParams];
     [requestParam addEntriesFromDictionary:parameters];
-    NSLog(@"requeParam:%@",requestParam);
+   // NSLog(@"请求参数:%@",requestParam);
 
     
     [sessionManager POST:url parameters:requestParam progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        SSLog(@"url:%@",task.currentRequest.URL.absoluteString);
-        SSLog(@"res:%@",responseObject);
+        if ([responseObject[@"status"] isEqualToString:@"1"]) {
+            success(responseObject);
+        }else{
+            [SVProgressHUD showInfoWithStatus:@"msg"];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        SSLog(@"url:%@",task.currentRequest.URL.path);
-        SSLog(@"error:%@",error);
+       // SSLog(@"error:%@",error);
+        failure(error);
     }];
 }
 
