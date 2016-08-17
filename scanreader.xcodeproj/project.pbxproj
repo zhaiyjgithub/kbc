@@ -21,6 +21,12 @@
 		CB1659161D63688500E17303 /* SR_BookClubBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1659151D63688500E17303 /* SR_BookClubBookModel.m */; };
 		CB2A65FE1D60B26C006F735B /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65FD1D60B26C006F735B /* UserInfo.m */; };
 		CB42D0AE1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB42D0AD1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m */; };
+		CB42D0B41D6455B1002A75E5 /* VoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB42D0B31D6455B1002A75E5 /* VoiceViewController.m */; };
+		CB42D0B71D645ABC002A75E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB42D0B61D645ABC002A75E5 /* AVFoundation.framework */; };
+		CB42D0C71D645AF8002A75E5 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB42D0BB1D645AF8002A75E5 /* amrFileCodec.mm */; };
+		CB42D0C81D645AF8002A75E5 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB42D0BD1D645AF8002A75E5 /* libopencore-amrnb.a */; };
+		CB42D0C91D645AF8002A75E5 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB42D0BE1D645AF8002A75E5 /* libopencore-amrwb.a */; };
+		CB42D0CA1D645AF8002A75E5 /* VoiceConverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB42D0C61D645AF8002A75E5 /* VoiceConverter.mm */; };
 		CB63C7AF1D41F141009D40A4 /* SR_MineMessageListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB63C7AE1D41F141009D40A4 /* SR_MineMessageListViewCell.m */; };
 		CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB719F351D3742CB005F5CFB /* SR_MineMessageListViewController.m */; };
 		CB74117B1D347B14002B8FB5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74117A1D347B14002B8FB5 /* main.m */; };
@@ -116,6 +122,19 @@
 		CB2A65FD1D60B26C006F735B /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Base/Tool/UserInfo.m; sourceTree = "<group>"; };
 		CB42D0AC1D640BFC002A75E5 /* SR_BookClubBookNoteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_BookClubBookNoteModel.h; path = Application/SR_Found/SR_FoundMain/SR_BookClubBookNoteModel.h; sourceTree = "<group>"; };
 		CB42D0AD1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_BookClubBookNoteModel.m; path = Application/SR_Found/SR_FoundMain/SR_BookClubBookNoteModel.m; sourceTree = "<group>"; };
+		CB42D0B21D6455B1002A75E5 /* VoiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VoiceViewController.h; path = Application/SR_Found/SR_FoundMain/VoiceViewController.h; sourceTree = "<group>"; };
+		CB42D0B31D6455B1002A75E5 /* VoiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VoiceViewController.m; path = Application/SR_Found/SR_FoundMain/VoiceViewController.m; sourceTree = "<group>"; };
+		CB42D0B61D645ABC002A75E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		CB42D0BA1D645AF8002A75E5 /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
+		CB42D0BB1D645AF8002A75E5 /* amrFileCodec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = amrFileCodec.mm; sourceTree = "<group>"; };
+		CB42D0BD1D645AF8002A75E5 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
+		CB42D0BE1D645AF8002A75E5 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
+		CB42D0C01D645AF8002A75E5 /* interf_dec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_dec.h; sourceTree = "<group>"; };
+		CB42D0C11D645AF8002A75E5 /* interf_enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_enc.h; sourceTree = "<group>"; };
+		CB42D0C31D645AF8002A75E5 /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
+		CB42D0C41D645AF8002A75E5 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
+		CB42D0C51D645AF8002A75E5 /* VoiceConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceConverter.h; sourceTree = "<group>"; };
+		CB42D0C61D645AF8002A75E5 /* VoiceConverter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VoiceConverter.mm; sourceTree = "<group>"; };
 		CB63C7AD1D41F141009D40A4 /* SR_MineMessageListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageListViewCell.h; path = Application/SR_Mine/SR_MineMessageListViewCell.h; sourceTree = "<group>"; };
 		CB63C7AE1D41F141009D40A4 /* SR_MineMessageListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageListViewCell.m; path = Application/SR_Mine/SR_MineMessageListViewCell.m; sourceTree = "<group>"; };
 		CB719F341D3742CB005F5CFB /* SR_MineMessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageListViewController.h; path = Application/SR_Mine/SR_MineMessageListViewController.h; sourceTree = "<group>"; };
@@ -207,6 +226,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB42D0B71D645ABC002A75E5 /* AVFoundation.framework in Frameworks */,
+				CB42D0C81D645AF8002A75E5 /* libopencore-amrnb.a in Frameworks */,
+				CB42D0C91D645AF8002A75E5 /* libopencore-amrwb.a in Frameworks */,
 				E5BAE1CCCB7B6A4103D606F2 /* libPods-scanreader.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,6 +253,7 @@
 		81FA230C74050FFCF49D3A2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB42D0B61D645ABC002A75E5 /* AVFoundation.framework */,
 				4F7A3B784229D292DC0FC5F6 /* libPods-scanreader.a */,
 			);
 			name = Frameworks;
@@ -302,6 +325,64 @@
 				CB2A65FD1D60B26C006F735B /* UserInfo.m */,
 			);
 			name = Tools;
+			sourceTree = "<group>";
+		};
+		CB42D0B51D645A96002A75E5 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				CB42D0B81D645AF8002A75E5 /* VoiceConvert */,
+			);
+			name = Lib;
+			sourceTree = "<group>";
+		};
+		CB42D0B81D645AF8002A75E5 /* VoiceConvert */ = {
+			isa = PBXGroup;
+			children = (
+				CB42D0B91D645AF8002A75E5 /* amrwapper */,
+				CB42D0BC1D645AF8002A75E5 /* lib */,
+				CB42D0BF1D645AF8002A75E5 /* opencore-amrnb */,
+				CB42D0C21D645AF8002A75E5 /* opencore-amrwb */,
+				CB42D0C51D645AF8002A75E5 /* VoiceConverter.h */,
+				CB42D0C61D645AF8002A75E5 /* VoiceConverter.mm */,
+			);
+			name = VoiceConvert;
+			path = Base/Lib/VoiceConvert;
+			sourceTree = "<group>";
+		};
+		CB42D0B91D645AF8002A75E5 /* amrwapper */ = {
+			isa = PBXGroup;
+			children = (
+				CB42D0BA1D645AF8002A75E5 /* amrFileCodec.h */,
+				CB42D0BB1D645AF8002A75E5 /* amrFileCodec.mm */,
+			);
+			path = amrwapper;
+			sourceTree = "<group>";
+		};
+		CB42D0BC1D645AF8002A75E5 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				CB42D0BD1D645AF8002A75E5 /* libopencore-amrnb.a */,
+				CB42D0BE1D645AF8002A75E5 /* libopencore-amrwb.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		CB42D0BF1D645AF8002A75E5 /* opencore-amrnb */ = {
+			isa = PBXGroup;
+			children = (
+				CB42D0C01D645AF8002A75E5 /* interf_dec.h */,
+				CB42D0C11D645AF8002A75E5 /* interf_enc.h */,
+			);
+			path = "opencore-amrnb";
+			sourceTree = "<group>";
+		};
+		CB42D0C21D645AF8002A75E5 /* opencore-amrwb */ = {
+			isa = PBXGroup;
+			children = (
+				CB42D0C31D645AF8002A75E5 /* dec_if.h */,
+				CB42D0C41D645AF8002A75E5 /* if_rom.h */,
+			);
+			path = "opencore-amrwb";
 			sourceTree = "<group>";
 		};
 		CB74116D1D347B13002B8FB5 = {
@@ -388,6 +469,7 @@
 		CB7411AE1D3484CF002B8FB5 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				CB42D0B51D645A96002A75E5 /* Lib */,
 				84AE3DD81D436E1C00643989 /* Tools */,
 				CBFEA9011D35ECC0007276B6 /* Model */,
 				CBFEA9001D35ECB7007276B6 /* View */,
@@ -594,6 +676,8 @@
 				CBA87BDB1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m */,
 				CBE47E121D40B1170046C89C /* SR_InterPageViewController.h */,
 				CBE47E131D40B1170046C89C /* SR_InterPageViewController.m */,
+				CB42D0B21D6455B1002A75E5 /* VoiceViewController.h */,
+				CB42D0B31D6455B1002A75E5 /* VoiceViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -875,6 +959,8 @@
 				CBE47E141D40B1170046C89C /* SR_InterPageViewController.m in Sources */,
 				CB42D0AE1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m in Sources */,
 				CBD1D6191D363AC700539056 /* SR_OthersMineViewController.m in Sources */,
+				CB42D0CA1D645AF8002A75E5 /* VoiceConverter.mm in Sources */,
+				CB42D0B41D6455B1002A75E5 /* VoiceViewController.m in Sources */,
 				CBE47E031D407F200046C89C /* SR_FoundMainTextSelfViewCell.m in Sources */,
 				CB2A65FE1D60B26C006F735B /* UserInfo.m in Sources */,
 				CBCF4F8A1D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m in Sources */,
@@ -884,6 +970,7 @@
 				846C6DE91D44C37F00401A35 /* SR_ActionSheetImageView.m in Sources */,
 				CBE47DFA1D407CAE0046C89C /* SR_FoundMainVoiceSelfViewCell.m in Sources */,
 				CBFEA9161D35F6F8007276B6 /* SR_ScanMainViewController.m in Sources */,
+				CB42D0C71D645AF8002A75E5 /* amrFileCodec.mm in Sources */,
 				CBE47DFD1D407DAF0046C89C /* SR_FoundMainImageSelfViewCell.m in Sources */,
 				848DD4921D44FBD00061810F /* SR_ActionSheetVoiceView.m in Sources */,
 				CBFEA9221D35FC15007276B6 /* SR_LoginViewController.m in Sources */,
@@ -1044,10 +1131,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = scanreader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/scanreader/Base/Lib/VoiceConvert/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jb.scanreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1061,10 +1152,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = scanreader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/scanreader/Base/Lib/VoiceConvert/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jb.scanreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

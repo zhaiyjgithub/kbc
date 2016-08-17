@@ -28,13 +28,13 @@
     [self.window makeKeyAndVisible];
 
     NSString * phoneNumber = [UserInfo getUserPhoneNumber];
-    NSString * password = [UserInfo getUserPassword];
-    if (!phoneNumber || !password) {
-        SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
-        self.window.rootViewController = loginVC;
-    }else{
+//    NSString * password = [UserInfo getUserPassword];
+//    if (!phoneNumber) {
+//        SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
+//        self.window.rootViewController = loginVC;
+//    }else{
         self.window.rootViewController = [[SR_TabbarViewController alloc] init];
-    }
+//    }
     [self setNavigationBarStyle];
     
     [ShareSDK registerApp:@"14cd112af4f4c"

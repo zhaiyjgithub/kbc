@@ -32,6 +32,9 @@
 #import <MBProgressHUD.h>
 #import "UserInfo.h"
 #import "SR_BookClubBookModel.h"
+#import "SR_ActionSheetImageView.h"
+
+#import "VoiceViewController.h"
 
 @interface SR_FoundMainViewController ()<addBtnDelegate,UISearchBarDelegate,UIAlertViewDelegate>
 @property(nonatomic,assign)BOOL isSelectBookClub;
@@ -50,7 +53,7 @@
     self.navigationItem.rightBarButtonItems = @[mineItem,searchItem];
  
     //[self relogin]; //重登陆这个后面再考虑
-    [self getListAll:@"70" page:@"1"];
+//    [self getListAll:@"70" page:@"1"];
  //   [self getBookClubList:@"70" page:@"1"];
     
     
@@ -60,8 +63,15 @@
 //    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
 //    [self.navigationController pushViewController:foundVC animated:YES];
     
-    SR_AddBtnView * btnView = [[SR_AddBtnView alloc] initAlertView];
-    [btnView show];
+//    SR_AddBtnView * btnView = [[SR_AddBtnView alloc] initAlertView];
+//    [btnView show];
+    
+//    SR_ActionSheetImageView * imageView = [[SR_ActionSheetImageView alloc] initActionSheetWith:nil images:nil viewController:self];
+//    [imageView show];
+    
+    VoiceViewController * voiceVC = [[VoiceViewController alloc] init];
+    [self.navigationController pushViewController:voiceVC animated:YES];
+
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
