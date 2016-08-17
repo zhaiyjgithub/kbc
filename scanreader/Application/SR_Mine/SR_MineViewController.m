@@ -103,7 +103,7 @@
 
 - (void)clickLoginOutBtn{
     SSLog(@"login out");
-    NSString * userId = [UserInfo getUserUserId];
+    NSString * userId = [UserInfo getUserId];
     NSString * userToken = [UserInfo getUserToken];
     NSDictionary * param = @{@"user_id":userId,@"user_token":userToken};
     [httpTools post:LOGIN_OUT andParameters:param success:^(NSDictionary *dic) {

@@ -15,6 +15,9 @@
 #define NOTE_TYPE_VOICE @"3"
 #define NOTE_TYPE_COLLECTION @"4"
 
+#define NOTE_MODE_COLLECTION_NOTE @"1"
+#define NOTE_MODE_NOTE @"2"
+#define NOTE_MODE_COLLECTION @"3"
 
 #define USER_ID [UserInfo getUserUserId]
 #define TOKEN [UserInfo getUserToken]

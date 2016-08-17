@@ -29,12 +29,12 @@
 
     NSString * phoneNumber = [UserInfo getUserPhoneNumber];
 //    NSString * password = [UserInfo getUserPassword];
-//    if (!phoneNumber) {
-//        SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
-//        self.window.rootViewController = loginVC;
-//    }else{
+    if (!phoneNumber) {
+        SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
+        self.window.rootViewController = loginVC;
+    }else{
         self.window.rootViewController = [[SR_TabbarViewController alloc] init];
-//    }
+    }
     [self setNavigationBarStyle];
     
     [ShareSDK registerApp:@"14cd112af4f4c"

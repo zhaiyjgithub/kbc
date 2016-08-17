@@ -31,7 +31,7 @@
 
 ///创建笔记
 - (void)clickBtn{
-    NSString * userId = [UserInfo getUserUserId];
+    NSString * userId = [UserInfo getUserId];
     NSString * userToken = [UserInfo getUserToken];
     NSDictionary * param = @{@"title":@"滕王阁序笔记1",@"content":@"俊采星驰",@"book_id":self.bookModel.book_id,@"user_id":userId,@"user_token":userToken,@"type":@"1"};
     [httpTools post:SAVE_NOTE andParameters:param success:^(NSDictionary *dic) {
@@ -82,15 +82,17 @@
 }
 
 - (void)getBookMarkList:(NSString *)limit page:(NSString *)page{
-    NSString * userId = [UserInfo getUserUserId];
+    NSString * userId = [UserInfo getUserId];
     NSDictionary * param = @{@"book_id":self.bookModel.book_id,@"user_id":userId,@"mode":@"2",@"limit":limit,@"page":page};
     [httpTools post:GET_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
         SSLog(@"%@笔记:%@",self.bookModel.title,dic);
         NSArray * list = dic[@"data"][@"list"];
         for (NSDictionary * item in list) {
-            SR_BookClubBookNoteModel * markModel = [SR_BookClubBookNoteModel modelWithDictionary:item];
-            markModel.note_id = item[@"id"];
-            [self.dataSource addObject:markModel];
+            SR_BookClubBookNoteModel * noteModel = [SR_BookClubBookNoteModel modelWithDictionary:item];
+            noteModel.note_id = item[@"id"];
+            noteModel.book.book_id = item[@"book"][@"id"];
+            noteModel.user.user_id = item[@"user"][@"id"];
+            [self.dataSource addObject:noteModel];
         }
         [self.tableView reloadData];
     } failure:^(NSError *error) {

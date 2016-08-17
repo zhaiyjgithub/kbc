@@ -16,7 +16,7 @@
 +(void)saveUserPhoneNumberWith:(NSString *)phoneNumber;
 +(void)saveUserPasswordWith:(NSString *)password;
 +(NSString *)getUserAvatar;
-+(NSString *)getUserUserId;
++(NSString *)getUserId;
 +(NSString *)getUserToken;
 +(NSString *)getUserName;
 +(NSString *)getUserPhoneNumber;

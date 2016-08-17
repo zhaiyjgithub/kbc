@@ -60,7 +60,7 @@
     return string;
 }
 
-+(NSString *)getUserUserId{
++(NSString *)getUserId{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *string = [defaults objectForKey:USER_ID];
     return string;

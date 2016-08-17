@@ -12,9 +12,15 @@
 #import "SR_InterPageViewController.h"
 #import "SR_FoundMainBookClubItemDetailViewController.h"
 #import "SR_RecordMainTagButton.h"
+#import "httpTools.h"
+#import "UserInfo.h"
+#import "SR_BookClubBookNoteModel.h"
 
 @interface SR_RecorMainViewController ()
 @property(nonatomic,assign)NSInteger selectedTagIndex;
+@property(nonatomic,strong)NSMutableArray * noteList;
+@property(nonatomic,strong)NSMutableArray * collectionList;
+@property(nonatomic,strong)NSMutableArray * scanList;
 @end
 
 @implementation SR_RecorMainViewController
@@ -23,14 +29,21 @@
     [super viewDidLoad];
     self.title = @"记录";
     self.selectedTagIndex = 0;
+    [self getListAll:@"70" page:@"1" mode:NOTE_MODE_NOTE];//暂时只获取笔记列表
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    if (self.selectedTagIndex == 0) {
+        return self.noteList.count;
+    }else if (self.selectedTagIndex == 1){
+        return self.scanList.count;
+    }else{
+        return self.collectionList.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -60,6 +73,7 @@
         if (!cell) {
             cell = [[SR_FoundMainTextViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
         }
+        cell.noteModel = self.noteList[indexPath.row];
         [cell addBlock:^{
             SSLog(@"click header btn");
         }];
@@ -140,5 +154,51 @@
     self.selectedTagIndex = btn.tag;
     [self.tableView reloadData];
 }
+
+- (void)getListAll:(NSString *)limit page:(NSString *)page mode:(NSString *)mode{
+    NSString * userId = [UserInfo getUserId];
+    NSDictionary * param = @{@"user_id":userId,@"limit":limit,@"page":page,@"mode":mode};
+    [httpTools post:GET_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
+       // SSLog(@"get lsit all:%@",dic);
+         NSArray * list = dic[@"data"][@"list"];
+        for (NSDictionary * item in list) {
+            SR_BookClubBookNoteModel * noteModel = [SR_BookClubBookNoteModel modelWithDictionary:item];
+            noteModel.note_id = item[@"id"];
+            noteModel.book.book_id = item[@"book"][@"id"];
+            noteModel.user.user_id = item[@"user"][@"id"];
+            if ([mode isEqualToString:NOTE_MODE_COLLECTION]) {//请求收藏列表
+                [self.collectionList addObject:noteModel];
+            }else if ([mode isEqualToString:NOTE_MODE_NOTE]){//请求笔记列表
+                [self.noteList addObject:noteModel];
+            }
+        }
+        [self.tableView reloadData];
+        //区分不同类型的笔记进行不同model的转换
+    } failure:^(NSError *error) {
+        SSLog(@"error:%@",error);
+    }];
+}
+
+- (NSMutableArray *)noteList{
+    if (!_noteList) {
+        _noteList = [[NSMutableArray alloc] init];
+    }
+    return _noteList;
+}
+
+- (NSMutableArray *)collectionList{
+    if (!_collectionList) {
+        _collectionList = [[NSMutableArray alloc] init];
+    }
+    return _collectionList;
+}
+
+- (NSMutableArray *)scanList{
+    if (!_scanList) {
+        _scanList = [[NSMutableArray alloc] init];
+    }
+    return _scanList;
+}
+
 
 @end

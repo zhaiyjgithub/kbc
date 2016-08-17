@@ -54,7 +54,7 @@
  
     //[self relogin]; //重登陆这个后面再考虑
 //    [self getListAll:@"70" page:@"1"];
- //   [self getBookClubList:@"70" page:@"1"];
+    [self getBookClubList:@"70" page:@"1"];
     
     
 }
@@ -247,7 +247,7 @@
             [headerView addSubview:btn];
         }
         
-        UIView * lineView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2, notiLabel.frame.size.height + notiLabel.frame.origin.y + 2, 1, 40)];
+        UIView * lineView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2, notiLabel.frame.size.height + notiLabel.frame.origin.y + 2, 0.5, 40)];
         lineView.backgroundColor = [UIColor lightGrayColor];
         [headerView addSubview:lineView];
         
@@ -304,7 +304,8 @@
 
 ///获取笔记以及收藏列表,这个列表就是动态的列表
 - (void)getListAll:(NSString *)limit page:(NSString *)page{
-    NSDictionary * param = @{@"limit":limit,@"page":page};
+    NSString * userId = [UserInfo getUserId];
+    NSDictionary * param = @{@"user_id":userId,@"limit":limit,@"page":page,@"mode":@"2"};
     [httpTools post:GET_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
         SSLog(@"get lsit all:%@",dic);
        // NSArray * list = dic[@"data"][@"list"];

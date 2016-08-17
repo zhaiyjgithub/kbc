@@ -88,7 +88,7 @@
     
 }
 
-- (void)setnoteModel:(SR_BookClubBookNoteModel *)noteModel{
+- (void)setNoteModel:(SR_BookClubBookNoteModel *)noteModel{
     _noteModel = noteModel;
     self.titleLabel.text = noteModel.title;
     self.timeLabel.text = noteModel.time_create;
