@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SR_BookClubBookNoteModel.h"
 
 typedef void(^foundMainVoiceViewCellBlock)(void);
 typedef void(^foundMainVoiceViewCellInterBlock)(void);
@@ -20,6 +21,8 @@ typedef void(^foundMainVoiceViewCellInterBlock)(void);
 @property(nonatomic,strong)UILabel * messageLabel;
 @property(nonatomic,strong)UILabel * bookFriendsLabel;
 @property(nonatomic,strong)UIButton * headerBtn;
+@property(nonatomic,strong)SR_BookClubBookNoteModel * noteModel;
+
 @property(nonatomic,strong)foundMainVoiceViewCellBlock block;
 @property(nonatomic,strong)foundMainVoiceViewCellInterBlock interBlock;
 - (void)addBlock:(foundMainVoiceViewCellBlock)block;

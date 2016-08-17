@@ -18,7 +18,9 @@
 		84AE3DD71D436E1200643989 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD61D436E1200643989 /* Tools.m */; };
 		84AE3DDC1D436E6400643989 /* PhotoPickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DDA1D436E6400643989 /* PhotoPickerTool.m */; };
 		CB0F0C0D1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */; };
+		CB1659161D63688500E17303 /* SR_BookClubBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1659151D63688500E17303 /* SR_BookClubBookModel.m */; };
 		CB2A65FE1D60B26C006F735B /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65FD1D60B26C006F735B /* UserInfo.m */; };
+		CB42D0AE1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB42D0AD1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m */; };
 		CB63C7AF1D41F141009D40A4 /* SR_MineMessageListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB63C7AE1D41F141009D40A4 /* SR_MineMessageListViewCell.m */; };
 		CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB719F351D3742CB005F5CFB /* SR_MineMessageListViewController.m */; };
 		CB74117B1D347B14002B8FB5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74117A1D347B14002B8FB5 /* main.m */; };
@@ -48,7 +50,7 @@
 		CBE47E001D407E930046C89C /* SR_FoundMainTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47DFF1D407E930046C89C /* SR_FoundMainTextViewCell.m */; };
 		CBE47E031D407F200046C89C /* SR_FoundMainTextSelfViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E021D407F200046C89C /* SR_FoundMainTextSelfViewCell.m */; };
 		CBE47E081D40A1950046C89C /* SR_FoundMainDynamicViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E071D40A1950046C89C /* SR_FoundMainDynamicViewCell.m */; };
-		CBE47E0E1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E0D1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.m */; };
+		CBE47E0E1D40A79F0046C89C /* SR_FoundMainBookClubBookNoteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E0D1D40A79F0046C89C /* SR_FoundMainBookClubBookNoteListViewController.m */; };
 		CBE47E111D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E101D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m */; };
 		CBE47E141D40B1170046C89C /* SR_InterPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E131D40B1170046C89C /* SR_InterPageViewController.m */; };
 		CBE47E181D40BC1C0046C89C /* SR_RecordMainTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E171D40BC1C0046C89C /* SR_RecordMainTagButton.m */; };
@@ -107,9 +109,13 @@
 		BE41DAAFFD8A4D526A8427FD /* Pods-scanreader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scanreader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-scanreader/Pods-scanreader.debug.xcconfig"; sourceTree = "<group>"; };
 		CB0F0C0B1D3DDDD200F60E5C /* SR_MineMessageSendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageSendViewController.h; path = Application/SR_Mine/SR_MineMessageSendViewController.h; sourceTree = "<group>"; };
 		CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageSendViewController.m; path = Application/SR_Mine/SR_MineMessageSendViewController.m; sourceTree = "<group>"; };
+		CB1659141D63688500E17303 /* SR_BookClubBookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_BookClubBookModel.h; path = Application/SR_Found/SR_FoundMain/SR_BookClubBookModel.h; sourceTree = "<group>"; };
+		CB1659151D63688500E17303 /* SR_BookClubBookModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_BookClubBookModel.m; path = Application/SR_Found/SR_FoundMain/SR_BookClubBookModel.m; sourceTree = "<group>"; };
 		CB2A65FB1D60AB87006F735B /* requestAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = requestAPI.h; path = scanreader/requestAPI.h; sourceTree = "<group>"; };
 		CB2A65FC1D60B26C006F735B /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfo.h; path = Base/Tool/UserInfo.h; sourceTree = "<group>"; };
 		CB2A65FD1D60B26C006F735B /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Base/Tool/UserInfo.m; sourceTree = "<group>"; };
+		CB42D0AC1D640BFC002A75E5 /* SR_BookClubBookNoteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_BookClubBookNoteModel.h; path = Application/SR_Found/SR_FoundMain/SR_BookClubBookNoteModel.h; sourceTree = "<group>"; };
+		CB42D0AD1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_BookClubBookNoteModel.m; path = Application/SR_Found/SR_FoundMain/SR_BookClubBookNoteModel.m; sourceTree = "<group>"; };
 		CB63C7AD1D41F141009D40A4 /* SR_MineMessageListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageListViewCell.h; path = Application/SR_Mine/SR_MineMessageListViewCell.h; sourceTree = "<group>"; };
 		CB63C7AE1D41F141009D40A4 /* SR_MineMessageListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageListViewCell.m; path = Application/SR_Mine/SR_MineMessageListViewCell.m; sourceTree = "<group>"; };
 		CB719F341D3742CB005F5CFB /* SR_MineMessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageListViewController.h; path = Application/SR_Mine/SR_MineMessageListViewController.h; sourceTree = "<group>"; };
@@ -170,8 +176,8 @@
 		CBE47E021D407F200046C89C /* SR_FoundMainTextSelfViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainTextSelfViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainTextSelfViewCell.m; sourceTree = "<group>"; };
 		CBE47E061D40A1950046C89C /* SR_FoundMainDynamicViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainDynamicViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainDynamicViewCell.h; sourceTree = "<group>"; };
 		CBE47E071D40A1950046C89C /* SR_FoundMainDynamicViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainDynamicViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainDynamicViewCell.m; sourceTree = "<group>"; };
-		CBE47E0C1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainBookClubBookMarkListViewController.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainBookClubBookMarkListViewController.h; sourceTree = "<group>"; };
-		CBE47E0D1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainBookClubBookMarkListViewController.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainBookClubBookMarkListViewController.m; sourceTree = "<group>"; };
+		CBE47E0C1D40A79F0046C89C /* SR_FoundMainBookClubBookNoteListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainBookClubBookNoteListViewController.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainBookClubBookNoteListViewController.h; sourceTree = "<group>"; };
+		CBE47E0D1D40A79F0046C89C /* SR_FoundMainBookClubBookNoteListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainBookClubBookNoteListViewController.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainBookClubBookNoteListViewController.m; sourceTree = "<group>"; };
 		CBE47E0F1D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainBookClubItemDetailViewController.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainBookClubItemDetailViewController.h; sourceTree = "<group>"; };
 		CBE47E101D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainBookClubItemDetailViewController.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainBookClubItemDetailViewController.m; sourceTree = "<group>"; };
 		CBE47E121D40B1170046C89C /* SR_InterPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_InterPageViewController.h; path = Application/SR_InterPage/SR_InterPageViewController.h; sourceTree = "<group>"; };
@@ -486,22 +492,22 @@
 			name = BookClub;
 			sourceTree = "<group>";
 		};
-		CBE47E091D40A73D0046C89C /* Dynamic */ = {
+		CBE47E091D40A73D0046C89C /* Dynamic(动态信息) */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = Dynamic;
+			name = "Dynamic(动态信息)";
 			sourceTree = "<group>";
 		};
-		CBE47E0A1D40A7440046C89C /* BookClub */ = {
+		CBE47E0A1D40A7440046C89C /* BookClub(读书会) */ = {
 			isa = PBXGroup;
 			children = (
-				CBE47E0C1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.h */,
-				CBE47E0D1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.m */,
+				CBE47E0C1D40A79F0046C89C /* SR_FoundMainBookClubBookNoteListViewController.h */,
+				CBE47E0D1D40A79F0046C89C /* SR_FoundMainBookClubBookNoteListViewController.m */,
 				CBE47E0F1D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.h */,
 				CBE47E101D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m */,
 			);
-			name = BookClub;
+			name = "BookClub(读书会)";
 			sourceTree = "<group>";
 		};
 		CBE47E151D40BBF80046C89C /* View */ = {
@@ -580,8 +586,8 @@
 		CBFEA90C1D35F631007276B6 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				CBE47E0A1D40A7440046C89C /* BookClub */,
-				CBE47E091D40A73D0046C89C /* Dynamic */,
+				CBE47E0A1D40A7440046C89C /* BookClub(读书会) */,
+				CBE47E091D40A73D0046C89C /* Dynamic(动态信息) */,
 				CBFEA90F1D35F691007276B6 /* SR_FoundMainViewController.h */,
 				CBFEA9101D35F691007276B6 /* SR_FoundMainViewController.m */,
 				CBA87BDA1D3C73ED006C0648 /* SR_FoundSearchTableViewController.h */,
@@ -604,6 +610,10 @@
 		CBFEA90E1D35F641007276B6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CB1659141D63688500E17303 /* SR_BookClubBookModel.h */,
+				CB1659151D63688500E17303 /* SR_BookClubBookModel.m */,
+				CB42D0AC1D640BFC002A75E5 /* SR_BookClubBookNoteModel.h */,
+				CB42D0AD1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -844,6 +854,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB1659161D63688500E17303 /* SR_BookClubBookModel.m in Sources */,
 				CBE47E111D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m in Sources */,
 				CB74117E1D347B14002B8FB5 /* AppDelegate.m in Sources */,
 				CBE47DF41D4067180046C89C /* SR_ForgotPasswordViewController.m in Sources */,
@@ -862,6 +873,7 @@
 				CBD1D6091D3622E500539056 /* SR_RegisterViewController.m in Sources */,
 				CBE47DF71D406F190046C89C /* SR_FoundInterBtn.m in Sources */,
 				CBE47E141D40B1170046C89C /* SR_InterPageViewController.m in Sources */,
+				CB42D0AE1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m in Sources */,
 				CBD1D6191D363AC700539056 /* SR_OthersMineViewController.m in Sources */,
 				CBE47E031D407F200046C89C /* SR_FoundMainTextSelfViewCell.m in Sources */,
 				CB2A65FE1D60B26C006F735B /* UserInfo.m in Sources */,
@@ -876,7 +888,7 @@
 				848DD4921D44FBD00061810F /* SR_ActionSheetVoiceView.m in Sources */,
 				CBFEA9221D35FC15007276B6 /* SR_LoginViewController.m in Sources */,
 				CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */,
-				CBE47E0E1D40A79F0046C89C /* SR_FoundMainBookClubBookMarkListViewController.m in Sources */,
+				CBE47E0E1D40A79F0046C89C /* SR_FoundMainBookClubBookNoteListViewController.m in Sources */,
 				CBEAEFE21D59D98700263D9C /* httpTools.m in Sources */,
 				CBD1D6131D3636F400539056 /* SR_OthersMineViewCell.m in Sources */,
 				848429A71D44993B00855854 /* SR_ActionSheetTextView.m in Sources */,

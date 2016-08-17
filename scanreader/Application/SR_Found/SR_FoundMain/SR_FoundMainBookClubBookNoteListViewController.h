@@ -7,7 +7,7 @@
 //
 
 #import "SR_BaseTableViewController.h"
-
-@interface SR_FoundMainBookClubBookMarkListViewController : SR_BaseTableViewController
-
+#import "SR_BookClubBookModel.h"
+@interface SR_FoundMainBookClubBookNoteListViewController : SR_BaseTableViewController
+@property(nonatomic,strong)SR_BookClubBookModel * bookModel;
 @end

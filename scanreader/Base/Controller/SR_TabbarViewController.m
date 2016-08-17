@@ -20,11 +20,9 @@
 @implementation SR_TabbarViewController
 
 - (void)viewDidLoad{
-    [super view];
+    [super viewDidLoad];
     [self setupAllChildViewControllers];
 }
-
-
 
 - (void)setupAllChildViewControllers{
     SR_FoundMainViewController * foundVC = [[SR_FoundMainViewController alloc] init];
@@ -41,6 +39,7 @@
     childVc.tabBarItem.selectedImage = [[UIImage imageNamed:selectImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
   
     [childVc.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:baseColor,NSForegroundColorAttributeName,nil] forState:(UIControlStateSelected)];
+    
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:childVc];
     [self addChildViewController:nav];
 }

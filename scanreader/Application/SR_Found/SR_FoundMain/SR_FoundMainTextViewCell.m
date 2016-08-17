@@ -37,7 +37,7 @@
     self.bodyTextLabel = [[UILabel alloc] init];
     self.bodyTextLabel.frame = CGRectMake(18, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 8, kScreenWidth - 30 - 10 - 48, 39);
     self.bodyTextLabel.backgroundColor = [UIColor whiteColor];
-    self.bodyTextLabel.text = @"因为 iOS 的音频资源被设计为单例资源，所以如果在 player 中做的任何修改，对外都可能造成影响，并且带来不能预估的各种问题。";
+    self.bodyTextLabel.text = @"content...";
     self.bodyTextLabel.numberOfLines = 0;
     self.bodyTextLabel.textColor = [UIColor lightGrayColor];
     self.bodyTextLabel.font = [UIFont systemFontOfSize:14.0];
@@ -86,6 +86,16 @@
     [self.headerBtn addTarget:self action:@selector(clickHeaderBtn) forControlEvents:(UIControlEventTouchUpInside)];
     [self.contentView addSubview:self.headerBtn];
     
+}
+
+- (void)setnoteModel:(SR_BookClubBookNoteModel *)noteModel{
+    _noteModel = noteModel;
+    self.titleLabel.text = noteModel.title;
+    self.timeLabel.text = noteModel.time_create;
+    self.bodyTextLabel.text = noteModel.content;
+    [self.subtitleButton setTitle:noteModel.page forState:(UIControlStateNormal)];
+    self.messageLabel.text = [NSString stringWithFormat:@"互动(%@)",noteModel.note_total];
+    self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",noteModel.member_total];
 }
 
 - (void)clickHeaderBtn{

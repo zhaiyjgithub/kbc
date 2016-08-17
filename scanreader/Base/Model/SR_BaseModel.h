@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LKDBHelper.h"
+#import <YYKit/YYKit.h>
 @interface SR_BaseModel : NSObject
 
 @end

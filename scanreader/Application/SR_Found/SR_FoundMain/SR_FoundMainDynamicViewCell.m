@@ -42,23 +42,31 @@
     messageImageView.image = [UIImage imageNamed:@"fx_hd"];
     [self.contentView addSubview:messageImageView];
     
-    self.messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(messageImageView.frame.origin.x + messageImageView.frame.size.width + 10, messageImageView.frame.origin.y, 64, 17)];
-    self.messageLabel.text = @"互动(20)";
-    self.messageLabel.textColor = baseblackColor;
-    self.messageLabel.textAlignment = NSTextAlignmentLeft;
-    self.messageLabel.font = [UIFont systemFontOfSize:12.0];
-    [self.contentView addSubview:self.messageLabel];
+    self.bookMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(messageImageView.frame.origin.x + messageImageView.frame.size.width + 10, messageImageView.frame.origin.y, 64, 17)];
+    self.bookMessageLabel.text = @"互动(0)";
+    self.bookMessageLabel.textColor = baseblackColor;
+    self.bookMessageLabel.textAlignment = NSTextAlignmentLeft;
+    self.bookMessageLabel.font = [UIFont systemFontOfSize:12.0];
+    [self.contentView addSubview:self.bookMessageLabel];
     
-    UIImageView * bookFriendsView = [[UIImageView alloc] initWithFrame:CGRectMake(self.messageLabel.frame.origin.x + self.messageLabel.frame.size.width + 20, self.messageLabel.frame.origin.y, 17, 17)];
+    UIImageView * bookFriendsView = [[UIImageView alloc] initWithFrame:CGRectMake(self.bookMessageLabel.frame.origin.x + self.bookMessageLabel.frame.size.width + 20, self.bookMessageLabel.frame.origin.y, 17, 17)];
     bookFriendsView.image = [UIImage imageNamed:@"fx_twoman"];
     [self.contentView addSubview:bookFriendsView];
     
     self.bookFriendsLabel = [[UILabel alloc] initWithFrame:CGRectMake(bookFriendsView.frame.origin.x + bookFriendsView.frame.size.width + 10, bookFriendsView.frame.origin.y, 64, 17)];
-    self.bookFriendsLabel.text = @"读友(85)";
+    self.bookFriendsLabel.text = @"读友(0)";
     self.bookFriendsLabel.textColor = baseblackColor;
     self.bookFriendsLabel.textAlignment = NSTextAlignmentLeft;
     self.bookFriendsLabel.font = [UIFont systemFontOfSize:12.0];
     [self.contentView addSubview:self.bookFriendsLabel];
+}
+
+- (void)setBookModel:(SR_BookClubBookModel *)bookModel{
+    _bookModel = bookModel;
+    self.bookNameLabel.text = bookModel.title;
+    self.bookAuthorLabel.text = [NSString stringWithFormat:@"作者:%@",bookModel.author];
+    self.bookMessageLabel.text = [NSString stringWithFormat:@"互动(%@)",bookModel.note_total];
+    self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",bookModel.member_total];
 }
 
 @end

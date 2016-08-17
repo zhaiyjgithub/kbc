@@ -23,7 +23,7 @@
 #import "SR_FoundMainTextSelfViewCell.h"
 #import "globalHeader.h"
 #import "SR_FoundMainDynamicViewCell.h"
-#import "SR_FoundMainBookClubBookMarkListViewController.h"
+#import "SR_FoundMainBookClubBookNoteListViewController.h"
 #import "SR_InterPageViewController.h"
 
 #import "SR_ActionSheetVoiceView.h"
@@ -31,9 +31,12 @@
 #import <SVProgressHUD.h>
 #import <MBProgressHUD.h>
 #import "UserInfo.h"
+#import "SR_BookClubBookModel.h"
 
 @interface SR_FoundMainViewController ()<addBtnDelegate,UISearchBarDelegate,UIAlertViewDelegate>
-@property(nonatomic,assign)BOOL isSelectBookClubBtn;
+@property(nonatomic,assign)BOOL isSelectBookClub;
+@property(nonatomic,strong)NSMutableArray * bookClubs;
+@property(nonatomic,strong)NSMutableArray * dynamicInfos;
 @end
 
 @implementation SR_FoundMainViewController
@@ -46,22 +49,27 @@
     UIBarButtonItem * searchItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fx_ss"] style:(UIBarButtonItemStyleDone) target:self action:@selector(clickSearchItem)];
     self.navigationItem.rightBarButtonItems = @[mineItem,searchItem];
  
-    [self relogin];
+    //[self relogin]; //重登陆这个后面再考虑
+    [self getListAll:@"70" page:@"1"];
+ //   [self getBookClubList:@"70" page:@"1"];
+    
+    
 }
 
 - (void)clickSearchItem{
 //    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
 //    [self.navigationController pushViewController:foundVC animated:YES];
-    SR_ActionSheetVoiceView * iamge = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:nil voices:nil viewController:self];
-    [iamge show];
+    
+    SR_AddBtnView * btnView = [[SR_AddBtnView alloc] initAlertView];
+    [btnView show];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 6;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return  self.isSelectBookClub == YES ? self.bookClubs.count : self.dynamicInfos.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -77,7 +85,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.isSelectBookClubBtn) {
+    if (self.isSelectBookClub) {
         return 128;
     }else{
         if(indexPath.section == 1) return 108;
@@ -88,12 +96,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.isSelectBookClubBtn) {
+    if (self.isSelectBookClub) {
         NSString * cellId = @"SR_FoundMainDynamicViewCell";
         SR_FoundMainDynamicViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
             cell = [[SR_FoundMainDynamicViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
         }
+        cell.bookModel = self.bookClubs[indexPath.row];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }else{
@@ -179,8 +188,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (self.isSelectBookClubBtn) {//读书会
-        SR_FoundMainBookClubBookMarkListViewController * bookMarkListVC = [[SR_FoundMainBookClubBookMarkListViewController alloc] init];
+    if (self.isSelectBookClub) {//读书会->笔记列表
+        SR_FoundMainBookClubBookNoteListViewController * bookMarkListVC = [[SR_FoundMainBookClubBookNoteListViewController alloc] init];
+        bookMarkListVC.bookModel = self.bookClubs[indexPath.row];
         [self.navigationController pushViewController:bookMarkListVC animated:YES];
     }else{//动态
         
@@ -217,10 +227,10 @@
             [btn setTitleColor:kColor(0x88, 0x88, 0x88) forState:(UIControlStateSelected)];
             btn.titleLabel.font = [UIFont systemFontOfSize:16.0];
             if (i == 0) {
-                [btn setSelected:self.isSelectBookClubBtn];
+                [btn setSelected:self.isSelectBookClub];
                 
             }else{
-                [btn setSelected:!self.isSelectBookClubBtn];
+                [btn setSelected:!self.isSelectBookClub];
             }
             btn.tag = i;
             [btn addTarget:self action:@selector(clickHeaderBtn:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -248,7 +258,7 @@
 
 - (void)clickHeaderBtn:(UIButton *)btn{
     SSLog(@"btn tag:%d",btn.tag);
-    self.isSelectBookClubBtn = !self.isSelectBookClubBtn;
+    self.isSelectBookClub = !self.isSelectBookClub;
     [self.tableView reloadData];
 }
 
@@ -280,6 +290,50 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     [UIApplication sharedApplication].keyWindow.rootViewController = [[SR_LoginViewController alloc] init];
+}
+
+///获取笔记以及收藏列表,这个列表就是动态的列表
+- (void)getListAll:(NSString *)limit page:(NSString *)page{
+    NSDictionary * param = @{@"limit":limit,@"page":page};
+    [httpTools post:GET_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
+        SSLog(@"get lsit all:%@",dic);
+       // NSArray * list = dic[@"data"][@"list"];
+        //区分不同类型的笔记进行不同model的转换
+    } failure:^(NSError *error) {
+        SSLog(@"error:%@",error);
+    }];
+}
+
+///获取读书会书籍列表
+- (void)getBookClubList:(NSString *)limit page:(NSString *)page{
+    NSDictionary * param = @{@"limit":limit,@"page":page};
+    [httpTools post:GET_BOOK_CLUB_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
+       // NSLog(@"bookClub:%@",dic);
+        NSArray * list = dic[@"data"][@"list"];
+        for (NSDictionary * item in list) {
+            SR_BookClubBookModel * model = [SR_BookClubBookModel modelWithDictionary:item];
+            model.book_id = item[@"id"];
+            [self.bookClubs addObject:model];
+        }
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        SSLog(@"error:%@",error);
+    }];
+
+}
+
+- (NSMutableArray *)bookClubs{
+    if (!_bookClubs) {
+        _bookClubs = [[NSMutableArray alloc] init];
+    }
+    return _bookClubs;
+}
+
+- (NSMutableArray *)dynamicInfos{
+    if (!_dynamicInfos) {
+        _dynamicInfos = [[NSMutableArray alloc] init];
+    }
+    return _dynamicInfos;
 }
 
 

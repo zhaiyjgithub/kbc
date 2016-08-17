@@ -12,6 +12,9 @@
 #import "SR_LoginViewController.h"
 #import "SR_MineMessageListViewController.h"
 #import "PhotoPickerTool.h"
+#import "httpTools.h"
+#import "UserInfo.h"
+#import <MBProgressHUD.h>
 
 @interface SR_MineViewController ()
 @property(nonatomic,strong)UIButton * headerBtn;
@@ -100,8 +103,23 @@
 
 - (void)clickLoginOutBtn{
     SSLog(@"login out");
-    SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
-    [UIApplication sharedApplication].keyWindow.rootViewController = loginVC;
+    NSString * userId = [UserInfo getUserUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken};
+    [httpTools post:LOGIN_OUT andParameters:param success:^(NSDictionary *dic) {
+        SSLog(@"loginOut:%@",dic);
+        [UserInfo saveUserPhoneNumberWith:@""];
+        [UserInfo saveUserPasswordWith:@""];
+        [UserInfo saveUserTokenWith:@""];
+        [UserInfo saveUserIDWith:@""];
+        [UserInfo saveUserAvatarWith:@""];
+        [UserInfo saveUserNameWith:@""];
+        SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
+        [UIApplication sharedApplication].keyWindow.rootViewController = loginVC;
+    } failure:^(NSError *error) {
+        
+    }];
+    
 }
 
 @end

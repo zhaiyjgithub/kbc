@@ -89,6 +89,15 @@
     
 }
 
+- (void)setnoteModel:(SR_BookClubBookNoteModel *)noteModel{
+    _noteModel = noteModel;
+    self.titleLabel.text = noteModel.title;
+    self.timeLabel.text = noteModel.time_create;
+    [self.subtitleButton setTitle:noteModel.page forState:(UIControlStateNormal)];
+    self.messageLabel.text = [NSString stringWithFormat:@"互动(%@)",noteModel.note_total];
+    self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",noteModel.member_total];
+}
+
 - (void)clickVoiceBtn{
     SSLog(@"click voice btn");
 }
