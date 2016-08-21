@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SR_ActionSheetImageCollectionViewCell : UICollectionViewCell
+typedef void(^longPressNoteImageViewBlock)(void);
 
+@interface SR_ActionSheetImageCollectionViewCell : UICollectionViewCell
+@property(nonatomic,strong)UIImageView * noteImageView;
+@property(nonatomic,strong)longPressNoteImageViewBlock block;
+- (void)addBlock:(longPressNoteImageViewBlock)block;
 @end

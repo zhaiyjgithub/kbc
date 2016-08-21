@@ -11,7 +11,7 @@
 @protocol imageViewSendBtnDelegate <NSObject>
 
 @optional
-- (void)clickSendBtn:(NSString *)title images:(NSArray *)images;
+- (void)clickImageViewSendBtn:(NSString *)title images:(NSArray *)images;
 @end
 
 @interface SR_ActionSheetImageView : UIView<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITextFieldDelegate>

@@ -9,13 +9,18 @@
 #ifndef requestAPI_h
 #define requestAPI_h
 
+#define PAGE_NUM 70
+
+#define SEARCH_TYPE_NOTE 1
+#define SEARCH_TYPE_INTER_PAGE 2
+#define SEARCH_TYPE_SCAN 3
 
 #define NOTE_TYPE_TEXT @"1"
 #define NOTE_TYPE_PIX @"2"
 #define NOTE_TYPE_VOICE @"3"
 #define NOTE_TYPE_COLLECTION @"4"
 
-#define NOTE_MODE_COLLECTION_NOTE @"1"
+#define NOTE_MODE_COLLECTION_AND_NOTE @"1"
 #define NOTE_MODE_NOTE @"2"
 #define NOTE_MODE_COLLECTION @"3"
 

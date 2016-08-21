@@ -11,7 +11,7 @@
 @protocol voiceViewSendBtnDelegate <NSObject>
 
 @optional
-- (void)clickSendBtn:(NSString *)title text:(NSString *)text;
+- (void)clickVoiceViewSendBtn:(NSString *)title text:(NSString *)text;
 @end
 
 @interface SR_ActionSheetVoiceView : UIView <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>

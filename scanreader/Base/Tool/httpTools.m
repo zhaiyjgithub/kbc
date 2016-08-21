@@ -51,7 +51,7 @@
             if ([responseObject[@"status"] isEqualToString:@"1"]) {
                 success(responseObject);
             }else{
-                [SVProgressHUD showInfoWithStatus:@"msg"];
+                [SVProgressHUD showInfoWithStatus:responseObject[@"msg"]];
             }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

@@ -11,7 +11,7 @@
 @protocol textViewSendBtnDelegate <NSObject>
 
 @optional
-- (void)clickSendBtn:(NSString *)title text:(NSString *)text;
+- (void)clickTextViewSendBtn:(NSString *)title text:(NSString *)text;
 @end
 
 @interface SR_ActionSheetTextView : UIView<UITextFieldDelegate>
@@ -22,6 +22,7 @@
 @property(nonatomic,strong)UITextField * titleTextField;
 @property(nonatomic,strong)UITextView * textTextView;
 @property(nonatomic,strong)UIButton * sendBtn;
+@property(nonatomic,strong)UIButton * cancelBtn;
 - (id)initActionSheetWith:(NSString *)title text:(NSString *)text;
 - (void)show;
 - (void)dismiss;

@@ -35,6 +35,11 @@
 		CB7411891D347B14002B8FB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB7411871D347B14002B8FB5 /* LaunchScreen.storyboard */; };
 		CB7411941D347B14002B8FB5 /* scanreaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7411931D347B14002B8FB5 /* scanreaderTests.m */; };
 		CB74119F1D347B14002B8FB5 /* scanreaderUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74119E1D347B14002B8FB5 /* scanreaderUITests.m */; };
+		CB95AD871D6961E600BAA77B /* AVFooterRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = CB95AD7D1D6961E600BAA77B /* AVFooterRefresh.m */; };
+		CB95AD881D6961E600BAA77B /* AVHeaderRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = CB95AD7F1D6961E600BAA77B /* AVHeaderRefresh.m */; };
+		CB95AD891D6961E600BAA77B /* AVRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = CB95AD811D6961E600BAA77B /* AVRefresh.m */; };
+		CB95AD8A1D6961E600BAA77B /* UIScrollView+AVRefreshExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = CB95AD841D6961E600BAA77B /* UIScrollView+AVRefreshExtension.m */; };
+		CB95AD8B1D6961E600BAA77B /* UIView+AVFrameExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = CB95AD861D6961E600BAA77B /* UIView+AVFrameExtension.m */; };
 		CBA87BDC1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA87BDB1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m */; };
 		CBAF19081D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAF19071D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.m */; };
 		CBAF190B1D421C6200DC0997 /* SR_MessageDialogLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAF190A1D421C6200DC0997 /* SR_MessageDialogLabel.m */; };
@@ -153,6 +158,17 @@
 		CB74119E1D347B14002B8FB5 /* scanreaderUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = scanreaderUITests.m; sourceTree = "<group>"; };
 		CB7411A01D347B14002B8FB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB7411B01D3486B6002B8FB5 /* globalHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = globalHeader.h; path = scanreader/globalHeader.h; sourceTree = "<group>"; };
+		CB95AD7C1D6961E600BAA77B /* AVFooterRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVFooterRefresh.h; sourceTree = "<group>"; };
+		CB95AD7D1D6961E600BAA77B /* AVFooterRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVFooterRefresh.m; sourceTree = "<group>"; };
+		CB95AD7E1D6961E600BAA77B /* AVHeaderRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVHeaderRefresh.h; sourceTree = "<group>"; };
+		CB95AD7F1D6961E600BAA77B /* AVHeaderRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVHeaderRefresh.m; sourceTree = "<group>"; };
+		CB95AD801D6961E600BAA77B /* AVRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVRefresh.h; sourceTree = "<group>"; };
+		CB95AD811D6961E600BAA77B /* AVRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVRefresh.m; sourceTree = "<group>"; };
+		CB95AD821D6961E600BAA77B /* AVRefreshExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVRefreshExtension.h; sourceTree = "<group>"; };
+		CB95AD831D6961E600BAA77B /* UIScrollView+AVRefreshExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+AVRefreshExtension.h"; sourceTree = "<group>"; };
+		CB95AD841D6961E600BAA77B /* UIScrollView+AVRefreshExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+AVRefreshExtension.m"; sourceTree = "<group>"; };
+		CB95AD851D6961E600BAA77B /* UIView+AVFrameExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AVFrameExtension.h"; sourceTree = "<group>"; };
+		CB95AD861D6961E600BAA77B /* UIView+AVFrameExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AVFrameExtension.m"; sourceTree = "<group>"; };
 		CBA87BDA1D3C73ED006C0648 /* SR_FoundSearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundSearchTableViewController.h; path = Application/SR_Found/SR_FoundMain/SR_FoundSearchTableViewController.h; sourceTree = "<group>"; };
 		CBA87BDB1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundSearchTableViewController.m; path = Application/SR_Found/SR_FoundMain/SR_FoundSearchTableViewController.m; sourceTree = "<group>"; };
 		CBAF19061D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageSendDialogMineViewCell.h; path = Application/SR_Mine/SR_MineMessageSendDialogMineViewCell.h; sourceTree = "<group>"; };
@@ -330,6 +346,7 @@
 		CB42D0B51D645A96002A75E5 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				CB95AD7B1D6961E600BAA77B /* AVRefresh */,
 				CB42D0B81D645AF8002A75E5 /* VoiceConvert */,
 			);
 			name = Lib;
@@ -477,6 +494,25 @@
 			);
 			name = Base;
 			path = scanreader;
+			sourceTree = "<group>";
+		};
+		CB95AD7B1D6961E600BAA77B /* AVRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				CB95AD7C1D6961E600BAA77B /* AVFooterRefresh.h */,
+				CB95AD7D1D6961E600BAA77B /* AVFooterRefresh.m */,
+				CB95AD7E1D6961E600BAA77B /* AVHeaderRefresh.h */,
+				CB95AD7F1D6961E600BAA77B /* AVHeaderRefresh.m */,
+				CB95AD801D6961E600BAA77B /* AVRefresh.h */,
+				CB95AD811D6961E600BAA77B /* AVRefresh.m */,
+				CB95AD821D6961E600BAA77B /* AVRefreshExtension.h */,
+				CB95AD831D6961E600BAA77B /* UIScrollView+AVRefreshExtension.h */,
+				CB95AD841D6961E600BAA77B /* UIScrollView+AVRefreshExtension.m */,
+				CB95AD851D6961E600BAA77B /* UIView+AVFrameExtension.h */,
+				CB95AD861D6961E600BAA77B /* UIView+AVFrameExtension.m */,
+			);
+			name = AVRefresh;
+			path = Base/Lib/AVRefresh;
 			sourceTree = "<group>";
 		};
 		CBD1D6001D3621B000539056 /* SR_Mine */ = {
@@ -964,7 +1000,10 @@
 				CBE47E031D407F200046C89C /* SR_FoundMainTextSelfViewCell.m in Sources */,
 				CB2A65FE1D60B26C006F735B /* UserInfo.m in Sources */,
 				CBCF4F8A1D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m in Sources */,
+				CB95AD871D6961E600BAA77B /* AVFooterRefresh.m in Sources */,
+				CB95AD8B1D6961E600BAA77B /* UIView+AVFrameExtension.m in Sources */,
 				CBAF190B1D421C6200DC0997 /* SR_MessageDialogLabel.m in Sources */,
+				CB95AD8A1D6961E600BAA77B /* UIScrollView+AVRefreshExtension.m in Sources */,
 				84AE3DD41D4366B500643989 /* SR_ScanResultNoneBookViewController.m in Sources */,
 				84AE3DD11D43634E00643989 /* SR_ScanResultHasBookViewController.m in Sources */,
 				846C6DE91D44C37F00401A35 /* SR_ActionSheetImageView.m in Sources */,
@@ -982,12 +1021,14 @@
 				CB63C7AF1D41F141009D40A4 /* SR_MineMessageListViewCell.m in Sources */,
 				CBD1D61F1D363F0400539056 /* SR_AddBtnView.m in Sources */,
 				CBD1D5FF1D36198A00539056 /* SR_LoginBtn.m in Sources */,
+				CB95AD891D6961E600BAA77B /* AVRefresh.m in Sources */,
 				CBE47E001D407E930046C89C /* SR_FoundMainTextViewCell.m in Sources */,
 				CBA87BDC1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m in Sources */,
 				CBCF4F871D36958800DD7015 /* SR_FoundMainVoiceViewCell.m in Sources */,
 				8443ACEA1D46563A00634BC3 /* DDQRCodeViewController.m in Sources */,
 				846C6DE31D44B06D00401A35 /* SR_ActionSheetImageLayout.m in Sources */,
 				CBE47E181D40BC1C0046C89C /* SR_RecordMainTagButton.m in Sources */,
+				CB95AD881D6961E600BAA77B /* AVHeaderRefresh.m in Sources */,
 				CBCF4F841D367F3500DD7015 /* SR_FoundMainImageViewCell.m in Sources */,
 				CBE47E081D40A1950046C89C /* SR_FoundMainDynamicViewCell.m in Sources */,
 				CBFEA90A1D35F576007276B6 /* SR_BaseTableViewController.m in Sources */,

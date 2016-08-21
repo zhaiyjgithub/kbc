@@ -15,9 +15,10 @@
 #import "httpTools.h"
 #import "UserInfo.h"
 #import <MBProgressHUD.h>
+#import "UserInfo.h"
 
-@interface SR_MineViewController ()
-@property(nonatomic,strong)UIButton * headerBtn;
+@interface SR_MineViewController ()<UIActionSheetDelegate>
+@property(nonatomic,strong)UIImageView * headerImageView;
 @end
 
 @implementation SR_MineViewController
@@ -58,6 +59,8 @@
              ];
         }
     }];
+    cell.nameLabel.text = [NSString stringWithFormat:@"用户名称: %@",[UserInfo getUserName]];
+    //cell.levelabel.text = [NSString stringWithFormat:@"用户等级:%@",[UserInfo ]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -66,16 +69,20 @@
     UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 170)];
     headerView.backgroundColor = baseColor;
     
-    UIButton * headerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 92, 92)];
-    headerBtn.center = headerView.center;
-    headerBtn.backgroundColor = [UIColor redColor];
-    headerBtn.layer.cornerRadius = 46.0;
-    headerBtn.layer.masksToBounds = YES;
-    headerBtn.layer.borderWidth = 2.0;
-    headerBtn.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.headerBtn = headerBtn;
-    [headerBtn addTarget:self action:@selector(clickHeaderBtn:) forControlEvents:(UIControlEventTouchUpInside)];
-    [headerView addSubview:headerBtn];
+    UIImageView * headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 92, 92)];
+    headerImageView.center = headerView.center;
+    headerImageView.layer.cornerRadius = 46.0;
+    headerImageView.layer.masksToBounds = YES;
+    headerImageView.layer.borderWidth = 2.0;
+    headerImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    headerImageView.userInteractionEnabled = YES;
+    [headerView addSubview:headerImageView];
+    headerImageView.image = [UIImage imageNamed:@"headerIcon"];
+    self.headerImageView = headerImageView;
+    
+    UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickHeaderBtn)];
+    [headerImageView addGestureRecognizer:gesture];
+    
     return headerView;
 }
 
@@ -94,11 +101,21 @@
     return footerView;
 }
 
-- (void)clickHeaderBtn:(UIButton *)btn{
-    SSLog(@"header btn");
-    [[PhotoPickerTool sharedPhotoPickerTool] showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceTypeCamera) onViewController:self compled:^(UIImage *image, NSDictionary *editingInfo) {
-        [btn setImage:image forState:(UIControlStateNormal)];
-    }];
+- (void)clickHeaderBtn{
+    UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:@"更改头像" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"相机" otherButtonTitles:@"拍照", nil];
+    [sheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        [[PhotoPickerTool sharedPhotoPickerTool] showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceTypeCamera) onViewController:self compled:^(UIImage *image, NSDictionary *editingInfo) {
+            self.headerImageView.image = image;
+        }];
+    }else if (buttonIndex == 1){
+        [[PhotoPickerTool sharedPhotoPickerTool] showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceTypePhotoLibrary) onViewController:self compled:^(UIImage *image, NSDictionary *editingInfo) {
+            self.headerImageView.image = image;
+        }];
+    }
 }
 
 - (void)clickLoginOutBtn{

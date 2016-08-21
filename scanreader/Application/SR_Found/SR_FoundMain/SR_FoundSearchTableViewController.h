@@ -9,5 +9,5 @@
 #import "SR_BaseTableViewController.h"
 
 @interface SR_FoundSearchTableViewController : SR_BaseTableViewController
-
+@property(nonatomic,assign)NSInteger searchType;
 @end

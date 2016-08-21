@@ -16,7 +16,7 @@
     if (self) {
         self.frame = CGRectMake(0, 0, 170, 170);
         self.center = CGPointMake(kScreenWidth, kScreenHeight/2);
-        self.backgroundColor = kColorAlpha(78, 225, 221, 0.5);//kColor(78,225,221)
+        self.backgroundColor  = baseColor;
         self.layer.cornerRadius = 85;
         [self setupView];
     }
@@ -24,7 +24,7 @@
 }
 
 - (void)setupView{
-    NSArray * titles = @[@"文字",@"语音",@"拍照"];
+    NSArray * titles = @[@"文字",@"拍照",@"语音"];
     CGFloat boarder = (170 - 90 - 18 * 3)*1.0/2.0;
     for (int i = 0; i < 3; i ++) {
         SR_OAthouButton * btn = [[SR_OAthouButton alloc] initWithType:(BaseButtonTypeLeft) sizeType:(BaseButtonSizeTypeSmall)];

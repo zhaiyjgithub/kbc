@@ -15,8 +15,7 @@
 
 static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
 
-@interface SR_ActionSheetImageView ()
-@property(nonatomic,assign)NSInteger numOfRows;
+@interface SR_ActionSheetImageView ()<UIAlertViewDelegate>
 @end
 
 @implementation SR_ActionSheetImageView
@@ -29,7 +28,6 @@ static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
         [self.articleImages addObjectsFromArray:images];
         self.viewController = viewController;
         self.backgroundColor = [UIColor whiteColor];
-        self.numOfRows = 5;
         [self setupView];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -66,10 +64,10 @@ static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
 
     self.sendBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     self.sendBtn.frame = CGRectMake(kScreenWidth - 15 - 44, self.collectionView.frame.origin.y + self.collectionView.frame.size.height + sizeHeight(10), 44, sizeHeight(44) );
-    [self.sendBtn setTitle:@"完成" forState:(UIControlStateNormal)];
+    [self.sendBtn setTitle:@"发送" forState:(UIControlStateNormal)];
     [self.sendBtn setTitleColor:baseColor forState:(UIControlStateNormal)];
     [self.sendBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateHighlighted)];
-    [self.sendBtn addTarget:self action:@selector(clickBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.sendBtn addTarget:self action:@selector(clickSendBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [self addSubview:self.sendBtn];
     
     self.takePhotoTypeBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -118,8 +116,18 @@ static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
     }];
 }
 
-- (void)clickBtn:(UIButton *)btn{
-   
+- (void)clickSendBtn:(UIButton *)btn{
+    if (!self.titleTextField.text.length) {
+        [SVProgressHUD showErrorWithStatus:@"请输入标题"];
+        return;
+    }
+    if (!self.articleImages.count) {
+        [SVProgressHUD showErrorWithStatus:@"请添加图片"];
+        return;
+    }
+    if ([self.delegate conformsToProtocol:@protocol(imageViewSendBtnDelegate)] && [self.delegate respondsToSelector:@selector(clickImageViewSendBtn:images:)]) {
+        [self.delegate clickImageViewSendBtn:self.titleTextField.text images:self.articleImages];
+    }
 }
 
 - (void)clickPhotoBtn:(UIButton *)btn{
@@ -131,15 +139,20 @@ static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
             self.handerView.enabled = YES;
             self.handerView.hidden = NO;
             self.hidden = NO;
+            [self.articleImages addObject:image];
+            
+            NSIndexPath * indexpath = [NSIndexPath indexPathForRow:self.articleImages.count - 1 inSection:0];
+            [self.collectionView insertItemsAtIndexPaths:@[indexpath]];
+            [self.collectionView scrollToItemAtIndexPath:indexpath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
         }];
     }else{
         [[PhotoPickerTool sharedPhotoPickerTool] showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceTypePhotoLibrary) onViewController:self.viewController compled:^(UIImage *image, NSDictionary *editingInfo) {
             self.handerView.enabled = YES;
             self.handerView.hidden = NO;
             self.hidden = NO;
-            self.numOfRows+=1;
+            [self.articleImages addObject:image];
             
-            NSIndexPath * indexpath = [NSIndexPath indexPathForRow:self.numOfRows-1 inSection:0];
+            NSIndexPath * indexpath = [NSIndexPath indexPathForRow:self.articleImages.count - 1 inSection:0];
             [self.collectionView insertItemsAtIndexPaths:@[indexpath]];
             [self.collectionView scrollToItemAtIndexPath:indexpath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
         }];
@@ -152,14 +165,37 @@ static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.numOfRows;
+    return self.articleImages.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     SR_ActionSheetImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
+    cell.noteImageView.image = self.articleImages[indexPath.row];
+    __weak typeof(self) weakSelf = self;
+    [cell addBlock:^{
+        [weakSelf longNoteImageViewEvent:indexPath.row];
+    }];
     return cell;
 }
 
+- (void)longNoteImageViewEvent:(NSInteger)row{
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"删除该图片吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alertView.tag = row;
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        NSInteger row = alertView.tag;
+        NSIndexPath * indexpath = [NSIndexPath indexPathForRow:row inSection:0];
+        [self.articleImages removeObjectAtIndex:row];
+        [self.collectionView deleteItemsAtIndexPaths:@[indexpath]];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.collectionView reloadData];
+        });
+    }
+}
 
 #pragma mark Responding to keyboard events
 - (void)keyboardWillShow:(NSNotification *)notification {

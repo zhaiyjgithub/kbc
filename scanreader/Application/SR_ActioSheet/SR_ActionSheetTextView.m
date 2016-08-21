@@ -54,11 +54,20 @@
     
     self.sendBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     self.sendBtn.frame = CGRectMake(kScreenWidth - 15 - 44, self.textTextView.frame.origin.y + self.textTextView.frame.size.height + sizeHeight(10), 44, sizeHeight(44) );
-    [self.sendBtn setTitle:@"完成" forState:(UIControlStateNormal)];
+    [self.sendBtn setTitle:@"发送" forState:(UIControlStateNormal)];
     [self.sendBtn setTitleColor:baseColor forState:(UIControlStateNormal)];
     [self.sendBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateHighlighted)];
     [self.sendBtn addTarget:self action:@selector(clickBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [self addSubview:self.sendBtn];
+    
+    UIButton * cancelBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    cancelBtn.frame = CGRectMake(15, self.sendBtn.frame.origin.y, 44, sizeHeight(44));
+    [cancelBtn setTitle:@"取消" forState:(UIControlStateNormal)];
+    [cancelBtn setTitleColor:baseColor forState:(UIControlStateNormal)];
+    [cancelBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateHighlighted)];
+    [cancelBtn addTarget:self action:@selector(dismiss) forControlEvents:(UIControlEventTouchUpInside)];
+    self.cancelBtn = cancelBtn;
+    [self addSubview:cancelBtn];
 }
 
 - (void)show{
@@ -97,8 +106,8 @@
         [SVProgressHUD showErrorWithStatus:@"请输入笔记内容"];
         return;
     }
-    if ([self.delegate conformsToProtocol:@protocol(textViewSendBtnDelegate)] && [self.delegate respondsToSelector:@selector(clickSendBtn:text:)]) {
-        [self.delegate clickSendBtn:self.titleTextField.text text:self.textTextView.text];
+    if ([self.delegate conformsToProtocol:@protocol(textViewSendBtnDelegate)] && [self.delegate respondsToSelector:@selector(clickTextViewSendBtn:text:)]) {
+        [self.delegate clickTextViewSendBtn:self.titleTextField.text text:self.textTextView.text];
     }
 }
 
@@ -112,8 +121,13 @@
     if (!keyBoardRect.size.height) {
         return;
     }
+    CGFloat keyBoardRectHeight = keyBoardRect.size.height/2;
+    if (!self.titleTextField.editing) {
+        keyBoardRectHeight = keyBoardRect.size.height - 10;
+    }
+    
     [UIView animateWithDuration:animationDuration animations:^{
-        self.frame = CGRectMake(0, kScreenHeight - sizeHeight(400) - keyBoardRect.size.height/2, kScreenWidth, kScreenHeight);
+        self.frame = CGRectMake(0, kScreenHeight - sizeHeight(400) - keyBoardRectHeight, kScreenWidth, kScreenHeight);
     } completion:^(BOOL finished){
         
     }];

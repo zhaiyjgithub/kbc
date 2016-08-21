@@ -15,12 +15,18 @@
 #import "httpTools.h"
 #import "UserInfo.h"
 #import "SR_BookClubBookNoteModel.h"
+#import "AVRefreshExtension.h"
+#import "SR_FoundMainImageViewCell.h"
+#import "SR_FoundMainVoiceViewCell.h"
+#import "SR_FoundMainCollectionViewCell.h"
 
 @interface SR_RecorMainViewController ()
 @property(nonatomic,assign)NSInteger selectedTagIndex;
 @property(nonatomic,strong)NSMutableArray * noteList;
 @property(nonatomic,strong)NSMutableArray * collectionList;
 @property(nonatomic,strong)NSMutableArray * scanList;
+@property(nonatomic,assign)NSInteger collectionPageIndex;
+@property(nonatomic,assign)NSInteger notePageIndex;
 @end
 
 @implementation SR_RecorMainViewController
@@ -29,7 +35,12 @@
     [super viewDidLoad];
     self.title = @"记录";
     self.selectedTagIndex = 0;
-    [self getListAll:@"70" page:@"1" mode:NOTE_MODE_NOTE];//暂时只获取笔记列表
+    self.tableView.av_footer = [AVFooterRefresh footerRefreshWithScrollView:self.tableView footerRefreshingBlock:^{
+        [self loadData];
+    }];
+
+    [self getListAll:PAGE_NUM pageIndex:self.notePageIndex mode:NOTE_MODE_NOTE];//暂时只获取笔记列表
+    [self getListAll:PAGE_NUM pageIndex:self.collectionPageIndex mode:NOTE_MODE_COLLECTION];//暂时只获取收藏列表
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -67,18 +78,65 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.selectedTagIndex == 0) {
-        NSString * cellId = @"SR_FoundMainTextViewCell";
-        SR_FoundMainTextViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-        if (!cell) {
-            cell = [[SR_FoundMainTextViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+    if (self.selectedTagIndex == 0 || self.selectedTagIndex == 2) {
+        //根据type 来区分笔记的类型
+        //        1文字
+        //        2图片
+        //        3语音
+        //        4收藏
+        SR_BookClubBookNoteModel * noteModel = self.noteList[indexPath.row];
+        if (self.selectedTagIndex == 2) {
+            noteModel = self.collectionList[indexPath.row];
         }
-        cell.noteModel = self.noteList[indexPath.row];
-        [cell addBlock:^{
-            SSLog(@"click header btn");
-        }];
-        return cell;
-    }else{
+        if ([noteModel.type isEqualToString:NOTE_TYPE_TEXT]) {//文字信息
+            NSString * cellId = @"SR_FoundMainTextViewCell";
+            SR_FoundMainTextViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+            if (!cell) {
+                cell = [[SR_FoundMainTextViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+            }
+            [cell addBlock:^{
+                SSLog(@"click header btn");
+            }];
+            return cell;
+        }else if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){//图片
+            NSString * cellId = @"SR_FoundMainImageViewCell";
+            SR_FoundMainImageViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+            if (!cell) {
+                cell = [[SR_FoundMainImageViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+            }
+            [cell addBlock:^{
+                SSLog(@"click header btn");
+            }];
+            return cell;
+            
+        }else if ([noteModel.type isEqualToString:NOTE_TYPE_VOICE]){//语音
+            NSString * cellId = @"SR_FoundMainVoiceViewCell";
+            SR_FoundMainVoiceViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+            if (!cell) {
+                cell = [[SR_FoundMainVoiceViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+            }
+            __weak typeof(self) weakSelf = self;
+            [cell addBlock:^{
+                SSLog(@"click header btn");
+            }];
+            [cell addInterBlock:^{
+                SR_InterPageViewController * interPaageVC = [[SR_InterPageViewController alloc] init];
+                [weakSelf.navigationController pushViewController:interPaageVC animated:YES];
+            }];
+            return cell;
+        }else{//收藏
+            NSString * cellId = @"SR_FoundMainCollectionViewCell";
+            SR_FoundMainCollectionViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+            if (!cell) {
+                cell = [[SR_FoundMainCollectionViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+            }
+            [cell addBlock:^{
+                SSLog(@"click header btn");
+            }];
+            
+            return cell;
+        }
+    }else{//扫描列表
         NSString * cellId = @"UITableViewCell";
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
@@ -155,8 +213,10 @@
     [self.tableView reloadData];
 }
 
-- (void)getListAll:(NSString *)limit page:(NSString *)page mode:(NSString *)mode{
+- (void)getListAll:(NSInteger)pageNum pageIndex:(NSInteger)pageIndex mode:(NSString *)mode{
     NSString * userId = [UserInfo getUserId];
+    NSString * limit = [NSString stringWithFormat:@"%d",pageNum];
+    NSString * page = [NSString stringWithFormat:@"%d",pageIndex];
     NSDictionary * param = @{@"user_id":userId,@"limit":limit,@"page":page,@"mode":mode};
     [httpTools post:GET_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
        // SSLog(@"get lsit all:%@",dic);
@@ -172,11 +232,24 @@
                 [self.noteList addObject:noteModel];
             }
         }
+        self.notePageIndex = (self.noteList.count/PAGE_NUM) + (self.noteList.count%PAGE_NUM > 0 ? 1 : 0);
+        self.collectionPageIndex = (self.collectionList.count/PAGE_NUM) + (self.collectionList.count%PAGE_NUM > 0 ? 1 : 0);
+        [self.tableView.av_footer endFooterRefreshing];
         [self.tableView reloadData];
         //区分不同类型的笔记进行不同model的转换
     } failure:^(NSError *error) {
         SSLog(@"error:%@",error);
     }];
+}
+
+- (void)loadData{
+    if (self.selectedTagIndex == 0) {
+        [self getListAll:PAGE_NUM pageIndex:self.notePageIndex mode:NOTE_MODE_NOTE];//暂时只获取笔记列表
+    }else if (self.selectedTagIndex == 1){
+        [self getListAll:PAGE_NUM pageIndex:self.collectionPageIndex mode:NOTE_MODE_COLLECTION];//暂时只获取收藏列表
+    }else{
+        //获取扫描列表
+    }
 }
 
 - (NSMutableArray *)noteList{

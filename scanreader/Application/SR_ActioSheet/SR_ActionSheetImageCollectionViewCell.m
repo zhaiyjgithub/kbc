@@ -14,9 +14,26 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.contentView.backgroundColor = [UIColor blueColor];
+        self.noteImageView = [[UIImageView alloc] init];
+        self.noteImageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+        self.noteImageView.userInteractionEnabled = YES;
+        [self.contentView addSubview:self.noteImageView];
+        
+        UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(longPressNoteImageView)];
+        [self.noteImageView addGestureRecognizer:tapGesture];
     }
     
     return self;
+}
+
+- (void)longPressNoteImageView{
+    if (self.block) {
+        self.block();
+    }
+}
+
+- (void)addBlock:(longPressNoteImageViewBlock)block{
+    self.block = block;
 }
 
 @end
