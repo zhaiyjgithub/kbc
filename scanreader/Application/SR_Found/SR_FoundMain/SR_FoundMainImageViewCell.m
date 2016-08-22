@@ -34,8 +34,8 @@
     self.timeLabel.font = [UIFont systemFontOfSize:12.0];
     [self.contentView addSubview:self.timeLabel];
     
-    self.recordImageView = [[UIImageView alloc] init];
-    self.recordImageView.frame = CGRectMake(18, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 8, 75, 39);
+    self.recordImageView = [[YYAnimatedImageView alloc] init];
+    self.recordImageView.frame = CGRectMake(18, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 8, 75, 75);
     self.recordImageView.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:self.recordImageView];
     
@@ -74,14 +74,31 @@
     self.bookFriendsLabel.font = [UIFont systemFontOfSize:12.0];
     [self.contentView addSubview:self.bookFriendsLabel];
     
-    self.headerBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    self.headerBtn.frame = CGRectMake(0, 0, 48, 48);
-    self.headerBtn.center = CGPointMake(kScreenWidth - 36, 71);
-    self.headerBtn.layer.cornerRadius = 24;
-    self.headerBtn.backgroundColor = [UIColor redColor];
-    [self.headerBtn addTarget:self action:@selector(clickHeaderBtn) forControlEvents:(UIControlEventTouchUpInside)];
-    [self.contentView addSubview:self.headerBtn];
+    self.headerImageView = [[YYAnimatedImageView alloc] init];
+    [self.headerImageView setImageWithURL:nil placeholder:[UIImage imageNamed:@"headerIcon"]];
+    self.headerImageView.frame = CGRectMake(0, 0, 48, 48);
+    self.headerImageView.center = CGPointMake(kScreenWidth - 36, 71);
+    self.headerImageView.layer.cornerRadius = 24;
+    self.headerImageView.layer.masksToBounds = YES;
+    [self.contentView addSubview:self.headerImageView];
+    
+    UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickHeaderBtn)];
+    self.headerImageView.userInteractionEnabled = YES;
+    [self.headerImageView addGestureRecognizer:gesture];
+
 }
+
+- (void)setNoteModel:(SR_BookClubBookNoteModel *)noteModel{
+    _noteModel = noteModel;
+    self.titleLabel.text = noteModel.title;
+    self.timeLabel.text = noteModel.time_create;
+    [self.subtitleButton setTitle:noteModel.page forState:(UIControlStateNormal)];
+    self.messageLabel.text = [NSString stringWithFormat:@"互动(%@)",noteModel.note_total];
+    self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",noteModel.member_total];
+    [self.headerImageView setImageWithURL:[NSURL URLWithString:noteModel.user.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
+    //还没有添加图片
+}
+
 
 - (void)clickHeaderBtn{
     if (self.block) {

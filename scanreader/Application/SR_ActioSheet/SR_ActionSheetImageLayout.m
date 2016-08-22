@@ -8,7 +8,7 @@
 
 #import "SR_ActionSheetImageLayout.h"
 #import "globalHeader.h"
-#define kImageScale (1.5)
+#define kImageScale (1.0)
 
 @implementation SR_ActionSheetImageLayout
 

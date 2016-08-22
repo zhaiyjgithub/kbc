@@ -40,13 +40,16 @@
 
 
 
-@interface SR_FoundMainViewController ()<addBtnDelegate,UISearchBarDelegate,UIAlertViewDelegate,textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate>
+@interface SR_FoundMainViewController ()<addBtnDelegate,UIAlertViewDelegate,textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate>
 @property(nonatomic,assign)BOOL isSelectBookClub;
 @property(nonatomic,strong)NSMutableArray * bookClubs;
 @property(nonatomic,strong)NSMutableArray * dynamicInfos;
 @property(nonatomic,assign)NSInteger bookClubPageIndex;
 @property(nonatomic,assign)NSInteger dynamicInfoPageIndex;
 @property(nonatomic,strong)UIButton * floatBtn;
+@property(nonatomic,strong)SR_ActionSheetTextView * actionSheetTextView;
+@property(nonatomic,strong)SR_ActionSheetImageView * actionSheetImageView;
+@property(nonatomic,strong)SR_ActionSheetVoiceView * actionSheetVoiceView;
 @end
 
 @implementation SR_FoundMainViewController
@@ -103,11 +106,15 @@
     if (self.isSelectBookClub) {
         return 128;
     }else{
-        if(indexPath.section == 1) return 108;
-        if (indexPath.section > 3) return 115;
-        return 146;
+        SR_BookClubBookNoteModel * noteModel = self.dynamicInfos[indexPath.row];
+        if ([noteModel.type isEqualToString:NOTE_TYPE_TEXT]) {
+            return 146;
+        }else if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){
+            return 180;
+        }else{
+            return 146;
+        }
     }
-
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -133,6 +140,7 @@
             if (!cell) {
                 cell = [[SR_FoundMainTextViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
             }
+            cell.noteModel = self.dynamicInfos[indexPath.row];
             [cell addBlock:^{
                 SSLog(@"click header btn");
             }];
@@ -143,6 +151,7 @@
             if (!cell) {
                 cell = [[SR_FoundMainImageViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
             }
+            cell.noteModel = self.dynamicInfos[indexPath.row];
             [cell addBlock:^{
                 SSLog(@"click header btn");
             }];
@@ -175,82 +184,7 @@
            
             return cell;
         }
-//        if (indexPath.section == 0) {
-//            NSString * cellId = @"SR_FoundMainVoiceViewCell";
-//            SR_FoundMainVoiceViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-//            if (!cell) {
-//                cell = [[SR_FoundMainVoiceViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
-//            }
-//            __weak typeof(self) weakSelf = self;
-//            [cell addBlock:^{
-//                SSLog(@"click header btn");
-//            }];
-//            [cell addInterBlock:^{
-//                SR_InterPageViewController * interPaageVC = [[SR_InterPageViewController alloc] init];
-//                [weakSelf.navigationController pushViewController:interPaageVC animated:YES];
-//            }];
-//            return cell;
-//        }else if (indexPath.section == 1){
-//            NSString * cellId = @"SR_FoundMainCollectionViewCell";
-//            SR_FoundMainCollectionViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-//            if (!cell) {
-//                cell = [[SR_FoundMainCollectionViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
-//            }
-//            [cell addBlock:^{
-//                SSLog(@"click header btn");
-//            }];
-//            return cell;
-//        } else if(indexPath.section == 2){
-//            NSString * cellId = @"SR_FoundMainImageViewCell";
-//            SR_FoundMainImageViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-//            if (!cell) {
-//                cell = [[SR_FoundMainImageViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
-//            }
-//            [cell addBlock:^{
-//                SSLog(@"click header btn");
-//            }];
-//            return cell;
-//        }else if(indexPath.section == 3){
-//            NSString * cellId = @"SR_FoundMainTextViewCell";
-//            SR_FoundMainTextViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-//            if (!cell) {
-//                cell = [[SR_FoundMainTextViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
-//            }
-//            [cell addBlock:^{
-//                SSLog(@"click header btn");
-//            }];
-//            return cell;
-//        }else if(indexPath.section == 4){
-//            NSString * cellId = @"SR_FoundMainTextSelfViewCell";
-//            SR_FoundMainTextSelfViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-//            if (!cell) {
-//                cell = [[SR_FoundMainTextSelfViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
-//            }
-//            [cell addBlock:^{
-//                SSLog(@"click header btn");
-//            }];
-//            return cell;
-//        }else if(indexPath.section == 5){
-//            NSString * cellId = @"SR_FoundMainImageSelfViewCell";
-//            SR_FoundMainImageSelfViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-//            if (!cell) {
-//                cell = [[SR_FoundMainImageSelfViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
-//            }
-//            [cell addBlock:^{
-//                SSLog(@"click header btn");
-//            }];
-//            return cell;
-//        }else{
-//            NSString * cellId = @"SR_FoundMainVoiceSelfViewCell";
-//            SR_FoundMainVoiceSelfViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-//            if (!cell) {
-//                cell = [[SR_FoundMainVoiceSelfViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
-//            }
-//            [cell addBlock:^{
-//                SSLog(@"click header btn");
-//            }];
-//            return cell;
-//        }
+
 
     }
 }
@@ -330,8 +264,12 @@
 }
 
 - (void)clickHeaderBtn:(UIButton *)btn{
-    self.isSelectBookClub = !self.isSelectBookClub;
-    [self.tableView reloadData];
+    static BOOL lastTag = 0;
+    if (lastTag != btn.tag) {
+        self.isSelectBookClub = !self.isSelectBookClub;
+        [self.tableView reloadData];
+        lastTag = btn.tag;
+    }
 }
 
 - (void)clickFloatBtn{
@@ -344,28 +282,57 @@
     if (tag == 0) {
         SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:nil text:nil];
         textView.delegate = self;
+        self.actionSheetTextView = textView;
         [textView show];
     }else if (tag == 1){
         SR_ActionSheetImageView * imageView = [[SR_ActionSheetImageView alloc] initActionSheetWith:nil images:nil viewController:self];
         imageView.delegate = self;
+        self.actionSheetImageView = imageView;
         [imageView show];
     }else{
         SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:nil voices:nil viewController:self];
         //voiceView.delegate = self;
+        self.actionSheetVoiceView = voiceView;
         [voiceView show];
     }
 }
 
+///做没有对象的笔记
 - (void)clickTextViewSendBtn:(NSString *)title text:(NSString *)text{
     SSLog(@"title:%@ content:%@",title,text);
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_TEXT,
+                             @"title":title,@"content":text};
+    MBProgressHUD * hud = [[MBProgressHUD  alloc] initWithView:self.tableView];
+    [hud showAnimated:YES];
+    [httpTools post:SAVE_NOTE andParameters:param success:^(NSDictionary *dic) {
+        [hud hideAnimated:YES];
+        [SVProgressHUD showSuccessWithStatus:@"笔记创建成功"];
+        [self.actionSheetTextView dismiss];
+    } failure:^(NSError *error) {
+        [hud hideAnimated:YES];
+        [SVProgressHUD showErrorWithStatus:@"笔记创建失败"];
+    }];
 }
 
 - (void)clickImageViewSendBtn:(NSString *)title images:(NSArray *)images{
-    NSLog(@"title:%@ images.count:%d",title,images.count);
-}
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_PIX,
+                             @"title":title,};
+    MBProgressHUD * hud = [[MBProgressHUD  alloc] initWithView:self.tableView];
+    [hud showAnimated:YES];
+    [httpTools uploadImage:SAVE_NOTE parameters:param images:images success:^(NSDictionary *dic) {
+        SSLog(@"save pic:%@",dic);
+        [hud hideAnimated:YES];
+        [SVProgressHUD showSuccessWithStatus:@"笔记创建成功"];
+        [self.actionSheetImageView dismiss];
+    } failure:^(NSError *error) {
+        [hud hideAnimated:YES];
+        [SVProgressHUD showErrorWithStatus:@"笔记创建失败"];
+    }];
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    SSLog(@"search text:%@",searchText);
 }
 
 - (void)relogin{
@@ -408,7 +375,7 @@
     NSString * page = [NSString stringWithFormat:@"%d",pageIndex];
     NSString * userId = [UserInfo getUserId];
     NSDictionary * param = @{@"user_id":userId,@"limit":limit,@"page":page,@"mode":@"1"};
-    [httpTools post:GET_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
+    [httpTools post:GET_NOTE_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
         SSLog(@"get lsit all:%@",dic);
         NSArray * list = dic[@"data"][@"list"];
         //区分不同类型的笔记进行不同model的转换
@@ -420,7 +387,9 @@
         for (NSDictionary * item in list) {
             SR_BookClubBookNoteModel * noteModel = [SR_BookClubBookNoteModel modelWithDictionary:item];
             noteModel.note_id = item[@"id"];
-            noteModel.book.book_id = item[@"book"][@"id"];
+            if ([item[@"book"] isKindOfClass:[NSDictionary class]]) {
+                noteModel.book.book_id = item[@"book"][@"id"];
+            }
             noteModel.user.user_id = item[@"user"][@"id"];
             [self.dynamicInfos addObject:noteModel];
         }

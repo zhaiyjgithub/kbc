@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "RequestAPI.h"
 
 @interface httpTools : NSObject
@@ -18,4 +19,7 @@ andParameters:(NSDictionary *)parameters
 andParameters:(NSDictionary *)parameters
     success:(void (^)(NSDictionary *dic))success
     failure:(void (^)(NSError *error))failure;
++ (void)uploadImage:(NSString *)url parameters:(NSDictionary *)parameters images:(NSArray *)images
+            success:(void (^)(NSDictionary *dic))success
+            failure:(void (^)(NSError *error))failure;
 @end

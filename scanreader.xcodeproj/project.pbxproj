@@ -66,6 +66,9 @@
 		CBE47E141D40B1170046C89C /* SR_InterPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E131D40B1170046C89C /* SR_InterPageViewController.m */; };
 		CBE47E181D40BC1C0046C89C /* SR_RecordMainTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE47E171D40BC1C0046C89C /* SR_RecordMainTagButton.m */; };
 		CBEAEFE21D59D98700263D9C /* httpTools.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEAEFE11D59D98700263D9C /* httpTools.m */; };
+		CBEEABE01D6B4524005B1C2B /* SR_FoundSearchNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEEABDF1D6B4524005B1C2B /* SR_FoundSearchNoteViewController.m */; };
+		CBEEABE31D6B4723005B1C2B /* SR_FoundSearchInterPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEEABE21D6B4723005B1C2B /* SR_FoundSearchInterPageViewController.m */; };
+		CBEEABE61D6B48C2005B1C2B /* SR_FoundSearchBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEEABE51D6B48C2005B1C2B /* SR_FoundSearchBookViewController.m */; };
 		CBFEA9041D35F4F5007276B6 /* SR_TabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9031D35F4F5007276B6 /* SR_TabbarViewController.m */; };
 		CBFEA90A1D35F576007276B6 /* SR_BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9091D35F576007276B6 /* SR_BaseTableViewController.m */; };
 		CBFEA9111D35F691007276B6 /* SR_FoundMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9101D35F691007276B6 /* SR_FoundMainViewController.m */; };
@@ -221,6 +224,12 @@
 		CBE47E171D40BC1C0046C89C /* SR_RecordMainTagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_RecordMainTagButton.m; path = Application/SR_Record/SR_RecordMain/SR_RecordMainTagButton.m; sourceTree = "<group>"; };
 		CBEAEFE01D59D98700263D9C /* httpTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = httpTools.h; path = Base/Tool/httpTools.h; sourceTree = "<group>"; };
 		CBEAEFE11D59D98700263D9C /* httpTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = httpTools.m; path = Base/Tool/httpTools.m; sourceTree = "<group>"; };
+		CBEEABDE1D6B4524005B1C2B /* SR_FoundSearchNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundSearchNoteViewController.h; path = Application/SR_Search/SR_FoundSearchNoteViewController.h; sourceTree = "<group>"; };
+		CBEEABDF1D6B4524005B1C2B /* SR_FoundSearchNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundSearchNoteViewController.m; path = Application/SR_Search/SR_FoundSearchNoteViewController.m; sourceTree = "<group>"; };
+		CBEEABE11D6B4723005B1C2B /* SR_FoundSearchInterPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundSearchInterPageViewController.h; path = Application/SR_Search/SR_FoundSearchInterPageViewController.h; sourceTree = "<group>"; };
+		CBEEABE21D6B4723005B1C2B /* SR_FoundSearchInterPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundSearchInterPageViewController.m; path = Application/SR_Search/SR_FoundSearchInterPageViewController.m; sourceTree = "<group>"; };
+		CBEEABE41D6B48C2005B1C2B /* SR_FoundSearchBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundSearchBookViewController.h; path = Application/SR_Search/SR_FoundSearchBookViewController.h; sourceTree = "<group>"; };
+		CBEEABE51D6B48C2005B1C2B /* SR_FoundSearchBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundSearchBookViewController.m; path = Application/SR_Search/SR_FoundSearchBookViewController.m; sourceTree = "<group>"; };
 		CBFEA9021D35F4F5007276B6 /* SR_TabbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_TabbarViewController.h; path = Base/Controller/SR_TabbarViewController.h; sourceTree = "<group>"; };
 		CBFEA9031D35F4F5007276B6 /* SR_TabbarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_TabbarViewController.m; path = Base/Controller/SR_TabbarViewController.m; sourceTree = "<group>"; };
 		CBFEA9081D35F576007276B6 /* SR_BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_BaseTableViewController.h; path = Base/Controller/SR_BaseTableViewController.h; sourceTree = "<group>"; };
@@ -470,10 +479,11 @@
 		CB7411AC1D3484B3002B8FB5 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				CBEEABDC1D6B44BE005B1C2B /* SR_Seach(搜索) */,
 				848429A41D4498C400855854 /* SR_ActionSheet */,
-				CBE47DF11D4066AD0046C89C /* SR_ForgotPassword */,
-				CBD1D6051D3622B500539056 /* SR_Register */,
-				CBD1D6001D3621B000539056 /* SR_Mine */,
+				CBE47DF11D4066AD0046C89C /* SR_ForgotPassword(忘记密码) */,
+				CBD1D6051D3622B500539056 /* SR_Register(注册) */,
+				CBD1D6001D3621B000539056 /* SR_Mine(我的) */,
 				CBFEA91F1D35FB8A007276B6 /* SR_Login */,
 				CBFEA9051D35F50F007276B6 /* SR_Found(发现) */,
 				CBFEA9061D35F51C007276B6 /* SR_Scan(扫描) */,
@@ -515,13 +525,13 @@
 			path = Base/Lib/AVRefresh;
 			sourceTree = "<group>";
 		};
-		CBD1D6001D3621B000539056 /* SR_Mine */ = {
+		CBD1D6001D3621B000539056 /* SR_Mine(我的) */ = {
 			isa = PBXGroup;
 			children = (
 				CBD1D60A1D36277900539056 /* View */,
 				CBD1D6011D3621B700539056 /* Controller */,
 			);
-			name = SR_Mine;
+			name = "SR_Mine(我的)";
 			sourceTree = "<group>";
 		};
 		CBD1D6011D3621B700539056 /* Controller */ = {
@@ -539,13 +549,13 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
-		CBD1D6051D3622B500539056 /* SR_Register */ = {
+		CBD1D6051D3622B500539056 /* SR_Register(注册) */ = {
 			isa = PBXGroup;
 			children = (
 				CBD1D6071D3622E500539056 /* SR_RegisterViewController.h */,
 				CBD1D6081D3622E500539056 /* SR_RegisterViewController.m */,
 			);
-			name = SR_Register;
+			name = "SR_Register(注册)";
 			sourceTree = "<group>";
 		};
 		CBD1D60A1D36277900539056 /* View */ = {
@@ -567,13 +577,13 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		CBE47DF11D4066AD0046C89C /* SR_ForgotPassword */ = {
+		CBE47DF11D4066AD0046C89C /* SR_ForgotPassword(忘记密码) */ = {
 			isa = PBXGroup;
 			children = (
 				CBE47DF21D4067180046C89C /* SR_ForgotPasswordViewController.h */,
 				CBE47DF31D4067180046C89C /* SR_ForgotPasswordViewController.m */,
 			);
-			name = SR_ForgotPassword;
+			name = "SR_ForgotPassword(忘记密码)";
 			sourceTree = "<group>";
 		};
 		CBE47E041D40A1510046C89C /* dynamic */ = {
@@ -635,6 +645,21 @@
 				CBE47E171D40BC1C0046C89C /* SR_RecordMainTagButton.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		CBEEABDC1D6B44BE005B1C2B /* SR_Seach(搜索) */ = {
+			isa = PBXGroup;
+			children = (
+				CBA87BDA1D3C73ED006C0648 /* SR_FoundSearchTableViewController.h */,
+				CBA87BDB1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m */,
+				CBEEABDE1D6B4524005B1C2B /* SR_FoundSearchNoteViewController.h */,
+				CBEEABDF1D6B4524005B1C2B /* SR_FoundSearchNoteViewController.m */,
+				CBEEABE11D6B4723005B1C2B /* SR_FoundSearchInterPageViewController.h */,
+				CBEEABE21D6B4723005B1C2B /* SR_FoundSearchInterPageViewController.m */,
+				CBEEABE41D6B48C2005B1C2B /* SR_FoundSearchBookViewController.h */,
+				CBEEABE51D6B48C2005B1C2B /* SR_FoundSearchBookViewController.m */,
+			);
+			name = "SR_Seach(搜索)";
 			sourceTree = "<group>";
 		};
 		CBFEA8FF1D35ECAE007276B6 /* Controller */ = {
@@ -708,8 +733,6 @@
 				CBE47E091D40A73D0046C89C /* Dynamic(动态信息) */,
 				CBFEA90F1D35F691007276B6 /* SR_FoundMainViewController.h */,
 				CBFEA9101D35F691007276B6 /* SR_FoundMainViewController.m */,
-				CBA87BDA1D3C73ED006C0648 /* SR_FoundSearchTableViewController.h */,
-				CBA87BDB1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m */,
 				CBE47E121D40B1170046C89C /* SR_InterPageViewController.h */,
 				CBE47E131D40B1170046C89C /* SR_InterPageViewController.m */,
 				CB42D0B21D6455B1002A75E5 /* VoiceViewController.h */,
@@ -984,6 +1007,7 @@
 				CBFEA91E1D35FB22007276B6 /* SR_BaseModel.m in Sources */,
 				CBD1D60D1D36279A00539056 /* SR_MineViewCell.m in Sources */,
 				CBFEA91B1D35F754007276B6 /* SR_RecorMainViewController.m in Sources */,
+				CBEEABE31D6B4723005B1C2B /* SR_FoundSearchInterPageViewController.m in Sources */,
 				CB0F0C0D1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m in Sources */,
 				CB74117B1D347B14002B8FB5 /* main.m in Sources */,
 				CBD1D6101D3628C100539056 /* SR_OAthouButton.m in Sources */,
@@ -998,6 +1022,8 @@
 				CB42D0CA1D645AF8002A75E5 /* VoiceConverter.mm in Sources */,
 				CB42D0B41D6455B1002A75E5 /* VoiceViewController.m in Sources */,
 				CBE47E031D407F200046C89C /* SR_FoundMainTextSelfViewCell.m in Sources */,
+				CBEEABE61D6B48C2005B1C2B /* SR_FoundSearchBookViewController.m in Sources */,
+				CBEEABE01D6B4524005B1C2B /* SR_FoundSearchNoteViewController.m in Sources */,
 				CB2A65FE1D60B26C006F735B /* UserInfo.m in Sources */,
 				CBCF4F8A1D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m in Sources */,
 				CB95AD871D6961E600BAA77B /* AVFooterRefresh.m in Sources */,

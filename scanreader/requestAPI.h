@@ -30,10 +30,12 @@
 #define REGISTER     @"/api/user/register"
 #define LOGIN        @"/api/user/login"
 #define LOGIN_OUT    @"/api/user/logout"
-#define GET_LIST_ALL @"/api/note/getList"
+#define GET_NOTE_LIST_ALL @"/api/note/getList"
 
 #define CREATE_BOOK_CLUB @"/api/book/save"
 #define GET_BOOK_CLUB_LIST_ALL @"/api/book/getList"
 #define SAVE_NOTE  @"/api/note/save"
+
+#define GET_PAGE_LIST @"/api/page/getList"
 
 #endif /* requestAPI_h */

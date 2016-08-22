@@ -19,7 +19,7 @@ typedef void(^foundMainTextViewCellInterBlock)(void);
 @property(nonatomic,strong)UIButton * subtitleButton;
 @property(nonatomic,strong)UILabel * messageLabel;
 @property(nonatomic,strong)UILabel * bookFriendsLabel;
-@property(nonatomic,strong)UIButton * headerBtn;
+@property(nonatomic,strong)YYAnimatedImageView * headerImageView ;
 @property(nonatomic,strong)SR_BookClubBookNoteModel * noteModel;
 @property(nonatomic,strong)foundMainTextViewCellBlock block;
 @property(nonatomic,strong)foundMainTextViewCellInterBlock interBlock;

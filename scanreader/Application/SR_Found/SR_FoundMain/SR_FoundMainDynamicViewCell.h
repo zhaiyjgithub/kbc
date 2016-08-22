@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SR_BookClubBookModel.h"
 @interface SR_FoundMainDynamicViewCell : UITableViewCell
-@property(nonatomic,strong)UIImageView * bookImageView;
+@property(nonatomic,strong)YYAnimatedImageView * bookImageView;
 @property(nonatomic,strong)UILabel * bookNameLabel;
 @property(nonatomic,strong)UILabel * bookAuthorLabel;
 @property(nonatomic,strong)UILabel * bookMessageLabel;

@@ -84,7 +84,7 @@
 - (void)getBookMarkList:(NSString *)limit page:(NSString *)page{
     NSString * userId = [UserInfo getUserId];
     NSDictionary * param = @{@"book_id":self.bookModel.book_id,@"user_id":userId,@"mode":@"2",@"limit":limit,@"page":page};
-    [httpTools post:GET_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
+    [httpTools post:GET_NOTE_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
         SSLog(@"%@笔记:%@",self.bookModel.title,dic);
         NSArray * list = dic[@"data"][@"list"];
         for (NSDictionary * item in list) {

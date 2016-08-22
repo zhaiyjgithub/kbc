@@ -78,13 +78,17 @@
     self.bookFriendsLabel.font = [UIFont systemFontOfSize:12.0];
     [self.contentView addSubview:self.bookFriendsLabel];
     
-    self.headerBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    self.headerBtn.frame = CGRectMake(0, 0, 48, 48);
-    self.headerBtn.center = CGPointMake(kScreenWidth - 36, 71);
-    self.headerBtn.layer.cornerRadius = 24;
-    self.headerBtn.backgroundColor = [UIColor redColor];
-    [self.headerBtn addTarget:self action:@selector(clickHeaderBtn) forControlEvents:(UIControlEventTouchUpInside)];
-    [self.contentView addSubview:self.headerBtn];
+    self.headerImageView = [[YYAnimatedImageView alloc] init];
+    [self.headerImageView setImageWithURL:nil placeholder:[UIImage imageNamed:@"headerIcon"]];
+    self.headerImageView.frame = CGRectMake(0, 0, 48, 48);
+    self.headerImageView.center = CGPointMake(kScreenWidth - 36, 71);
+    self.headerImageView.layer.cornerRadius = 24;
+    self.headerImageView.layer.masksToBounds = YES;
+    [self.contentView addSubview:self.headerImageView];
+    
+    UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickHeaderBtn)];
+    self.headerImageView.userInteractionEnabled = YES;
+    [self.headerImageView addGestureRecognizer:gesture];
     
 }
 
@@ -96,6 +100,7 @@
     [self.subtitleButton setTitle:noteModel.page forState:(UIControlStateNormal)];
     self.messageLabel.text = [NSString stringWithFormat:@"互动(%@)",noteModel.note_total];
     self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",noteModel.member_total];
+    [self.headerImageView setImageWithURL:[NSURL URLWithString:noteModel.user.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
 }
 
 - (void)clickHeaderBtn{

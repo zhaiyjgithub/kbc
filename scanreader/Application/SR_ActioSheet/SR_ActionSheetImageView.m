@@ -46,7 +46,7 @@ static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
     self.titleTextField.font = [UIFont systemFontOfSize:16.0];
     self.titleTextField.layer.borderWidth = 1.0;
     self.titleTextField.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.titleTextField.layer.cornerRadius = 2.0;
+    self.titleTextField.layer.cornerRadius = 3.0;
     self.titleTextField.delegate = self;
     self.titleTextField.leftViewMode = UITextFieldViewModeAlways;
     self.titleTextField.leftView = leftView;
@@ -56,7 +56,8 @@ static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
     UICollectionView * collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(15, self.titleTextField.frame.origin.y + self.titleTextField.frame.size.height + sizeHeight(10), kScreenWidth - 30, sizeHeight(260)) collectionViewLayout:layout];
     collectionView.delegate = self;
     collectionView.dataSource = self;
-    collectionView.backgroundColor = [UIColor whiteColor];
+    collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    collectionView.layer.cornerRadius  = 3.0;
     [collectionView registerClass:[SR_ActionSheetImageCollectionViewCell class] forCellWithReuseIdentifier:cellID];
     
     self.collectionView = collectionView;

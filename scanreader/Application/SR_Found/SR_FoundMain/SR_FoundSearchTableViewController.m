@@ -13,6 +13,9 @@
 #import "SR_BookClubBookNoteModel.h"
 #import "AVRefreshExtension.h"
 #import "UserInfo.h"
+#import "SR_FoundSearchNoteViewController.h"
+#import "SR_FoundSearchInterPageViewController.h"
+#import "SR_FoundSearchBookViewController.h"
 
 @interface SR_FoundSearchTableViewController ()<UISearchBarDelegate>
 @property(nonatomic,strong)UISearchBar * searchBar;
@@ -63,20 +66,6 @@
     self.searchBar.delegate = self;
     self.navigationItem.titleView = self.searchBar;
     [self.searchBar becomeFirstResponder];
-    
-    if (!self.searchTag) {//全局搜索
-        
-    }else{
-        NSString * searchBarPlacHoleder = @"";
-        if (self.searchTag == SEARCH_TYPE_NOTE) {
-            searchBarPlacHoleder = @"搜索笔记";
-        }else if (self.searchTag == SEARCH_TYPE_INTER_PAGE){
-             searchBarPlacHoleder = @"搜索互动页";
-        }else{
-            searchBarPlacHoleder = @"搜索扫描";
-        }
-        self.searchBar.placeholder = searchBarPlacHoleder;
-    }
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
@@ -90,17 +79,6 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     NSLog(@"text:%@",searchBar.text);
     NSInteger searchTag = 0;
-    if (!self.searchTag) {//全局搜索
-        
-    }else{
-        if (self.searchTag == SEARCH_TYPE_NOTE) {
-            
-        }else if (self.searchTag == SEARCH_TYPE_INTER_PAGE){
-            
-        }else{
-            
-        }
-    }
 }
 
 - (void)loadData{
@@ -113,7 +91,7 @@
     NSString * page = [NSString stringWithFormat:@"%d",pageIndex];
     NSString * userId = [UserInfo getUserId];
     NSDictionary * param = @{@"user_id":userId,@"limit":limit,@"page":page,@"mode":@"1"};
-    [httpTools post:GET_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
+    [httpTools post:GET_NOTE_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
         SSLog(@"get lsit all:%@",dic);
         NSArray * list = dic[@"data"][@"list"];
         //区分不同类型的笔记进行不同model的转换
@@ -125,7 +103,9 @@
         for (NSDictionary * item in list) {
             SR_BookClubBookNoteModel * noteModel = [SR_BookClubBookNoteModel modelWithDictionary:item];
             noteModel.note_id = item[@"id"];
-            noteModel.book.book_id = item[@"book"][@"id"];
+            if ([item[@"book"] isKindOfClass:[NSDictionary class]]) {
+                noteModel.book.book_id = item[@"book"][@"id"];
+            }
             noteModel.user.user_id = item[@"user"][@"id"];
             [self.dataSource addObject:noteModel];
         }
@@ -137,14 +117,13 @@
     }];
 }
 
-
 - (UIView *)backgroundView{
     if (!_backgroundView) {
         _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         _backgroundView.backgroundColor = [UIColor groupTableViewBackgroundColor];
         CGFloat borader = (kScreenWidth - 100 - 56*3)*1.0/2;
         NSArray * images = @[@"ss_bj",@"ss_hdy",@"ss_sm"];
-        NSArray * titles = @[@"笔记",@"互动页",@"扫描"];
+        NSArray * titles = @[@"笔记",@"互动页",@"书籍"];
         for (int i = 0; i < 3; i ++) {
             UIButton * icon = [UIButton buttonWithType:(UIButtonTypeCustom)];
             icon.frame = CGRectMake(50 + i*(56 + borader), 64 + 50, 56, 56);
@@ -171,16 +150,24 @@
     NSInteger searchTag = 0;
     if (icon.tag == 0) {
         searchTag = SEARCH_TYPE_NOTE;
+        self.hidesBottomBarWhenPushed = YES;
+        SR_FoundSearchNoteViewController * searchVC = [[SR_FoundSearchNoteViewController alloc] init];
+        [self.navigationController pushViewController:searchVC animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
     }else if (icon.tag == 1){
         searchTag = SEARCH_TYPE_INTER_PAGE;
+        self.hidesBottomBarWhenPushed = YES;
+        SR_FoundSearchInterPageViewController * searchVC = [[SR_FoundSearchInterPageViewController alloc] init];
+        [self.navigationController pushViewController:searchVC animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
     }else{
         searchTag = SEARCH_TYPE_SCAN;
+        self.hidesBottomBarWhenPushed = YES;
+        SR_FoundSearchBookViewController * searchVC = [[SR_FoundSearchBookViewController alloc] init];
+        [self.navigationController pushViewController:searchVC animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+
     }
-    self.hidesBottomBarWhenPushed = YES;
-    SR_FoundSearchTableViewController * searchVC = [[SR_FoundSearchTableViewController alloc] init];
-    searchVC.searchTag = searchTag;
-    [self.navigationController pushViewController:searchVC animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
 }
 
 

@@ -71,7 +71,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.selectedTagIndex == 0) {
-        return 146;
+        SR_BookClubBookNoteModel * noteModel = self.noteList[indexPath.row];
+        if ([noteModel.type isEqualToString:NOTE_TYPE_TEXT]) {
+            return 146;
+        }else if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){
+            return 180;
+        }else{
+            return 146;
+        }
     }else{
         return 64;
     }
@@ -94,6 +101,7 @@
             if (!cell) {
                 cell = [[SR_FoundMainTextViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
             }
+            cell.noteModel = self.noteList[indexPath.row];
             [cell addBlock:^{
                 SSLog(@"click header btn");
             }];
@@ -188,7 +196,6 @@
             lineView.backgroundColor = [UIColor lightGrayColor];
             [headerView addSubview:lineView];
         }
-        
         return headerView;
     }else{
         return nil;
@@ -218,13 +225,15 @@
     NSString * limit = [NSString stringWithFormat:@"%d",pageNum];
     NSString * page = [NSString stringWithFormat:@"%d",pageIndex];
     NSDictionary * param = @{@"user_id":userId,@"limit":limit,@"page":page,@"mode":mode};
-    [httpTools post:GET_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
+    [httpTools post:GET_NOTE_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
        // SSLog(@"get lsit all:%@",dic);
          NSArray * list = dic[@"data"][@"list"];
         for (NSDictionary * item in list) {
             SR_BookClubBookNoteModel * noteModel = [SR_BookClubBookNoteModel modelWithDictionary:item];
             noteModel.note_id = item[@"id"];
-            noteModel.book.book_id = item[@"book"][@"id"];
+            if ([item[@"book"] isKindOfClass:[NSDictionary class]]) {
+                noteModel.book.book_id = item[@"book"][@"id"];
+            }
             noteModel.user.user_id = item[@"user"][@"id"];
             if ([mode isEqualToString:NOTE_MODE_COLLECTION]) {//请求收藏列表
                 [self.collectionList addObject:noteModel];

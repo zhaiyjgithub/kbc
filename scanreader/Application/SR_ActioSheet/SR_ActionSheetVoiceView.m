@@ -37,7 +37,7 @@
     self.titleTextField.font = [UIFont systemFontOfSize:16.0];
     self.titleTextField.layer.borderWidth = 1.0;
     self.titleTextField.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.titleTextField.layer.cornerRadius = 2.0;
+    self.titleTextField.layer.cornerRadius = 3.0;
     self.titleTextField.delegate = self;
     self.titleTextField.leftViewMode = UITextFieldViewModeAlways;
     self.titleTextField.leftView = leftView;

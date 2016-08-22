@@ -63,6 +63,7 @@
 
 - (void)setBookModel:(SR_BookClubBookModel *)bookModel{
     _bookModel = bookModel;
+    [self.bookImageView setImageWithURL:[NSURL URLWithString:bookModel.picture] placeholder:nil];
     self.bookNameLabel.text = bookModel.title;
     self.bookAuthorLabel.text = [NSString stringWithFormat:@"作者:%@",bookModel.author];
     self.bookMessageLabel.text = [NSString stringWithFormat:@"互动(%@)",bookModel.note_total];

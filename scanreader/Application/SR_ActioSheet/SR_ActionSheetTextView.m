@@ -48,7 +48,7 @@
     self.textTextView.textColor = baseblackColor;
     self.textTextView.layer.borderWidth = 1.0;
     self.textTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.textTextView.layer.cornerRadius = 2.0;
+    self.textTextView.layer.cornerRadius = 3.0;
     self.textTextView.font = [UIFont systemFontOfSize:14.0];
     [self addSubview:self.textTextView];
     
