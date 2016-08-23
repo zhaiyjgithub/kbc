@@ -35,6 +35,8 @@
 		CB7411891D347B14002B8FB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB7411871D347B14002B8FB5 /* LaunchScreen.storyboard */; };
 		CB7411941D347B14002B8FB5 /* scanreaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7411931D347B14002B8FB5 /* scanreaderTests.m */; };
 		CB74119F1D347B14002B8FB5 /* scanreaderUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74119E1D347B14002B8FB5 /* scanreaderUITests.m */; };
+		CB94EAAC1D6C4A0A000E633B /* NSDate+JJ.m in Sources */ = {isa = PBXBuildFile; fileRef = CB94EAA91D6C4A0A000E633B /* NSDate+JJ.m */; };
+		CB94EAAD1D6C4A0A000E633B /* NSString+JJ.m in Sources */ = {isa = PBXBuildFile; fileRef = CB94EAAB1D6C4A0A000E633B /* NSString+JJ.m */; };
 		CB95AD871D6961E600BAA77B /* AVFooterRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = CB95AD7D1D6961E600BAA77B /* AVFooterRefresh.m */; };
 		CB95AD881D6961E600BAA77B /* AVHeaderRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = CB95AD7F1D6961E600BAA77B /* AVHeaderRefresh.m */; };
 		CB95AD891D6961E600BAA77B /* AVRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = CB95AD811D6961E600BAA77B /* AVRefresh.m */; };
@@ -161,6 +163,10 @@
 		CB74119E1D347B14002B8FB5 /* scanreaderUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = scanreaderUITests.m; sourceTree = "<group>"; };
 		CB7411A01D347B14002B8FB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB7411B01D3486B6002B8FB5 /* globalHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = globalHeader.h; path = scanreader/globalHeader.h; sourceTree = "<group>"; };
+		CB94EAA81D6C4A0A000E633B /* NSDate+JJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+JJ.h"; path = "Base/Category/NSDate+JJ.h"; sourceTree = "<group>"; };
+		CB94EAA91D6C4A0A000E633B /* NSDate+JJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+JJ.m"; path = "Base/Category/NSDate+JJ.m"; sourceTree = "<group>"; };
+		CB94EAAA1D6C4A0A000E633B /* NSString+JJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+JJ.h"; path = "Base/Category/NSString+JJ.h"; sourceTree = "<group>"; };
+		CB94EAAB1D6C4A0A000E633B /* NSString+JJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+JJ.m"; path = "Base/Category/NSString+JJ.m"; sourceTree = "<group>"; };
 		CB95AD7C1D6961E600BAA77B /* AVFooterRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVFooterRefresh.h; sourceTree = "<group>"; };
 		CB95AD7D1D6961E600BAA77B /* AVFooterRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVFooterRefresh.m; sourceTree = "<group>"; };
 		CB95AD7E1D6961E600BAA77B /* AVHeaderRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVHeaderRefresh.h; sourceTree = "<group>"; };
@@ -496,6 +502,7 @@
 		CB7411AE1D3484CF002B8FB5 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				CB94EAA71D6C497D000E633B /* Category */,
 				CB42D0B51D645A96002A75E5 /* Lib */,
 				84AE3DD81D436E1C00643989 /* Tools */,
 				CBFEA9011D35ECC0007276B6 /* Model */,
@@ -504,6 +511,17 @@
 			);
 			name = Base;
 			path = scanreader;
+			sourceTree = "<group>";
+		};
+		CB94EAA71D6C497D000E633B /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				CB94EAA81D6C4A0A000E633B /* NSDate+JJ.h */,
+				CB94EAA91D6C4A0A000E633B /* NSDate+JJ.m */,
+				CB94EAAA1D6C4A0A000E633B /* NSString+JJ.h */,
+				CB94EAAB1D6C4A0A000E633B /* NSString+JJ.m */,
+			);
+			name = Category;
 			sourceTree = "<group>";
 		};
 		CB95AD7B1D6961E600BAA77B /* AVRefresh */ = {
@@ -1040,6 +1058,7 @@
 				848DD4921D44FBD00061810F /* SR_ActionSheetVoiceView.m in Sources */,
 				CBFEA9221D35FC15007276B6 /* SR_LoginViewController.m in Sources */,
 				CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */,
+				CB94EAAC1D6C4A0A000E633B /* NSDate+JJ.m in Sources */,
 				CBE47E0E1D40A79F0046C89C /* SR_FoundMainBookClubBookNoteListViewController.m in Sources */,
 				CBEAEFE21D59D98700263D9C /* httpTools.m in Sources */,
 				CBD1D6131D3636F400539056 /* SR_OthersMineViewCell.m in Sources */,
@@ -1059,6 +1078,7 @@
 				CBE47E081D40A1950046C89C /* SR_FoundMainDynamicViewCell.m in Sources */,
 				CBFEA90A1D35F576007276B6 /* SR_BaseTableViewController.m in Sources */,
 				CBFEA9111D35F691007276B6 /* SR_FoundMainViewController.m in Sources */,
+				CB94EAAD1D6C4A0A000E633B /* NSString+JJ.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

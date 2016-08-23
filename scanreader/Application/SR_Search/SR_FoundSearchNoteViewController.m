@@ -13,6 +13,15 @@
 #import "SR_BookClubBookNoteModel.h"
 #import "AVRefreshExtension.h"
 #import "UserInfo.h"
+#import "SR_FoundMainImageViewCell.h"
+#import "SR_FoundMainVoiceViewCell.h"
+#import "SR_FoundMainTextViewCell.h"
+#import "SR_FoundMainTextSelfViewCell.h"
+#import "SR_FoundMainImageSelfViewCell.h"
+#import "SR_FoundMainVoiceSelfViewCell.h"
+#import "SR_FoundMainTextSelfViewCell.h"
+#import "SR_InterPageViewController.h"
+#import "SR_FoundMainCollectionViewCell.h"
 
 @interface SR_FoundSearchNoteViewController ()<UISearchBarDelegate>
 @property(nonatomic,strong)UISearchBar * searchBar;
@@ -36,22 +45,90 @@
     [self.searchBar resignFirstResponder];
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 0;
+    return  self.dataSource.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 8.0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 8.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 60;
+    SR_BookClubBookNoteModel * noteModel = self.dataSource[indexPath.row];
+    if ([noteModel.type isEqualToString:NOTE_TYPE_TEXT]) {
+        return 146;
+    }else if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){
+        return 180;
+    }else{
+        return 146;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString * cellId = @"cellid";
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+    //根据type 来区分笔记的类型
+    //        1文字
+    //        2图片
+    //        3语音
+    //        4收藏
+    SR_BookClubBookNoteModel * noteModel = self.dataSource[indexPath.row];
+    if ([noteModel.type isEqualToString:NOTE_TYPE_TEXT]) {//文字信息
+        NSString * cellId = @"SR_FoundMainTextViewCell";
+        SR_FoundMainTextViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[SR_FoundMainTextViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+        }
+        cell.noteModel = self.dataSource[indexPath.row];
+        [cell addBlock:^{
+            SSLog(@"click header btn");
+        }];
+        return cell;
+    }else if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){//图片
+        NSString * cellId = @"SR_FoundMainImageViewCell";
+        SR_FoundMainImageViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[SR_FoundMainImageViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+        }
+        cell.noteModel = self.dataSource[indexPath.row];
+        [cell addBlock:^{
+            SSLog(@"click header btn");
+        }];
+        return cell;
+        
+    }else if ([noteModel.type isEqualToString:NOTE_TYPE_VOICE]){//语音
+        NSString * cellId = @"SR_FoundMainVoiceViewCell";
+        SR_FoundMainVoiceViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[SR_FoundMainVoiceViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+        }
+        __weak typeof(self) weakSelf = self;
+        [cell addBlock:^{
+            SSLog(@"click header btn");
+        }];
+        [cell addInterBlock:^{
+            SR_InterPageViewController * interPaageVC = [[SR_InterPageViewController alloc] init];
+            [weakSelf.navigationController pushViewController:interPaageVC animated:YES];
+        }];
+        return cell;
+    }else{//收藏
+        NSString * cellId = @"SR_FoundMainCollectionViewCell";
+        SR_FoundMainCollectionViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[SR_FoundMainCollectionViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+        }
+        [cell addBlock:^{
+            SSLog(@"click header btn");
+        }];
+        
+        return cell;
     }
-    cell.textLabel.text = @"-----";
-    return cell;
 }
 
 - (void)setupSerchBar{
@@ -65,11 +142,19 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     NSLog(@"text:%@",searchBar.text);
+    [searchBar resignFirstResponder];
+    [self.dataSource removeAllObjects];
     [self getListAll:PAGE_NUM pageIndex:self.searchPageIndex q:self.searchBar.text];
 }
 
 - (void)loadData{
-    [self getListAll:PAGE_NUM pageIndex:self.searchPageIndex + 1 q:self.searchBar.text];
+    //先判断是否已经请求到最后一了。
+    if (self.dataSource.count < PAGE_NUM*(self.searchPageIndex + 1)) {
+        SSLog(@"已经是最后一条数据了");
+        [self.tableView.av_footer endFooterRefreshing];
+    }else{
+        [self getListAll:PAGE_NUM pageIndex:self.searchPageIndex + 1 q:self.searchBar.text];
+    }
 }
 
 //笔记 /api/note/getList

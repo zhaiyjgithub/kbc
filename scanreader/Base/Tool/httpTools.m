@@ -101,14 +101,10 @@
     NSString * requestUrl = [NSString stringWithFormat:@"%@%@",BASE_URL,url];
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:requestUrl parameters:requestParam constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         // 上传 多张图片
-        for(NSInteger i = 0; i < images.count; i++){
-            UIImage * image = images[i];
-            NSData * imageData = UIImageJPEGRepresentation(image, 0.5);
-            // 上传的参数名
-            NSString * Name = [NSString stringWithFormat:@"pic-%@-%d", timeStmp,i];
-            // 上传filename
-            NSString * fileName = [NSString stringWithFormat:@"%@.jpg", Name];
-            [formData appendPartWithFileData:imageData name:Name fileName:fileName mimeType:@"image/jpeg"];
+        for (int i = 0; i < images.count; i ++) {
+            NSString *fileName = [NSString stringWithFormat:@"%@%02d.%@",@"file",i,@"jpg"];
+            NSData * imageData = UIImageJPEGRepresentation(images[i], 0.5);
+            [formData appendPartWithFileData:imageData name:@"file[]" fileName:fileName mimeType:@"image/jpeg"];
         }
     } error:nil];
     
@@ -144,6 +140,8 @@
     
     [uploadTask resume];
 }
+
+
 
 
 @end

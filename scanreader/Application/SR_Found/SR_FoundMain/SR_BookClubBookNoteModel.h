@@ -34,7 +34,7 @@
 @property(nonatomic,copy)NSString * title;
 @property(nonatomic,copy)NSString * content;
 @property(nonatomic,copy)NSString * type;
-@property(nonatomic,copy)NSString * time_create;
+@property(nonatomic,assign)NSInteger time_create;
 @property(nonatomic,copy)NSString * note_total;
 @property(nonatomic,copy)NSString * member_total;
 @property(nonatomic,strong)SR_BookClubNoteUserModel * user;

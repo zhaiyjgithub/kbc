@@ -8,6 +8,7 @@
 
 #import "SR_FoundMainImageViewCell.h"
 #import "globalHeader.h"
+#import "NSDate+JJ.h"
 
 @implementation SR_FoundMainImageViewCell
 
@@ -91,11 +92,17 @@
 - (void)setNoteModel:(SR_BookClubBookNoteModel *)noteModel{
     _noteModel = noteModel;
     self.titleLabel.text = noteModel.title;
-    self.timeLabel.text = noteModel.time_create;
+    NSDate * createData = [NSDate dateWithTimeIntervalSince1970:noteModel.time_create];
+    NSString * time = [NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
+    self.timeLabel.text = time;
     [self.subtitleButton setTitle:noteModel.page forState:(UIControlStateNormal)];
     self.messageLabel.text = [NSString stringWithFormat:@"互动(%@)",noteModel.note_total];
     self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",noteModel.member_total];
     [self.headerImageView setImageWithURL:[NSURL URLWithString:noteModel.user.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
+    SR_BookClubNoteResourceModel * resourceModel = [SR_BookClubNoteResourceModel modelWithJSON:[noteModel.resourceList firstObject]];
+    if (resourceModel) {
+        [self.recordImageView setImageWithURL:[NSURL URLWithString:resourceModel.path] placeholder:nil];
+    }
     //还没有添加图片
 }
 

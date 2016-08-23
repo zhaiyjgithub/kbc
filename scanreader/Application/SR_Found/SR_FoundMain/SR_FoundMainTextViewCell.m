@@ -8,6 +8,7 @@
 
 #import "SR_FoundMainTextViewCell.h"
 #import "globalHeader.h"
+#import "NSDate+JJ.h"
 
 @implementation SR_FoundMainTextViewCell
 
@@ -95,7 +96,9 @@
 - (void)setNoteModel:(SR_BookClubBookNoteModel *)noteModel{
     _noteModel = noteModel;
     self.titleLabel.text = noteModel.title;
-    self.timeLabel.text = noteModel.time_create;
+    NSDate * createData = [NSDate dateWithTimeIntervalSince1970:noteModel.time_create];
+    NSString * time = [NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
+    self.timeLabel.text = time;
     self.bodyTextLabel.text = noteModel.content;
     [self.subtitleButton setTitle:noteModel.page forState:(UIControlStateNormal)];
     self.messageLabel.text = [NSString stringWithFormat:@"互动(%@)",noteModel.note_total];

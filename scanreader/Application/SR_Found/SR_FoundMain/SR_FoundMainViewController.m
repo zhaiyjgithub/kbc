@@ -320,7 +320,7 @@
     NSString * userId = [UserInfo getUserId];
     NSString * userToken = [UserInfo getUserToken];
     NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_PIX,
-                             @"title":title,};
+                             @"title":title};
     MBProgressHUD * hud = [[MBProgressHUD  alloc] initWithView:self.tableView];
     [hud showAnimated:YES];
     [httpTools uploadImage:SAVE_NOTE parameters:param images:images success:^(NSDictionary *dic) {
