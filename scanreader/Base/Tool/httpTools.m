@@ -47,10 +47,11 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if([responseObject isKindOfClass:[NSDictionary class]]){
-            if ([responseObject[@"status"] intValue]) {
+            if (([responseObject[@"status"] intValue]) > 0) {
                 success(responseObject);
             }else{
                 [SVProgressHUD showInfoWithStatus:responseObject[@"msg"]];
+                success(responseObject);
             }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

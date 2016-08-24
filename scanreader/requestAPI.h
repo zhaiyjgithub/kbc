@@ -37,5 +37,7 @@
 #define SAVE_NOTE  @"/api/note/save"
 
 #define GET_PAGE_LIST @"/api/page/getList"
-
+#define GET_MESSAGE_LIST @"/api/message/getList"
+#define GET_MESSAGE_ONE_ITEM @"/api/message/getOne"
+#define SEND_MESSAGE @"/api/message/save"
 #endif /* requestAPI_h */

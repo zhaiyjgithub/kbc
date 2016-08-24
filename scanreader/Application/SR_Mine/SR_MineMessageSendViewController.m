@@ -9,6 +9,12 @@
 #import "SR_MineMessageSendViewController.h"
 #import "globalHeader.h"
 #import "SR_MineMessageSendDialogMineViewCell.h"
+#import "UserInfo.h"
+#import "httpTools.h"
+#import "requestAPI.h"
+#import "SR_MineMessageModel.h"
+#import "AVRefreshExtension.h"
+
 
 @interface SR_MineMessageSendViewController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong)UITableView * tableView;
@@ -18,6 +24,7 @@
 @property(nonatomic,strong)UIButton * toolBarSendBtn;
 
 @property(nonatomic,assign)NSInteger numOfRows;
+@property(nonatomic,assign)NSInteger messageListPageIndex;
 @end
 
 @implementation SR_MineMessageSendViewController
@@ -34,6 +41,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    [self getMessageList:70 pageIndex:0];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -76,6 +85,7 @@
     self.toolBarTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 8, kScreenWidth - 10 - 10 - 10 - 35, 35)];
     self.toolBarTextField.backgroundColor = [UIColor whiteColor];
     self.toolBarTextField.delegate = self;
+    self.toolBarTextField.layer.cornerRadius = 5.0;
     [self.toolBar addSubview:self.toolBarTextField];
     
     self.toolBarSendBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -94,6 +104,8 @@
     NSIndexPath * indexpath = [NSIndexPath indexPathForRow:self.numOfRows-1 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexpath] withRowAnimation:(UITableViewRowAnimationBottom)];
     [self.tableView scrollToRowAtIndexPath:indexpath atScrollPosition:(UITableViewScrollPositionBottom) animated:YES];
+    
+    [self sendMessage:@"3" content:[NSString stringWithFormat:@"hello,im user :%@",[UserInfo getUserId]]];
 }
 
 #pragma mark Responding to keyboard events
@@ -158,6 +170,51 @@
     return _dataSource;
 }
 
+- (void)getMessageList:(NSInteger)pageNum  pageIndex:(NSInteger)pageIndex{
+    NSString * limit = [NSString stringWithFormat:@"%d",pageNum];
+    NSString * page = [NSString stringWithFormat:@"%d",pageIndex];
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSDictionary * param = @{@"limit":limit,@"page":page,@"user_id":userId,@"user_token":userToken,@"id":self.messageModel.message_id};
+    [httpTools post:GET_MESSAGE_ONE_ITEM andParameters:param success:^(NSDictionary *dic) {
+        NSLog(@"message one item:%@",dic);
+        NSArray * list = dic[@"data"][@"list"];
+//        for (NSDictionary * item in list) {
+//            SR_MineMessageModel * model = [SR_MineMessageModel modelWithDictionary:item];
+//            model.message_id = item[@"id"];
+//            model.sender.sender_id = item[@"sender"][@"id"];
+//            [self.dataSource addObject:model];
+//        }
+//        self.messageListPageIndex = (self.dataSource.count/PAGE_NUM) + (self.dataSource.count%PAGE_NUM > 0 ? 1 : 0);
+//        [self.tableView.av_footer endFooterRefreshing];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        SSLog(@"error:%@",error);
+    }];
+}
+
+- (void)sendMessage:(NSString * )recipient_id content:(NSString *)content{
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"recipient_id":recipient_id,
+                             @"content":content};
+    [httpTools post:SEND_MESSAGE andParameters:param success:^(NSDictionary *dic) {
+        NSLog(@"send message:%@",dic);
+        //        NSArray * list = dic[@"data"][@"list"];
+        //        for (NSDictionary * item in list) {
+        //            SR_MineMessageModel * model = [SR_MineMessageModel modelWithDictionary:item];
+        //            model.message_id = item[@"id"];
+        //            model.sender.sender_id = item[@"sender"][@"id"];
+        //            [self.dataSource addObject:model];
+        //        }
+        //        self.messageListPageIndex = (self.dataSource.count/PAGE_NUM) + (self.dataSource.count%PAGE_NUM > 0 ? 1 : 0);
+        //        [self.tableView.av_footer endFooterRefreshing];
+        //        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        SSLog(@"error:%@",error);
+    }];
+    
+}
 
 
 @end

@@ -20,6 +20,7 @@
 		CB0F0C0D1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */; };
 		CB1659161D63688500E17303 /* SR_BookClubBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1659151D63688500E17303 /* SR_BookClubBookModel.m */; };
 		CB2A65FE1D60B26C006F735B /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65FD1D60B26C006F735B /* UserInfo.m */; };
+		CB32AD871D6DE7AF00CD6D34 /* SR_MineMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB32AD861D6DE7AF00CD6D34 /* SR_MineMessageModel.m */; };
 		CB42D0AE1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB42D0AD1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m */; };
 		CB42D0B41D6455B1002A75E5 /* VoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB42D0B31D6455B1002A75E5 /* VoiceViewController.m */; };
 		CB42D0B71D645ABC002A75E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB42D0B61D645ABC002A75E5 /* AVFoundation.framework */; };
@@ -130,6 +131,8 @@
 		CB2A65FB1D60AB87006F735B /* requestAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = requestAPI.h; path = scanreader/requestAPI.h; sourceTree = "<group>"; };
 		CB2A65FC1D60B26C006F735B /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfo.h; path = Base/Tool/UserInfo.h; sourceTree = "<group>"; };
 		CB2A65FD1D60B26C006F735B /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Base/Tool/UserInfo.m; sourceTree = "<group>"; };
+		CB32AD851D6DE7AF00CD6D34 /* SR_MineMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageModel.h; path = Application/SR_Mine/SR_MineMessageModel.h; sourceTree = "<group>"; };
+		CB32AD861D6DE7AF00CD6D34 /* SR_MineMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageModel.m; path = Application/SR_Mine/SR_MineMessageModel.m; sourceTree = "<group>"; };
 		CB42D0AC1D640BFC002A75E5 /* SR_BookClubBookNoteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_BookClubBookNoteModel.h; path = Application/SR_Found/SR_FoundMain/SR_BookClubBookNoteModel.h; sourceTree = "<group>"; };
 		CB42D0AD1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_BookClubBookNoteModel.m; path = Application/SR_Found/SR_FoundMain/SR_BookClubBookNoteModel.m; sourceTree = "<group>"; };
 		CB42D0B21D6455B1002A75E5 /* VoiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VoiceViewController.h; path = Application/SR_Found/SR_FoundMain/VoiceViewController.h; sourceTree = "<group>"; };
@@ -358,6 +361,15 @@
 			name = Tools;
 			sourceTree = "<group>";
 		};
+		CB32AD841D6DE77800CD6D34 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CB32AD851D6DE7AF00CD6D34 /* SR_MineMessageModel.h */,
+				CB32AD861D6DE7AF00CD6D34 /* SR_MineMessageModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		CB42D0B51D645A96002A75E5 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -546,6 +558,7 @@
 		CBD1D6001D3621B000539056 /* SR_Mine(我的) */ = {
 			isa = PBXGroup;
 			children = (
+				CB32AD841D6DE77800CD6D34 /* Model */,
 				CBD1D60A1D36277900539056 /* View */,
 				CBD1D6011D3621B700539056 /* Controller */,
 			);
@@ -1055,6 +1068,7 @@
 				CBFEA9161D35F6F8007276B6 /* SR_ScanMainViewController.m in Sources */,
 				CB42D0C71D645AF8002A75E5 /* amrFileCodec.mm in Sources */,
 				CBE47DFD1D407DAF0046C89C /* SR_FoundMainImageSelfViewCell.m in Sources */,
+				CB32AD871D6DE7AF00CD6D34 /* SR_MineMessageModel.m in Sources */,
 				848DD4921D44FBD00061810F /* SR_ActionSheetVoiceView.m in Sources */,
 				CBFEA9221D35FC15007276B6 /* SR_LoginViewController.m in Sources */,
 				CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */,

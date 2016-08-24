@@ -12,6 +12,7 @@
 #import "MBProgressHUD.h"
 #import "httpTools.h"
 #import "UserInfo.h"
+#import "SR_TabbarViewController.h"
 
 @interface SR_RegisterViewController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UITextField * phoneTextField;
@@ -124,8 +125,9 @@
     }
     //当前验证码暂时为空
     NSString * code = @"1234";
+    NSDictionary * param = @{@"username":self.phoneTextField.text,@"password":self.passwordTextField.text,@"mobile":self.phoneTextField.text,@"code":code};
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    [httpTools post:REGISTER andParameters:@{@"username":@"谷歌",@"password":self.passwordTextField.text,@"mobile":self.phoneTextField.text,@"code":code} success:^(NSDictionary *dic) {
+    [httpTools post:REGISTER andParameters:param success:^(NSDictionary *dic) {
         [hud hideAnimated:YES];
         SSLog(@"REGISTER: %@",dic);
         //注册成功后，覆盖原来的归档，并创建新的数据库，创建user表
@@ -136,6 +138,7 @@
         [UserInfo saveUserNameWith:userDic[@"username"]];
         [UserInfo saveUserPhoneNumberWith:self.phoneTextField.text];
         [UserInfo saveUserPasswordWith:self.passwordTextField.text];
+        [UIApplication sharedApplication].keyWindow.rootViewController = [[SR_TabbarViewController alloc] init];
     } failure:^(NSError *error) {
         [hud hideAnimated:YES];
     }];

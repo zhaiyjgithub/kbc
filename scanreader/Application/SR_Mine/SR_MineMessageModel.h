@@ -1,0 +1,28 @@
+//
+//  SR_MineMessageModel.h
+//  scanreader
+//
+//  Created by jbmac01 on 16/8/24.
+//  Copyright © 2016年 jb. All rights reserved.
+//
+
+#import "SR_BaseModel.h"
+
+@interface Sender : SR_BaseModel
+@property(nonatomic,copy)NSString * avatar;
+@property(nonatomic,copy)NSString * sender_id;
+@property(nonatomic,copy)NSString * username;
+@end
+
+@interface SR_MineMessageModel : SR_BaseModel
+@property(nonatomic,copy)NSString * content;
+@property(nonatomic,copy)NSString * create_by;
+@property(nonatomic,copy)NSString * message_id;
+@property(nonatomic,copy)NSString * readed;
+@property(nonatomic,strong)Sender * sender;
+@property(nonatomic,copy)NSString * sender_id;
+@property(nonatomic,copy)NSString * target_type;
+@property(nonatomic,copy)NSString * title;
+@property(nonatomic,assign)NSInteger time_create;
+@property(nonatomic,copy)NSString * url;
+@end
