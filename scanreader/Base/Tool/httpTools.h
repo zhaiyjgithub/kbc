@@ -22,4 +22,7 @@ andParameters:(NSDictionary *)parameters
 + (void)uploadImage:(NSString *)url parameters:(NSDictionary *)parameters images:(NSArray *)images
             success:(void (^)(NSDictionary *dic))success
             failure:(void (^)(NSError *error))failure;
++ (void)uploadVoice:(NSString *)url parameters:(NSDictionary *)parameters voicesUrl:(NSArray *)voicesUrl
+            success:(void (^)(NSDictionary *dic))success
+            failure:(void (^)(NSError *error))failure;
 @end

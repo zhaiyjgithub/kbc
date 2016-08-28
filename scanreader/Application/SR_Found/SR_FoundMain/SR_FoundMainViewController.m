@@ -38,7 +38,7 @@
 #import "VoiceViewController.h"
 #import "AVRefreshExtension.h"
 
-
+#import "SR_NoteDetailPageViewController.h"
 
 @interface SR_FoundMainViewController ()<addBtnDelegate,UIAlertViewDelegate,textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate>
 @property(nonatomic,assign)BOOL isSelectBookClub;
@@ -74,12 +74,12 @@
 }
 
 - (void)clickSearchItem{
-    self.hidesBottomBarWhenPushed = YES;
-    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
-    [self.navigationController pushViewController:foundVC animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
-//    VoiceViewController * voiceVC = [[VoiceViewController alloc] init];
-//    [self.navigationController pushViewController:voiceVC animated:YES];
+//    self.hidesBottomBarWhenPushed = YES;
+//    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
+//    [self.navigationController pushViewController:foundVC animated:YES];
+//    self.hidesBottomBarWhenPushed = NO;
+    VoiceViewController * voiceVC = [[VoiceViewController alloc] init];
+    [self.navigationController pushViewController:voiceVC animated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -197,8 +197,13 @@
         bookMarkListVC.bookModel = self.bookClubs[indexPath.row];
         [self.navigationController pushViewController:bookMarkListVC animated:YES];
         self.hidesBottomBarWhenPushed = NO;
-    }else{//动态
-        
+    }else{//动态->笔记详情页
+        SR_BookClubBookNoteModel * noteModel = self.dynamicInfos[indexPath.row];
+        SR_NoteDetailPageViewController * noteDetailVC = [[SR_NoteDetailPageViewController alloc] init];
+        noteDetailVC.noteModel = noteModel;
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:noteDetailVC animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
     }
 }
 
@@ -321,6 +326,7 @@
     NSString * userToken = [UserInfo getUserToken];
     NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_PIX,
                              @"title":title};
+    //这里的提示不起作用，用户可能会重复点发送按钮，
     MBProgressHUD * hud = [[MBProgressHUD  alloc] initWithView:self.tableView];
     [hud showAnimated:YES];
     [httpTools uploadImage:SAVE_NOTE parameters:param images:images success:^(NSDictionary *dic) {

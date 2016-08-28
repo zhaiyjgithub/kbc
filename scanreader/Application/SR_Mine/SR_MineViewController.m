@@ -54,9 +54,11 @@
     __weak typeof(self) weakSelf = self;
     [cell addBlock:^(UIButton *btn) {
         if (btn.tag == 103) {
+            weakSelf.hidesBottomBarWhenPushed = YES;
             SR_MineMessageListViewController * messageListVC = [[SR_MineMessageListViewController alloc] init];
             [weakSelf.navigationController pushViewController:messageListVC animated:YES
              ];
+            weakSelf.hidesBottomBarWhenPushed = NO;
         }
     }];
     cell.nameLabel.text = [NSString stringWithFormat:@"用户名称: %@",[UserInfo getUserName]];

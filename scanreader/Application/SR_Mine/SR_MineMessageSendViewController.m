@@ -16,6 +16,7 @@
 #import "AVRefreshExtension.h"
 #import "SR_MineMessageFrameModel.h"
 #import "SR_MineMessageSendDialogMineSendViewCell.h"
+#import <SVProgressHUD.h>
 
 @interface SR_MineMessageSendViewController ()<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong)UITableView * tableView;
@@ -32,7 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"用户名称";
+    self.title = @"对话";
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = [UIColor whiteColor];
@@ -41,11 +42,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-   // [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height - self.tableView.frame.size.height)];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -113,26 +109,12 @@
 }
 
 - (void)clickSendBtn{
-    SSLog(@"send btn");
-    SR_MineMessageModel * newMessageModel = [[SR_MineMessageModel alloc] init];
-
-    newMessageModel.content = self.toolBarTextView.text;
-    newMessageModel.time_create = [[NSDate date] timeIntervalSince1970];
-    Sender * sender = [[Sender alloc] init];
-    sender.sender_id = [UserInfo getUserId];
-    sender.avatar = [UserInfo getUserAvatar];
-    sender.username = [UserInfo getUserName];
-    newMessageModel.sender = sender;
-    newMessageModel.isMyAccount = YES;
-    
-    SR_MineMessageFrameModel * newFrameModel = [[SR_MineMessageFrameModel alloc] init];
-    newFrameModel.messageModel = newMessageModel;
-    [self.dataSource addObject:newFrameModel];
-    NSIndexPath * indexpath = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexpath] withRowAnimation:(UITableViewRowAnimationBottom)];
-    [self.tableView scrollToRowAtIndexPath:indexpath atScrollPosition:(UITableViewScrollPositionBottom) animated:YES];
-    
-    //[self sendMessage:@"1" content:[NSString stringWithFormat:@"hello,im user :%@",[UserInfo getUserId]]];
+    if (!self.toolBarTextView.text.length) {
+        [SVProgressHUD showErrorWithStatus:@"输入内容不能为空"];
+        return;
+    }
+    NSString * receipentId = [[[self.dataSource firstObject] messageModel] sender_id];
+    [self sendMessage:receipentId content:self.toolBarTextView.text];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -209,24 +191,32 @@
     return _dataSource;
 }
 
-///发型消息
+///发送消息
 - (void)sendMessage:(NSString * )recipient_id content:(NSString *)content{
     NSString * userId = [UserInfo getUserId];
     NSString * userToken = [UserInfo getUserToken];
     NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"recipient_id":recipient_id,
                              @"content":content};
+    
     [httpTools post:SEND_MESSAGE andParameters:param success:^(NSDictionary *dic) {
-        NSLog(@"send message:%@",dic);
-        //        NSArray * list = dic[@"data"][@"list"];
-        //        for (NSDictionary * item in list) {
-        //            SR_MineMessageModel * model = [SR_MineMessageModel modelWithDictionary:item];
-        //            model.message_id = item[@"id"];
-        //            model.sender.sender_id = item[@"sender"][@"id"];
-        //            [self.dataSource addObject:model];
-        //        }
-        //        self.messageListPageIndex = (self.dataSource.count/PAGE_NUM) + (self.dataSource.count%PAGE_NUM > 0 ? 1 : 0);
-        //        [self.tableView.av_footer endFooterRefreshing];
-        //        [self.tableView reloadData];
+       // NSLog(@"send message result:%@",dic);
+        SR_MineMessageModel * newMessageModel = [[SR_MineMessageModel alloc] init];
+        newMessageModel.content = self.toolBarTextView.text;
+        newMessageModel.time_create = [[NSDate date] timeIntervalSince1970];
+        Sender * sender = [[Sender alloc] init];
+        sender.sender_id = [UserInfo getUserId];
+        sender.avatar = [UserInfo getUserAvatar];
+        sender.username = [UserInfo getUserName];
+        newMessageModel.sender = sender;
+        newMessageModel.isMyAccount = YES;
+        
+        SR_MineMessageFrameModel * newFrameModel = [[SR_MineMessageFrameModel alloc] init];
+        newFrameModel.messageModel = newMessageModel;
+        [self.dataSource addObject:newFrameModel];
+        NSIndexPath * indexpath = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
+        [self.tableView insertRowsAtIndexPaths:@[indexpath] withRowAnimation:(UITableViewRowAnimationBottom)];
+        [self.tableView scrollToRowAtIndexPath:indexpath atScrollPosition:(UITableViewScrollPositionBottom) animated:YES];
+
     } failure:^(NSError *error) {
         SSLog(@"error:%@",error);
     }];

@@ -10,6 +10,12 @@
 #import "VoiceConverter.h"
 @import AVFoundation;
 @import AudioToolbox;
+#import "httpTools.h"
+#import "requestAPI.h"
+#import "MBProgressHUD.h"
+#import "UserInfo.h"
+#import "globalHeader.h"
+#import "SVProgressHUD.h"
 
 @interface VoiceViewController ()
 //! 播放转换后wavBtn
@@ -30,6 +36,7 @@
 @property (strong,nonatomic)AVAudioPlayer    *player;
 @property (strong,nonatomic)NSString         *recordFileName;
 @property (strong,nonatomic)NSString         *recordFilePath;
+@property(nonatomic,strong)AVPlayer * remotePlayer;
 @end
 
 @implementation VoiceViewController
@@ -71,6 +78,12 @@
     self.toAmrLabel.font = [UIFont systemFontOfSize:12.0];
     self.toAmrLabel.text = @"toamr";
     [self.view addSubview:self.toAmrLabel];
+    
+    UIButton * uploadBtn = [[UIButton alloc] initWithFrame:CGRectMake(159, 220, 60, 40)];
+    [uploadBtn setTitle:@"upload" forState:(UIControlStateNormal)];
+    [uploadBtn addTarget:self action:@selector(upload) forControlEvents:(UIControlEventTouchUpInside)];
+    [uploadBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+    [self.view addSubview:uploadBtn];
     
     self.player = [[AVAudioPlayer alloc] init];
     
@@ -154,8 +167,33 @@
 - (void)playOriginalWav:(UIButton *)sender {
     [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error:nil];
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
+    NSLog(@"原来wav path:%@",self.recordFilePath);
+    
     self.player = [self.player initWithContentsOfURL:[NSURL URLWithString:self.recordFilePath] error:nil];
     [self.player play];
+}
+
+- (void)upload{
+    NSLog(@"原来wav path:%@",self.recordFilePath);
+    NSString * fileAttr =  [self getVoiceFileInfoByPath:self.recordFilePath convertTime:0];
+    NSLog(@"file attr:%@",fileAttr);
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_VOICE,
+                             @"title":@"录音"};
+    //这里的提示不起作用，用户可能会重复点发送按钮，
+    MBProgressHUD * hud = [[MBProgressHUD  alloc] initWithView:self.view];
+    [hud showAnimated:YES];
+    NSArray * voicesUrl = @[self.recordFilePath];
+    NSURL * url = [NSURL fileURLWithPath:self.recordFilePath];
+    NSData * data = [NSData dataWithContentsOfURL:url];
+    [httpTools uploadVoice:SAVE_NOTE parameters:param voicesUrl:voicesUrl success:^(NSDictionary *dic) {
+        SSLog(@"save pic:%@",dic);
+
+    } failure:^(NSError *error) {
+        NSLog(@"error:%@",error);
+    }];
+
 }
 
 #pragma mark - 播放amr转换后wav
@@ -178,7 +216,7 @@
 
 #pragma mark - 生成文件路径
 - (NSString*)GetPathByFileName:(NSString *)_fileName ofType:(NSString *)_type{
-    NSString *directory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0];;
+    NSString *directory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0];
     NSString* fileDirectory = [[[directory stringByAppendingPathComponent:_fileName]
                                 stringByAppendingPathExtension:_type]
                                stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

@@ -21,6 +21,9 @@
 		CB1659161D63688500E17303 /* SR_BookClubBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1659151D63688500E17303 /* SR_BookClubBookModel.m */; };
 		CB186EF81D72C61A00C16705 /* SR_MineMessageFrameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB186EF71D72C61A00C16705 /* SR_MineMessageFrameModel.m */; };
 		CB186EFB1D72D5BE00C16705 /* SR_MineMessageSendDialogMineSendViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB186EFA1D72D5BE00C16705 /* SR_MineMessageSendDialogMineSendViewCell.m */; };
+		CB186EFE1D72E74800C16705 /* SR_NoteDetailPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB186EFD1D72E74800C16705 /* SR_NoteDetailPageViewController.m */; };
+		CB186F041D72E8A500C16705 /* SR_NoteDetailPageTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB186F031D72E8A500C16705 /* SR_NoteDetailPageTextViewCell.m */; };
+		CB186F0B1D730C1400C16705 /* SR_NoteDetailPageImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB186F0A1D730C1400C16705 /* SR_NoteDetailPageImageViewCell.m */; };
 		CB2A65FE1D60B26C006F735B /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65FD1D60B26C006F735B /* UserInfo.m */; };
 		CB32AD871D6DE7AF00CD6D34 /* SR_MineMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB32AD861D6DE7AF00CD6D34 /* SR_MineMessageModel.m */; };
 		CB42D0AE1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB42D0AD1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m */; };
@@ -32,6 +35,7 @@
 		CB42D0CA1D645AF8002A75E5 /* VoiceConverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB42D0C61D645AF8002A75E5 /* VoiceConverter.mm */; };
 		CB63C7AF1D41F141009D40A4 /* SR_MineMessageListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB63C7AE1D41F141009D40A4 /* SR_MineMessageListViewCell.m */; };
 		CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB719F351D3742CB005F5CFB /* SR_MineMessageListViewController.m */; };
+		CB7377791D7344580028A6B3 /* SR_ActionSheetVoiceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7377781D7344580028A6B3 /* SR_ActionSheetVoiceViewCell.m */; };
 		CB74117B1D347B14002B8FB5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74117A1D347B14002B8FB5 /* main.m */; };
 		CB74117E1D347B14002B8FB5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74117D1D347B14002B8FB5 /* AppDelegate.m */; };
 		CB7411861D347B14002B8FB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB7411851D347B14002B8FB5 /* Assets.xcassets */; };
@@ -134,6 +138,12 @@
 		CB186EF71D72C61A00C16705 /* SR_MineMessageFrameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageFrameModel.m; path = Application/SR_Mine/SR_MineMessageFrameModel.m; sourceTree = "<group>"; };
 		CB186EF91D72D5BE00C16705 /* SR_MineMessageSendDialogMineSendViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageSendDialogMineSendViewCell.h; path = Application/SR_Mine/SR_MineMessageSendDialogMineSendViewCell.h; sourceTree = "<group>"; };
 		CB186EFA1D72D5BE00C16705 /* SR_MineMessageSendDialogMineSendViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageSendDialogMineSendViewCell.m; path = Application/SR_Mine/SR_MineMessageSendDialogMineSendViewCell.m; sourceTree = "<group>"; };
+		CB186EFC1D72E74800C16705 /* SR_NoteDetailPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_NoteDetailPageViewController.h; path = Application/SR_Found/SR_FoundMain/SR_NoteDetailPageViewController.h; sourceTree = "<group>"; };
+		CB186EFD1D72E74800C16705 /* SR_NoteDetailPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_NoteDetailPageViewController.m; path = Application/SR_Found/SR_FoundMain/SR_NoteDetailPageViewController.m; sourceTree = "<group>"; };
+		CB186F021D72E8A500C16705 /* SR_NoteDetailPageTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_NoteDetailPageTextViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_NoteDetailPageTextViewCell.h; sourceTree = "<group>"; };
+		CB186F031D72E8A500C16705 /* SR_NoteDetailPageTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_NoteDetailPageTextViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_NoteDetailPageTextViewCell.m; sourceTree = "<group>"; };
+		CB186F091D730C1400C16705 /* SR_NoteDetailPageImageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_NoteDetailPageImageViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_NoteDetailPageImageViewCell.h; sourceTree = "<group>"; };
+		CB186F0A1D730C1400C16705 /* SR_NoteDetailPageImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_NoteDetailPageImageViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_NoteDetailPageImageViewCell.m; sourceTree = "<group>"; };
 		CB2A65FB1D60AB87006F735B /* requestAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = requestAPI.h; path = scanreader/requestAPI.h; sourceTree = "<group>"; };
 		CB2A65FC1D60B26C006F735B /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfo.h; path = Base/Tool/UserInfo.h; sourceTree = "<group>"; };
 		CB2A65FD1D60B26C006F735B /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Base/Tool/UserInfo.m; sourceTree = "<group>"; };
@@ -158,6 +168,8 @@
 		CB63C7AE1D41F141009D40A4 /* SR_MineMessageListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageListViewCell.m; path = Application/SR_Mine/SR_MineMessageListViewCell.m; sourceTree = "<group>"; };
 		CB719F341D3742CB005F5CFB /* SR_MineMessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageListViewController.h; path = Application/SR_Mine/SR_MineMessageListViewController.h; sourceTree = "<group>"; };
 		CB719F351D3742CB005F5CFB /* SR_MineMessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageListViewController.m; path = Application/SR_Mine/SR_MineMessageListViewController.m; sourceTree = "<group>"; };
+		CB7377771D7344580028A6B3 /* SR_ActionSheetVoiceViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ActionSheetVoiceViewCell.h; path = Application/SR_ActioSheet/SR_ActionSheetVoiceViewCell.h; sourceTree = "<group>"; };
+		CB7377781D7344580028A6B3 /* SR_ActionSheetVoiceViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_ActionSheetVoiceViewCell.m; path = Application/SR_ActioSheet/SR_ActionSheetVoiceViewCell.m; sourceTree = "<group>"; };
 		CB7411761D347B14002B8FB5 /* scanreader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = scanreader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB74117A1D347B14002B8FB5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CB74117C1D347B14002B8FB5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = scanreader/AppDelegate.h; sourceTree = "<group>"; };
@@ -336,6 +348,8 @@
 			children = (
 				848DD4901D44FBD00061810F /* SR_ActionSheetVoiceView.h */,
 				848DD4911D44FBD00061810F /* SR_ActionSheetVoiceView.m */,
+				CB7377771D7344580028A6B3 /* SR_ActionSheetVoiceViewCell.h */,
+				CB7377781D7344580028A6B3 /* SR_ActionSheetVoiceViewCell.m */,
 			);
 			name = VoiceView;
 			sourceTree = "<group>";
@@ -365,6 +379,44 @@
 				CB2A65FD1D60B26C006F735B /* UserInfo.m */,
 			);
 			name = Tools;
+			sourceTree = "<group>";
+		};
+		CB186EFF1D72E82900C16705 /* NoteDetailPage(笔记详情页) */ = {
+			isa = PBXGroup;
+			children = (
+				CB186EFC1D72E74800C16705 /* SR_NoteDetailPageViewController.h */,
+				CB186EFD1D72E74800C16705 /* SR_NoteDetailPageViewController.m */,
+			);
+			name = "NoteDetailPage(笔记详情页)";
+			sourceTree = "<group>";
+		};
+		CB186F001D72E85400C16705 /* BookClub */ = {
+			isa = PBXGroup;
+			children = (
+				CB1659141D63688500E17303 /* SR_BookClubBookModel.h */,
+				CB1659151D63688500E17303 /* SR_BookClubBookModel.m */,
+				CB42D0AC1D640BFC002A75E5 /* SR_BookClubBookNoteModel.h */,
+				CB42D0AD1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m */,
+			);
+			name = BookClub;
+			sourceTree = "<group>";
+		};
+		CB186F011D72E88000C16705 /* NoteDetailPage */ = {
+			isa = PBXGroup;
+			children = (
+				CB186F021D72E8A500C16705 /* SR_NoteDetailPageTextViewCell.h */,
+				CB186F031D72E8A500C16705 /* SR_NoteDetailPageTextViewCell.m */,
+				CB186F091D730C1400C16705 /* SR_NoteDetailPageImageViewCell.h */,
+				CB186F0A1D730C1400C16705 /* SR_NoteDetailPageImageViewCell.m */,
+			);
+			name = NoteDetailPage;
+			sourceTree = "<group>";
+		};
+		CB186F051D72E9D700C16705 /* NoteDetailPage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = NoteDetailPage;
 			sourceTree = "<group>";
 		};
 		CB32AD841D6DE77800CD6D34 /* Model */ = {
@@ -770,6 +822,7 @@
 		CBFEA90C1D35F631007276B6 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				CB186EFF1D72E82900C16705 /* NoteDetailPage(笔记详情页) */,
 				CBE47E0A1D40A7440046C89C /* BookClub(读书会) */,
 				CBE47E091D40A73D0046C89C /* Dynamic(动态信息) */,
 				CBFEA90F1D35F691007276B6 /* SR_FoundMainViewController.h */,
@@ -785,6 +838,7 @@
 		CBFEA90D1D35F63A007276B6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CB186F011D72E88000C16705 /* NoteDetailPage */,
 				CBE47E041D40A1510046C89C /* dynamic */,
 				CBE47E051D40A1710046C89C /* BookClub */,
 			);
@@ -794,10 +848,8 @@
 		CBFEA90E1D35F641007276B6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CB1659141D63688500E17303 /* SR_BookClubBookModel.h */,
-				CB1659151D63688500E17303 /* SR_BookClubBookModel.m */,
-				CB42D0AC1D640BFC002A75E5 /* SR_BookClubBookNoteModel.h */,
-				CB42D0AD1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m */,
+				CB186F051D72E9D700C16705 /* NoteDetailPage */,
+				CB186F001D72E85400C16705 /* BookClub */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1038,6 +1090,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB7377791D7344580028A6B3 /* SR_ActionSheetVoiceViewCell.m in Sources */,
 				CB1659161D63688500E17303 /* SR_BookClubBookModel.m in Sources */,
 				CBE47E111D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m in Sources */,
 				CB74117E1D347B14002B8FB5 /* AppDelegate.m in Sources */,
@@ -1053,12 +1106,14 @@
 				CB74117B1D347B14002B8FB5 /* main.m in Sources */,
 				CBD1D6101D3628C100539056 /* SR_OAthouButton.m in Sources */,
 				84AE3DD71D436E1200643989 /* Tools.m in Sources */,
+				CB186F041D72E8A500C16705 /* SR_NoteDetailPageTextViewCell.m in Sources */,
 				CBFEA9041D35F4F5007276B6 /* SR_TabbarViewController.m in Sources */,
 				84AE3DDC1D436E6400643989 /* PhotoPickerTool.m in Sources */,
 				CBD1D6091D3622E500539056 /* SR_RegisterViewController.m in Sources */,
 				CBE47DF71D406F190046C89C /* SR_FoundInterBtn.m in Sources */,
 				CBE47E141D40B1170046C89C /* SR_InterPageViewController.m in Sources */,
 				CB42D0AE1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m in Sources */,
+				CB186F0B1D730C1400C16705 /* SR_NoteDetailPageImageViewCell.m in Sources */,
 				CBD1D6191D363AC700539056 /* SR_OthersMineViewController.m in Sources */,
 				CB42D0CA1D645AF8002A75E5 /* VoiceConverter.mm in Sources */,
 				CB42D0B41D6455B1002A75E5 /* VoiceViewController.m in Sources */,
@@ -1093,6 +1148,7 @@
 				CBD1D5FF1D36198A00539056 /* SR_LoginBtn.m in Sources */,
 				CB95AD891D6961E600BAA77B /* AVRefresh.m in Sources */,
 				CBE47E001D407E930046C89C /* SR_FoundMainTextViewCell.m in Sources */,
+				CB186EFE1D72E74800C16705 /* SR_NoteDetailPageViewController.m in Sources */,
 				CBA87BDC1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m in Sources */,
 				CBCF4F871D36958800DD7015 /* SR_FoundMainVoiceViewCell.m in Sources */,
 				8443ACEA1D46563A00634BC3 /* DDQRCodeViewController.m in Sources */,

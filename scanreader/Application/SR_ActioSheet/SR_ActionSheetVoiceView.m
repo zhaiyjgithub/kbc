@@ -8,6 +8,7 @@
 
 #import "SR_ActionSheetVoiceView.h"
 #import "globalHeader.h"
+#import "SR_ActionSheetVoiceViewCell.h"
 
 @implementation SR_ActionSheetVoiceView
 - (id)initActionSheetWith:(NSString *)title voices:(NSArray *)voices viewController:(UIViewController *)viewController{
@@ -53,11 +54,14 @@
     [self addSubview:self.tableView];
     
     UIView * voiceView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.origin.y + self.tableView.frame.size.height + 5, kScreenWidth, sizeHeight(30 + 54))];
-    voiceView.backgroundColor = baseColor;
+    voiceView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     [self addSubview:voiceView];
     
     UIButton * btn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    btn.frame = CGRectMake(40, 10, 100, 44);
+    btn.frame = CGRectMake(0, 0, 70, 70);
+    btn.center = CGPointMake(kScreenWidth/2, 47);
+    btn.backgroundColor = baseColor;
+    btn.layer.cornerRadius = 35.0;
     [btn setTitle:@"按住" forState:(UIControlStateNormal)];
     [btn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
     [btn setTitle:@"松开" forState:(UIControlStateHighlighted)];
@@ -76,19 +80,87 @@
     [self.timer invalidate];
 }
 
+//录制超时
 - (void)timeout{
     [self.voiceBtn setHighlighted:NO];
     [self.voiceBtn setEnabled:NO];
     [self removeTimer];
+    SSLog(@"timeout");
+    [self stopRecord];
+    self.isTimeOut = YES;
 }
 
+///松手
 - (void)clickVoice{
     [self.voiceBtn setEnabled:YES];
     [self removeTimer];
+    if (!self.isTimeOut) {
+        [self stopRecord];
+    }
+    NSLog(@"song shou");
 }
 
+///按下
 - (void)touchdown{
     [self addTimer];
+    SSLog(@"touch down");
+    [self beginRecord];
+}
+
+- (void)stopRecord{
+    if (self.recorder.isRecording){//录音中
+        //停止录音
+        [self.recorder stop];
+        NSLog(@"停止录音");
+    }
+}
+
+///开始录音
+- (void)beginRecord{
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    NSError *setCategoryError = nil;
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&setCategoryError];
+    
+    if(setCategoryError){
+        NSLog(@"setCategoryError:%@", [setCategoryError description]);
+    }
+    //根据当前时间生成文件名
+    self.recordFileName = [self GetCurrentTimeString];
+    //获取路径
+    self.recordFilePath = [self GetPathByFileName:self.recordFileName ofType:@"wav"];
+    //初始化录音
+    NSDictionary *recordSetting = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                   [NSNumber numberWithFloat: 8000.0],AVSampleRateKey, //采样率
+                                   [NSNumber numberWithInt: kAudioFormatLinearPCM],AVFormatIDKey,
+                                   [NSNumber numberWithInt:16],AVLinearPCMBitDepthKey,//采样位数 默认 16
+                                   [NSNumber numberWithInt: 1], AVNumberOfChannelsKey,//通道的数目
+                                   //                                   [NSNumber numberWithBool:NO],AVLinearPCMIsBigEndianKey,//大端还是小端 是内存的组织方式
+                                   //                                   [NSNumber numberWithBool:NO],AVLinearPCMIsFloatKey,//采样信号是整数还是浮点数
+                                   //                                   [NSNumber numberWithInt: AVAudioQualityMedium],AVEncoderAudioQualityKey,//音频编码质量
+                                   nil];
+    
+    self.recorder = [[AVAudioRecorder alloc]initWithURL:[NSURL fileURLWithPath:self.recordFilePath]
+                                               settings:recordSetting
+                                                  error:nil];
+    //准备录音
+    if ([self.recorder prepareToRecord]){
+        [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayAndRecord error:nil];
+        [[AVAudioSession sharedInstance] setActive:YES error:nil];
+        //开始录音
+        if ([self.recorder record]){
+            NSLog(@"开始录音");
+        }
+    }
+}
+
+#pragma mark - 播放原wav
+- (void)playWav:(NSString *)filePath{
+    [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error:nil];
+    [[AVAudioSession sharedInstance] setActive:YES error:nil];
+    
+    NSURL * url = [NSURL fileURLWithPath:filePath];
+    self.player = [[AVPlayer alloc] initWithURL:url];
+    [self.player play];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -104,16 +176,15 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 44;
+    return 90;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString * cellId = @"fsfsfsfs";
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    NSString * cellId = @"SR_ActionSheetVoiceViewCell";
+    SR_ActionSheetVoiceViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+        cell = [[SR_ActionSheetVoiceViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"indexpath:%d",indexPath.row];
     return cell;
 }
 
@@ -178,6 +249,58 @@
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
     return YES;
 }
+
+#pragma mark - Others
+
+#pragma mark - 生成当前时间字符串
+- (NSString*)GetCurrentTimeString{
+    NSDateFormatter *dateformat = [[NSDateFormatter  alloc]init];
+    [dateformat setDateFormat:@"yyyyMMddHHmmss"];
+    return [dateformat stringFromDate:[NSDate date]];
+}
+
+#pragma mark - 生成文件路径
+- (NSString*)GetPathByFileName:(NSString *)_fileName ofType:(NSString *)_type{
+    NSString *directory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0];
+    NSString* fileDirectory = [[[directory stringByAppendingPathComponent:_fileName]
+                                stringByAppendingPathExtension:_type]
+                               stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return fileDirectory;
+}
+
+#pragma mark - 获取音频文件信息
+- (NSString *)getVoiceFileInfoByPath:(NSString *)aFilePath convertTime:(NSTimeInterval)aConTime{
+    
+    NSInteger size = [self getFileSize:aFilePath]/1024;
+    NSString *info = [NSString stringWithFormat:@"文件名:%@\n文件大小:%dkb\n",aFilePath.lastPathComponent,size];
+    
+    NSRange range = [aFilePath rangeOfString:@"wav"];
+    if (range.length > 0) {
+        AVAudioPlayer *play = [[AVAudioPlayer alloc]initWithContentsOfURL:[NSURL URLWithString:aFilePath] error:nil];
+        info = [info stringByAppendingFormat:@"文件时长:%f\n",play.duration];
+    }
+    
+    if (aConTime > 0)
+        info = [info stringByAppendingFormat:@"转换时间:%f",aConTime];
+    return info;
+}
+
+#pragma mark - 获取文件大小
+- (NSInteger) getFileSize:(NSString*) path{
+    NSFileManager * filemanager = [[NSFileManager alloc]init];
+    if([filemanager fileExistsAtPath:path]){
+        NSDictionary * attributes = [filemanager attributesOfItemAtPath:path error:nil];
+        NSNumber *theFileSize;
+        if ( (theFileSize = [attributes objectForKey:NSFileSize]) )
+            return  [theFileSize intValue];
+        else
+            return -1;
+    }
+    else{
+        return -1;
+    }
+}
+
 
 
 

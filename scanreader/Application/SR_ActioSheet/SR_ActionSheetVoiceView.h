@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @protocol voiceViewSendBtnDelegate <NSObject>
 
@@ -25,6 +26,12 @@
 @property(nonatomic,strong)NSTimer * timer;
 @property(nonatomic,strong)UIButton * voiceBtn;
 @property(nonatomic,strong)UIViewController * viewController;
+@property (strong,nonatomic)AVAudioRecorder  *recorder;
+@property (strong,nonatomic)AVPlayer    *player;
+@property (strong,nonatomic)NSString         *recordFileName;
+@property (strong,nonatomic)NSString         *recordFilePath;
+@property(nonatomic,assign)BOOL isTimeOut;
+
 - (id)initActionSheetWith:(NSString *)title voices:(NSArray *)voices viewController:(UIViewController *)viewController;
 - (void)show;
 - (void)dismiss;
