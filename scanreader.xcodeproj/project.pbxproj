@@ -19,6 +19,8 @@
 		84AE3DDC1D436E6400643989 /* PhotoPickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DDA1D436E6400643989 /* PhotoPickerTool.m */; };
 		CB0F0C0D1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */; };
 		CB1659161D63688500E17303 /* SR_BookClubBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1659151D63688500E17303 /* SR_BookClubBookModel.m */; };
+		CB186EF81D72C61A00C16705 /* SR_MineMessageFrameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB186EF71D72C61A00C16705 /* SR_MineMessageFrameModel.m */; };
+		CB186EFB1D72D5BE00C16705 /* SR_MineMessageSendDialogMineSendViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB186EFA1D72D5BE00C16705 /* SR_MineMessageSendDialogMineSendViewCell.m */; };
 		CB2A65FE1D60B26C006F735B /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65FD1D60B26C006F735B /* UserInfo.m */; };
 		CB32AD871D6DE7AF00CD6D34 /* SR_MineMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB32AD861D6DE7AF00CD6D34 /* SR_MineMessageModel.m */; };
 		CB42D0AE1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB42D0AD1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m */; };
@@ -128,6 +130,10 @@
 		CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageSendViewController.m; path = Application/SR_Mine/SR_MineMessageSendViewController.m; sourceTree = "<group>"; };
 		CB1659141D63688500E17303 /* SR_BookClubBookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_BookClubBookModel.h; path = Application/SR_Found/SR_FoundMain/SR_BookClubBookModel.h; sourceTree = "<group>"; };
 		CB1659151D63688500E17303 /* SR_BookClubBookModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_BookClubBookModel.m; path = Application/SR_Found/SR_FoundMain/SR_BookClubBookModel.m; sourceTree = "<group>"; };
+		CB186EF61D72C61A00C16705 /* SR_MineMessageFrameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageFrameModel.h; path = Application/SR_Mine/SR_MineMessageFrameModel.h; sourceTree = "<group>"; };
+		CB186EF71D72C61A00C16705 /* SR_MineMessageFrameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageFrameModel.m; path = Application/SR_Mine/SR_MineMessageFrameModel.m; sourceTree = "<group>"; };
+		CB186EF91D72D5BE00C16705 /* SR_MineMessageSendDialogMineSendViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageSendDialogMineSendViewCell.h; path = Application/SR_Mine/SR_MineMessageSendDialogMineSendViewCell.h; sourceTree = "<group>"; };
+		CB186EFA1D72D5BE00C16705 /* SR_MineMessageSendDialogMineSendViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageSendDialogMineSendViewCell.m; path = Application/SR_Mine/SR_MineMessageSendDialogMineSendViewCell.m; sourceTree = "<group>"; };
 		CB2A65FB1D60AB87006F735B /* requestAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = requestAPI.h; path = scanreader/requestAPI.h; sourceTree = "<group>"; };
 		CB2A65FC1D60B26C006F735B /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfo.h; path = Base/Tool/UserInfo.h; sourceTree = "<group>"; };
 		CB2A65FD1D60B26C006F735B /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Base/Tool/UserInfo.m; sourceTree = "<group>"; };
@@ -366,6 +372,8 @@
 			children = (
 				CB32AD851D6DE7AF00CD6D34 /* SR_MineMessageModel.h */,
 				CB32AD861D6DE7AF00CD6D34 /* SR_MineMessageModel.m */,
+				CB186EF61D72C61A00C16705 /* SR_MineMessageFrameModel.h */,
+				CB186EF71D72C61A00C16705 /* SR_MineMessageFrameModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -604,6 +612,8 @@
 				CBAF19071D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.m */,
 				CBAF19091D421C6200DC0997 /* SR_MessageDialogLabel.h */,
 				CBAF190A1D421C6200DC0997 /* SR_MessageDialogLabel.m */,
+				CB186EF91D72D5BE00C16705 /* SR_MineMessageSendDialogMineSendViewCell.h */,
+				CB186EFA1D72D5BE00C16705 /* SR_MineMessageSendDialogMineSendViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1076,6 +1086,7 @@
 				CBE47E0E1D40A79F0046C89C /* SR_FoundMainBookClubBookNoteListViewController.m in Sources */,
 				CBEAEFE21D59D98700263D9C /* httpTools.m in Sources */,
 				CBD1D6131D3636F400539056 /* SR_OthersMineViewCell.m in Sources */,
+				CB186EFB1D72D5BE00C16705 /* SR_MineMessageSendDialogMineSendViewCell.m in Sources */,
 				848429A71D44993B00855854 /* SR_ActionSheetTextView.m in Sources */,
 				CB63C7AF1D41F141009D40A4 /* SR_MineMessageListViewCell.m in Sources */,
 				CBD1D61F1D363F0400539056 /* SR_AddBtnView.m in Sources */,
@@ -1087,6 +1098,7 @@
 				8443ACEA1D46563A00634BC3 /* DDQRCodeViewController.m in Sources */,
 				846C6DE31D44B06D00401A35 /* SR_ActionSheetImageLayout.m in Sources */,
 				CBE47E181D40BC1C0046C89C /* SR_RecordMainTagButton.m in Sources */,
+				CB186EF81D72C61A00C16705 /* SR_MineMessageFrameModel.m in Sources */,
 				CB95AD881D6961E600BAA77B /* AVHeaderRefresh.m in Sources */,
 				CBCF4F841D367F3500DD7015 /* SR_FoundMainImageViewCell.m in Sources */,
 				CBE47E081D40A1950046C89C /* SR_FoundMainDynamicViewCell.m in Sources */,

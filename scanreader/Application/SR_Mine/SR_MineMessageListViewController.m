@@ -54,7 +54,16 @@
     if (!cell) {
         cell = [[SR_MineMessageListViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
     }
-    cell.messageModel = self.dataSource[indexPath.row];
+    int unreadMessageCont = 0;
+    NSArray * messageModelList = self.dataSource[indexPath.row];
+    for (SR_MineMessageModel * messageModel in messageModelList) {
+        if ([messageModel.readed isEqualToString:@"1"]) {//计算未读的数量
+            unreadMessageCont +=1;
+        }
+    }
+    SR_MineMessageModel * firstMessageModel= [self.dataSource[indexPath.row] lastObject];
+    cell.unreadMessageCount = unreadMessageCont;
+    cell.messageModel = firstMessageModel;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
@@ -64,7 +73,7 @@
     self.hidesBottomBarWhenPushed = YES;
     SR_MineMessageSendViewController * sendVC = [[SR_MineMessageSendViewController alloc] init];
     [self.navigationController pushViewController:sendVC animated:YES];
-    sendVC.messageModel = self.dataSource[indexPath.row];
+    sendVC.messageModelsList = self.dataSource[indexPath.row];
     self.hidesBottomBarWhenPushed = NO;
 }
 
@@ -88,12 +97,29 @@
     [httpTools post:GET_MESSAGE_LIST andParameters:param success:^(NSDictionary *dic) {
         NSLog(@"messageList:%@",dic);
         NSArray * list = dic[@"data"][@"list"];
+
+        NSMutableSet * senderIdSet = [[NSMutableSet alloc] init];
+        for (NSDictionary * item in list) {
+            [senderIdSet addObject:item[@"sender_id"]];
+        }
+        NSMutableDictionary * senderObj = [NSMutableDictionary new];
+
+        NSArray * senderIds = [senderIdSet allObjects];
+        for (NSString * senderId in senderIds) {
+            NSMutableArray * messageList = [NSMutableArray new];
+            [senderObj setObject:messageList forKey:senderId];
+        }
         for (NSDictionary * item in list) {
             SR_MineMessageModel * model = [SR_MineMessageModel modelWithDictionary:item];
             model.message_id = item[@"id"];
             model.sender.sender_id = item[@"sender"][@"id"];
-            [self.dataSource addObject:model];
+            
+            NSMutableArray * senderObjMessageList = senderObj[model.sender_id];
+            [senderObjMessageList addObject:model];
         }
+        [senderObj enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            [self.dataSource addObject:obj];
+        }];
         self.messageListPageIndex = (self.dataSource.count/PAGE_NUM) + (self.dataSource.count%PAGE_NUM > 0 ? 1 : 0);
         [self.tableView.av_footer endFooterRefreshing];
         [self.tableView reloadData];
@@ -101,7 +127,5 @@
         SSLog(@"error:%@",error);
     }];
 }
-
-
 
 @end

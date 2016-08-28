@@ -11,6 +11,7 @@
 #import "globalHeader.h"
 #import "Tools.h"
 #import <SVProgressHUD.h>
+#import "SR_LoginViewController.h"
 @implementation httpTools
 
 + (void)post:(NSString *)url
@@ -49,6 +50,9 @@
         if([responseObject isKindOfClass:[NSDictionary class]]){
             if (([responseObject[@"status"] intValue]) > 0) {
                 success(responseObject);
+            }else if ([responseObject[@"status"] isEqualToString:@"-111"]){//你的账号已在其他地方登陆，请重新登陆
+                [UIApplication sharedApplication].keyWindow.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController = [[SR_LoginViewController alloc] init];
+                [SVProgressHUD showInfoWithStatus:@"你的账号已在其他地方登录，请重新登录"];
             }else{
                 [SVProgressHUD showInfoWithStatus:responseObject[@"msg"]];
                 success(responseObject);

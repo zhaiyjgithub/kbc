@@ -74,6 +74,9 @@
     self.timeLabel.text = time;
     self.messageLabel.text = messageModel.content;
     self.nameLabel.text = messageModel.sender.username;
+    
+    [self.hub setCount:self.unreadMessageCount];
+    [self.hub pop];
 }
 
 - (void)clickHeaderImageView{

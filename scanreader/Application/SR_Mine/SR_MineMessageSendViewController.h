@@ -10,4 +10,5 @@
 #import "SR_MineMessageModel.h"
 @interface SR_MineMessageSendViewController : UIViewController
 @property(nonatomic,strong)SR_MineMessageModel * messageModel;
+@property (nonatomic,strong)NSMutableArray * messageModelsList;
 @end

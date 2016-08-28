@@ -25,4 +25,5 @@
 @property(nonatomic,copy)NSString * title;
 @property(nonatomic,assign)NSInteger time_create;
 @property(nonatomic,copy)NSString * url;
+@property(nonatomic,assign)BOOL * isMyAccount;//区分自己的还是他人的消息
 @end

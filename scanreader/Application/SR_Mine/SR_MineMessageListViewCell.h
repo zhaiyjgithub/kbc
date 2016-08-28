@@ -15,5 +15,7 @@
 @property(nonatomic,strong)UILabel * timeLabel;
 @property(nonatomic,strong)UILabel * messageLabel;
 @property(nonatomic,strong)RKNotificationHub * hub;
+@property(nonatomic,assign)NSInteger unreadMessageCount;
 @property(nonatomic,strong)SR_MineMessageModel * messageModel;
+
 @end
