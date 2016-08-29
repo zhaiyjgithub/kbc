@@ -97,34 +97,40 @@
         [self.recorder stop];
         [sender setTitle:@"录音" forState:UIControlStateNormal];
         
-        self.playOriginalWavBtn.enabled = YES;
-        //设置label信息
-        self.originalWavLabel.text = [NSString stringWithFormat:@"原wav:\n%@",[self getVoiceFileInfoByPath:self.recordFilePath convertTime:0]];
+//        self.playOriginalWavBtn.enabled = YES;
+//        //设置label信息
+//        self.originalWavLabel.text = [NSString stringWithFormat:@"原wav:\n%@",[self getVoiceFileInfoByPath:self.recordFilePath convertTime:0]];
+//        
+//        //开始转换格式
+//        
+//        NSDate *date = [NSDate date];
+//        NSString *amrPath = [self GetPathByFileName:self.recordFileName ofType:@"amr"];
+//        
+//#warning wav转amr
+//        if ([VoiceConverter ConvertWavToAmr:self.recordFilePath amrSavePath:amrPath]){
+//            
+//            //设置label信息
+//            self.toAmrLabel.text = [NSString stringWithFormat:@"原wav转amr:\n%@",[self getVoiceFileInfoByPath:amrPath convertTime:[[NSDate date] timeIntervalSinceDate:date]]];
+//            
+//            date = [NSDate date];
+//            NSString *convertedPath = [self GetPathByFileName:[self.recordFileName stringByAppendingString:@"_AmrToWav"] ofType:@"wav"];
+//            
+//#warning amr转wav
+//            if ([VoiceConverter ConvertAmrToWav:amrPath wavSavePath:convertedPath]){
+//                //设置label信息
+//                self.toWavLabel.text = [NSString stringWithFormat:@"amr转wav:\n%@",[self getVoiceFileInfoByPath:convertedPath convertTime:[[NSDate date] timeIntervalSinceDate:date]]];
+//                self.playConvertedBtn.enabled = YES;
+//            }else
+//                NSLog(@"amr转wav失败");
+//            
+//        }else
+//            NSLog(@"wav转amr失败");
+//        self.player = [self.player initWithContentsOfURL:[NSURL URLWithString:self.recordFilePath] error:nil];
+//        [self.player play];
         
-        //开始转换格式
-        
-        NSDate *date = [NSDate date];
-        NSString *amrPath = [self GetPathByFileName:self.recordFileName ofType:@"amr"];
-        
-#warning wav转amr
-        if ([VoiceConverter ConvertWavToAmr:self.recordFilePath amrSavePath:amrPath]){
-            
-            //设置label信息
-            self.toAmrLabel.text = [NSString stringWithFormat:@"原wav转amr:\n%@",[self getVoiceFileInfoByPath:amrPath convertTime:[[NSDate date] timeIntervalSinceDate:date]]];
-            
-            date = [NSDate date];
-            NSString *convertedPath = [self GetPathByFileName:[self.recordFileName stringByAppendingString:@"_AmrToWav"] ofType:@"wav"];
-            
-#warning amr转wav
-            if ([VoiceConverter ConvertAmrToWav:amrPath wavSavePath:convertedPath]){
-                //设置label信息
-                self.toWavLabel.text = [NSString stringWithFormat:@"amr转wav:\n%@",[self getVoiceFileInfoByPath:convertedPath convertTime:[[NSDate date] timeIntervalSinceDate:date]]];
-                self.playConvertedBtn.enabled = YES;
-            }else
-                NSLog(@"amr转wav失败");
-            
-        }else
-            NSLog(@"wav转amr失败");
+        NSURL * url = [NSURL fileURLWithPath:self.recordFilePath];
+        self.remotePlayer = [[AVPlayer alloc] initWithURL:url];
+        [self.remotePlayer play];
         
     }else{
         //录音
@@ -181,18 +187,20 @@
     NSString * userToken = [UserInfo getUserToken];
     NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_VOICE,
                              @"title":@"录音"};
+    self.player = [self.player initWithContentsOfURL:[NSURL URLWithString:self.recordFilePath] error:nil];
+    [self.player play];
     //这里的提示不起作用，用户可能会重复点发送按钮，
-    MBProgressHUD * hud = [[MBProgressHUD  alloc] initWithView:self.view];
-    [hud showAnimated:YES];
-    NSArray * voicesUrl = @[self.recordFilePath];
-    NSURL * url = [NSURL fileURLWithPath:self.recordFilePath];
-    NSData * data = [NSData dataWithContentsOfURL:url];
-    [httpTools uploadVoice:SAVE_NOTE parameters:param voicesUrl:voicesUrl success:^(NSDictionary *dic) {
-        SSLog(@"save pic:%@",dic);
-
-    } failure:^(NSError *error) {
-        NSLog(@"error:%@",error);
-    }];
+//    MBProgressHUD * hud = [[MBProgressHUD  alloc] initWithView:self.view];
+//    [hud showAnimated:YES];
+//    NSArray * voicesUrl = @[self.recordFilePath];
+//    NSURL * url = [NSURL fileURLWithPath:self.recordFilePath];
+//    NSData * data = [NSData dataWithContentsOfURL:url];
+//    [httpTools uploadVoice:SAVE_NOTE parameters:param voicesUrl:voicesUrl success:^(NSDictionary *dic) {
+//        SSLog(@"save pic:%@",dic);
+//
+//    } failure:^(NSError *error) {
+//        NSLog(@"error:%@",error);
+//    }];
 
 }
 

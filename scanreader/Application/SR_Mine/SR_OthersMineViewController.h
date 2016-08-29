@@ -7,7 +7,8 @@
 //
 
 #import "SR_BaseTableViewController.h"
+#import "SR_BookClubBookNoteModel.h"
 
 @interface SR_OthersMineViewController : SR_BaseTableViewController
-
+@property(nonatomic,strong)SR_BookClubNoteUserModel * userModel;
 @end

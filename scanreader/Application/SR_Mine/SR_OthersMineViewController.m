@@ -9,6 +9,12 @@
 #import "SR_OthersMineViewController.h"
 #import "SR_OthersMineViewCell.h"
 #import "globalHeader.h"
+#import <YYKit/YYKit.h>
+#import "requestAPI.h"
+#import "UserInfo.h"
+#import "httpTools.h"
+#import <SVProgressHUD.h>
+#import <MBProgressHUD.h>
 
 @interface SR_OthersMineViewController ()
 
@@ -35,7 +41,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 210.0;
+    return 260.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -44,23 +50,50 @@
     if (!cell) {
         cell = [[SR_OthersMineViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
     }
+    cell.userModel =  self.userModel;
+    __weak typeof(self) weakSelf = self;
     [cell addBlock:^(UITextView *textView) {
         SSLog(@"message:%@",textView.text);
+        [weakSelf sendMessage:weakSelf.userModel.user_id content:textView.text];
     }];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [[UIApplication sharedApplication].keyWindow endEditing:YES];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 170)];
     headerView.backgroundColor = baseColor;
     
-    UIButton * headerBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 92, 92)];
-    headerBtn.center = headerView.center;
-    headerBtn.backgroundColor = [UIColor redColor];
-    headerBtn.layer.cornerRadius = 46.0;
-    [headerView addSubview:headerBtn];
+    YYAnimatedImageView * headerImageView = [[YYAnimatedImageView alloc] initWithFrame:CGRectMake(0, 0, 92, 92)];
+    headerImageView.center = headerView.center;
+    [headerImageView setImageWithURL:[NSURL URLWithString:self.userModel.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
+    headerImageView.layer.cornerRadius = 46;
+    headerImageView.layer.borderWidth = 2.0;
+    headerImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    headerImageView.layer.masksToBounds = YES;
+    [headerView addSubview:headerImageView];
+    
     return headerView;
+}
+
+///发送消息
+- (void)sendMessage:(NSString * )recipient_id content:(NSString *)content{
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"recipient_id":recipient_id,
+                             @"content":content};
+    MBProgressHUD * hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [hud showAnimated:YES];
+    [httpTools post:SEND_MESSAGE andParameters:param success:^(NSDictionary *dic) {
+        [hud hideAnimated:YES];
+        [SVProgressHUD showSuccessWithStatus:@"发送成功"];
+    } failure:^(NSError *error) {
+        [hud hideAnimated:YES];
+    }];
 }
 
 

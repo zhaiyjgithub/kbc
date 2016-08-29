@@ -9,6 +9,11 @@
 #import "SR_ActionSheetVoiceView.h"
 #import "globalHeader.h"
 #import "SR_ActionSheetVoiceViewCell.h"
+#import <MBProgressHUD.h>
+#import "UserInfo.h"
+#import "requestAPI.h"
+#import "httpTools.h"
+#import <SVProgressHUD.h>
 
 @implementation SR_ActionSheetVoiceView
 - (id)initActionSheetWith:(NSString *)title voices:(NSArray *)voices viewController:(UIViewController *)viewController{
@@ -70,6 +75,103 @@
     [btn addTarget:self action:@selector(touchdown) forControlEvents:(UIControlEventTouchDown)];
     self.voiceBtn = btn;
     [voiceView addSubview:btn];
+    
+    UIButton * sendBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    sendBtn.frame = CGRectMake(kScreenWidth - 12 - 44, 10, 44, 44);
+    [sendBtn setTitle:@"发布" forState:(UIControlStateNormal)];
+    [sendBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
+    [sendBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateHighlighted)];
+    [sendBtn addTarget:self action:@selector(clickSendBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+    [voiceView addSubview:sendBtn];
+    
+     self.player = [[AVAudioPlayer alloc] init];
+}
+
+- (AVPlayer *)remotePlayer{
+    if (!_remotePlayer) {
+        _remotePlayer = [[AVPlayer alloc] init];
+    }
+    return _remotePlayer;
+}
+
+- (void)clickSendBtn:(UIButton *)sendBtn{
+    
+    NSURL * url = [NSURL fileURLWithPath:self.recordFilePath];
+    self.remotePlayer = [[AVPlayer alloc] initWithURL:url];
+    [self.remotePlayer play];
+//    [sendBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+//    sendBtn.enabled = NO;
+    
+//    NSString * userId = [UserInfo getUserId];
+//    NSString * userToken = [UserInfo getUserToken];
+//    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_PIX,
+//                             @"title":self.articleTitle};
+//    [MBProgressHUD showHUDAddedTo:self.handerView animated:YES];
+//    [httpTools uploadVoice:SAVE_NOTE parameters:param voicesUrl:@[self.recordFilePath] success:^(NSDictionary *dic) {
+//        [sendBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
+//        sendBtn.enabled = YES;
+//        [MBProgressHUD hideHUDForView:self.handerView animated:YES];
+//        [SVProgressHUD showSuccessWithStatus:@"笔记创建成功"];
+//    } failure:^(NSError *error) {
+//        [sendBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
+//        sendBtn.enabled = YES;
+//        [SVProgressHUD showErrorWithStatus:@"笔记创建失败"];
+//        [MBProgressHUD hideHUDForView:self.handerView animated:YES];
+//    }];
+    
+    
+    
+//    if (self.recorder.isRecording){//录音中
+//        //停止录音
+//        [self.recorder stop];
+//        
+//        NSURL * url = [NSURL fileURLWithPath:self.recordFilePath];
+//        self.remotePlayer = [[AVPlayer alloc] initWithURL:url];
+//        [self.remotePlayer play];
+//        
+//    }else{
+//        //录音
+//        
+//        AVAudioSession *session = [AVAudioSession sharedInstance];
+//        NSError *setCategoryError = nil;
+//        [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&setCategoryError];
+//        
+//        if(setCategoryError){
+//            NSLog(@"setCategoryError:%@", [setCategoryError description]);
+//        }
+//        //根据当前时间生成文件名
+//        self.recordFileName = [self GetCurrentTimeString];
+//        //获取路径
+//        self.recordFilePath = [self GetPathByFileName:self.recordFileName ofType:@"wav"];
+//        
+//        //初始化录音
+//        NSDictionary *recordSetting = [[NSDictionary alloc] initWithObjectsAndKeys:
+//                                       [NSNumber numberWithFloat: 8000.0],AVSampleRateKey, //采样率
+//                                       [NSNumber numberWithInt: kAudioFormatLinearPCM],AVFormatIDKey,
+//                                       [NSNumber numberWithInt:16],AVLinearPCMBitDepthKey,//采样位数 默认 16
+//                                       [NSNumber numberWithInt: 1], AVNumberOfChannelsKey,//通道的数目
+//                                       //                                   [NSNumber numberWithBool:NO],AVLinearPCMIsBigEndianKey,//大端还是小端 是内存的组织方式
+//                                       //                                   [NSNumber numberWithBool:NO],AVLinearPCMIsFloatKey,//采样信号是整数还是浮点数
+//                                       //                                   [NSNumber numberWithInt: AVAudioQualityMedium],AVEncoderAudioQualityKey,//音频编码质量
+//                                       nil];
+//
+//        self.recorder = [[AVAudioRecorder alloc]initWithURL:[NSURL fileURLWithPath:self.recordFilePath]
+//                                                   settings:recordSetting
+//                                                      error:nil];
+//        
+//        //准备录音
+//        if ([self.recorder prepareToRecord]){
+//            
+//            [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayAndRecord error:nil];
+//            [[AVAudioSession sharedInstance] setActive:YES error:nil];
+//            
+//            //开始录音
+//            if ([self.recorder record]){
+//                
+//            }
+//        }
+//    }
+
 }
 
 - (void)addTimer{
@@ -107,11 +209,18 @@
     [self beginRecord];
 }
 
+///录音完成
 - (void)stopRecord{
     if (self.recorder.isRecording){//录音中
         //停止录音
         [self.recorder stop];
         NSLog(@"停止录音");
+       // NSURL * url = [NSURL fileURLWithPath:self.recordFilePath];
+        NSString * targetFilePath = [[NSString alloc] initWithString:self.recordFilePath];
+        [self.filePathsDataSource addObject:targetFilePath];
+        NSIndexPath * indexpath = [NSIndexPath indexPathForRow:self.filePathsDataSource.count - 1 inSection:0];
+        [self.tableView insertRowsAtIndexPaths:@[indexpath] withRowAnimation:(UITableViewRowAnimationBottom)];
+        [self.tableView scrollToRowAtIndexPath:indexpath atScrollPosition:(UITableViewScrollPositionBottom) animated:YES];
     }
 }
 
@@ -158,13 +267,12 @@
     [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error:nil];
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     
-    NSURL * url = [NSURL fileURLWithPath:filePath];
-    self.player = [[AVPlayer alloc] initWithURL:url];
+    self.player = [[self player] initWithContentsOfURL:[NSURL URLWithString:self.recordFilePath] error:nil];
     [self.player play];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return 10;//self.filePathsDataSource.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -301,7 +409,12 @@
     }
 }
 
-
+- (NSMutableArray *)filePathsDataSource{
+    if (!_filePathsDataSource) {
+        _filePathsDataSource = [[NSMutableArray alloc] init];
+    }
+    return _filePathsDataSource;
+}
 
 
 

@@ -9,6 +9,7 @@
 #import "SR_OthersMineViewCell.h"
 #import "globalHeader.h"
 #import "SR_OAthouButton.h"
+#import <SVProgressHUD.h>
 
 @implementation SR_OthersMineViewCell
 
@@ -24,7 +25,7 @@
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 20, kScreenWidth - 30, 14)];
     self.nameLabel.font = [UIFont boldSystemFontOfSize:14.0];
     self.nameLabel.textColor = [UIColor blackColor];
-    self.nameLabel.text = @"用户名称: 周明";
+    self.nameLabel.text = @"用户名称: 阅读";
     self.nameLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.nameLabel];
     
@@ -35,18 +36,19 @@
     self.levelabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.levelabel];
     
-    UIButton * messageBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, self.levelabel.frame.origin.y + self.levelabel.frame.size.height + 20, 15, 12)];
-    messageBtn.backgroundColor = [UIColor redColor];
+    UIButton * messageBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, self.levelabel.frame.origin.y + self.levelabel.frame.size.height + 20, 18, 12)];
+    [messageBtn setImage:[UIImage imageNamed:@"wo_xx"] forState:(UIControlStateNormal)];
+    messageBtn.enabled = NO;
     [self.contentView addSubview:messageBtn];
     
-    UIButton * messageLabelBtn = [[UIButton alloc] initWithFrame:CGRectMake(messageBtn.frame.origin.x + messageBtn.frame.size.width + 5, messageBtn.frame.origin.y, 60, 15)];
-    [messageLabelBtn setTitle:@"我的私信" forState:(UIControlStateNormal)];
-    [messageLabelBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
-    messageLabelBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-    messageLabelBtn.backgroundColor = [UIColor whiteColor];
-    [self.contentView addSubview:messageLabelBtn];
+    UILabel * messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(messageBtn.frame.origin.x + messageBtn.frame.size.width + 5, messageBtn.frame.origin.y - 2, 30, 15)];
+    messageLabel.text = @"私信";
+    messageLabel.textColor = [UIColor lightGrayColor];
+    messageLabel.textAlignment = NSTextAlignmentLeft;
+    messageLabel.font = [UIFont systemFontOfSize:14.0];
+    [self.contentView addSubview:messageLabel];
     
-    UITextView * messageTextView = [[UITextView alloc] initWithFrame:CGRectMake(15, messageLabelBtn.frame.origin.y + messageLabelBtn.frame.size.height + 12, kScreenWidth - 30, 168)];
+    UITextView * messageTextView = [[UITextView alloc] initWithFrame:CGRectMake(15, messageLabel.frame.origin.y + messageLabel.frame.size.height + 12, kScreenWidth - 30, 168)];
     messageTextView.layer.borderWidth  = 0.5;
     messageTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     messageTextView.font = [UIFont systemFontOfSize:14.0];
@@ -58,13 +60,21 @@
     [sentBtn setTitle:@"发送" forState:(UIControlStateNormal)];
     [sentBtn setTitleColor:baseColor forState:(UIControlStateNormal)];
     sentBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
-    [sentBtn setImage:[UIImage imageNamed:@"oathu1"] forState:(UIControlStateNormal)];
+    [sentBtn setImage:[UIImage imageNamed:@"ta_fasong"] forState:(UIControlStateNormal)];
     [sentBtn addTarget:self action:@selector(clickSendBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.contentView addSubview:sentBtn];
-    
+}
+
+- (void)setUserModel:(SR_BookClubNoteUserModel *)userModel{
+    _userModel = userModel;
+    self.nameLabel.text = [NSString stringWithFormat:@"用户名称: %@",userModel.username];
 }
 
 - (void)clickSendBtn:(UIButton *)btn{
+    if (!self.messageTextView.text) {
+        [SVProgressHUD showErrorWithStatus:@"私信内容不能为空"];
+        return;
+    }
     if (self.block) {
         self.block(self.messageTextView);
     }

@@ -39,6 +39,7 @@
 #import "AVRefreshExtension.h"
 
 #import "SR_NoteDetailPageViewController.h"
+#import "SR_OthersMineViewController.h"
 
 @interface SR_FoundMainViewController ()<addBtnDelegate,UIAlertViewDelegate,textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate>
 @property(nonatomic,assign)BOOL isSelectBookClub;
@@ -74,12 +75,10 @@
 }
 
 - (void)clickSearchItem{
-//    self.hidesBottomBarWhenPushed = YES;
-//    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
-//    [self.navigationController pushViewController:foundVC animated:YES];
-//    self.hidesBottomBarWhenPushed = NO;
-    VoiceViewController * voiceVC = [[VoiceViewController alloc] init];
-    [self.navigationController pushViewController:voiceVC animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
+    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
+    [self.navigationController pushViewController:foundVC animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -141,8 +140,21 @@
                 cell = [[SR_FoundMainTextViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
             }
             cell.noteModel = self.dynamicInfos[indexPath.row];
+            __weak typeof(self) weakSelf = self;
             [cell addBlock:^{
-                SSLog(@"click header btn");
+                if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+                    [weakSelf.navigationController pushViewController:mineVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }else{
+                    SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    SR_BookClubBookNoteModel * noteModel = weakSelf.dynamicInfos[indexPath.row];
+                    otherVC.userModel = noteModel.user;
+                    [weakSelf.navigationController pushViewController:otherVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }
             }];
             return cell;
         }else if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){//图片
@@ -152,8 +164,21 @@
                 cell = [[SR_FoundMainImageViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
             }
             cell.noteModel = self.dynamicInfos[indexPath.row];
+            __weak typeof(self) weakSelf = self;
             [cell addBlock:^{
-                SSLog(@"click header btn");
+                if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+                    [weakSelf.navigationController pushViewController:mineVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }else{
+                    SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    SR_BookClubBookNoteModel * noteModel = weakSelf.dynamicInfos[indexPath.row];
+                    otherVC.userModel = noteModel.user;
+                    [weakSelf.navigationController pushViewController:otherVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }
             }];
             return cell;
 
@@ -165,7 +190,19 @@
             }
             __weak typeof(self) weakSelf = self;
             [cell addBlock:^{
-                SSLog(@"click header btn");
+                if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+                    [weakSelf.navigationController pushViewController:mineVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }else{
+                    SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    SR_BookClubBookNoteModel * noteModel = weakSelf.dynamicInfos[indexPath.row];
+                    otherVC.userModel = noteModel.user;
+                    [weakSelf.navigationController pushViewController:otherVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }
             }];
             [cell addInterBlock:^{
                 SR_InterPageViewController * interPaageVC = [[SR_InterPageViewController alloc] init];
@@ -178,8 +215,21 @@
             if (!cell) {
                 cell = [[SR_FoundMainCollectionViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
             }
+            __weak typeof(self) weakSelf = self;
             [cell addBlock:^{
-                SSLog(@"click header btn");
+                if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+                    [weakSelf.navigationController pushViewController:mineVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }else{
+                    SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    SR_BookClubBookNoteModel * noteModel = weakSelf.dynamicInfos[indexPath.row];
+                    otherVC.userModel = noteModel.user;
+                    [weakSelf.navigationController pushViewController:otherVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }
             }];
            
             return cell;
@@ -338,7 +388,6 @@
         [hud hideAnimated:YES];
         [SVProgressHUD showErrorWithStatus:@"笔记创建失败"];
     }];
-
 }
 
 - (void)relogin{

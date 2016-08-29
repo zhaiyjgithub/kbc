@@ -20,14 +20,14 @@
 }
 
 - (void)setupCell{
-    UIView * barView = [[UIView alloc] initWithFrame:CGRectMake((kScreenWidth - 250 )/2, 25, 250, 42)];
-    barView.backgroundColor = baseColor;
-    barView.layer.cornerRadius = 21;
+    UIView * barView = [[UIView alloc] initWithFrame:CGRectMake(10, 24, (kScreenWidth - 30 - 20), 42)];
+    barView.backgroundColor = kColor(215, 215, 215);
+    barView.layer.cornerRadius = 21.0;
     [self.contentView addSubview:barView];
     
     UIButton * voiceBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     voiceBtn.frame = CGRectMake(0, 0, 70, 70);
-    voiceBtn.center = CGPointMake(barView.frame.origin.x + barView.frame.size.width/2, barView.frame.origin.y + barView.frame.size.height/2);
+    voiceBtn.center = CGPointMake(barView.frame.size.width/2 + 10, 45);
     voiceBtn.backgroundColor = baseColor;
     [voiceBtn setTitle:@"语音" forState:(UIControlStateNormal)];
     [voiceBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
@@ -39,7 +39,7 @@
     
     UIButton * deleteBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     deleteBtn.frame  = CGRectMake(0, 0, 17, 17);
-    deleteBtn.center = CGPointMake(barView.frame.origin.x + barView.frame.size.width, barView.frame.origin.y);
+    deleteBtn.center = CGPointMake(barView.frame.origin.x + barView.frame.size.width - 4, barView.frame.origin.y);
     deleteBtn.tag = 1;
     [deleteBtn setImage:[UIImage imageNamed:@"zbj_del"] forState:(UIControlStateNormal)];
     [deleteBtn addTarget:self action:@selector(clickBtn:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -47,7 +47,14 @@
 }
 
 - (void)clickBtn:(UIButton *)btn{
-    
+    if (self.block) {
+        self.block(btn);
+    }
 }
+
+- (void)addBlock:(SR_ActionSheetVoiceViewCellBlock)block{
+    self.block = block;
+}
+
 
 @end

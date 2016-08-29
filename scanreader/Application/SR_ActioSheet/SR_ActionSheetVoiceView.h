@@ -27,10 +27,12 @@
 @property(nonatomic,strong)UIButton * voiceBtn;
 @property(nonatomic,strong)UIViewController * viewController;
 @property (strong,nonatomic)AVAudioRecorder  *recorder;
-@property (strong,nonatomic)AVPlayer    *player;
+@property (strong,nonatomic)AVAudioPlayer  *player;
+@property(nonatomic,strong)AVPlayer * remotePlayer;
 @property (strong,nonatomic)NSString         *recordFileName;
 @property (strong,nonatomic)NSString         *recordFilePath;
 @property(nonatomic,assign)BOOL isTimeOut;
+@property(nonatomic,strong)NSMutableArray * filePathsDataSource;
 
 - (id)initActionSheetWith:(NSString *)title voices:(NSArray *)voices viewController:(UIViewController *)viewController;
 - (void)show;
