@@ -51,11 +51,11 @@
     
     UITableView * tableView = [[UITableView alloc] initWithFrame:CGRectMake(15, self.titleTextField.frame.origin.y + self.titleTextField.frame.size.height + sizeHeight(10), kScreenWidth - 30, sizeHeight(230)) style:UITableViewStylePlain];
     //当前使用原生的分割线，不适用图片的方式加载分割线
-    //tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.delegate = self;
     tableView.dataSource = self;
-    tableView.tintColor=[UIColor orangeColor];
-    _tableView=tableView;
+    tableView.tintColor=[UIColor whiteColor];
+    _tableView = tableView;
     [self addSubview:self.tableView];
     
     UIView * voiceView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.origin.y + self.tableView.frame.size.height + 5, kScreenWidth, sizeHeight(30 + 54))];
@@ -87,18 +87,20 @@
      self.player = [[AVAudioPlayer alloc] init];
 }
 
-- (AVPlayer *)remotePlayer{
-    if (!_remotePlayer) {
-        _remotePlayer = [[AVPlayer alloc] init];
-    }
-    return _remotePlayer;
-}
-
 - (void)clickSendBtn:(UIButton *)sendBtn{
+    if (!self.articleTitle.length) {
+        [SVProgressHUD showErrorWithStatus:@"请输入笔记标题"];
+        return;
+    }
     
-    NSURL * url = [NSURL fileURLWithPath:self.recordFilePath];
-    self.remotePlayer = [[AVPlayer alloc] initWithURL:url];
-    [self.remotePlayer play];
+    if (!self.filePathsDataSource.count) {
+        [SVProgressHUD showErrorWithStatus:@"请添加至少一条语音笔记"];
+        return;
+    }
+    
+    for (NSString * filePath in self.filePathsDataSource) {
+        SSLog(@"for-in file path:%@",filePath);
+    }
 //    [sendBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
 //    sendBtn.enabled = NO;
     
@@ -118,60 +120,6 @@
 //        [SVProgressHUD showErrorWithStatus:@"笔记创建失败"];
 //        [MBProgressHUD hideHUDForView:self.handerView animated:YES];
 //    }];
-    
-    
-    
-//    if (self.recorder.isRecording){//录音中
-//        //停止录音
-//        [self.recorder stop];
-//        
-//        NSURL * url = [NSURL fileURLWithPath:self.recordFilePath];
-//        self.remotePlayer = [[AVPlayer alloc] initWithURL:url];
-//        [self.remotePlayer play];
-//        
-//    }else{
-//        //录音
-//        
-//        AVAudioSession *session = [AVAudioSession sharedInstance];
-//        NSError *setCategoryError = nil;
-//        [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&setCategoryError];
-//        
-//        if(setCategoryError){
-//            NSLog(@"setCategoryError:%@", [setCategoryError description]);
-//        }
-//        //根据当前时间生成文件名
-//        self.recordFileName = [self GetCurrentTimeString];
-//        //获取路径
-//        self.recordFilePath = [self GetPathByFileName:self.recordFileName ofType:@"wav"];
-//        
-//        //初始化录音
-//        NSDictionary *recordSetting = [[NSDictionary alloc] initWithObjectsAndKeys:
-//                                       [NSNumber numberWithFloat: 8000.0],AVSampleRateKey, //采样率
-//                                       [NSNumber numberWithInt: kAudioFormatLinearPCM],AVFormatIDKey,
-//                                       [NSNumber numberWithInt:16],AVLinearPCMBitDepthKey,//采样位数 默认 16
-//                                       [NSNumber numberWithInt: 1], AVNumberOfChannelsKey,//通道的数目
-//                                       //                                   [NSNumber numberWithBool:NO],AVLinearPCMIsBigEndianKey,//大端还是小端 是内存的组织方式
-//                                       //                                   [NSNumber numberWithBool:NO],AVLinearPCMIsFloatKey,//采样信号是整数还是浮点数
-//                                       //                                   [NSNumber numberWithInt: AVAudioQualityMedium],AVEncoderAudioQualityKey,//音频编码质量
-//                                       nil];
-//
-//        self.recorder = [[AVAudioRecorder alloc]initWithURL:[NSURL fileURLWithPath:self.recordFilePath]
-//                                                   settings:recordSetting
-//                                                      error:nil];
-//        
-//        //准备录音
-//        if ([self.recorder prepareToRecord]){
-//            
-//            [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayAndRecord error:nil];
-//            [[AVAudioSession sharedInstance] setActive:YES error:nil];
-//            
-//            //开始录音
-//            if ([self.recorder record]){
-//                
-//            }
-//        }
-//    }
-
 }
 
 - (void)addTimer{
@@ -262,17 +210,8 @@
     }
 }
 
-#pragma mark - 播放原wav
-- (void)playWav:(NSString *)filePath{
-    [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error:nil];
-    [[AVAudioSession sharedInstance] setActive:YES error:nil];
-    
-    self.player = [[self player] initWithContentsOfURL:[NSURL URLWithString:self.recordFilePath] error:nil];
-    [self.player play];
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;//self.filePathsDataSource.count;
+    return self.filePathsDataSource.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -293,7 +232,43 @@
     if (!cell) {
         cell = [[SR_ActionSheetVoiceViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
     }
+    __weak typeof(self) weakSelf = self;
+    [cell addBlock:^(UIButton *btn) {
+        if (btn.tag == 0) {
+            SSLog(@"play");
+            [weakSelf playVoiceWithFilePath:weakSelf.filePathsDataSource[indexPath.row]];
+        }else{
+            SSLog(@"delete");
+            [weakSelf showDeleteAlertViewWithRow:indexPath.row];
+        }
+    }];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)playVoiceWithFilePath:(NSString *)filePath {
+    SSLog(@"begin to play path:%@",filePath);
+    NSURL * url = [NSURL fileURLWithPath:filePath];
+    self.remotePlayer = [[AVPlayer alloc] initWithURL:url];
+    [self.remotePlayer play];
+}
+
+- (void)showDeleteAlertViewWithRow:(NSInteger)row{
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"要删除这条语音笔记吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alertView.tag = row;
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex) {
+        SSLog(@"alert tag:%d",alertView.tag);
+        [self.filePathsDataSource removeObjectAtIndex:alertView.tag];
+        [self.tableView reloadData];
+    }
 }
 
 - (void)show{
@@ -323,7 +298,7 @@
     }];
 }
 
-#pragma mark Responding to keyboard events
+    #pragma mark Responding to keyboard events
 - (void)keyboardWillShow:(NSNotification *)notification {
     NSDictionary *userInfo = [notification userInfo];
     NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
@@ -357,8 +332,6 @@
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
     return YES;
 }
-
-#pragma mark - Others
 
 #pragma mark - 生成当前时间字符串
 - (NSString*)GetCurrentTimeString{
@@ -408,6 +381,16 @@
         return -1;
     }
 }
+
+#pragma mark - 播放原wav
+- (void)playWav:(NSString *)filePath{
+    [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error:nil];
+    [[AVAudioSession sharedInstance] setActive:YES error:nil];
+    
+    self.player = [[self player] initWithContentsOfURL:[NSURL URLWithString:self.recordFilePath] error:nil];
+    [self.player play];
+}
+
 
 - (NSMutableArray *)filePathsDataSource{
     if (!_filePathsDataSource) {

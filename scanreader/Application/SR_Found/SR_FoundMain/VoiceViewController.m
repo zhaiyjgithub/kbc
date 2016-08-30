@@ -127,7 +127,9 @@
 //            NSLog(@"wav转amr失败");
 //        self.player = [self.player initWithContentsOfURL:[NSURL URLWithString:self.recordFilePath] error:nil];
 //        [self.player play];
-        
+        if (self.remotePlayer == nil) {
+            NSLog(@"player is nil");
+        }
         NSURL * url = [NSURL fileURLWithPath:self.recordFilePath];
         self.remotePlayer = [[AVPlayer alloc] initWithURL:url];
         [self.remotePlayer play];
@@ -151,7 +153,6 @@
         self.recorder = [[AVAudioRecorder alloc]initWithURL:[NSURL fileURLWithPath:self.recordFilePath]
                                                    settings:[VoiceConverter GetAudioRecorderSettingDict]
                                                       error:nil];
-        
         //准备录音
         if ([self.recorder prepareToRecord]){
             
@@ -174,6 +175,10 @@
     [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error:nil];
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     NSLog(@"原来wav path:%@",self.recordFilePath);
+    
+    if (self.player == nil) {
+        NSLog(@"player is nil");
+    }
     
     self.player = [self.player initWithContentsOfURL:[NSURL URLWithString:self.recordFilePath] error:nil];
     [self.player play];

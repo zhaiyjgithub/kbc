@@ -14,6 +14,8 @@
 #define USER_NAME   @"userName"
 #define USER_PHONENUMBER @"userPhoneNumber"
 #define USER_PASSWORD @"userPhoneWord"
+#define USER_LEVEL @"userLevel"
+#define USER_CREDIT @"userCredit"
 
 @implementation UserInfo
 
@@ -53,6 +55,19 @@
     [defaults synchronize];
 }
 
++(void)saveUserLevelWith:(NSString *)level{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:level forKey:USER_LEVEL];
+    [defaults synchronize];
+}
++(void)saveUserCreditWith:(NSString *)credit{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:credit forKey:USER_CREDIT];
+    [defaults synchronize];
+}
+
+
+
 
 +(NSString *)getUserAvatar{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -87,6 +102,18 @@
 +(NSString *)getUserPassword{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *string = [defaults objectForKey:USER_PASSWORD];
+    return string;
+}
+
++(NSString *)getUserLevel{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *string = [defaults objectForKey:USER_LEVEL];
+    return string;
+}
+
++(NSString *)getUserCredit{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *string = [defaults objectForKey:USER_CREDIT];
     return string;
 }
 

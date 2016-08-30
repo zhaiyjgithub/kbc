@@ -75,10 +75,13 @@
 }
 
 - (void)clickSearchItem{
-    self.hidesBottomBarWhenPushed = YES;
-    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
-    [self.navigationController pushViewController:foundVC animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
+//    self.hidesBottomBarWhenPushed = YES;
+//    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
+//    [self.navigationController pushViewController:foundVC animated:YES];
+//    self.hidesBottomBarWhenPushed = NO;
+    
+    VoiceViewController * vc = [[VoiceViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

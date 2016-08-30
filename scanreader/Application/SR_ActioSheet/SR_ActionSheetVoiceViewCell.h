@@ -13,4 +13,5 @@ typedef void(^SR_ActionSheetVoiceViewCellBlock)(UIButton * btn);
 @interface SR_ActionSheetVoiceViewCell : UITableViewCell
 @property(nonatomic,strong)UIButton * voiceBtn;
 @property(nonatomic,strong)SR_ActionSheetVoiceViewCellBlock block;
+- (void)addBlock:(SR_ActionSheetVoiceViewCellBlock)block;
 @end

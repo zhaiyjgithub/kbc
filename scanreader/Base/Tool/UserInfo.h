@@ -15,10 +15,14 @@
 +(void)saveUserNameWith:(NSString *)name;
 +(void)saveUserPhoneNumberWith:(NSString *)phoneNumber;
 +(void)saveUserPasswordWith:(NSString *)password;
++(void)saveUserLevelWith:(NSString *)level;
++(void)saveUserCreditWith:(NSString *)credit;
 +(NSString *)getUserAvatar;
 +(NSString *)getUserId;
 +(NSString *)getUserToken;
 +(NSString *)getUserName;
 +(NSString *)getUserPhoneNumber;
 +(NSString *)getUserPassword;
++(NSString *)getUserLevel;
++(NSString *)getUserCredit;
 @end

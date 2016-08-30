@@ -16,6 +16,7 @@
 #import "UserInfo.h"
 #import <MBProgressHUD.h>
 #import "UserInfo.h"
+#import <YYKit/YYKit.h>
 
 @interface SR_MineViewController ()<UIActionSheetDelegate>
 @property(nonatomic,strong)UIImageView * headerImageView;
@@ -26,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的";
+    [self getUserInfo];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -71,7 +73,7 @@
     UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 170)];
     headerView.backgroundColor = baseColor;
     
-    UIImageView * headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 92, 92)];
+    YYAnimatedImageView * headerImageView = [[YYAnimatedImageView alloc] initWithFrame:CGRectMake(0, 0, 96, 96)];
     headerImageView.center = headerView.center;
     headerImageView.layer.cornerRadius = 46.0;
     headerImageView.layer.masksToBounds = YES;
@@ -79,7 +81,7 @@
     headerImageView.layer.borderColor = [UIColor whiteColor].CGColor;
     headerImageView.userInteractionEnabled = YES;
     [headerView addSubview:headerImageView];
-    headerImageView.image = [UIImage imageNamed:@"headerIcon"];
+    [headerImageView setImageWithURL:[NSURL URLWithString:[UserInfo getUserAvatar]] placeholder:[UIImage imageNamed:@"headerIcon"]];
     self.headerImageView = headerImageView;
     
     UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickHeaderBtn)];
@@ -111,13 +113,45 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
         [[PhotoPickerTool sharedPhotoPickerTool] showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceTypeCamera) onViewController:self compled:^(UIImage *image, NSDictionary *editingInfo) {
-            self.headerImageView.image = image;
+            UIImage * scaleImage = [self scaleToSize:image size:CGSizeMake(192, 192)];
+            self.headerImageView.image = scaleImage;
+            [self updateHeaderImageView];
         }];
     }else if (buttonIndex == 1){
         [[PhotoPickerTool sharedPhotoPickerTool] showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceTypePhotoLibrary) onViewController:self compled:^(UIImage *image, NSDictionary *editingInfo) {
-            self.headerImageView.image = image;
+            UIImage * scaleImage = [self scaleToSize:image size:CGSizeMake(192, 192)];
+            self.headerImageView.image = scaleImage;
+            [self updateHeaderImageView];
         }];
     }
+}
+
+- (void)updateHeaderImageView{
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken};
+    [httpTools uploadHeaderImage:UPDATE_USER_INFO parameters:param images:@[self.headerImageView.image] file:@"avatar" success:^(NSDictionary *dic) {
+        //更新成功之后重新请求个人信息
+        [self getUserInfo];
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)getUserInfo{
+    [httpTools post:GET_USER_INFO andParameters:@{@"id":[UserInfo getUserId]} success:^(NSDictionary *dic) {
+        SSLog(@"dic:%@",dic);
+        NSDictionary * userDic = dic[@"data"][@"record"];
+        [UserInfo saveUserAvatarWith:userDic[@"avatar"]];
+        [UserInfo saveUserIDWith:userDic[@"id"]];
+        [UserInfo saveUserTokenWith:dic[@"data"][@"user_token"]];
+        [UserInfo saveUserNameWith:userDic[@"username"]];
+        [UserInfo saveUserLevelWith:userDic[@"level"]];
+        [UserInfo saveUserCreditWith:userDic[@"credit"]];
+
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)clickLoginOutBtn{
@@ -138,7 +172,21 @@
     } failure:^(NSError *error) {
         
     }];
-    
+}
+
+///将UIImage缩放到指定大小尺寸：
+- (UIImage *)scaleToSize:(UIImage *)img size:(CGSize)size{
+    // 创建一个bitmap的context
+    // 并把它设置成为当前正在使用的context
+    UIGraphicsBeginImageContext(size);
+    // 绘制改变大小的图片
+    [img drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    // 从当前context中创建一个改变大小后的图片
+    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    // 使当前的context出堆栈
+    UIGraphicsEndImageContext();
+    // 返回新的改变大小后的图片
+    return scaledImage;
 }
 
 @end

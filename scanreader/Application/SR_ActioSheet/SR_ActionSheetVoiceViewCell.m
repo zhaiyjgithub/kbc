@@ -22,12 +22,12 @@
 - (void)setupCell{
     UIView * barView = [[UIView alloc] initWithFrame:CGRectMake(10, 24, (kScreenWidth - 30 - 20), 42)];
     barView.backgroundColor = kColor(215, 215, 215);
-    barView.layer.cornerRadius = 21.0;
+    barView.layer.cornerRadius = 21;
     [self.contentView addSubview:barView];
     
     UIButton * voiceBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     voiceBtn.frame = CGRectMake(0, 0, 70, 70);
-    voiceBtn.center = CGPointMake(barView.frame.size.width/2 + 10, 45);
+    voiceBtn.center = CGPointMake((int)(barView.frame.size.width/2) + 10, 45);
     voiceBtn.backgroundColor = baseColor;
     [voiceBtn setTitle:@"语音" forState:(UIControlStateNormal)];
     [voiceBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];

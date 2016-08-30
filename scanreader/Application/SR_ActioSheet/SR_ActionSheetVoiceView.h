@@ -15,7 +15,7 @@
 - (void)clickVoiceViewSendBtn:(NSString *)title text:(NSString *)text;
 @end
 
-@interface SR_ActionSheetVoiceView : UIView <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+@interface SR_ActionSheetVoiceView : UIView <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIAlertViewDelegate>
 @property(nonatomic,strong)UIButton * handerView;
 @property(nonatomic,weak)id<voiceViewSendBtnDelegate>delegate;
 @property(nonatomic,strong)UITextField * titleTextField;

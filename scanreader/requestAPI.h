@@ -40,4 +40,8 @@
 #define GET_MESSAGE_LIST @"/api/message/getList"
 #define GET_MESSAGE_ONE_ITEM @"/api/message/getOne"
 #define SEND_MESSAGE @"/api/message/save"
+
+#define UPDATE_USER_INFO @"/api/user/update"
+#define GET_USER_INFO @"/api/user/getOne"
+
 #endif /* requestAPI_h */
