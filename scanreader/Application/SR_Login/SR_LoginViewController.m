@@ -178,6 +178,9 @@
             [UserInfo saveUserIDWith:userDic[@"id"]];
             [UserInfo saveUserTokenWith:dic[@"data"][@"user_token"]];
             [UserInfo saveUserNameWith:userDic[@"username"]];
+            [UserInfo saveUserLevelWith:userDic[@"level"]];
+            [UserInfo saveUserPublicWith:userDic[@"public"]];
+            [UserInfo saveUserCreditWith:userDic[@"credit"]];
             [UserInfo saveUserPhoneNumberWith:self.phoneTextField.text];
             [UserInfo saveUserPasswordWith:self.passwordTextField.text];
 

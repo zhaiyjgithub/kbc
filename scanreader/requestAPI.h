@@ -43,5 +43,6 @@
 
 #define UPDATE_USER_INFO @"/api/user/update"
 #define GET_USER_INFO @"/api/user/getOne"
+#define GET_PAGE_ONE_ITEM @"/api/page/getOne"
 
 #endif /* requestAPI_h */

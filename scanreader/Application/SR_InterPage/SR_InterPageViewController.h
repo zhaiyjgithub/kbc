@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SR_BaseTableViewController.h"
 
-@interface SR_InterPageViewController : UIViewController
+@interface SR_InterPageViewController : SR_BaseTableViewController
 
 @end

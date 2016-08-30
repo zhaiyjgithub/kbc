@@ -84,11 +84,10 @@
     [sendBtn addTarget:self action:@selector(clickSendBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [voiceView addSubview:sendBtn];
     
-     self.player = [[AVAudioPlayer alloc] init];
 }
 
 - (void)clickSendBtn:(UIButton *)sendBtn{
-    if (!self.articleTitle.length) {
+    if (!self.titleTextField.text.length) {
         [SVProgressHUD showErrorWithStatus:@"请输入笔记标题"];
         return;
     }
@@ -101,29 +100,40 @@
     for (NSString * filePath in self.filePathsDataSource) {
         SSLog(@"for-in file path:%@",filePath);
     }
-//    [sendBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
-//    sendBtn.enabled = NO;
+    [sendBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+    sendBtn.enabled = NO;
     
-//    NSString * userId = [UserInfo getUserId];
-//    NSString * userToken = [UserInfo getUserToken];
-//    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_PIX,
-//                             @"title":self.articleTitle};
-//    [MBProgressHUD showHUDAddedTo:self.handerView animated:YES];
-//    [httpTools uploadVoice:SAVE_NOTE parameters:param voicesUrl:@[self.recordFilePath] success:^(NSDictionary *dic) {
-//        [sendBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
-//        sendBtn.enabled = YES;
-//        [MBProgressHUD hideHUDForView:self.handerView animated:YES];
-//        [SVProgressHUD showSuccessWithStatus:@"笔记创建成功"];
-//    } failure:^(NSError *error) {
-//        [sendBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
-//        sendBtn.enabled = YES;
-//        [SVProgressHUD showErrorWithStatus:@"笔记创建失败"];
-//        [MBProgressHUD hideHUDForView:self.handerView animated:YES];
-//    }];
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_VOICE,
+                             @"title":self.titleTextField.text};
+    [MBProgressHUD showHUDAddedTo:self.handerView animated:YES];
+    [httpTools uploadVoice:SAVE_NOTE parameters:param voicesUrl:self.filePathsDataSource success:^(NSDictionary *dic) {
+        [sendBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
+        sendBtn.enabled = YES;
+        [MBProgressHUD hideHUDForView:self.handerView animated:YES];
+        [SVProgressHUD showSuccessWithStatus:@"笔记创建成功"];
+        for (NSString * filePath in self.filePathsDataSource) {
+            [self deleteFile:filePath];
+        }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self dismiss];
+        });
+    } failure:^(NSError *error) {
+        [sendBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
+        sendBtn.enabled = YES;
+        [SVProgressHUD showErrorWithStatus:@"笔记创建失败"];
+        [MBProgressHUD hideHUDForView:self.handerView animated:YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self dismiss];
+        });
+
+    }];
 }
 
+///录制最多1min
 - (void)addTimer{
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(timeout) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:59 target:self selector:@selector(timeout) userInfo:nil repeats:YES];
 }
 
 - (void)removeTimer{
@@ -265,7 +275,8 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex) {
-        SSLog(@"alert tag:%d",alertView.tag);
+        //删除本地
+        [self deleteFile:self.filePathsDataSource[alertView.tag]];
         [self.filePathsDataSource removeObjectAtIndex:alertView.tag];
         [self.tableView reloadData];
     }
@@ -290,6 +301,10 @@
 }
 
 - (void)dismiss{
+    //如果上传失败，还要删除本地的语音
+    for (NSString * filePath in self.filePathsDataSource) {
+        [self deleteFile:filePath];
+    }
     [UIView animateWithDuration:0.15 delay:0.0 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
         _handerView.backgroundColor = kColorAlpha(0, 0, 0, 0);
         self.frame = CGRectMake(0, kScreenHeight, kScreenWidth, kScreenHeight);
@@ -389,6 +404,21 @@
     
     self.player = [[self player] initWithContentsOfURL:[NSURL URLWithString:self.recordFilePath] error:nil];
     [self.player play];
+}
+
+///删除文件
+-(void)deleteFile:(NSString *)filePath{
+    NSFileManager* fileManager=[NSFileManager defaultManager];
+    BOOL result = [fileManager removeItemAtPath:filePath error:nil];
+    if (result) {
+        SSLog(@"删除成功");
+    }else{
+        SSLog(@"删除失败:%@",filePath);
+    }
+    NSString *directory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0];
+    
+    NSArray *fileList = [fileManager contentsOfDirectoryAtPath:directory error:nil];
+    NSLog(@"dir:%@  - %@",directory,fileList);
 }
 
 

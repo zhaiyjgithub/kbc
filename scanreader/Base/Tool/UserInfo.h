@@ -17,6 +17,7 @@
 +(void)saveUserPasswordWith:(NSString *)password;
 +(void)saveUserLevelWith:(NSString *)level;
 +(void)saveUserCreditWith:(NSString *)credit;
++(void)saveUserPublicWith:(NSString *)isPublic;
 +(NSString *)getUserAvatar;
 +(NSString *)getUserId;
 +(NSString *)getUserToken;
@@ -25,4 +26,5 @@
 +(NSString *)getUserPassword;
 +(NSString *)getUserLevel;
 +(NSString *)getUserCredit;
++(NSString *)getUserPublic;
 @end

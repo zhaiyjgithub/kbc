@@ -8,7 +8,7 @@
 
 #import "SR_MineViewCell.h"
 #import "globalHeader.h"
-
+#import "UserInfo.h"
 
 @implementation SR_MineViewCell
 
@@ -42,7 +42,8 @@
     self.OAthuabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.OAthuabel];
     
-   
+    NSString * isPublic = [UserInfo getUserPublic];
+    NSInteger publicBtnTag = [isPublic isEqualToString:@"1"] ? 0 : 1;
     NSArray * titles = @[@"公开",@"私密"];
     for (int i = 0; i < 2; i ++) {
          SR_OAthouButton * btn = [[SR_OAthouButton alloc] initWithType:(BaseButtonTypeLeft) sizeType:(BaseButtonSizeTypeSmall)];
@@ -52,7 +53,7 @@
         [btn setTitleColor:[UIColor blackColor] forState:(UIControlStateSelected)];
         [btn setImage:[UIImage imageNamed:@"wo_wxz"] forState:(UIControlStateNormal)];
         [btn setImage:[UIImage imageNamed:@"wo_xz"] forState:(UIControlStateSelected)];
-        if (i == 0) {
+        if (i == publicBtnTag) {
             [btn setSelected:YES];
         }
         btn.tag = i+100;

@@ -1,17 +1,18 @@
 //
-//  SR_NoteDetailPageTextViewCell.m
+//  SR_NoteDetailPageVoiceViewCell.m
 //  scanreader
 //
-//  Created by jbmac01 on 16/8/28.
+//  Created by jbmac01 on 16/8/30.
 //  Copyright © 2016年 jb. All rights reserved.
 //
 
-#import "SR_NoteDetailPageTextViewCell.h"
+#import "SR_NoteDetailPageVoiceViewCell.h"
 #import "globalHeader.h"
 #import "NSDate+JJ.h"
 #import "NSString+JJ.h"
 
-@implementation SR_NoteDetailPageTextViewCell
+
+@implementation SR_NoteDetailPageVoiceViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -31,23 +32,19 @@
     
     self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(15,self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 8,120,16)];
     self.timeLabel.text = @"2016-06-28 12:30";
-    self.timeLabel.textColor = [UIColor lightGrayColor];
     self.timeLabel.textAlignment = NSTextAlignmentLeft;
     self.timeLabel.font = [UIFont systemFontOfSize:12.0];
     [self.contentView addSubview:self.timeLabel];
     
-    self.bodyTextLabel = [[UILabel alloc] init];
-    self.bodyTextLabel.frame = CGRectMake(15, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8, kScreenWidth - 30 - 10 - 48, 39);
-    self.bodyTextLabel.backgroundColor = [UIColor whiteColor];
-    self.bodyTextLabel.text = @"content...";
-    self.bodyTextLabel.numberOfLines = 0;
-    self.bodyTextLabel.textColor = [UIColor lightGrayColor];
-    self.bodyTextLabel.font = [UIFont systemFontOfSize:14.0];
-    [self.contentView addSubview:self.bodyTextLabel];
-    
-    self.subtitleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.bodyTextLabel.frame.origin.y + self.bodyTextLabel.frame.size.height + 11, 19, 19)];
+    self.voicebgView = [[UIView alloc] initWithFrame:CGRectMake(15, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8,(kScreenWidth - 30), 90)];
+    self.voicebgView.backgroundColor = [UIColor whiteColor];
+    [self.contentView addSubview:self.voicebgView];
+
+
+    self.subtitleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.voicebgView.frame.origin.y + self.voicebgView.frame.size.height + 11, 19, 19)];
     self.subtitleImageView.image = [UIImage imageNamed:@"fx_book"];
     [self.contentView addSubview:self.subtitleImageView];
+
     
     self.subtitleButton = [[UIButton alloc] initWithFrame:CGRectMake(self.subtitleImageView.frame.origin.x + self.subtitleImageView.frame.size.width + 5, self.subtitleImageView.frame.origin.y, 200, 19)];
     [self.subtitleButton setTitle:@"《论语》第十二页" forState:(UIControlStateNormal)];
@@ -83,6 +80,17 @@
     [self.contentView addSubview:self.bookFriendsLabel];
 }
 
+- (void)clickVoiceBtn:(UIButton *)btn{
+    if (self.voiceBtnblock) {
+        SR_BookClubNoteResourceModel * resourceModel  = self.resourceList[btn.tag - 100];
+        self.voiceBtnblock(resourceModel.path);
+    }
+}
+
+- (void)addVoicBtnblock:(noteDetailPageVoiceViewCellVoiceBtnBlock)block{
+    self.voiceBtnblock = block;
+}
+
 - (void)clickInterBtn{
     SSLog(@"click inter btn");
 }
@@ -93,16 +101,46 @@
     NSDate * createData = [NSDate dateWithTimeIntervalSince1970:noteModel.time_create];
     NSString * time = [NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
     self.timeLabel.text = time;
-    CGSize contentSize = [noteModel.content sizeForFont:[UIFont systemFontOfSize:14.0] size:CGSizeMake(kScreenWidth - 30, MAXFLOAT) mode:(NSLineBreakByWordWrapping)];
-    self.bodyTextLabel.frame = CGRectMake(15, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8, (int)contentSize.width, (int)contentSize.height + 10);
-    self.bodyTextLabel.text = noteModel.content;
+    //    CGSize contentSize = [noteModel.content sizeForFont:[UIFont systemFontOfSize:14.0] size:CGSizeMake(kScreenWidth - 30, MAXFLOAT) mode:(NSLineBreakByWordWrapping)];
+    //    self.voicebgView.frame = CGRectMake(15, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8, (int)contentSize.width, (int)contentSize.height + 10);
+    
+    for (UIView * sonView in self.voicebgView.subviews) {
+        [sonView removeFromSuperview];
+    }
+    
+    self.voicebgView.frame = CGRectMake(15, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8, (kScreenWidth - 30), (90)*noteModel.resourceList.count);
+    int i = 0 ;
+    self.resourceList = [NSMutableArray new];
+    for (NSDictionary * item in noteModel.resourceList) {
+        SR_BookClubNoteResourceModel * resourceModel = [SR_BookClubNoteResourceModel modelWithDictionary:item];
+        [self.resourceList addObject:resourceModel];
+        UIView * barView = [[UIView alloc] initWithFrame:CGRectMake(0, 24 + i*(70 + 24), self.voicebgView.frame.size.width, 42)];
+        barView.backgroundColor = kColor(215, 215, 215);
+        barView.layer.cornerRadius = 21;
+        [self.voicebgView addSubview:barView];
+        
+        UIButton * voiceBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        voiceBtn.frame = CGRectMake(0, 0, 70, 70);
+        voiceBtn.center = CGPointMake((int)(barView.center.x), barView.center.y);
+        voiceBtn.backgroundColor = baseColor;
+        [voiceBtn setTitle:@"语音" forState:(UIControlStateNormal)];
+        [voiceBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
+        voiceBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+        voiceBtn.layer.cornerRadius = 35;
+        [voiceBtn addTarget:self action:@selector(clickVoiceBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+        voiceBtn.tag = i + 100;
+        [self.voicebgView addSubview:voiceBtn];
+        
+        i += 1;
+    }
+    
     
     if (!noteModel.page || [noteModel.page isEqualToString:@"null"]) {
         self.subtitleImageView.hidden = YES;
         self.subtitleButton.hidden = YES;
     }
     
-    self.subtitleImageView.frame = CGRectMake(15, self.bodyTextLabel.frame.origin.y + self.bodyTextLabel.frame.size.height + 11, 19, 19);
+    self.subtitleImageView.frame = CGRectMake(15, self.voicebgView.frame.origin.y + self.voicebgView.frame.size.height + 11, 19, 19);
     self.subtitleButton.frame = CGRectMake(self.subtitleImageView.frame.origin.x + self.subtitleImageView.frame.size.width + 5, self.subtitleImageView.frame.origin.y, 200, 19);
     self.messageImageView.frame = CGRectMake(15, self.subtitleButton.frame.origin.y + self.subtitleButton.frame.size.height + 10, 17, 17);
     self.messageLabel.frame = CGRectMake(self.messageImageView.frame.origin.x + self.messageImageView.frame.size.width + 10, self.messageImageView.frame.origin.y, 64, 17);
@@ -113,6 +151,8 @@
     [self.subtitleButton setTitle:noteModel.page forState:(UIControlStateNormal)];
     self.messageLabel.text = [NSString stringWithFormat:@"互动(%@)",noteModel.note_total];
     self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",noteModel.member_total];
+    ;
 }
+
 
 @end

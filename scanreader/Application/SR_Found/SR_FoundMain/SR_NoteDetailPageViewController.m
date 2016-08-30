@@ -11,9 +11,12 @@
 #import "SR_NoteDetailPageImageViewCell.h"
 #import "globalHeader.h"
 #import "requestAPI.h"
+#import "SR_NoteDetailPageVoiceViewCell.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface SR_NoteDetailPageViewController ()
 @property(nonatomic,assign)CGFloat cellHeight;
+@property(nonatomic,strong)AVPlayer * remotePlayer;
 @end
 
 @implementation SR_NoteDetailPageViewController
@@ -61,7 +64,19 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else{
-        return nil;
+        NSString * cellId = @"SR_NoteDetailPageVoiceViewCell";
+        SR_NoteDetailPageVoiceViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[SR_NoteDetailPageVoiceViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+        }
+        cell.noteModel = self.noteModel;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        __weak typeof(self) weakSelf = self;
+        [cell addVoicBtnblock:^(NSString *filePath) {
+            [weakSelf playVoiceWithFilePath:filePath];
+        }];
+        return cell;
     }
 }
 
@@ -72,7 +87,15 @@
         self.cellHeight = contentSize.height + 10 + 135;
     }else if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){
         self.cellHeight =  (300 + 5)*noteModel.resourceList.count + 135;
+    }else if ([noteModel.type isEqualToString:NOTE_TYPE_VOICE]){
+        self.cellHeight =  (90)*noteModel.resourceList.count + 135;
     }
 }
+
+- (void)playVoiceWithFilePath:(NSString *)filePath {
+    self.remotePlayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:filePath]];
+    [self.remotePlayer play];
+}
+
 
 @end

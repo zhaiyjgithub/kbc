@@ -16,6 +16,7 @@
 #define USER_PASSWORD @"userPhoneWord"
 #define USER_LEVEL @"userLevel"
 #define USER_CREDIT @"userCredit"
+#define USER_IS_PUBLIC @"userIsPulic"
 
 @implementation UserInfo
 
@@ -60,12 +61,18 @@
     [defaults setObject:level forKey:USER_LEVEL];
     [defaults synchronize];
 }
+
 +(void)saveUserCreditWith:(NSString *)credit{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:credit forKey:USER_CREDIT];
     [defaults synchronize];
 }
 
++(void)saveUserPublicWith:(NSString *)isPublic{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:isPublic forKey:USER_IS_PUBLIC];
+    [defaults synchronize];
+}
 
 
 
@@ -114,6 +121,12 @@
 +(NSString *)getUserCredit{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *string = [defaults objectForKey:USER_CREDIT];
+    return string;
+}
+
++(NSString *)getUserPublic{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *string = [defaults objectForKey:USER_IS_PUBLIC];
     return string;
 }
 

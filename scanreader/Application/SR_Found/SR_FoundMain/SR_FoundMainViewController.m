@@ -41,6 +41,8 @@
 #import "SR_NoteDetailPageViewController.h"
 #import "SR_OthersMineViewController.h"
 
+#import "SR_InterPageViewController.h"
+
 @interface SR_FoundMainViewController ()<addBtnDelegate,UIAlertViewDelegate,textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate>
 @property(nonatomic,assign)BOOL isSelectBookClub;
 @property(nonatomic,strong)NSMutableArray * bookClubs;
@@ -51,6 +53,7 @@
 @property(nonatomic,strong)SR_ActionSheetTextView * actionSheetTextView;
 @property(nonatomic,strong)SR_ActionSheetImageView * actionSheetImageView;
 @property(nonatomic,strong)SR_ActionSheetVoiceView * actionSheetVoiceView;
+@property(nonatomic,strong)AVPlayer * remotePlayer;
 @end
 
 @implementation SR_FoundMainViewController
@@ -75,13 +78,12 @@
 }
 
 - (void)clickSearchItem{
-//    self.hidesBottomBarWhenPushed = YES;
+    self.hidesBottomBarWhenPushed = YES;
 //    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
 //    [self.navigationController pushViewController:foundVC animated:YES];
-//    self.hidesBottomBarWhenPushed = NO;
-    
-    VoiceViewController * vc = [[VoiceViewController alloc] init];
+    SR_InterPageViewController * vc = [[SR_InterPageViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -112,6 +114,8 @@
         if ([noteModel.type isEqualToString:NOTE_TYPE_TEXT]) {
             return 146;
         }else if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){
+            return 180;
+        }else if ([noteModel.type isEqualToString:NOTE_TYPE_VOICE]){
             return 180;
         }else{
             return 146;
@@ -191,6 +195,7 @@
             if (!cell) {
                 cell = [[SR_FoundMainVoiceViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
             }
+            cell.noteModel = self.dynamicInfos[indexPath.row];
             __weak typeof(self) weakSelf = self;
             [cell addBlock:^{
                 if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
@@ -210,6 +215,10 @@
             [cell addInterBlock:^{
                 SR_InterPageViewController * interPaageVC = [[SR_InterPageViewController alloc] init];
                 [weakSelf.navigationController pushViewController:interPaageVC animated:YES];
+            }];
+            
+            [cell addVoiceBtnBlock:^(NSString *voiceUrl) {
+                [weakSelf playVoiceWithFilePath:voiceUrl];
             }];
             return cell;
         }else{//收藏
@@ -237,8 +246,6 @@
            
             return cell;
         }
-
-
     }
 }
 
@@ -313,6 +320,12 @@
         return nil;
     }
 }
+
+- (void)playVoiceWithFilePath:(NSString *)filePath {
+    self.remotePlayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:filePath]];
+    [self.remotePlayer play];
+}
+
 
 - (void)clickMineItem{
     self.hidesBottomBarWhenPushed = YES;
@@ -478,9 +491,7 @@
     } failure:^(NSError *error) {
         SSLog(@"error:%@",error);
     }];
-
 }
-
 
 - (NSMutableArray *)bookClubs{
     if (!_bookClubs) {

@@ -35,14 +35,23 @@
     self.timeLabel.font = [UIFont systemFontOfSize:12.0];
     [self.contentView addSubview:self.timeLabel];
     
+    
+    
+    UIView * barView = [[UIView alloc] initWithFrame:CGRectMake(18, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 20, 210, 42)];
+    barView.backgroundColor = kColor(215, 215, 215);
+    barView.layer.cornerRadius = 21.0;
+    [self.contentView addSubview:barView];
+    
     self.voiceBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    self.voiceBtn.frame = CGRectMake(18, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 8, 210, 41);
-    self.voiceBtn.backgroundColor = [UIColor redColor];
-    self.voiceBtn.layer.cornerRadius = 21.5;
+    self.voiceBtn.frame = CGRectMake(0, 0, 70, 70);
+    self.voiceBtn.center = CGPointMake(barView.frame.origin.x + barView.frame.size.width/2, barView.frame.origin.y + barView.frame.size.height/2);
+    self.voiceBtn.backgroundColor = baseColor;
+    self.voiceBtn.layer.cornerRadius = 35;
     [self.voiceBtn addTarget:self action:@selector(clickVoiceBtn) forControlEvents:(UIControlEventTouchUpInside)];
-    [self.voiceBtn setTitle:@"12s" forState:(UIControlStateNormal)];
+    [self.voiceBtn setTitle:@"语音" forState:(UIControlStateNormal)];
     self.voiceBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [self.contentView addSubview:self.voiceBtn];
+    
     
     self.subtitleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.voiceBtn.frame.origin.y + self.voiceBtn.frame.size.height + 11, 19, 19)];
     self.subtitleImageView.image = [UIImage imageNamed:@"fx_book"];
@@ -80,17 +89,20 @@
     self.bookFriendsLabel.font = [UIFont systemFontOfSize:12.0];
     [self.contentView addSubview:self.bookFriendsLabel];
     
-    self.headerBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    self.headerBtn.frame = CGRectMake(0, 0, 48, 48);
-    self.headerBtn.center = CGPointMake(kScreenWidth - 36, 71);
-    self.headerBtn.layer.cornerRadius = 24;
-    self.headerBtn.backgroundColor = [UIColor redColor];
-    [self.headerBtn addTarget:self action:@selector(clickHeaderBtn) forControlEvents:(UIControlEventTouchUpInside)];
-    [self.contentView addSubview:self.headerBtn];
+    self.headerImageView = [[YYAnimatedImageView alloc] init];
+    [self.headerImageView setImageWithURL:nil placeholder:[UIImage imageNamed:@"headerIcon"]];
+    self.headerImageView.frame = CGRectMake(0, 0, 48, 48);
+    self.headerImageView.center = CGPointMake(kScreenWidth - 36, 71);
+    self.headerImageView.layer.cornerRadius = 24;
+    self.headerImageView.layer.masksToBounds = YES;
+    [self.contentView addSubview:self.headerImageView];
     
+    UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickHeaderBtn)];
+    self.headerImageView.userInteractionEnabled = YES;
+    [self.headerImageView addGestureRecognizer:gesture];
 }
 
-- (void)setnoteModel:(SR_BookClubBookNoteModel *)noteModel{
+- (void)setNoteModel:(SR_BookClubBookNoteModel *)noteModel{
     _noteModel = noteModel;
     self.titleLabel.text = noteModel.title;
     NSDate * createData = [NSDate dateWithTimeIntervalSince1970:noteModel.time_create];
@@ -99,10 +111,21 @@
     [self.subtitleButton setTitle:noteModel.page forState:(UIControlStateNormal)];
     self.messageLabel.text = [NSString stringWithFormat:@"互动(%@)",noteModel.note_total];
     self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",noteModel.member_total];
+    [self.headerImageView setImageWithURL:[NSURL URLWithString:noteModel.user.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
+    if (!noteModel.page || [noteModel.page isEqualToString:@"null"]) {
+        self.subtitleImageView.hidden = YES;
+        self.subtitleButton.hidden = YES;
+    }
 }
 
 - (void)clickVoiceBtn{
-    SSLog(@"click voice btn");
+    if (self.voiceBtnBlock) {
+        self.voiceBtnBlock([self.noteModel.resourceList firstObject][@"path"]);
+    }
+}
+
+- (void)addVoiceBtnBlock:(foundMainVoiceViewCellVoiceBtnBlock)block{
+    self.voiceBtnBlock = block;
 }
 
 - (void)clickHeaderBtn{

@@ -61,10 +61,21 @@
             [weakSelf.navigationController pushViewController:messageListVC animated:YES
              ];
             weakSelf.hidesBottomBarWhenPushed = NO;
+        }else if (btn.tag == 100 || btn.tag == 101){
+            NSString * isPublic = [UserInfo getUserPublic];
+            if ([isPublic isEqualToString:@"1"]) {
+                if (btn.tag == 101) {
+                    [weakSelf updateUserInfo:@{@"public":@"0"}];
+                }
+            }else{
+                if (btn.tag == 100) {
+                    [weakSelf updateUserInfo:@{@"public":@"0"}];
+                }
+            }
         }
     }];
     cell.nameLabel.text = [NSString stringWithFormat:@"用户名称: %@",[UserInfo getUserName]];
-    //cell.levelabel.text = [NSString stringWithFormat:@"用户等级:%@",[UserInfo ]];
+
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -126,6 +137,21 @@
     }
 }
 
+- (void)updateUserInfo:(NSDictionary *)info{
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSMutableDictionary * param = [[NSMutableDictionary alloc] initWithDictionary: @{@"user_id":userId,@"user_token":userToken}];
+    [param addEntriesFromDictionary:info];
+    
+    [httpTools post:UPDATE_USER_INFO andParameters:param success:^(NSDictionary *dic) {
+        SSLog(@"更新完毕");
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
+
 - (void)updateHeaderImageView{
     NSString * userId = [UserInfo getUserId];
     NSString * userToken = [UserInfo getUserToken];
@@ -144,10 +170,10 @@
         NSDictionary * userDic = dic[@"data"][@"record"];
         [UserInfo saveUserAvatarWith:userDic[@"avatar"]];
         [UserInfo saveUserIDWith:userDic[@"id"]];
-        [UserInfo saveUserTokenWith:dic[@"data"][@"user_token"]];
         [UserInfo saveUserNameWith:userDic[@"username"]];
         [UserInfo saveUserLevelWith:userDic[@"level"]];
         [UserInfo saveUserCreditWith:userDic[@"credit"]];
+        [UserInfo saveUserPublicWith:userDic[@"public"]];
 
     } failure:^(NSError *error) {
         
