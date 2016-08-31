@@ -10,6 +10,7 @@
 #import "SR_BookClubBookNoteModel.h"
 
 typedef void(^noteDetailPageVoiceViewCellVoiceBtnBlock)(NSString * filePath);
+typedef void(^noteDetailPageVoiceViewCellDeleteBtnBlock)(NSInteger tag);
 
 @interface SR_NoteDetailPageVoiceViewCell : UITableViewCell
 @property(nonatomic,strong)UILabel * titleLabel;
@@ -23,6 +24,10 @@ typedef void(^noteDetailPageVoiceViewCellVoiceBtnBlock)(NSString * filePath);
 @property(nonatomic,strong)UIView * voicebgView;
 @property(nonatomic,strong)SR_BookClubBookNoteModel * noteModel;
 @property(nonatomic,strong)NSMutableArray * resourceList;
+@property(nonatomic,strong)UILabel * noMoreVoiceTipsLabel;
 @property(nonatomic,strong)noteDetailPageVoiceViewCellVoiceBtnBlock voiceBtnblock;
+@property(nonatomic,strong)noteDetailPageVoiceViewCellDeleteBtnBlock deleteBtnBlock;
 - (void)addVoicBtnblock:(noteDetailPageVoiceViewCellVoiceBtnBlock)block;
+- (void)addDeleteBtnblock:(noteDetailPageVoiceViewCellDeleteBtnBlock)block;
+
 @end

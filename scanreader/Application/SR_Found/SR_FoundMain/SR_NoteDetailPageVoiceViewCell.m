@@ -38,14 +38,22 @@
     
     self.voicebgView = [[UIView alloc] initWithFrame:CGRectMake(15, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8,(kScreenWidth - 30), 90)];
     self.voicebgView.backgroundColor = [UIColor whiteColor];
+    self.voicebgView.hidden = YES;
     [self.contentView addSubview:self.voicebgView];
-
+    
+    UILabel * noMoreVoiceTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, self.voicebgView.frame.origin.y, self.voicebgView.frame.size.width, 16)];
+    noMoreVoiceTipsLabel.text = @"没有更多语音笔记，点击右上角添加语音笔记";
+    noMoreVoiceTipsLabel.textColor = [UIColor lightGrayColor];
+    noMoreVoiceTipsLabel.font = [UIFont systemFontOfSize:14.0];
+    noMoreVoiceTipsLabel.textAlignment = NSTextAlignmentLeft;
+    noMoreVoiceTipsLabel.numberOfLines = 0;
+    self.noMoreVoiceTipsLabel = noMoreVoiceTipsLabel;
+    [self.contentView addSubview:noMoreVoiceTipsLabel];
 
     self.subtitleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.voicebgView.frame.origin.y + self.voicebgView.frame.size.height + 11, 19, 19)];
     self.subtitleImageView.image = [UIImage imageNamed:@"fx_book"];
     [self.contentView addSubview:self.subtitleImageView];
 
-    
     self.subtitleButton = [[UIButton alloc] initWithFrame:CGRectMake(self.subtitleImageView.frame.origin.x + self.subtitleImageView.frame.size.width + 5, self.subtitleImageView.frame.origin.y, 200, 19)];
     [self.subtitleButton setTitle:@"《论语》第十二页" forState:(UIControlStateNormal)];
     [self.subtitleButton setTitleColor:baseColor forState:(UIControlStateNormal)];
@@ -110,10 +118,17 @@
     
     self.voicebgView.frame = CGRectMake(15, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8, (kScreenWidth - 30), (90)*noteModel.resourceList.count);
     int i = 0 ;
-    self.resourceList = [NSMutableArray new];
-    for (NSDictionary * item in noteModel.resourceList) {
-        SR_BookClubNoteResourceModel * resourceModel = [SR_BookClubNoteResourceModel modelWithDictionary:item];
-        [self.resourceList addObject:resourceModel];
+   // self.resourceList = [NSMutableArray new];
+    if (self.resourceList.count) {
+        self.voicebgView.hidden = NO;
+        self.noMoreVoiceTipsLabel.hidden = YES;
+    }else{
+        self.voicebgView.hidden = YES;
+        self.noMoreVoiceTipsLabel.hidden = NO;
+    }
+    
+    for (int i = 0 ;i < self.resourceList.count; i ++) {
+        
         UIView * barView = [[UIView alloc] initWithFrame:CGRectMake(0, 24 + i*(70 + 24), self.voicebgView.frame.size.width, 42)];
         barView.backgroundColor = kColor(215, 215, 215);
         barView.layer.cornerRadius = 21;
@@ -131,7 +146,13 @@
         voiceBtn.tag = i + 100;
         [self.voicebgView addSubview:voiceBtn];
         
-        i += 1;
+        UIButton * deleteBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        deleteBtn.frame  = CGRectMake(0, 0, 17, 17);
+        deleteBtn.center = CGPointMake(barView.frame.origin.x + barView.frame.size.width - 4, barView.frame.origin.y);
+        deleteBtn.tag = i;
+        [deleteBtn setImage:[UIImage imageNamed:@"zbj_del"] forState:(UIControlStateNormal)];
+        [deleteBtn addTarget:self action:@selector(clickBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+        [self.voicebgView addSubview:deleteBtn];
     }
     
     
@@ -152,6 +173,16 @@
     self.messageLabel.text = [NSString stringWithFormat:@"互动(%@)",noteModel.note_total];
     self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",noteModel.member_total];
     ;
+}
+
+- (void)clickBtn:(UIButton *)deleteBtn{
+    if (self.deleteBtnBlock) {
+        self.deleteBtnBlock(deleteBtn.tag);
+    }
+}
+
+- (void)addDeleteBtnblock:(noteDetailPageVoiceViewCellDeleteBtnBlock)block{
+    self.deleteBtnBlock = block;
 }
 
 

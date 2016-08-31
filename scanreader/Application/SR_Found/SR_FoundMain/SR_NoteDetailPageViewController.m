@@ -26,6 +26,11 @@
     self.title = @"笔记详情";
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
 }
@@ -69,6 +74,7 @@
         if (!cell) {
             cell = [[SR_NoteDetailPageVoiceViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
         }
+        cell.resourceList = self.dataSource;
         cell.noteModel = self.noteModel;
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -76,12 +82,36 @@
         [cell addVoicBtnblock:^(NSString *filePath) {
             [weakSelf playVoiceWithFilePath:filePath];
         }];
+        
+        [cell addDeleteBtnblock:^(NSInteger tag) {
+            SSLog(@"delete tag:%ld",tag);
+            [weakSelf.dataSource removeObjectAtIndex:tag];
+            NSMutableArray * itemJsons = [NSMutableArray new];
+            for (SR_BookClubNoteResourceModel * resurceModel in weakSelf.dataSource) {
+                NSMutableDictionary * itemJson = [resurceModel modelToJSONObject];
+                itemJson[@"id"] = resurceModel.resource_id;
+                SSLog(@"itemJson:%@",itemJson);
+                [itemJsons addObject:itemJson];
+            }
+            weakSelf.noteModel.resourceList = itemJsons;
+            weakSelf.cellHeight =  (90)*(weakSelf.noteModel.resourceList.count) + 135;
+            [weakSelf.tableView reloadData];
+        }];
         return cell;
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 - (void)setNoteModel:(SR_BookClubBookNoteModel *)noteModel{
     _noteModel = noteModel;
+    for (NSDictionary * item in self.noteModel.resourceList) {
+        SR_BookClubNoteResourceModel * resourceModel = [SR_BookClubNoteResourceModel modelWithDictionary:item];
+        resourceModel.resource_id = item[@"id"];
+        [self.dataSource addObject:resourceModel];
+    }
     if ([noteModel.type isEqualToString:NOTE_TYPE_TEXT]) {
         CGSize contentSize = [noteModel.content sizeForFont:[UIFont systemFontOfSize:14.0] size:CGSizeMake(kScreenWidth - 30, MAXFLOAT) mode:(NSLineBreakByWordWrapping)];
         self.cellHeight = contentSize.height + 10 + 135;

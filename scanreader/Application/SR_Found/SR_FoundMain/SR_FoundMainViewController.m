@@ -77,6 +77,14 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (self.dynamicInfos.count > 2) {
+        SR_BookClubBookNoteModel * model = self.dynamicInfos[1];
+        SSLog(@"resource list count:%ld",model.resourceList.count);
+    }
+}
+
 - (void)clickSearchItem{
     self.hidesBottomBarWhenPushed = YES;
 //    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];

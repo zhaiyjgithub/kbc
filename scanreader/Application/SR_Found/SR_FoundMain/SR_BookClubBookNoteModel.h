@@ -10,10 +10,13 @@
 #import <YYKit/YYKit.h>
 @interface SR_BookClubNoteResourceModel : NSObject
 @property(nonatomic,copy)NSString * resource_id;
-@property(nonatomic,copy)NSString * title;
-@property(nonatomic,copy)NSString * url;
 @property(nonatomic,copy)NSString * path;
+@property(nonatomic,copy)NSString * sort;
+@property(nonatomic,assign)NSInteger time_create;
+@property(nonatomic,copy)NSString * title;
+@property(nonatomic,copy)NSString * top;
 @property(nonatomic,copy)NSString * type;
+@property(nonatomic,copy)NSString * url;
 @end
 
 @interface SR_BookClubNoteBookModel : NSObject
@@ -40,5 +43,5 @@
 @property(nonatomic,strong)SR_BookClubNoteUserModel * user;
 @property(nonatomic,strong)SR_BookClubNoteBookModel * book;
 @property(nonatomic,copy)NSString * page;
-@property(nonatomic,copy)NSArray * resourceList;
+@property(nonatomic,copy)NSMutableArray * resourceList;
 @end

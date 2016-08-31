@@ -35,11 +35,11 @@
     self.timeLabel.font = [UIFont systemFontOfSize:12.0];
     [self.contentView addSubview:self.timeLabel];
     
-    
-    
     UIView * barView = [[UIView alloc] initWithFrame:CGRectMake(18, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 20, 210, 42)];
     barView.backgroundColor = kColor(215, 215, 215);
     barView.layer.cornerRadius = 21.0;
+    self.barView = barView;
+    barView.hidden = YES;
     [self.contentView addSubview:barView];
     
     self.voiceBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -50,7 +50,18 @@
     [self.voiceBtn addTarget:self action:@selector(clickVoiceBtn) forControlEvents:(UIControlEventTouchUpInside)];
     [self.voiceBtn setTitle:@"语音" forState:(UIControlStateNormal)];
     self.voiceBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    self.voiceBtn.hidden = YES;
     [self.contentView addSubview:self.voiceBtn];
+    
+    UILabel * noMoreVoiceTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, barView.frame.size.width, 16)];
+    noMoreVoiceTipsLabel.center = barView.center;
+    noMoreVoiceTipsLabel.text = @"没有更多语音笔记，点击右上角添加语音笔记";
+    noMoreVoiceTipsLabel.textColor = [UIColor lightGrayColor];
+    noMoreVoiceTipsLabel.font = [UIFont systemFontOfSize:14.0];
+    noMoreVoiceTipsLabel.textAlignment = NSTextAlignmentLeft;
+    noMoreVoiceTipsLabel.numberOfLines = 0;
+    self.noMoreVoiceTipsLabel = noMoreVoiceTipsLabel;
+    [self.contentView addSubview:noMoreVoiceTipsLabel];
     
     
     self.subtitleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.voiceBtn.frame.origin.y + self.voiceBtn.frame.size.height + 11, 19, 19)];
@@ -115,6 +126,16 @@
     if (!noteModel.page || [noteModel.page isEqualToString:@"null"]) {
         self.subtitleImageView.hidden = YES;
         self.subtitleButton.hidden = YES;
+    }
+    
+    if (self.noteModel.resourceList.count) {
+        self.barView.hidden = NO;
+        self.voiceBtn.hidden = NO;
+        self.noMoreVoiceTipsLabel.hidden = YES;
+    }else{
+        self.barView.hidden = YES;
+        self.voiceBtn.hidden = YES;
+        self.noMoreVoiceTipsLabel.hidden = NO;
     }
 }
 
