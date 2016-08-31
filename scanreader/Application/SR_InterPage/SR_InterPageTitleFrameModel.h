@@ -10,5 +10,6 @@
 #import "SR_InterPageDetailItemModel.h"
 @interface SR_InterPageTitleFrameModel : NSObject
 @property(nonatomic,strong)SR_InterPageDetailItemModel * detailItemModel;
+@property(nonatomic,copy)NSString * type;
 @property(nonatomic,assign)CGFloat contentHeight;
 @end

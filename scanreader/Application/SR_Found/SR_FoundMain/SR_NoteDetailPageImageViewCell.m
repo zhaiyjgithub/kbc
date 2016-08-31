@@ -36,9 +36,19 @@
     self.timeLabel.font = [UIFont systemFontOfSize:12.0];
     [self.contentView addSubview:self.timeLabel];
     
-    self.imagebgView = [[UIView alloc] initWithFrame:CGRectMake((kScreenWidth - 300)/2, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8,300, 300 + 10)];
+    self.imagebgView = [[UIView alloc] initWithFrame:CGRectMake((kScreenWidth - 280)/2, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8,280, 280 + 10)];
     self.imagebgView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.imagebgView.hidden = YES;
     [self.contentView addSubview:self.imagebgView];
+    
+    UILabel * noMoreVoiceTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, self.imagebgView.frame.origin.y, self.imagebgView.frame.size.width, 16)];
+    noMoreVoiceTipsLabel.text = @"没有更多语音笔记，点击右上角添加语音笔记";
+    noMoreVoiceTipsLabel.textColor = [UIColor lightGrayColor];
+    noMoreVoiceTipsLabel.font = [UIFont systemFontOfSize:14.0];
+    noMoreVoiceTipsLabel.textAlignment = NSTextAlignmentLeft;
+    noMoreVoiceTipsLabel.numberOfLines = 0;
+    self.noMoreVoiceTipsLabel = noMoreVoiceTipsLabel;
+    [self.contentView addSubview:noMoreVoiceTipsLabel];
     
     self.subtitleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.imagebgView.frame.origin.y + self.imagebgView.frame.size.height + 11, 19, 19)];
     self.subtitleImageView.image = [UIImage imageNamed:@"fx_book"];
@@ -88,27 +98,35 @@
     NSDate * createData = [NSDate dateWithTimeIntervalSince1970:noteModel.time_create];
     NSString * time = [NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
     self.timeLabel.text = time;
-//    CGSize contentSize = [noteModel.content sizeForFont:[UIFont systemFontOfSize:14.0] size:CGSizeMake(kScreenWidth - 30, MAXFLOAT) mode:(NSLineBreakByWordWrapping)];
-//    self.imagebgView.frame = CGRectMake(15, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8, (int)contentSize.width, (int)contentSize.height + 10);
 
     for (UIView * sonView in self.imagebgView.subviews) {
         [sonView removeFromSuperview];
     }
-    
-    NSMutableArray * resourceList = [NSMutableArray new];
-    self.imagebgView.frame = CGRectMake((kScreenWidth - 300)/2, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8, 300, (300 + 5)*noteModel.resourceList.count);
-    int i = 0 ;
-    for (NSDictionary * item in noteModel.resourceList) {
-        SR_BookClubNoteResourceModel * resourceModel = [SR_BookClubNoteResourceModel modelWithDictionary:item];
-        [resourceList addObject:resourceModel];
-        YYAnimatedImageView * resouceImageView = [[YYAnimatedImageView alloc] init];
-        resouceImageView.frame = CGRectMake(0, i*(300 + 5), 300, 300);
-        [resouceImageView setImageWithURL:[NSURL URLWithString:resourceModel.path] placeholder:nil];
-        [self.imagebgView addSubview:resouceImageView];
-        i += 1;
+    self.imagebgView.frame = CGRectMake((kScreenWidth - 280)/2, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8, 280, (280 + 10)*noteModel.resourceList.count);
+    if (self.resourceList.count) {
+        self.imagebgView.hidden = NO;
+        self.noMoreVoiceTipsLabel.hidden = YES;
+    }else{
+        self.imagebgView.hidden = YES;
+        self.noMoreVoiceTipsLabel.hidden = NO;
     }
     
-    
+    for (int i = 0 ;i < self.resourceList.count; i ++) {
+        SR_BookClubNoteResourceModel * resourceModel = self.resourceList[i];
+        YYAnimatedImageView * resouceImageView = [[YYAnimatedImageView alloc] init];
+        resouceImageView.frame = CGRectMake(0, i*(280 + 10), 280, 280);
+        [resouceImageView setImageWithURL:[NSURL URLWithString:resourceModel.path] placeholder:nil];
+        [self.imagebgView addSubview:resouceImageView];
+        
+        UIButton * deleteBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        deleteBtn.frame  = CGRectMake(0, 0, 17, 17);
+        deleteBtn.center = CGPointMake(resouceImageView.frame.origin.x + resouceImageView.frame.size.width, resouceImageView.frame.origin.y);
+        deleteBtn.tag = i;
+        [deleteBtn setImage:[UIImage imageNamed:@"zbj_del"] forState:(UIControlStateNormal)];
+        [deleteBtn addTarget:self action:@selector(clickDeleteBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+        [self.imagebgView addSubview:deleteBtn];
+        
+    }
     if (!noteModel.page || [noteModel.page isEqualToString:@"null"]) {
         self.subtitleImageView.hidden = YES;
         self.subtitleButton.hidden = YES;
@@ -126,6 +144,16 @@
     self.messageLabel.text = [NSString stringWithFormat:@"互动(%@)",noteModel.note_total];
     self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",noteModel.member_total];
     ;
+}
+
+- (void)clickDeleteBtn:(UIButton *)deleteBtn{
+    if (self.deleteBtnBlock) {
+        self.deleteBtnBlock(deleteBtn.tag);
+    }
+}
+
+- (void)addDeleteBtnblock:(noteDetailPageImageViewCellDeleteBtnBlock)block{
+    self.deleteBtnBlock = block;
 }
 
 

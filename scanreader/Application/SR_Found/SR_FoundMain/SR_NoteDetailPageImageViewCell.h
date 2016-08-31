@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "SR_BookClubBookNoteModel.h"
 
+typedef void(^noteDetailPageImageViewCellDeleteBtnBlock)(NSInteger tag);
+
 @interface SR_NoteDetailPageImageViewCell : UITableViewCell
 @property(nonatomic,strong)UILabel * titleLabel;
 @property(nonatomic,strong)UILabel * timeLabel;
@@ -19,5 +21,9 @@
 @property(nonatomic,strong)UIImageView * messageImageView;
 @property(nonatomic,strong)UIImageView * bookFriendsView;
 @property(nonatomic,strong)UIView * imagebgView;
+@property(nonatomic,strong)UILabel * noMoreVoiceTipsLabel;
+@property(nonatomic,strong)NSMutableArray * resourceList;
+@property(nonatomic,strong)noteDetailPageImageViewCellDeleteBtnBlock deleteBtnBlock;
 @property(nonatomic,strong)SR_BookClubBookNoteModel * noteModel;
+- (void)addDeleteBtnblock:(noteDetailPageImageViewCellDeleteBtnBlock)block;
 @end

@@ -9,6 +9,7 @@
 #import "SR_ScanMainViewController.h"
 #import "SR_ScanResultHasBookViewController.h"
 #import "SR_ScanResultNoneBookViewController.h"
+#import "DDQRCodeViewController.h"
 
 @implementation SR_ScanMainViewController
 
@@ -20,7 +21,11 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     self.hidesBottomBarWhenPushed = YES;
-    SR_ScanResultNoneBookViewController * vc = [[SR_ScanResultNoneBookViewController alloc] init];
+    DDQRCodeViewController * vc = [[DDQRCodeViewController alloc] initWithScanCompleteHandler:^(NSString *url) {
+        NSLog(@"scan result:%@",url);
+        
+    }];
+    vc.title = @"扫一扫";
     [self.navigationController pushViewController:vc animated:YES];
     self.hidesBottomBarWhenPushed = NO;
 }

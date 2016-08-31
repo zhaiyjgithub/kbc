@@ -117,8 +117,7 @@
     }
     
     self.voicebgView.frame = CGRectMake(15, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8, (kScreenWidth - 30), (90)*noteModel.resourceList.count);
-    int i = 0 ;
-   // self.resourceList = [NSMutableArray new];
+    
     if (self.resourceList.count) {
         self.voicebgView.hidden = NO;
         self.noMoreVoiceTipsLabel.hidden = YES;
@@ -151,7 +150,7 @@
         deleteBtn.center = CGPointMake(barView.frame.origin.x + barView.frame.size.width - 4, barView.frame.origin.y);
         deleteBtn.tag = i;
         [deleteBtn setImage:[UIImage imageNamed:@"zbj_del"] forState:(UIControlStateNormal)];
-        [deleteBtn addTarget:self action:@selector(clickBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+        [deleteBtn addTarget:self action:@selector(clickDeleteBtn:) forControlEvents:(UIControlEventTouchUpInside)];
         [self.voicebgView addSubview:deleteBtn];
     }
     
@@ -175,7 +174,7 @@
     ;
 }
 
-- (void)clickBtn:(UIButton *)deleteBtn{
+- (void)clickDeleteBtn:(UIButton *)deleteBtn{
     if (self.deleteBtnBlock) {
         self.deleteBtnBlock(deleteBtn.tag);
     }

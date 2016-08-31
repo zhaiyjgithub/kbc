@@ -24,6 +24,16 @@
 #define NOTE_MODE_NOTE @"2"
 #define NOTE_MODE_COLLECTION @"3"
 
+#define PAGE_TYPY_1 @"1"
+#define PAGE_TYPY_2 @"2"
+#define PAGE_TYPY_3 @"3"
+#define PAGE_TYPY_4 @"4"
+#define PAGE_TYPY_5 @"5"
+#define PAGE_TYPY_6 @"6"
+#define PAGE_TYPY_7 @"7"
+#define PAGE_TYPY_8 @"8"
+#define PAGE_TYPY_9 @"9"
+
 #define USER_ID [UserInfo getUserUserId]
 #define TOKEN [UserInfo getUserToken]
 
@@ -44,5 +54,6 @@
 #define UPDATE_USER_INFO @"/api/user/update"
 #define GET_USER_INFO @"/api/user/getOne"
 #define GET_PAGE_ONE_ITEM @"/api/page/getOne"
+#define DELETE_REOURCE @"/api/note/deleteResource"
 
 #endif /* requestAPI_h */

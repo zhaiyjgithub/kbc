@@ -19,6 +19,10 @@
 #import "SR_FoundMainImageViewCell.h"
 #import "SR_FoundMainVoiceViewCell.h"
 #import "SR_FoundMainCollectionViewCell.h"
+#import "SR_NoteDetailPageViewController.h"
+#import "SR_MineViewController.h"
+#import "SR_OthersMineViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface SR_RecorMainViewController ()
 @property(nonatomic,assign)NSInteger selectedTagIndex;
@@ -27,6 +31,7 @@
 @property(nonatomic,strong)NSMutableArray * scanList;
 @property(nonatomic,assign)NSInteger collectionPageIndex;
 @property(nonatomic,assign)NSInteger notePageIndex;
+@property(nonatomic,strong)AVPlayer * remotePlayer;
 @end
 
 @implementation SR_RecorMainViewController
@@ -92,18 +97,28 @@
         //        3语音
         //        4收藏
         SR_BookClubBookNoteModel * noteModel = self.noteList[indexPath.row];
-        if (self.selectedTagIndex == 2) {
-            noteModel = self.collectionList[indexPath.row];
-        }
         if ([noteModel.type isEqualToString:NOTE_TYPE_TEXT]) {//文字信息
             NSString * cellId = @"SR_FoundMainTextViewCell";
             SR_FoundMainTextViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
             if (!cell) {
                 cell = [[SR_FoundMainTextViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
             }
-            cell.noteModel = self.noteList[indexPath.row];
+            cell.noteModel = self.noteList[indexPath.row];;
+            __weak typeof(self) weakSelf = self;
             [cell addBlock:^{
-                SSLog(@"click header btn");
+                if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+                    [weakSelf.navigationController pushViewController:mineVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }else{
+                    SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    SR_BookClubBookNoteModel * noteModel = weakSelf.noteList[indexPath.row];
+                    otherVC.userModel = noteModel.user;
+                    [weakSelf.navigationController pushViewController:otherVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }
             }];
             return cell;
         }else if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){//图片
@@ -112,8 +127,22 @@
             if (!cell) {
                 cell = [[SR_FoundMainImageViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
             }
+            cell.noteModel = self.noteList[indexPath.row];
+            __weak typeof(self) weakSelf = self;
             [cell addBlock:^{
-                SSLog(@"click header btn");
+                if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+                    [weakSelf.navigationController pushViewController:mineVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }else{
+                    SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    SR_BookClubBookNoteModel * noteModel = weakSelf.noteList[indexPath.row];
+                    otherVC.userModel = noteModel.user;
+                    [weakSelf.navigationController pushViewController:otherVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }
             }];
             return cell;
             
@@ -123,25 +152,55 @@
             if (!cell) {
                 cell = [[SR_FoundMainVoiceViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
             }
+            cell.noteModel = self.noteList[indexPath.row];
             __weak typeof(self) weakSelf = self;
             [cell addBlock:^{
-                SSLog(@"click header btn");
+                if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+                    [weakSelf.navigationController pushViewController:mineVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }else{
+                    SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    SR_BookClubBookNoteModel * noteModel = weakSelf.noteList[indexPath.row];
+                    otherVC.userModel = noteModel.user;
+                    [weakSelf.navigationController pushViewController:otherVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }
             }];
             [cell addInterBlock:^{
                 SR_InterPageViewController * interPaageVC = [[SR_InterPageViewController alloc] init];
                 [weakSelf.navigationController pushViewController:interPaageVC animated:YES];
             }];
-            return cell;
-        }else{//收藏
-            NSString * cellId = @"SR_FoundMainCollectionViewCell";
-            SR_FoundMainCollectionViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-            if (!cell) {
-                cell = [[SR_FoundMainCollectionViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
-            }
-            [cell addBlock:^{
-                SSLog(@"click header btn");
-            }];
             
+            [cell addVoiceBtnBlock:^(NSString *voiceUrl) {
+                [weakSelf playVoiceWithFilePath:voiceUrl];
+            }];
+            return cell;
+        }else{
+            NSString * cellId = @"SR_FoundMainTextViewCell";
+            SR_FoundMainTextViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+            if (!cell) {
+                cell = [[SR_FoundMainTextViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+            }
+            cell.noteModel = self.noteList[indexPath.row];;
+            __weak typeof(self) weakSelf = self;
+            [cell addBlock:^{
+                if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+                    [weakSelf.navigationController pushViewController:mineVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }else{
+                    SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    SR_BookClubBookNoteModel * noteModel = weakSelf.noteList[indexPath.row];
+                    otherVC.userModel = noteModel.user;
+                    [weakSelf.navigationController pushViewController:otherVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }
+            }];
             return cell;
         }
     }else{//扫描列表
@@ -205,8 +264,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (self.selectedTagIndex == 0) {//笔记列表，跳转到详情
-        SR_FoundMainBookClubItemDetailViewController * itemDetailVC = [[SR_FoundMainBookClubItemDetailViewController alloc] init];
-        [self.navigationController pushViewController:itemDetailVC animated:YES];
+        SR_BookClubBookNoteModel * noteModel = self.noteList[indexPath.row];
+        SR_NoteDetailPageViewController * noteDetailVC = [[SR_NoteDetailPageViewController alloc] init];
+        noteDetailVC.noteModel = noteModel;
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:noteDetailVC animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
     }else{//扫描、收藏
         SR_InterPageViewController * interPageVC = [[SR_InterPageViewController alloc] init];
         [self.navigationController pushViewController:interPageVC animated:YES];
@@ -214,8 +277,12 @@
     
 }
 
+- (void)playVoiceWithFilePath:(NSString *)filePath {
+    self.remotePlayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:filePath]];
+    [self.remotePlayer play];
+}
+
 - (void)clickHeaderBtn:(UIButton *)btn{
-    SSLog(@"tag:%d",btn.tag);
     self.selectedTagIndex = btn.tag;
     [self.tableView reloadData];
 }

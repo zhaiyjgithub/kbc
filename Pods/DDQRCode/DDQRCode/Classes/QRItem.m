@@ -18,6 +18,7 @@
     if (self) {
         
         [self setTitle:titile forState:UIControlStateNormal];
+        [self setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
         self.frame = frame;
     }
     return self;

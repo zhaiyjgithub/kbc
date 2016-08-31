@@ -10,6 +10,7 @@
 #import "SR_FoundMainViewController.h"
 #import "SR_RecorMainViewController.h"
 #import "DDQRCodeViewController.h"
+#import "SR_ScanMainViewController.h"
 #import "globalHeader.h"
 #import "httpTools.h"
 #import "SVProgressHUD.h"
@@ -27,7 +28,7 @@
 - (void)setupAllChildViewControllers{
     SR_FoundMainViewController * foundVC = [[SR_FoundMainViewController alloc] init];
     [self setupChildViewController:foundVC title:@"发现" imageName:@"fx_fx_nor" selectImageName:@"fx_fx_hl"];
-    DDQRCodeViewController * scanVC = [[DDQRCodeViewController alloc] init];
+    SR_ScanMainViewController * scanVC = [[SR_ScanMainViewController alloc] init];
     [self setupChildViewController:scanVC title:@"扫描" imageName:@"fx_sm_nor" selectImageName:@"fx_sm_hl"];
     SR_RecorMainViewController * recordVC = [[SR_RecorMainViewController alloc] init];
     [self setupChildViewController:recordVC title:@"记录" imageName:@"fx_jl_nor" selectImageName:@"fx_jl_hl"];

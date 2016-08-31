@@ -94,7 +94,7 @@
     [createBtn setTitle:@"创建读书会" forState:(UIControlStateNormal)];
     [createBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [createBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateHighlighted)];
-    createBtn.layer.cornerRadius = 15.0;
+    createBtn.layer.cornerRadius = 5.0;
     [createBtn addTarget:self action:@selector(clickCreateBtn) forControlEvents:(UIControlEventTouchUpInside)];
     [self.bgView addSubview:createBtn];
     self.btnHeight = createBtn.frame.origin.y + createBtn.frame.size.height + 3;

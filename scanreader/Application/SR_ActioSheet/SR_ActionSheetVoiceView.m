@@ -97,9 +97,9 @@
         return;
     }
     
-    for (NSString * filePath in self.filePathsDataSource) {
-        SSLog(@"for-in file path:%@",filePath);
-    }
+//    for (NSString * filePath in self.filePathsDataSource) {
+//        SSLog(@"for-in file path:%@",filePath);
+//    }
     [sendBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
     sendBtn.enabled = NO;
     

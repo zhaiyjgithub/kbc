@@ -17,6 +17,11 @@
 		84AE3DD41D4366B500643989 /* SR_ScanResultNoneBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD31D4366B500643989 /* SR_ScanResultNoneBookViewController.m */; };
 		84AE3DD71D436E1200643989 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD61D436E1200643989 /* Tools.m */; };
 		84AE3DDC1D436E6400643989 /* PhotoPickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DDA1D436E6400643989 /* PhotoPickerTool.m */; };
+		CB03F5851D77084A00D19B0F /* SR_InterPageTextFrameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB03F5841D77084A00D19B0F /* SR_InterPageTextFrameModel.m */; };
+		CB03F5881D7709A200D19B0F /* SR_InterPageDetailTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB03F5871D7709A200D19B0F /* SR_InterPageDetailTextViewCell.m */; };
+		CB03F58B1D770DB500D19B0F /* SR_InterPageDetailImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB03F58A1D770DB500D19B0F /* SR_InterPageDetailImageViewCell.m */; };
+		CB03F58E1D771BF800D19B0F /* videoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB03F58D1D771BF800D19B0F /* videoViewController.m */; };
+		CB03F5911D77288D00D19B0F /* SR_InterPageDetailVideoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB03F5901D77288D00D19B0F /* SR_InterPageDetailVideoViewCell.m */; };
 		CB0F0C0D1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */; };
 		CB1659161D63688500E17303 /* SR_BookClubBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1659151D63688500E17303 /* SR_BookClubBookModel.m */; };
 		CB186EF81D72C61A00C16705 /* SR_MineMessageFrameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB186EF71D72C61A00C16705 /* SR_MineMessageFrameModel.m */; };
@@ -137,6 +142,16 @@
 		84AE3DDA1D436E6400643989 /* PhotoPickerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoPickerTool.m; path = Base/Tool/PhotoPickerTool.m; sourceTree = "<group>"; };
 		84AE3DDB1D436E6400643989 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Singleton.h; path = Base/Tool/Singleton.h; sourceTree = "<group>"; };
 		BE41DAAFFD8A4D526A8427FD /* Pods-scanreader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scanreader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-scanreader/Pods-scanreader.debug.xcconfig"; sourceTree = "<group>"; };
+		CB03F5831D77084A00D19B0F /* SR_InterPageTextFrameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_InterPageTextFrameModel.h; path = Application/SR_InterPage/SR_InterPageTextFrameModel.h; sourceTree = "<group>"; };
+		CB03F5841D77084A00D19B0F /* SR_InterPageTextFrameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_InterPageTextFrameModel.m; path = Application/SR_InterPage/SR_InterPageTextFrameModel.m; sourceTree = "<group>"; };
+		CB03F5861D7709A200D19B0F /* SR_InterPageDetailTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_InterPageDetailTextViewCell.h; path = Application/SR_InterPage/SR_InterPageDetailTextViewCell.h; sourceTree = "<group>"; };
+		CB03F5871D7709A200D19B0F /* SR_InterPageDetailTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_InterPageDetailTextViewCell.m; path = Application/SR_InterPage/SR_InterPageDetailTextViewCell.m; sourceTree = "<group>"; };
+		CB03F5891D770DB500D19B0F /* SR_InterPageDetailImageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_InterPageDetailImageViewCell.h; path = Application/SR_InterPage/SR_InterPageDetailImageViewCell.h; sourceTree = "<group>"; };
+		CB03F58A1D770DB500D19B0F /* SR_InterPageDetailImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_InterPageDetailImageViewCell.m; path = Application/SR_InterPage/SR_InterPageDetailImageViewCell.m; sourceTree = "<group>"; };
+		CB03F58C1D771BF800D19B0F /* videoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videoViewController.h; sourceTree = "<group>"; };
+		CB03F58D1D771BF800D19B0F /* videoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = videoViewController.m; sourceTree = "<group>"; };
+		CB03F58F1D77288D00D19B0F /* SR_InterPageDetailVideoViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_InterPageDetailVideoViewCell.h; path = Application/SR_InterPage/SR_InterPageDetailVideoViewCell.h; sourceTree = "<group>"; };
+		CB03F5901D77288D00D19B0F /* SR_InterPageDetailVideoViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_InterPageDetailVideoViewCell.m; path = Application/SR_InterPage/SR_InterPageDetailVideoViewCell.m; sourceTree = "<group>"; };
 		CB0F0C0B1D3DDDD200F60E5C /* SR_MineMessageSendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageSendViewController.h; path = Application/SR_Mine/SR_MineMessageSendViewController.h; sourceTree = "<group>"; };
 		CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageSendViewController.m; path = Application/SR_Mine/SR_MineMessageSendViewController.m; sourceTree = "<group>"; };
 		CB1659141D63688500E17303 /* SR_BookClubBookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_BookClubBookModel.h; path = Application/SR_Found/SR_FoundMain/SR_BookClubBookModel.h; sourceTree = "<group>"; };
@@ -656,6 +671,8 @@
 				CBE47E131D40B1170046C89C /* SR_InterPageViewController.m */,
 				CBA154351D75CF89009A619B /* SR_InterPageDetailViewController.h */,
 				CBA154361D75CF89009A619B /* SR_InterPageDetailViewController.m */,
+				CB03F58C1D771BF800D19B0F /* videoViewController.h */,
+				CB03F58D1D771BF800D19B0F /* videoViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -667,6 +684,12 @@
 				CBA154301D75C9CC009A619B /* SR_InterPageListViewCell.m */,
 				CB854DA41D75DF9B000F54CB /* SR_InterPageDetailTitleViewCell.h */,
 				CB854DA51D75DF9B000F54CB /* SR_InterPageDetailTitleViewCell.m */,
+				CB03F5861D7709A200D19B0F /* SR_InterPageDetailTextViewCell.h */,
+				CB03F5871D7709A200D19B0F /* SR_InterPageDetailTextViewCell.m */,
+				CB03F5891D770DB500D19B0F /* SR_InterPageDetailImageViewCell.h */,
+				CB03F58A1D770DB500D19B0F /* SR_InterPageDetailImageViewCell.m */,
+				CB03F58F1D77288D00D19B0F /* SR_InterPageDetailVideoViewCell.h */,
+				CB03F5901D77288D00D19B0F /* SR_InterPageDetailVideoViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -680,6 +703,8 @@
 				CBA154391D75D57B009A619B /* SR_InterPageDetailItemModel.m */,
 				CB854DA11D75DE97000F54CB /* SR_InterPageTitleFrameModel.h */,
 				CB854DA21D75DE97000F54CB /* SR_InterPageTitleFrameModel.m */,
+				CB03F5831D77084A00D19B0F /* SR_InterPageTextFrameModel.h */,
+				CB03F5841D77084A00D19B0F /* SR_InterPageTextFrameModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1161,6 +1186,7 @@
 				CB854DA61D75DF9B000F54CB /* SR_InterPageDetailTitleViewCell.m in Sources */,
 				CB1659161D63688500E17303 /* SR_BookClubBookModel.m in Sources */,
 				CBE47E111D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m in Sources */,
+				CB03F58E1D771BF800D19B0F /* videoViewController.m in Sources */,
 				CB74117E1D347B14002B8FB5 /* AppDelegate.m in Sources */,
 				CBE47DF41D4067180046C89C /* SR_ForgotPasswordViewController.m in Sources */,
 				846C6DE01D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m in Sources */,
@@ -1171,6 +1197,7 @@
 				CBFEA91B1D35F754007276B6 /* SR_RecorMainViewController.m in Sources */,
 				CBEEABE31D6B4723005B1C2B /* SR_FoundSearchInterPageViewController.m in Sources */,
 				CB0F0C0D1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m in Sources */,
+				CB03F5911D77288D00D19B0F /* SR_InterPageDetailVideoViewCell.m in Sources */,
 				CB74117B1D347B14002B8FB5 /* main.m in Sources */,
 				CBA154311D75C9CC009A619B /* SR_InterPageListViewCell.m in Sources */,
 				CBD1D6101D3628C100539056 /* SR_OAthouButton.m in Sources */,
@@ -1185,6 +1212,7 @@
 				CB42D0AE1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m in Sources */,
 				CB186F0B1D730C1400C16705 /* SR_NoteDetailPageImageViewCell.m in Sources */,
 				CBD1D6191D363AC700539056 /* SR_OthersMineViewController.m in Sources */,
+				CB03F5851D77084A00D19B0F /* SR_InterPageTextFrameModel.m in Sources */,
 				CB42D0CA1D645AF8002A75E5 /* VoiceConverter.mm in Sources */,
 				CB42D0B41D6455B1002A75E5 /* VoiceViewController.m in Sources */,
 				CBE47E031D407F200046C89C /* SR_FoundMainTextSelfViewCell.m in Sources */,
@@ -1206,6 +1234,7 @@
 				CB32AD871D6DE7AF00CD6D34 /* SR_MineMessageModel.m in Sources */,
 				848DD4921D44FBD00061810F /* SR_ActionSheetVoiceView.m in Sources */,
 				CBFEA9221D35FC15007276B6 /* SR_LoginViewController.m in Sources */,
+				CB03F5881D7709A200D19B0F /* SR_InterPageDetailTextViewCell.m in Sources */,
 				CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */,
 				CB94EAAC1D6C4A0A000E633B /* NSDate+JJ.m in Sources */,
 				CBA1543A1D75D57B009A619B /* SR_InterPageDetailItemModel.m in Sources */,
@@ -1220,6 +1249,7 @@
 				CBD1D61F1D363F0400539056 /* SR_AddBtnView.m in Sources */,
 				CBD1D5FF1D36198A00539056 /* SR_LoginBtn.m in Sources */,
 				CB95AD891D6961E600BAA77B /* AVRefresh.m in Sources */,
+				CB03F58B1D770DB500D19B0F /* SR_InterPageDetailImageViewCell.m in Sources */,
 				CBE47E001D407E930046C89C /* SR_FoundMainTextViewCell.m in Sources */,
 				CBA154341D75CA04009A619B /* SR_InterPageListModel.m in Sources */,
 				CB186EFE1D72E74800C16705 /* SR_NoteDetailPageViewController.m in Sources */,

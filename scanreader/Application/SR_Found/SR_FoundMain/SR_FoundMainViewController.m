@@ -79,18 +79,13 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if (self.dynamicInfos.count > 2) {
-        SR_BookClubBookNoteModel * model = self.dynamicInfos[1];
-        SSLog(@"resource list count:%ld",model.resourceList.count);
-    }
+    [self.tableView reloadData];
 }
 
 - (void)clickSearchItem{
     self.hidesBottomBarWhenPushed = YES;
-//    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
-//    [self.navigationController pushViewController:foundVC animated:YES];
-    SR_InterPageViewController * vc = [[SR_InterPageViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
+    [self.navigationController pushViewController:foundVC animated:YES];
     self.hidesBottomBarWhenPushed = NO;
 }
 
@@ -286,11 +281,11 @@
         
         UIImageView * headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 3, 30, 30)];
         headerImageView.layer.cornerRadius = 15;
-        headerImageView.backgroundColor = [UIColor redColor];
+        headerImageView.image = [UIImage imageNamed:@"headerIcon"];
         [headerView addSubview:headerImageView];
         
         UILabel * notiLabel = [[UILabel alloc] initWithFrame:CGRectMake(headerImageView.frame.origin.x + headerImageView.frame.size.width + 10, 0, kScreenWidth - 30 - 10 - headerImageView.frame.size.width, 36)];
-        notiLabel.text = @"小明刚才扫描了《天龙八部》";
+        notiLabel.text = @"Json刚才扫描了《天龙八部》";
         notiLabel.textColor = baseblackColor;
         notiLabel.font = [UIFont systemFontOfSize:13.0];
         notiLabel.textAlignment = NSTextAlignmentCenter;

@@ -65,8 +65,7 @@
 - (void)setTitleFrameModel:(SR_InterPageTitleFrameModel *)titleFrameModel{
     _titleFrameModel = titleFrameModel;
     self.titleLabel.text = titleFrameModel.detailItemModel.title;
-
-    self.contentLabel.frame = CGRectMake(15, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8, kScreenWidth - 30 - 10 - 48, titleFrameModel.contentHeight + 10);
+    self.contentLabel.frame = CGRectMake(15, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 8, kScreenWidth - 30 - 10 - 48, titleFrameModel.contentHeight + 10);
     self.contentLabel.text = titleFrameModel.detailItemModel.content;
     
     self.messageImageView.frame = CGRectMake(15, self.contentLabel.frame.origin.y + self.contentLabel.frame.size.height + 10, 17, 17);

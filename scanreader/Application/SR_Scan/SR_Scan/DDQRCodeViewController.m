@@ -11,6 +11,7 @@
 #import "QRView.h"
 #import "QRUtil.h"
 #import "globalHeader.h"
+#import "SR_ScanResultNoneBookViewController.h"
 
 @interface DDQRCodeViewController ()<AVCaptureMetadataOutputObjectsDelegate,QRViewDelegate>
 
@@ -143,6 +144,9 @@
     }
     self.urlString = stringValue;
     SSLog(@" 扫描后的url是:%@",stringValue);
+    self.hidesBottomBarWhenPushed = YES;
+    SR_ScanResultNoneBookViewController * noneBookVC = [[SR_ScanResultNoneBookViewController alloc] init];
+    [self.navigationController pushViewController:noneBookVC animated:YES];
     if (self.scanCompleteBlock) {
         self.scanCompleteBlock(stringValue);
     }
