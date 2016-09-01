@@ -205,6 +205,8 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    [self.searchBar resignFirstResponder];
+    [self.dataSource removeAllObjects];
     NSLog(@"text:%@",searchBar.text);
     [searchBar resignFirstResponder];
     [self.dataSource removeAllObjects];

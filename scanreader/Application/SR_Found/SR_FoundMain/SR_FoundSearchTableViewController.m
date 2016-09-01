@@ -81,6 +81,8 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    [self.searchBar resignFirstResponder];
+    [self.dataSource removeAllObjects];
     NSLog(@"text:%@",searchBar.text);
     NSInteger searchTag = 0;
 }
@@ -160,14 +162,17 @@
     NSInteger searchTag = 0;
     if (icon.tag == 0) {
         searchTag = SEARCH_TYPE_NOTE;
+        self.hidesBottomBarWhenPushed = YES;
         SR_FoundSearchNoteViewController * searchVC = [[SR_FoundSearchNoteViewController alloc] init];
         [self.navigationController pushViewController:searchVC animated:YES];
     }else if (icon.tag == 1){
         searchTag = SEARCH_TYPE_INTER_PAGE;
+        self.hidesBottomBarWhenPushed = YES;
         SR_FoundSearchInterPageViewController * searchVC = [[SR_FoundSearchInterPageViewController alloc] init];
         [self.navigationController pushViewController:searchVC animated:YES];
     }else{
         searchTag = SEARCH_TYPE_SCAN;
+        self.hidesBottomBarWhenPushed = YES;
         SR_FoundSearchBookViewController * searchVC = [[SR_FoundSearchBookViewController alloc] init];
         [self.navigationController pushViewController:searchVC animated:YES];
     }

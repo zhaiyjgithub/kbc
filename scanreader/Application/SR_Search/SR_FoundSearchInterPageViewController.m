@@ -84,6 +84,8 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     NSLog(@"text:%@",searchBar.text);
+    [self.searchBar resignFirstResponder];
+    [self.dataSource removeAllObjects];
     [self getListAll:PAGE_NUM pageIndex:self.searchPageIndex q:self.searchBar.text];
 }
 
