@@ -9,6 +9,10 @@
 #import "SR_ActionSheetTextView.h"
 #import "globalHeader.h"
 #import <SVProgressHUD.h>
+#import <MBProgressHUD.h>
+#import "requestAPI.h"
+#import "httpTools.h"
+#import "UserInfo.h"
 
 @implementation SR_ActionSheetTextView
 
@@ -106,9 +110,47 @@
         [SVProgressHUD showErrorWithStatus:@"请输入笔记内容"];
         return;
     }
-    if ([self.delegate conformsToProtocol:@protocol(textViewSendBtnDelegate)] && [self.delegate respondsToSelector:@selector(clickTextViewSendBtn:text:)]) {
-        [self.delegate clickTextViewSendBtn:self.titleTextField.text text:self.textTextView.text];
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSDictionary * baseParam = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_TEXT,
+                             @"title":self.titleTextField.text,@"content":self.textTextView.text};
+    
+    NSMutableDictionary * param = [[NSMutableDictionary alloc] initWithDictionary:baseParam];
+
+    NSString * baseUrl = SAVE_NOTE;
+    if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_SAVE]) {
+        baseUrl = SAVE_NOTE;
+        if (self.book_id) {//创建有对象
+            param[@"book_id"] = self.book_id;
+        }
+    }else if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_UPDATE]){
+        baseUrl = UPDATE_NOTE;
+        if (self.noteId) {//更新笔记
+            param[@"id"] = self.noteId;
+        }
     }
+    
+    MBProgressHUD * hud = [[MBProgressHUD  alloc] initWithView:self.handerView];
+    [hud showAnimated:YES];
+    [btn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+    btn.enabled = NO;
+    [httpTools post:baseUrl andParameters:param success:^(NSDictionary *dic) {
+        [btn setTitleColor:baseColor forState:(UIControlStateNormal)];
+        btn.enabled = YES;
+        [hud hideAnimated:YES];
+        [SVProgressHUD showSuccessWithStatus:@"更新成功"];
+        if ([self.delegate conformsToProtocol:@protocol(textViewSendBtnDelegate)] && [self.delegate respondsToSelector:@selector(clickTextViewSendBtn:text:)]) {
+            [self.delegate clickTextViewSendBtn:self.titleTextField.text text:self.textTextView.text];
+        }
+        [self dismiss];
+    } failure:^(NSError *error) {
+        [btn setTitleColor:baseColor forState:(UIControlStateNormal)];
+        btn.enabled = YES;
+        [hud hideAnimated:YES];
+        [SVProgressHUD showErrorWithStatus:@"更新失败"];
+    }];
+    
+    
 }
 
 #pragma mark Responding to keyboard events

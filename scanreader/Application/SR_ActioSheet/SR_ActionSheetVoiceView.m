@@ -105,10 +105,25 @@
     
     NSString * userId = [UserInfo getUserId];
     NSString * userToken = [UserInfo getUserToken];
-    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_VOICE,
+    NSDictionary * baseParam = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_VOICE,
                              @"title":self.titleTextField.text};
+    NSMutableDictionary * param = [[NSMutableDictionary alloc] initWithDictionary:baseParam];
+
+    NSString * baseUrl = SAVE_NOTE;
+    if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_SAVE]) {
+        baseUrl = SAVE_NOTE;
+        if (self.book_id) {//创建有对象
+            param[@"book_id"] = self.book_id;
+        }
+    }else if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_UPDATE]){
+        baseUrl = UPDATE_NOTE;
+        if (self.noteId) {//更新笔记
+            param[@"id"] = self.noteId;
+        }
+    }
+    
     [MBProgressHUD showHUDAddedTo:self.handerView animated:YES];
-    [httpTools uploadVoice:SAVE_NOTE parameters:param voicesUrl:self.filePathsDataSource success:^(NSDictionary *dic) {
+    [httpTools uploadVoice:baseUrl parameters:param voicesUrl:self.filePathsDataSource success:^(NSDictionary *dic) {
         [sendBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
         sendBtn.enabled = YES;
         [MBProgressHUD hideHUDForView:self.handerView animated:YES];
@@ -117,6 +132,9 @@
             [self deleteFile:filePath];
         }
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if ([self.delegate conformsToProtocol:@protocol(voiceViewSendBtnDelegate)] && [self.delegate respondsToSelector:@selector(clickVoiceViewSendBtn:text:)]) {
+                [self.delegate clickVoiceViewSendBtn:self.titleTextField.text text:@"none"];
+            }
             [self dismiss];
         });
     } failure:^(NSError *error) {
@@ -124,10 +142,6 @@
         sendBtn.enabled = YES;
         [SVProgressHUD showErrorWithStatus:@"笔记创建失败"];
         [MBProgressHUD hideHUDForView:self.handerView animated:YES];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self dismiss];
-        });
-
     }];
 }
 

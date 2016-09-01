@@ -38,6 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"笔记";
     [self setupSerchBar];
     self.tableView.av_footer = [AVFooterRefresh footerRefreshWithScrollView:self.tableView footerRefreshingBlock:^{
         [self loadData];
@@ -93,17 +94,13 @@
         __weak typeof(self) weakSelf = self;
         [cell addBlock:^{
             if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
-                weakSelf.hidesBottomBarWhenPushed = YES;
                 SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
                 [weakSelf.navigationController pushViewController:mineVC animated:YES];
-                weakSelf.hidesBottomBarWhenPushed = NO;
             }else{
                 SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
-                weakSelf.hidesBottomBarWhenPushed = YES;
                 SR_BookClubBookNoteModel * noteModel = weakSelf.dataSource[indexPath.row];
                 otherVC.userModel = noteModel.user;
                 [weakSelf.navigationController pushViewController:otherVC animated:YES];
-                weakSelf.hidesBottomBarWhenPushed = NO;
             }
         }];
         return cell;
@@ -117,17 +114,14 @@
         __weak typeof(self) weakSelf = self;
         [cell addBlock:^{
             if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
-                weakSelf.hidesBottomBarWhenPushed = YES;
+                
                 SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
                 [weakSelf.navigationController pushViewController:mineVC animated:YES];
-                weakSelf.hidesBottomBarWhenPushed = NO;
             }else{
                 SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
-                weakSelf.hidesBottomBarWhenPushed = YES;
                 SR_BookClubBookNoteModel * noteModel = weakSelf.dataSource[indexPath.row];
                 otherVC.userModel = noteModel.user;
                 [weakSelf.navigationController pushViewController:otherVC animated:YES];
-                weakSelf.hidesBottomBarWhenPushed = NO;
             }
         }];
         return cell;
@@ -142,17 +136,13 @@
         __weak typeof(self) weakSelf = self;
         [cell addBlock:^{
             if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
-                weakSelf.hidesBottomBarWhenPushed = YES;
                 SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
                 [weakSelf.navigationController pushViewController:mineVC animated:YES];
-                weakSelf.hidesBottomBarWhenPushed = NO;
             }else{
                 SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
-                weakSelf.hidesBottomBarWhenPushed = YES;
                 SR_BookClubBookNoteModel * noteModel = weakSelf.dataSource[indexPath.row];
                 otherVC.userModel = noteModel.user;
                 [weakSelf.navigationController pushViewController:otherVC animated:YES];
-                weakSelf.hidesBottomBarWhenPushed = NO;
             }
         }];
         [cell addInterBlock:^{
@@ -173,17 +163,13 @@
         __weak typeof(self) weakSelf = self;
         [cell addBlock:^{
             if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
-                weakSelf.hidesBottomBarWhenPushed = YES;
                 SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
                 [weakSelf.navigationController pushViewController:mineVC animated:YES];
-                weakSelf.hidesBottomBarWhenPushed = NO;
             }else{
                 SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
-                weakSelf.hidesBottomBarWhenPushed = YES;
                 SR_BookClubBookNoteModel * noteModel = weakSelf.dataSource[indexPath.row];
                 otherVC.userModel = noteModel.user;
                 [weakSelf.navigationController pushViewController:otherVC animated:YES];
-                weakSelf.hidesBottomBarWhenPushed = NO;
             }
         }];
         
@@ -196,9 +182,11 @@
     SR_BookClubBookNoteModel * noteModel = self.dataSource[indexPath.row];
     SR_NoteDetailPageViewController * noteDetailVC = [[SR_NoteDetailPageViewController alloc] init];
     noteDetailVC.noteModel = noteModel;
-    self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:noteDetailVC animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self.searchBar resignFirstResponder];
 }
 
 - (void)playVoiceWithFilePath:(NSString *)filePath {

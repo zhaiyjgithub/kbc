@@ -22,6 +22,11 @@
 		CB03F58B1D770DB500D19B0F /* SR_InterPageDetailImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB03F58A1D770DB500D19B0F /* SR_InterPageDetailImageViewCell.m */; };
 		CB03F58E1D771BF800D19B0F /* videoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB03F58D1D771BF800D19B0F /* videoViewController.m */; };
 		CB03F5911D77288D00D19B0F /* SR_InterPageDetailVideoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB03F5901D77288D00D19B0F /* SR_InterPageDetailVideoViewCell.m */; };
+		CB0408021D77C2E700490862 /* SR_NoteDetailImageUpdateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0408011D77C2E700490862 /* SR_NoteDetailImageUpdateModel.m */; };
+		CB0408051D77C37C00490862 /* SR_NoteDetailVoiceUpdateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0408041D77C37C00490862 /* SR_NoteDetailVoiceUpdateModel.m */; };
+		CB0408081D78115700490862 /* SR_ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0408071D78115700490862 /* SR_ScanViewController.m */; };
+		CB04080B1D78119C00490862 /* UIImage+help.m in Sources */ = {isa = PBXBuildFile; fileRef = CB04080A1D78119C00490862 /* UIImage+help.m */; };
+		CB04080E1D78133100490862 /* SR_ScanNetPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB04080D1D78133100490862 /* SR_ScanNetPageViewController.m */; };
 		CB0F0C0D1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */; };
 		CB1659161D63688500E17303 /* SR_BookClubBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1659151D63688500E17303 /* SR_BookClubBookModel.m */; };
 		CB186EF81D72C61A00C16705 /* SR_MineMessageFrameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB186EF71D72C61A00C16705 /* SR_MineMessageFrameModel.m */; };
@@ -152,6 +157,16 @@
 		CB03F58D1D771BF800D19B0F /* videoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = videoViewController.m; sourceTree = "<group>"; };
 		CB03F58F1D77288D00D19B0F /* SR_InterPageDetailVideoViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_InterPageDetailVideoViewCell.h; path = Application/SR_InterPage/SR_InterPageDetailVideoViewCell.h; sourceTree = "<group>"; };
 		CB03F5901D77288D00D19B0F /* SR_InterPageDetailVideoViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_InterPageDetailVideoViewCell.m; path = Application/SR_InterPage/SR_InterPageDetailVideoViewCell.m; sourceTree = "<group>"; };
+		CB0408001D77C2E700490862 /* SR_NoteDetailImageUpdateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_NoteDetailImageUpdateModel.h; path = Application/SR_InterPage/SR_NoteDetailImageUpdateModel.h; sourceTree = "<group>"; };
+		CB0408011D77C2E700490862 /* SR_NoteDetailImageUpdateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_NoteDetailImageUpdateModel.m; path = Application/SR_InterPage/SR_NoteDetailImageUpdateModel.m; sourceTree = "<group>"; };
+		CB0408031D77C37C00490862 /* SR_NoteDetailVoiceUpdateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_NoteDetailVoiceUpdateModel.h; path = Application/SR_InterPage/SR_NoteDetailVoiceUpdateModel.h; sourceTree = "<group>"; };
+		CB0408041D77C37C00490862 /* SR_NoteDetailVoiceUpdateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_NoteDetailVoiceUpdateModel.m; path = Application/SR_InterPage/SR_NoteDetailVoiceUpdateModel.m; sourceTree = "<group>"; };
+		CB0408061D78115700490862 /* SR_ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ScanViewController.h; path = Application/SR_Scan/SR_Scan/SR_ScanViewController.h; sourceTree = "<group>"; };
+		CB0408071D78115700490862 /* SR_ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_ScanViewController.m; path = Application/SR_Scan/SR_Scan/SR_ScanViewController.m; sourceTree = "<group>"; };
+		CB0408091D78119C00490862 /* UIImage+help.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+help.h"; path = "Base/Category/UIImage+help.h"; sourceTree = "<group>"; };
+		CB04080A1D78119C00490862 /* UIImage+help.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+help.m"; path = "Base/Category/UIImage+help.m"; sourceTree = "<group>"; };
+		CB04080C1D78133100490862 /* SR_ScanNetPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ScanNetPageViewController.h; path = Application/SR_Scan/SR_Scan/SR_ScanNetPageViewController.h; sourceTree = "<group>"; };
+		CB04080D1D78133100490862 /* SR_ScanNetPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_ScanNetPageViewController.m; path = Application/SR_Scan/SR_Scan/SR_ScanNetPageViewController.m; sourceTree = "<group>"; };
 		CB0F0C0B1D3DDDD200F60E5C /* SR_MineMessageSendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageSendViewController.h; path = Application/SR_Mine/SR_MineMessageSendViewController.h; sourceTree = "<group>"; };
 		CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageSendViewController.m; path = Application/SR_Mine/SR_MineMessageSendViewController.m; sourceTree = "<group>"; };
 		CB1659141D63688500E17303 /* SR_BookClubBookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_BookClubBookModel.h; path = Application/SR_Found/SR_FoundMain/SR_BookClubBookModel.h; sourceTree = "<group>"; };
@@ -453,6 +468,10 @@
 		CB186F051D72E9D700C16705 /* NoteDetailPage */ = {
 			isa = PBXGroup;
 			children = (
+				CB0408001D77C2E700490862 /* SR_NoteDetailImageUpdateModel.h */,
+				CB0408011D77C2E700490862 /* SR_NoteDetailImageUpdateModel.m */,
+				CB0408031D77C37C00490862 /* SR_NoteDetailVoiceUpdateModel.h */,
+				CB0408041D77C37C00490862 /* SR_NoteDetailVoiceUpdateModel.m */,
 			);
 			name = NoteDetailPage;
 			sourceTree = "<group>";
@@ -627,6 +646,8 @@
 		CB94EAA71D6C497D000E633B /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				CB0408091D78119C00490862 /* UIImage+help.h */,
+				CB04080A1D78119C00490862 /* UIImage+help.m */,
 				CB94EAA81D6C4A0A000E633B /* NSDate+JJ.h */,
 				CB94EAA91D6C4A0A000E633B /* NSDate+JJ.m */,
 				CB94EAAA1D6C4A0A000E633B /* NSString+JJ.h */,
@@ -961,6 +982,10 @@
 				8443ACE91D46563A00634BC3 /* DDQRCodeViewController.m */,
 				CBFEA9141D35F6F8007276B6 /* SR_ScanMainViewController.h */,
 				CBFEA9151D35F6F8007276B6 /* SR_ScanMainViewController.m */,
+				CB0408061D78115700490862 /* SR_ScanViewController.h */,
+				CB0408071D78115700490862 /* SR_ScanViewController.m */,
+				CB04080C1D78133100490862 /* SR_ScanNetPageViewController.h */,
+				CB04080D1D78133100490862 /* SR_ScanNetPageViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1187,6 +1212,7 @@
 				CB1659161D63688500E17303 /* SR_BookClubBookModel.m in Sources */,
 				CBE47E111D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m in Sources */,
 				CB03F58E1D771BF800D19B0F /* videoViewController.m in Sources */,
+				CB04080B1D78119C00490862 /* UIImage+help.m in Sources */,
 				CB74117E1D347B14002B8FB5 /* AppDelegate.m in Sources */,
 				CBE47DF41D4067180046C89C /* SR_ForgotPasswordViewController.m in Sources */,
 				846C6DE01D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m in Sources */,
@@ -1196,10 +1222,13 @@
 				CBD1D60D1D36279A00539056 /* SR_MineViewCell.m in Sources */,
 				CBFEA91B1D35F754007276B6 /* SR_RecorMainViewController.m in Sources */,
 				CBEEABE31D6B4723005B1C2B /* SR_FoundSearchInterPageViewController.m in Sources */,
+				CB0408021D77C2E700490862 /* SR_NoteDetailImageUpdateModel.m in Sources */,
 				CB0F0C0D1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m in Sources */,
 				CB03F5911D77288D00D19B0F /* SR_InterPageDetailVideoViewCell.m in Sources */,
 				CB74117B1D347B14002B8FB5 /* main.m in Sources */,
 				CBA154311D75C9CC009A619B /* SR_InterPageListViewCell.m in Sources */,
+				CB0408051D77C37C00490862 /* SR_NoteDetailVoiceUpdateModel.m in Sources */,
+				CB04080E1D78133100490862 /* SR_ScanNetPageViewController.m in Sources */,
 				CBD1D6101D3628C100539056 /* SR_OAthouButton.m in Sources */,
 				84AE3DD71D436E1200643989 /* Tools.m in Sources */,
 				CB186F041D72E8A500C16705 /* SR_NoteDetailPageTextViewCell.m in Sources */,
@@ -1244,6 +1273,7 @@
 				CB186EFB1D72D5BE00C16705 /* SR_MineMessageSendDialogMineSendViewCell.m in Sources */,
 				CBA1542A1D75B611009A619B /* SR_NoteDetailPageVoiceViewCell.m in Sources */,
 				CB854DA31D75DE97000F54CB /* SR_InterPageTitleFrameModel.m in Sources */,
+				CB0408081D78115700490862 /* SR_ScanViewController.m in Sources */,
 				848429A71D44993B00855854 /* SR_ActionSheetTextView.m in Sources */,
 				CB63C7AF1D41F141009D40A4 /* SR_MineMessageListViewCell.m in Sources */,
 				CBD1D61F1D363F0400539056 /* SR_AddBtnView.m in Sources */,

@@ -9,6 +9,11 @@
 #import "SR_ScanResultNoneBookViewController.h"
 #import "globalHeader.h"
 #import "PhotoPickerTool.h"
+#import "httpTools.h"
+#import "requestAPI.h"
+#import "UserInfo.h"
+#import <SVProgressHUD.h>
+#import <MBProgressHUD.h>
 
 @interface SR_ScanResultNoneBookViewController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UIButton * bookImageBtn;
@@ -16,6 +21,7 @@
 @property(nonatomic,strong)UITextField * bookAuthorTextField;
 @property(nonatomic,strong)UIView * bgView;
 @property(nonatomic,assign)CGFloat btnHeight;
+@property(nonatomic,strong)NSMutableArray * images;
 @end
 
 @implementation SR_ScanResultNoneBookViewController
@@ -94,7 +100,7 @@
     [createBtn setTitle:@"创建读书会" forState:(UIControlStateNormal)];
     [createBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [createBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateHighlighted)];
-    createBtn.layer.cornerRadius = 5.0;
+    createBtn.layer.cornerRadius = sizeHeight(58)/2.0;
     [createBtn addTarget:self action:@selector(clickCreateBtn) forControlEvents:(UIControlEventTouchUpInside)];
     [self.bgView addSubview:createBtn];
     self.btnHeight = createBtn.frame.origin.y + createBtn.frame.size.height + 3;
@@ -103,13 +109,38 @@
 - (void)clickBookImageBtn{
     __weak typeof(self) weakSelf = self;
     [[PhotoPickerTool sharedPhotoPickerTool] showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceTypeCamera) onViewController:self compled:^(UIImage *image, NSDictionary *editingInfo) {
+        [self.images removeAllObjects];
+        [self.images addObject:image];
         [weakSelf.bookImageBtn setImage:image forState:(UIControlStateNormal)];
         [weakSelf.bookImageBtn setTitle:@"" forState:(UIControlStateNormal)];
     }];
 }
 
 - (void)clickCreateBtn{
+    if (!self.bookNameTextField.text.length) {
+        [SVProgressHUD showErrorWithStatus:@"请输入书名"];
+        return;
+    }
     
+    if (!self.bookAuthorTextField.text.length) {
+        [SVProgressHUD showErrorWithStatus:@"请输入作者"];
+        return;
+    }
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    
+    NSDictionary * param = @{@"title":self.bookNameTextField.text,@"content":@"无简介",@"author":self.bookAuthorTextField.text,@"user_id":userId,@"user_token":userToken};
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [httpTools uploadBookImage:CREATE_BOOK_CLUB parameters:param images:self.images file:@"picture" success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [SVProgressHUD showInfoWithStatus:@"上传成功"];
+        [self.navigationController popViewControllerAnimated:YES];
+        SSLog(@"upload book image:%@",dic);
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [SVProgressHUD showInfoWithStatus:@"上传失败"];
+    }];
 }
 
 #pragma mark Responding to keyboard events
@@ -153,6 +184,13 @@
 
 - (void)clickBgView{
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
+}
+
+- (NSMutableArray *)images{
+    if (!_images) {
+        _images = [[NSMutableArray alloc] init];
+    }
+    return _images;
 }
 
 

@@ -61,16 +61,20 @@
 
 - (void)loadData{
     //这里还需要判断
-    [self getPageList:PAGE_NUM pageIndex:self.pageListPageIndex];
+//    [self getPageList:PAGE_NUM pageIndex:self.pageListPageIndex];
+    if (self.dataSource.count < PAGE_NUM*(self.pageListPageIndex + 1)) {
+        SSLog(@"已经是最后一条数据了");
+        [self.tableView.av_footer endFooterRefreshing];
+    }else{
+        [self getPageList:PAGE_NUM pageIndex:self.pageListPageIndex + 1];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.hidesBottomBarWhenPushed = YES;
     SR_InterPageDetailViewController * pageDetailVC = [[SR_InterPageDetailViewController alloc] init];
     pageDetailVC.pageListModel = self.dataSource[indexPath.row];
     [self.navigationController pushViewController:pageDetailVC animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
 }
 
 

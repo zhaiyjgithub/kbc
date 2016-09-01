@@ -29,5 +29,9 @@ andParameters:(NSDictionary *)parameters
                      file:(NSString *)file
                   success:(void (^)(NSDictionary *dic))success
                   failure:(void (^)(NSError *error))failure;
++ (void)uploadBookImage:(NSString *)url parameters:(NSDictionary *)parameters images:(NSArray *)images
+                   file:(NSString *)file
+                success:(void (^)(NSDictionary *dic))success
+                failure:(void (^)(NSError *error))failure;
 
 @end

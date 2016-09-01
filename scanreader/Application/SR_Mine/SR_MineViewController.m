@@ -65,17 +65,17 @@
             NSString * isPublic = [UserInfo getUserPublic];
             if ([isPublic isEqualToString:@"1"]) {
                 if (btn.tag == 101) {
-                    [weakSelf updateUserInfo:@{@"public":@"0"}];
+                    [weakSelf updateUserInfo:@{@"public":@"2"}];
                 }
             }else{
                 if (btn.tag == 100) {
-                    [weakSelf updateUserInfo:@{@"public":@"0"}];
+                    [weakSelf updateUserInfo:@{@"public":@"1"}];
                 }
             }
         }
     }];
     cell.nameLabel.text = [NSString stringWithFormat:@"用户名称: %@",[UserInfo getUserName]];
-
+    cell.levelabel.text = [NSString stringWithFormat:@"等级: %@级",[UserInfo getUserLevel]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -174,7 +174,7 @@
         [UserInfo saveUserLevelWith:userDic[@"level"]];
         [UserInfo saveUserCreditWith:userDic[@"credit"]];
         [UserInfo saveUserPublicWith:userDic[@"public"]];
-
+        [self.tableView reloadData];
     } failure:^(NSError *error) {
         
     }];

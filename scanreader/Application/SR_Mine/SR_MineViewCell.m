@@ -31,7 +31,7 @@
     self.levelabel = [[UILabel alloc] initWithFrame:CGRectMake(15, self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height + 12, kScreenWidth - 30, 14)];
     self.levelabel.font = [UIFont boldSystemFontOfSize:14.0];
     self.levelabel.textColor = [UIColor blackColor];
-    self.levelabel.text = @"等级: 1级";
+    self.levelabel.text = @"等级: 0级";
     self.levelabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.levelabel];
     

@@ -34,6 +34,9 @@
 #define PAGE_TYPY_8 @"8"
 #define PAGE_TYPY_9 @"9"
 
+#define NOTE_REQUSERT_TYPE_SAVE  @"1"
+#define NOTE_REQUSERT_TYPE_UPDATE @"2"
+
 #define USER_ID [UserInfo getUserUserId]
 #define TOKEN [UserInfo getUserToken]
 
@@ -55,5 +58,8 @@
 #define GET_USER_INFO @"/api/user/getOne"
 #define GET_PAGE_ONE_ITEM @"/api/page/getOne"
 #define DELETE_REOURCE @"/api/note/deleteResource"
+
+#define UPDATE_NOTE @"/api/note/update"
+#define GET_NOTE_ONE @"/api/note/getOne"
 
 #endif /* requestAPI_h */

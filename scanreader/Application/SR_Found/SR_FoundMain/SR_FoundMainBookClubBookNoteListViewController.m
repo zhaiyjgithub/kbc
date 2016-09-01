@@ -15,9 +15,13 @@
 #import "httpTools.h"
 #import "UserInfo.h"
 #import "requestAPI.h"
+#import "SR_ActionSheetImageView.h"
+#import "SR_ActionSheetVoiceView.h"
+#import "SR_ActionSheetTextView.h"
+#import "SR_AddBtnView.h"
 
-@interface SR_FoundMainBookClubBookNoteListViewController ()
-
+@interface SR_FoundMainBookClubBookNoteListViewController ()<textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate,addBtnDelegate>
+@property(nonatomic,strong)UIButton * floatBtn;
 @end
 
 @implementation SR_FoundMainBookClubBookNoteListViewController
@@ -25,20 +29,50 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"笔记列表";
+    [self.view addSubview:self.floatBtn];
     [self getBookMarkList:@"70" page:@"1"];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:(UIBarButtonSystemItemAdd) target:self action:@selector(clickBtn)];
 }
 
-///创建笔记
-- (void)clickBtn{
-    NSString * userId = [UserInfo getUserId];
-    NSString * userToken = [UserInfo getUserToken];
-    NSDictionary * param = @{@"title":@"滕王阁序笔记1",@"content":@"俊采星驰",@"book_id":self.bookModel.book_id,@"user_id":userId,@"user_token":userToken,@"type":@"1"};
-    [httpTools post:SAVE_NOTE andParameters:param success:^(NSDictionary *dic) {
-        SSLog(@"创建笔记:%@",dic);
-    } failure:^(NSError *error) {
-        
-    }];
+
+- (void)clickAddBtnView:(NSInteger)tag{
+    if (tag == 0) {
+        SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:nil text:nil];
+        textView.delegate = self;
+        textView.requestType = NOTE_REQUSERT_TYPE_SAVE;
+        textView.book_id = self.bookModel.book_id;
+        [textView show];
+    }else if (tag == 1){
+        SR_ActionSheetImageView * imageView = [[SR_ActionSheetImageView alloc] initActionSheetWith:nil images:nil viewController:self];
+        imageView.delegate = self;
+        imageView.requestType = NOTE_REQUSERT_TYPE_SAVE;
+        imageView.book_id = self.bookModel.book_id;
+        [imageView show];
+    }else{
+        SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:nil voices:nil viewController:self];
+        voiceView.delegate = self;
+        voiceView.requestType = NOTE_REQUSERT_TYPE_SAVE;
+        voiceView.book_id = self.bookModel.book_id;
+        [voiceView show];
+    }
+}
+
+///做没有对象的笔记
+- (void)clickTextViewSendBtn:(NSString *)title text:(NSString *)text{
+    SSLog(@"title:%@ content:%@",title,text);
+    [self.dataSource removeAllObjects];
+    [self getBookMarkList:@"70" page:@"1"];
+}
+
+- (void)clickImageViewSendBtn:(NSString *)title images:(NSArray *)images{
+    SSLog(@"image title:%@",title);
+    [self.dataSource removeAllObjects];
+    [self getBookMarkList:@"70" page:@"1"];
+}
+
+- (void)clickVoiceViewSendBtn:(NSString *)title text:(NSString *)text{
+    SSLog(@"voice title:%@",title);
+    [self.dataSource removeAllObjects];
+    [self getBookMarkList:@"70" page:@"1"];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -98,6 +132,23 @@
     } failure:^(NSError *error) {
         
     }];
+}
+
+- (UIButton *)floatBtn{
+    if (!_floatBtn) {
+        _floatBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        _floatBtn.frame = CGRectMake(0, 0, 65, 65);
+        _floatBtn.center = CGPointMake(kScreenWidth - 5 - 33, kScreenHeight/2);
+        [_floatBtn setImage:[UIImage imageNamed:@"add_note"] forState:(UIControlStateNormal)];
+        [_floatBtn addTarget:self action:@selector(clickFloatBtn) forControlEvents:(UIControlEventTouchUpInside)];
+    }
+    return _floatBtn;
+}
+
+- (void)clickFloatBtn{
+    SR_AddBtnView * addBtnView = [[SR_AddBtnView alloc] initAlertView];
+    addBtnView.delegate = self;
+    [addBtnView show];
 }
 
 @end

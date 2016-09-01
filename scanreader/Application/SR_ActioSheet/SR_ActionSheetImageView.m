@@ -12,6 +12,11 @@
 #import "SR_ActionSheetImageCollectionViewCell.h"
 #import "SR_ActionSheetImageLayout.h"
 #import "PhotoPickerTool.h"
+#import <MBProgressHUD.h>
+#import "UserInfo.h"
+#import "requestAPI.h"
+#import "httpTools.h"
+
 
 static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
 
@@ -126,9 +131,46 @@ static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
         [SVProgressHUD showErrorWithStatus:@"请添加图片"];
         return;
     }
-    if ([self.delegate conformsToProtocol:@protocol(imageViewSendBtnDelegate)] && [self.delegate respondsToSelector:@selector(clickImageViewSendBtn:images:)]) {
-        [self.delegate clickImageViewSendBtn:self.titleTextField.text images:self.articleImages];
+    //发起请求
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSDictionary * baseparam = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_PIX,
+                             @"title":self.titleTextField.text};
+    NSMutableDictionary * param = [[NSMutableDictionary alloc] initWithDictionary:baseparam];
+    NSString * baseUrl = SAVE_NOTE;
+    if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_SAVE]) {
+        if (self.book_id) {//创建有对象
+            param[@"book_id"] = self.book_id;
+        }
+    }else if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_UPDATE]){
+        baseUrl = UPDATE_NOTE;
+        if (self.noteId) {//更新笔记
+            param[@"id"] = self.noteId;
+        }
     }
+
+    //这里的提示不起作用，用户可能会重复点发送按钮，
+    MBProgressHUD * hud = [[MBProgressHUD  alloc] initWithView:self.handerView];
+    [hud showAnimated:YES];
+    [btn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+    btn.enabled = NO;
+    [httpTools uploadImage:baseUrl parameters:param images:self.articleImages success:^(NSDictionary *dic) {
+        [btn setTitleColor:baseColor forState:(UIControlStateNormal)];
+        btn.enabled = YES;
+        SSLog(@"save pic:%@",dic);
+        [hud hideAnimated:YES];
+        [SVProgressHUD showSuccessWithStatus:@"笔记创建成功"];
+        //上传成功回调
+        if ([self.delegate conformsToProtocol:@protocol(imageViewSendBtnDelegate)] && [self.delegate respondsToSelector:@selector(clickImageViewSendBtn:images:)]) {
+            [self.delegate clickImageViewSendBtn:self.titleTextField.text images:self.articleImages];
+        }
+        [self dismiss];
+    } failure:^(NSError *error) {
+        [btn setTitleColor:baseColor forState:(UIControlStateNormal)];
+        btn.enabled = YES;
+        [hud hideAnimated:YES];
+        [SVProgressHUD showErrorWithStatus:@"笔记创建失败"];
+    }];
 }
 
 - (void)clickPhotoBtn:(UIButton *)btn{

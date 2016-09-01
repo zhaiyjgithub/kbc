@@ -25,6 +25,9 @@
 @property(nonatomic,strong)UIButton * cameraLibraryTypeBtn;
 @property(nonatomic,strong)UIButton * takePhotoTypeBtn;
 @property(nonatomic,strong)UICollectionView * collectionView;
+@property(nonatomic,copy)NSString * noteId;
+@property(nonatomic,copy)NSString * book_id;
+@property(nonatomic,copy)NSString * requestType;
 - (id)initActionSheetWith:(NSString *)title images:(NSArray *)images viewController:(UIViewController *)viewController;
 - (void)show;
 - (void)dismiss;

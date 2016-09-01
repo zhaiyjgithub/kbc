@@ -32,6 +32,9 @@
 @property (strong,nonatomic)NSString         *recordFileName;
 @property (strong,nonatomic)NSString         *recordFilePath;
 @property(nonatomic,assign)BOOL isTimeOut;
+@property(nonatomic,copy)NSString * noteId;
+@property(nonatomic,copy)NSString * book_id;
+@property(nonatomic,copy)NSString * requestType;
 @property(nonatomic,strong)NSMutableArray * filePathsDataSource;
 
 - (id)initActionSheetWith:(NSString *)title voices:(NSArray *)voices viewController:(UIViewController *)viewController;

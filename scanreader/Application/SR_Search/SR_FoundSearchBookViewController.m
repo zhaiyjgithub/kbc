@@ -13,6 +13,9 @@
 #import "SR_BookClubBookNoteModel.h"
 #import "AVRefreshExtension.h"
 #import "UserInfo.h"
+#import "SR_BookClubBookModel.h"
+#import "SR_FoundMainDynamicViewCell.h"
+#import "SR_FoundMainBookClubBookNoteListViewController.h"
 
 @interface SR_FoundSearchBookViewController ()<UISearchBarDelegate>
 @property(nonatomic,strong)UISearchBar * searchBar;
@@ -26,6 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"书籍";
     [self setupSerchBar];
     self.tableView.av_footer = [AVFooterRefresh footerRefreshWithScrollView:self.tableView footerRefreshingBlock:^{
         [self loadData];
@@ -38,21 +42,33 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 0;
+    return self.dataSource.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 60;
+    return 128;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString * cellId = @"cellid";
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    NSString * cellId = @"SR_FoundMainDynamicViewCell";
+    SR_FoundMainDynamicViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+        cell = [[SR_FoundMainDynamicViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
     }
-    cell.textLabel.text = @"-----";
+    cell.bookModel = self.dataSource[indexPath.row];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    SR_FoundMainBookClubBookNoteListViewController * bookMarkListVC = [[SR_FoundMainBookClubBookNoteListViewController alloc] init];
+    bookMarkListVC.bookModel = self.dataSource[indexPath.row];
+    [self.navigationController pushViewController:bookMarkListVC animated:YES];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self.searchBar resignFirstResponder];
 }
 
 - (void)setupSerchBar{
@@ -71,39 +87,31 @@
 }
 
 - (void)loadData{
-    [self getListAll:PAGE_NUM pageIndex:self.searchPageIndex + 1 q:self.searchBar.text];
+    //[self getListAll:PAGE_NUM pageIndex:self.searchPageIndex + 1 q:self.searchBar.text];
+    if (self.dataSource.count < PAGE_NUM*(self.searchPageIndex + 1)) {
+        SSLog(@"已经是最后一条数据了");
+        [self.tableView.av_footer endFooterRefreshing];
+    }else{
+        [self getListAll:PAGE_NUM pageIndex:self.searchPageIndex + 1 q:self.searchBar.text];
+    }
+    
 }
-
-//笔记 /api/note/getList
-//互动页 /api/page/getList
-//书籍 /api/book/getList
-
 ///获取笔记以及收藏列表,这个列表就是动态的列表
 - (void)getListAll:(NSInteger)pageNum pageIndex:(NSInteger)pageIndex q:(NSString *)q{
     NSString * limit = [NSString stringWithFormat:@"%d",pageNum];
     NSString * page = [NSString stringWithFormat:@"%d",pageIndex];
     NSDictionary * param = @{@"limit":limit,@"page":page,@"q":q};
-    [httpTools post:GET_PAGE_LIST andParameters:param success:^(NSDictionary *dic) {
-        SSLog(@"search note list:%@",dic);
+    [httpTools post:GET_BOOK_CLUB_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
+        NSLog(@"bookClub:%@",dic);
         NSArray * list = dic[@"data"][@"list"];
-        //区分不同类型的笔记进行不同model的转换
-        //根据type 来区分笔记的类型
-        //        1文字
-        //        2图片
-        //        3语音
-        //        4收藏
-        //        for (NSDictionary * item in list) {
-        //            SR_BookClubBookNoteModel * noteModel = [SR_BookClubBookNoteModel modelWithDictionary:item];
-        //            noteModel.note_id = item[@"id"];
-        //            if ([item[@"book"] isKindOfClass:[NSDictionary class]]) {
-        //                noteModel.book.book_id = item[@"book"][@"id"];
-        //            }
-        //            noteModel.user.user_id = item[@"user"][@"id"];
-        //            [self.dataSource addObject:noteModel];
-        //        }
-        //        self.searchPageIndex = (self.dataSource.count/PAGE_NUM) + (self.dataSource.count%PAGE_NUM > 0 ? 1 : 0);
-        //        [self.tableView.av_footer endFooterRefreshing];
-        //        [self.tableView reloadData];
+        for (NSDictionary * item in list) {
+            SR_BookClubBookModel * model = [SR_BookClubBookModel modelWithDictionary:item];
+            model.book_id = item[@"id"];
+            [self.dataSource addObject:model];
+        }
+        self.searchPageIndex = (self.dataSource.count/PAGE_NUM) + (self.dataSource.count%PAGE_NUM > 0 ? 1 : 0);
+        [self.tableView.av_footer endFooterRefreshing];
+        [self.tableView reloadData];
     } failure:^(NSError *error) {
         SSLog(@"error:%@",error);
     }];

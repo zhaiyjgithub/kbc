@@ -23,6 +23,9 @@
 @property(nonatomic,strong)UITextView * textTextView;
 @property(nonatomic,strong)UIButton * sendBtn;
 @property(nonatomic,strong)UIButton * cancelBtn;
+@property(nonatomic,copy)NSString * noteId;
+@property(nonatomic,copy)NSString * book_id;
+@property(nonatomic,copy)NSString * requestType;
 - (id)initActionSheetWith:(NSString *)title text:(NSString *)text;
 - (void)show;
 - (void)dismiss;

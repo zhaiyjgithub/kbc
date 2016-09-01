@@ -76,6 +76,10 @@
     }
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self.searchBar resignFirstResponder];
+}
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     NSLog(@"text:%@",searchBar.text);
     NSInteger searchTag = 0;
@@ -83,6 +87,12 @@
 
 - (void)loadData{
     [self getListAll:PAGE_NUM pageIndex:self.searchPageIndex + 1];
+//    if (self.dataSource.count < PAGE_NUM*(self.searchPageIndex + 1)) {
+//        SSLog(@"已经是最后一条数据了");
+//        [self.tableView.av_footer endFooterRefreshing];
+//    }else{
+//        [self getListAll:PAGE_NUM pageIndex:self.searchPageIndex + 1 q:self.searchBar.text];
+//    }
 }
 
 ///获取笔记以及收藏列表,这个列表就是动态的列表
@@ -150,23 +160,16 @@
     NSInteger searchTag = 0;
     if (icon.tag == 0) {
         searchTag = SEARCH_TYPE_NOTE;
-        self.hidesBottomBarWhenPushed = YES;
         SR_FoundSearchNoteViewController * searchVC = [[SR_FoundSearchNoteViewController alloc] init];
         [self.navigationController pushViewController:searchVC animated:YES];
-        self.hidesBottomBarWhenPushed = NO;
     }else if (icon.tag == 1){
         searchTag = SEARCH_TYPE_INTER_PAGE;
-        self.hidesBottomBarWhenPushed = YES;
         SR_FoundSearchInterPageViewController * searchVC = [[SR_FoundSearchInterPageViewController alloc] init];
         [self.navigationController pushViewController:searchVC animated:YES];
-        self.hidesBottomBarWhenPushed = NO;
     }else{
         searchTag = SEARCH_TYPE_SCAN;
-        self.hidesBottomBarWhenPushed = YES;
         SR_FoundSearchBookViewController * searchVC = [[SR_FoundSearchBookViewController alloc] init];
         [self.navigationController pushViewController:searchVC animated:YES];
-        self.hidesBottomBarWhenPushed = NO;
-
     }
 }
 

@@ -16,10 +16,18 @@
 #import "UserInfo.h"
 #import "httpTools.h"
 #import "SR_InterPageViewController.h"
+#import "SR_ActionSheetTextView.h"
+#import "SR_ActionSheetImageView.h"
+#import "SR_ActionSheetVoiceView.h"
+#import <MBProgressHUD.h>
+#import <SVProgressHUD.h>
 
-@interface SR_NoteDetailPageViewController ()
+@interface SR_NoteDetailPageViewController ()<textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate>
 @property(nonatomic,assign)CGFloat cellHeight;
 @property(nonatomic,strong)AVPlayer * remotePlayer;
+@property(nonatomic,strong)SR_ActionSheetTextView * actionSheetTextView;
+@property(nonatomic,strong)SR_ActionSheetImageView * actionSheetImageView;
+@property(nonatomic,strong)SR_ActionSheetVoiceView * actionSheetVoiceView;
 @end
 
 @implementation SR_NoteDetailPageViewController
@@ -27,14 +35,86 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"笔记详情";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"互动页" style:(UIBarButtonItemStyleDone) target:self action:@selector(clickRightBarItem)];
+    UIBarButtonItem * editBarItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:(UIBarButtonItemStyleDone) target:self action:@selector(clickEidtItem)];
+    UIBarButtonItem * interPageBarItem = [[UIBarButtonItem alloc] initWithTitle:@"互动页" style:(UIBarButtonItemStyleDone) target:self action:@selector(clickinterPageItem)];
+    self.navigationItem.rightBarButtonItems = @[editBarItem,interPageBarItem];
 }
 
-- (void)clickRightBarItem{
-    self.hidesBottomBarWhenPushed = YES;
+- (void)clickEidtItem{
+    if ([self.noteModel.type isEqualToString:NOTE_TYPE_TEXT]){
+        SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:self.noteModel.title text:self.noteModel.content];
+        textView.delegate = self;
+        textView.requestType = NOTE_REQUSERT_TYPE_UPDATE;
+        textView.noteId = self.noteModel.note_id;
+        self.actionSheetTextView = textView;
+        [textView show];
+    }else if ([self.noteModel.type isEqualToString:NOTE_TYPE_PIX]){
+        SR_ActionSheetImageView * imageView = [[SR_ActionSheetImageView alloc] initActionSheetWith:self.noteModel.title images:nil viewController:self];
+        imageView.delegate = self;
+        imageView.requestType = NOTE_REQUSERT_TYPE_UPDATE;
+        imageView.noteId = self.noteModel.note_id;
+        self.actionSheetImageView = imageView;
+        [imageView show];
+    }else if ([self.noteModel.type isEqualToString:NOTE_TYPE_VOICE]){
+        SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:nil voices:nil viewController:self];
+        voiceView.requestType = NOTE_REQUSERT_TYPE_UPDATE;
+        voiceView.noteId = self.noteModel.note_id;
+        voiceView.delegate = self;
+        self.actionSheetVoiceView = voiceView;
+        [voiceView show];
+    }
+}
+
+///做没有对象的笔记
+- (void)clickTextViewSendBtn:(NSString *)title text:(NSString *)text{
+    self.noteModel.title = title;
+    self.noteModel.content = text;
+    [self.tableView reloadData];
+}
+
+///添加新的图片文件
+- (void)clickImageViewSendBtn:(NSString *)title images:(NSArray *)images{
+    [self getNewModel];
+}
+
+- (void)clickVoiceViewSendBtn:(NSString *)title text:(NSString *)text{
+    [self getNewModel];
+}
+
+- (void)getNewModel{
+    [httpTools post:GET_NOTE_ONE andParameters:@{@"id":self.noteModel.note_id} success:^(NSDictionary *dic) {
+        SSLog(@"最新的状态:%@",dic);
+        SR_BookClubBookNoteModel * noteModel = [SR_BookClubBookNoteModel modelWithDictionary:dic[@"data"][@"record"]];
+        noteModel.note_id = dic[@"data"][@"record"][@"id"];
+        if ([dic[@"data"][@"record"][@"book"] isKindOfClass:[NSDictionary class]]) {
+            noteModel.book.book_id = dic[@"data"][@"record"][@"book"][@"id"];
+        }
+        noteModel.user.user_id = dic[@"data"][@"record"][@"user"][@"id"];
+        self.noteModel = noteModel;
+        //重新计算高度
+        if ([self.noteModel.type isEqualToString:NOTE_TYPE_TEXT]) {
+            CGSize contentSize = [self.noteModel.content sizeForFont:[UIFont systemFontOfSize:14.0] size:CGSizeMake(kScreenWidth - 30, MAXFLOAT) mode:(NSLineBreakByWordWrapping)];
+            self.cellHeight = contentSize.height + 10 + 135;
+        }else if ([self.noteModel.type isEqualToString:NOTE_TYPE_PIX]){
+            self.cellHeight =  (280 + 10)*self.noteModel.resourceList.count + 135;
+        }else if ([self.noteModel.type isEqualToString:NOTE_TYPE_VOICE]){
+            self.cellHeight =  (90)*self.noteModel.resourceList.count + 135;
+        }
+        [self.dataSource removeAllObjects];
+        for (NSDictionary * item in self.noteModel.resourceList) {
+            SR_BookClubNoteResourceModel * resourceModel = [SR_BookClubNoteResourceModel modelWithDictionary:item];
+            resourceModel.resource_id = item[@"id"];
+            [self.dataSource addObject:resourceModel];
+        }
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)clickinterPageItem{
     SR_InterPageViewController * vc = [[SR_InterPageViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
@@ -136,11 +216,7 @@
     NSDictionary * param = @{@"id":resourceModel.resource_id,@"user_id":userId,@"user_token":userToken};
     [httpTools post:DELETE_REOURCE andParameters:param success:^(NSDictionary *dic) {
         SSLog(@"delete dic:%@",dic);
-        if ([resourceModel.type isEqualToString:NOTE_TYPE_PIX]) {
-            self.cellHeight =  (300)*(self.noteModel.resourceList.count) + 135;
-        }else if ([resourceModel.type isEqualToString:NOTE_TYPE_PIX]){
-            self.cellHeight =  (300)*(self.noteModel.resourceList.count) + 135;
-        }
+        
         [self.dataSource removeObjectAtIndex:index];
         NSMutableArray * itemJsons = [NSMutableArray new];
         for (SR_BookClubNoteResourceModel * resurceModel in self.dataSource) {
@@ -149,8 +225,16 @@
             SSLog(@"itemJson:%@",itemJson);
             [itemJsons addObject:itemJson];
         }
+        //重新计算高度
+        if ([self.noteModel.type isEqualToString:NOTE_TYPE_TEXT]) {
+            CGSize contentSize = [self.noteModel.content sizeForFont:[UIFont systemFontOfSize:14.0] size:CGSizeMake(kScreenWidth - 30, MAXFLOAT) mode:(NSLineBreakByWordWrapping)];
+            self.cellHeight = contentSize.height + 10 + 135;
+        }else if ([self.noteModel.type isEqualToString:NOTE_TYPE_PIX]){
+            self.cellHeight =  (280 + 10)*self.noteModel.resourceList.count + 135;
+        }else if ([self.noteModel.type isEqualToString:NOTE_TYPE_VOICE]){
+            self.cellHeight =  (90)*self.noteModel.resourceList.count + 135;
+        }
         self.noteModel.resourceList = itemJsons;
-
         [self.tableView reloadData];
 
     } failure:^(NSError *error) {

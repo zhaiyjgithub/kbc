@@ -320,9 +320,22 @@
 
 - (void)loadData{
     if (self.selectedTagIndex == 0) {
-        [self getListAll:PAGE_NUM pageIndex:self.notePageIndex mode:NOTE_MODE_NOTE];//暂时只获取笔记列表
+       // [self getListAll:PAGE_NUM pageIndex:self.notePageIndex mode:NOTE_MODE_NOTE];//暂时只获取笔记列表
+        
+        if (self.noteList.count < PAGE_NUM*(self.notePageIndex + 1)) {
+            SSLog(@"已经是最后一条数据了");
+            [self.tableView.av_footer endFooterRefreshing];
+        }else{
+            [self getListAll:PAGE_NUM pageIndex:self.notePageIndex mode:NOTE_MODE_NOTE];
+        }
     }else if (self.selectedTagIndex == 1){
-        [self getListAll:PAGE_NUM pageIndex:self.collectionPageIndex mode:NOTE_MODE_COLLECTION];//暂时只获取收藏列表
+        //[self getListAll:PAGE_NUM pageIndex:self.collectionPageIndex mode:NOTE_MODE_COLLECTION];//暂时只获取收藏列表
+        if (self.collectionList.count < PAGE_NUM*(self.notePageIndex + 1)) {
+            SSLog(@"已经是最后一条数据了");
+            [self.tableView.av_footer endFooterRefreshing];
+        }else{
+            [self getListAll:PAGE_NUM pageIndex:self.notePageIndex mode:NOTE_MODE_COLLECTION];
+        }
     }else{
         //获取扫描列表
     }

@@ -85,6 +85,8 @@
     }else{
         [self getMessageList:PAGE_NUM pageIndex:self.messageListPageIndex + 1];
     }
+    
+    
 }
 
 ///获取消息列表(包含了未读和已读消息)

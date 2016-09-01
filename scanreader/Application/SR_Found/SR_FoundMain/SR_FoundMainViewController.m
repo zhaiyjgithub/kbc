@@ -50,9 +50,6 @@
 @property(nonatomic,assign)NSInteger bookClubPageIndex;
 @property(nonatomic,assign)NSInteger dynamicInfoPageIndex;
 @property(nonatomic,strong)UIButton * floatBtn;
-@property(nonatomic,strong)SR_ActionSheetTextView * actionSheetTextView;
-@property(nonatomic,strong)SR_ActionSheetImageView * actionSheetImageView;
-@property(nonatomic,strong)SR_ActionSheetVoiceView * actionSheetVoiceView;
 @property(nonatomic,strong)AVPlayer * remotePlayer;
 @end
 
@@ -71,7 +68,6 @@
     self.tableView.av_footer = [AVFooterRefresh footerRefreshWithScrollView:self.tableView footerRefreshingBlock:^{
         [self loadData];
     }];
-    //[self relogin]; //重登陆这个后面再考虑
     [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex];
     [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
     
@@ -99,7 +95,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        return 81;
+        return 42;
     }else{
         return 0.01;
     }
@@ -272,28 +268,29 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 125)];
+        UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 42)];
         headerView.backgroundColor = [UIColor whiteColor];
         
-        UIView * headerNotiBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 36)];
-        headerView.backgroundColor = kColor(0xe2, 0xea, 0xe8);
-        [headerView addSubview:headerNotiBgView];
-        
-        UIImageView * headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 3, 30, 30)];
-        headerImageView.layer.cornerRadius = 15;
-        headerImageView.image = [UIImage imageNamed:@"headerIcon"];
-        [headerView addSubview:headerImageView];
-        
-        UILabel * notiLabel = [[UILabel alloc] initWithFrame:CGRectMake(headerImageView.frame.origin.x + headerImageView.frame.size.width + 10, 0, kScreenWidth - 30 - 10 - headerImageView.frame.size.width, 36)];
-        notiLabel.text = @"Json刚才扫描了《天龙八部》";
-        notiLabel.textColor = baseblackColor;
-        notiLabel.font = [UIFont systemFontOfSize:13.0];
-        notiLabel.textAlignment = NSTextAlignmentCenter;
-        [headerView addSubview:notiLabel];
+//        UIView * headerNotiBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 36)];
+//        headerView.backgroundColor = kColor(0xe2, 0xea, 0xe8);
+//        [headerView addSubview:headerNotiBgView];
+//        
+//        UIImageView * headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 3, 30, 30)];
+//        headerImageView.layer.cornerRadius = 15;
+//        headerImageView.layer.masksToBounds = YES;
+//        headerImageView.image = [UIImage imageNamed:@"headerIcon"];
+//        [headerView addSubview:headerImageView];
+//        
+//        UILabel * notiLabel = [[UILabel alloc] initWithFrame:CGRectMake(headerImageView.frame.origin.x + headerImageView.frame.size.width + 10, 0, kScreenWidth - 30 - 10 - headerImageView.frame.size.width, 36)];
+//        notiLabel.text = @"Json刚才扫描了《天龙八部》";
+//        notiLabel.textColor = baseblackColor;
+//        notiLabel.font = [UIFont systemFontOfSize:13.0];
+//        notiLabel.textAlignment = NSTextAlignmentCenter;
+//        [headerView addSubview:notiLabel];
         
         NSArray * titles = @[@"动态",@"读书会"];
         for (int i = 0; i < 2; i ++) {
-            UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(i*(kScreenWidth/2), notiLabel.frame.origin.y + notiLabel.frame.size.height, kScreenWidth/2, 42)];
+            UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(i*(kScreenWidth/2), 1, kScreenWidth/2, 42)];
             [btn setTitle:titles[i] forState:(UIControlStateNormal)];
             [btn setTitleColor:baseColor forState:(UIControlStateNormal)];
             [btn setTitle:titles[i] forState:(UIControlStateSelected)];
@@ -310,13 +307,13 @@
             [headerView addSubview:btn];
         }
         
-        UIView * lineView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2, notiLabel.frame.size.height + notiLabel.frame.origin.y + 2, 0.5, 40)];
+        UIView * lineView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2, 1, 0.5, 40)];
         lineView.backgroundColor = [UIColor lightGrayColor];
         [headerView addSubview:lineView];
-        
-        UIView * notiLabelBottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, notiLabel.frame.origin.y + notiLabel.frame.size.height, kScreenWidth, 0.5)];
-        notiLabelBottomLineView.backgroundColor = [UIColor lightGrayColor];
-        [headerView addSubview:notiLabelBottomLineView];
+//
+//        UIView * notiLabelBottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, notiLabel.frame.origin.y + notiLabel.frame.size.height, kScreenWidth, 0.5)];
+//        notiLabelBottomLineView.backgroundColor = [UIColor lightGrayColor];
+//        [headerView addSubview:notiLabelBottomLineView];
         
         return headerView;
     }else{
@@ -356,17 +353,17 @@
     if (tag == 0) {
         SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:nil text:nil];
         textView.delegate = self;
-        self.actionSheetTextView = textView;
+        textView.requestType = NOTE_REQUSERT_TYPE_SAVE;
         [textView show];
     }else if (tag == 1){
         SR_ActionSheetImageView * imageView = [[SR_ActionSheetImageView alloc] initActionSheetWith:nil images:nil viewController:self];
         imageView.delegate = self;
-        self.actionSheetImageView = imageView;
+        imageView.requestType = NOTE_REQUSERT_TYPE_SAVE;
         [imageView show];
     }else{
         SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:nil voices:nil viewController:self];
-        //voiceView.delegate = self;
-        self.actionSheetVoiceView = voiceView;
+        voiceView.delegate = self;
+        voiceView.requestType = NOTE_REQUSERT_TYPE_SAVE;
         [voiceView show];
     }
 }
@@ -374,61 +371,14 @@
 ///做没有对象的笔记
 - (void)clickTextViewSendBtn:(NSString *)title text:(NSString *)text{
     SSLog(@"title:%@ content:%@",title,text);
-    NSString * userId = [UserInfo getUserId];
-    NSString * userToken = [UserInfo getUserToken];
-    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_TEXT,
-                             @"title":title,@"content":text};
-    MBProgressHUD * hud = [[MBProgressHUD  alloc] initWithView:self.tableView];
-    [hud showAnimated:YES];
-    [httpTools post:SAVE_NOTE andParameters:param success:^(NSDictionary *dic) {
-        [hud hideAnimated:YES];
-        [SVProgressHUD showSuccessWithStatus:@"笔记创建成功"];
-        [self.actionSheetTextView dismiss];
-    } failure:^(NSError *error) {
-        [hud hideAnimated:YES];
-        [SVProgressHUD showErrorWithStatus:@"笔记创建失败"];
-    }];
 }
 
 - (void)clickImageViewSendBtn:(NSString *)title images:(NSArray *)images{
-    NSString * userId = [UserInfo getUserId];
-    NSString * userToken = [UserInfo getUserToken];
-    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_PIX,
-                             @"title":title};
-    //这里的提示不起作用，用户可能会重复点发送按钮，
-    MBProgressHUD * hud = [[MBProgressHUD  alloc] initWithView:self.tableView];
-    [hud showAnimated:YES];
-    [httpTools uploadImage:SAVE_NOTE parameters:param images:images success:^(NSDictionary *dic) {
-        SSLog(@"save pic:%@",dic);
-        [hud hideAnimated:YES];
-        [SVProgressHUD showSuccessWithStatus:@"笔记创建成功"];
-        [self.actionSheetImageView dismiss];
-    } failure:^(NSError *error) {
-        [hud hideAnimated:YES];
-        [SVProgressHUD showErrorWithStatus:@"笔记创建失败"];
-    }];
+    SSLog(@"image title:%@",title);
 }
 
-- (void)relogin{
-    NSString * phoneNumber = [UserInfo getUserPhoneNumber];
-    NSString * password = [UserInfo getUserPassword];
-    
-    NSDictionary * param = @{@"username":phoneNumber,@"password":password};
-    [httpTools post:LOGIN andParameters:param success:^(NSDictionary *dic) {
-        SSLog(@"relogin:%@",dic);
-        if ([dic[@"status"] isEqualToString:@"1"]) {
-            NSDictionary * userDic = dic[@"data"][@"user"];
-            [UserInfo saveUserAvatarWith:userDic[@"avatar"]];
-            [UserInfo saveUserIDWith:userDic[@"id"]];
-            [UserInfo saveUserTokenWith:dic[@"data"][@"user_token"]];
-            [UserInfo saveUserNameWith:userDic[@"username"]];
-        }else{//可能是token过期,就需要重新登录
-            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"获取该账号信息失败，请重新登录" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alertView show];
-        }
-    } failure:^(NSError *error) {
-        
-    }];
+- (void)clickVoiceViewSendBtn:(NSString *)title text:(NSString *)text{
+    SSLog(@"voice title:%@",title);
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -437,9 +387,23 @@
 
 - (void)loadData{
     if (self.isSelectBookClub) {
-        [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex];
+        //先判断是否已经请求到最后一了。
+        if (self.bookClubs.count < PAGE_NUM*(self.bookClubPageIndex + 1)) {
+            SSLog(@"已经是最后一条数据了");
+            [self.tableView.av_footer endFooterRefreshing];
+        }else{
+            [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex + 1];
+        }
+//        [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
     }else{
-        [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
+        //先判断是否已经请求到最后一了。
+        if (self.dynamicInfos.count < PAGE_NUM*(self.dynamicInfoPageIndex + 1)) {
+            SSLog(@"已经是最后一条数据了");
+            [self.tableView.av_footer endFooterRefreshing];
+        }else{
+            [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex + 1];
+        }
+//        [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex];
     }
 }
 
