@@ -42,6 +42,7 @@
 #import "SR_OthersMineViewController.h"
 
 #import "SR_InterPageViewController.h"
+#import <MJRefresh.h>
 
 @interface SR_FoundMainViewController ()<addBtnDelegate,UIAlertViewDelegate,textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate>
 @property(nonatomic,assign)BOOL isSelectBookClub;
@@ -68,10 +69,31 @@
     self.tableView.av_footer = [AVFooterRefresh footerRefreshWithScrollView:self.tableView footerRefreshingBlock:^{
         [self loadData];
     }];
-    [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex];
-    [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
+    
+    [self addHeaderRefresh];
     
 }
+
+- (void)addHeaderRefresh{
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    header.automaticallyChangeAlpha = YES;
+    header.lastUpdatedTimeLabel.hidden = YES;
+    [header beginRefreshing];
+    self.tableView.mj_header = header;
+}
+
+- (void)loadNewData
+{
+    [self.dynamicInfos removeAllObjects];
+    [self.bookClubs removeAllObjects];
+    self.dynamicInfoPageIndex = 0;
+    self.bookClubPageIndex = 0;
+    [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex];
+    [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
+}
+
+
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -368,17 +390,37 @@
     }
 }
 
+
+
 ///做没有对象的笔记
 - (void)clickTextViewSendBtn:(NSString *)title text:(NSString *)text{
     SSLog(@"title:%@ content:%@",title,text);
+    [self.dynamicInfos removeAllObjects];
+    self.dynamicInfoPageIndex = 0;
+    [self.bookClubs removeAllObjects];
+    self.bookClubPageIndex = 0;
+    [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex];
+    [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
 }
 
 - (void)clickImageViewSendBtn:(NSString *)title images:(NSArray *)images{
     SSLog(@"image title:%@",title);
+    [self.dynamicInfos removeAllObjects];
+    self.dynamicInfoPageIndex = 0;
+    [self.bookClubs removeAllObjects];
+    self.bookClubPageIndex = 0;
+    [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex];
+    [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
 }
 
 - (void)clickVoiceViewSendBtn:(NSString *)title text:(NSString *)text{
     SSLog(@"voice title:%@",title);
+    [self.dynamicInfos removeAllObjects];
+    self.dynamicInfoPageIndex = 0;
+    [self.bookClubs removeAllObjects];
+    self.bookClubPageIndex = 0;
+    [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex];
+    [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -433,6 +475,7 @@
         }
         self.dynamicInfoPageIndex = (self.dynamicInfos.count/PAGE_NUM) + (self.dynamicInfos.count%PAGE_NUM > 0 ? 1 : 0);
         [self.tableView.av_footer endFooterRefreshing];
+        [self.tableView.mj_header endRefreshing];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         SSLog(@"error:%@",error);
@@ -454,6 +497,7 @@
         }
         self.bookClubPageIndex = (self.bookClubs.count/PAGE_NUM) + (self.bookClubs.count%PAGE_NUM > 0 ? 1 : 0);
         [self.tableView.av_footer endFooterRefreshing];
+        [self.tableView.mj_header endRefreshing];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         SSLog(@"error:%@",error);

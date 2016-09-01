@@ -69,6 +69,7 @@
 		CBA87BDC1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA87BDB1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m */; };
 		CBAF19081D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAF19071D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.m */; };
 		CBAF190B1D421C6200DC0997 /* SR_MessageDialogLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAF190A1D421C6200DC0997 /* SR_MessageDialogLabel.m */; };
+		CBB69E631D781F4D006DC86D /* SR_FoundMainHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB69E621D781F4D006DC86D /* SR_FoundMainHeaderViewCell.m */; };
 		CBCF4F841D367F3500DD7015 /* SR_FoundMainImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCF4F831D367F3500DD7015 /* SR_FoundMainImageViewCell.m */; };
 		CBCF4F871D36958800DD7015 /* SR_FoundMainVoiceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCF4F861D36958800DD7015 /* SR_FoundMainVoiceViewCell.m */; };
 		CBCF4F8A1D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCF4F891D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m */; };
@@ -256,6 +257,8 @@
 		CBAF19071D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageSendDialogMineViewCell.m; path = Application/SR_Mine/SR_MineMessageSendDialogMineViewCell.m; sourceTree = "<group>"; };
 		CBAF19091D421C6200DC0997 /* SR_MessageDialogLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MessageDialogLabel.h; path = Application/SR_Mine/SR_MessageDialogLabel.h; sourceTree = "<group>"; };
 		CBAF190A1D421C6200DC0997 /* SR_MessageDialogLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MessageDialogLabel.m; path = Application/SR_Mine/SR_MessageDialogLabel.m; sourceTree = "<group>"; };
+		CBB69E611D781F4D006DC86D /* SR_FoundMainHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainHeaderViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainHeaderViewCell.h; sourceTree = "<group>"; };
+		CBB69E621D781F4D006DC86D /* SR_FoundMainHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainHeaderViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainHeaderViewCell.m; sourceTree = "<group>"; };
 		CBCF4F821D367F3500DD7015 /* SR_FoundMainImageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainImageViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainImageViewCell.h; sourceTree = "<group>"; };
 		CBCF4F831D367F3500DD7015 /* SR_FoundMainImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainImageViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainImageViewCell.m; sourceTree = "<group>"; };
 		CBCF4F851D36958800DD7015 /* SR_FoundMainVoiceViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainVoiceViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainVoiceViewCell.h; sourceTree = "<group>"; };
@@ -824,6 +827,8 @@
 			children = (
 				CBE47E061D40A1950046C89C /* SR_FoundMainDynamicViewCell.h */,
 				CBE47E071D40A1950046C89C /* SR_FoundMainDynamicViewCell.m */,
+				CBB69E611D781F4D006DC86D /* SR_FoundMainHeaderViewCell.h */,
+				CBB69E621D781F4D006DC86D /* SR_FoundMainHeaderViewCell.m */,
 			);
 			name = BookClub;
 			sourceTree = "<group>";
@@ -1289,6 +1294,7 @@
 				846C6DE31D44B06D00401A35 /* SR_ActionSheetImageLayout.m in Sources */,
 				CBE47E181D40BC1C0046C89C /* SR_RecordMainTagButton.m in Sources */,
 				CB186EF81D72C61A00C16705 /* SR_MineMessageFrameModel.m in Sources */,
+				CBB69E631D781F4D006DC86D /* SR_FoundMainHeaderViewCell.m in Sources */,
 				CB95AD881D6961E600BAA77B /* AVHeaderRefresh.m in Sources */,
 				CBCF4F841D367F3500DD7015 /* SR_FoundMainImageViewCell.m in Sources */,
 				CBE47E081D40A1950046C89C /* SR_FoundMainDynamicViewCell.m in Sources */,
