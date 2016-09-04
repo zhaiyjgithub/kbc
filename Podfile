@@ -23,6 +23,7 @@ target ‘scanreader’ do
   pod 'DDQRCode', '~> 1.0.0'
   pod 'MBProgressHUD', '~> 1.0.0'
   pod 'MJRefresh'
+  pod 'JFImagePicker'
 end
 
 

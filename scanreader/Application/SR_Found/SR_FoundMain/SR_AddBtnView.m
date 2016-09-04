@@ -31,7 +31,7 @@
         btn.frame = CGRectMake(20,45 + i * (18 + boarder), 60,18);
         [btn setTitle:titles[i] forState:(UIControlStateNormal)];
         [btn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-        [btn setImage:[UIImage imageNamed:@"oathu1"] forState:(UIControlStateNormal)];
+        [btn setImage:[UIImage imageNamed:@"oathu2"] forState:(UIControlStateNormal)];
         [btn addTarget:self action:@selector(clickBtn:) forControlEvents:(UIControlEventTouchUpInside)];
         btn.tag = i;
         [self addSubview:btn];

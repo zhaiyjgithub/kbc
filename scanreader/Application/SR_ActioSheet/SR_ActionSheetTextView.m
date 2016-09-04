@@ -14,6 +14,8 @@
 #import "httpTools.h"
 #import "UserInfo.h"
 
+#define ALERT_VIEW_TAG_DISMIESS (-1)
+
 @implementation SR_ActionSheetTextView
 
 - (id)initActionSheetWith:(NSString *)title text:(NSString *)text{
@@ -66,19 +68,23 @@
     
     UIButton * cancelBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     cancelBtn.frame = CGRectMake(15, self.sendBtn.frame.origin.y, 44, sizeHeight(44));
-    [cancelBtn setTitle:@"取消" forState:(UIControlStateNormal)];
+    [cancelBtn setTitle:@"完成" forState:(UIControlStateNormal)];
     [cancelBtn setTitleColor:baseColor forState:(UIControlStateNormal)];
     [cancelBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateHighlighted)];
-    [cancelBtn addTarget:self action:@selector(dismiss) forControlEvents:(UIControlEventTouchUpInside)];
+    [cancelBtn addTarget:self action:@selector(clcikCancelBtn) forControlEvents:(UIControlEventTouchUpInside)];
     self.cancelBtn = cancelBtn;
     [self addSubview:cancelBtn];
+}
+
+- (void)clcikCancelBtn{
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
 }
 
 - (void)show{
     self.handerView = [UIButton buttonWithType:(UIButtonTypeCustom)];
     _handerView.frame = [UIScreen mainScreen].bounds;
     _handerView.backgroundColor = [UIColor clearColor];
-    [_handerView addTarget:self action:@selector(dismiss) forControlEvents:(UIControlEventTouchUpInside)];
+    [_handerView addTarget:self action:@selector(clickHandleView) forControlEvents:(UIControlEventTouchUpInside)];
     [_handerView addSubview:self];
     
     UIWindow * window = [UIApplication sharedApplication].keyWindow;
@@ -99,6 +105,20 @@
     } completion:^(BOOL finished) {
         [self.handerView removeFromSuperview];
     }];
+}
+
+- (void)clickHandleView{
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"是否放弃已编辑的内容" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alertView.tag = ALERT_VIEW_TAG_DISMIESS;
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == ALERT_VIEW_TAG_DISMIESS) {
+        if (buttonIndex == 1) {
+            [self dismiss];
+        }
+    }
 }
 
 - (void)clickBtn:(UIButton *)btn{

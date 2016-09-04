@@ -17,8 +17,9 @@
 #import <MBProgressHUD.h>
 #import "UserInfo.h"
 #import <YYKit/YYKit.h>
+#import "SR_ModifyNickNameViewController.h"
 
-@interface SR_MineViewController ()<UIActionSheetDelegate>
+@interface SR_MineViewController ()<UIActionSheetDelegate,modifyNickNameViewControllerDelegate>
 @property(nonatomic,strong)UIImageView * headerImageView;
 @end
 
@@ -56,11 +57,9 @@
     __weak typeof(self) weakSelf = self;
     [cell addBlock:^(UIButton *btn) {
         if (btn.tag == 103) {
-            weakSelf.hidesBottomBarWhenPushed = YES;
             SR_MineMessageListViewController * messageListVC = [[SR_MineMessageListViewController alloc] init];
             [weakSelf.navigationController pushViewController:messageListVC animated:YES
              ];
-            weakSelf.hidesBottomBarWhenPushed = NO;
         }else if (btn.tag == 100 || btn.tag == 101){
             NSString * isPublic = [UserInfo getUserPublic];
             if ([isPublic isEqualToString:@"1"]) {
@@ -78,6 +77,14 @@
     cell.levelabel.text = [NSString stringWithFormat:@"等级: %@级",[UserInfo getUserLevel]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
+    SR_ModifyNickNameViewController * updateVC = [[SR_ModifyNickNameViewController alloc] init];
+    updateVC.delegate = self;
+    [self.navigationController pushViewController:updateVC animated:YES];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -137,6 +144,10 @@
     }
 }
 
+- (void)updateNickName{
+    [self.tableView reloadData];
+}
+
 - (void)updateUserInfo:(NSDictionary *)info{
     NSString * userId = [UserInfo getUserId];
     NSString * userToken = [UserInfo getUserToken];
@@ -149,7 +160,6 @@
     } failure:^(NSError *error) {
         
     }];
-    
 }
 
 - (void)updateHeaderImageView{

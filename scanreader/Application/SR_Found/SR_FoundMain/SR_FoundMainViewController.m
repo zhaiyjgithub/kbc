@@ -380,6 +380,7 @@
     }else if (tag == 1){
         SR_ActionSheetImageView * imageView = [[SR_ActionSheetImageView alloc] initActionSheetWith:nil images:nil viewController:self];
         imageView.delegate = self;
+        imageView.viewController = self;
         imageView.requestType = NOTE_REQUSERT_TYPE_SAVE;
         [imageView show];
     }else{

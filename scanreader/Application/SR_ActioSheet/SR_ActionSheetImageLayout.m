@@ -19,8 +19,8 @@
         self.numberOfColumns = 2;
         self.interItemSpacing = 5.0f; //设置左边距
         self.interItemBottomSpacing = 5.0f;//设置底部间距
-        CGFloat interItemWidth = (kScreenWidth - 30 - (self.interItemSpacing * (self.numberOfColumns + 1)))/self.numberOfColumns;
-        self.interItemHeight = (interItemWidth/kImageScale);
+        CGFloat interItemWidth = (int)(kScreenWidth - 30 - (self.interItemSpacing * (self.numberOfColumns + 1)))/self.numberOfColumns;
+        self.interItemHeight = (int)(interItemWidth/kImageScale);
     }
     return self;
 }
@@ -35,7 +35,7 @@
     self.headerLayout = [NSMutableDictionary dictionary];
     
     CGFloat currentColum = 0;
-    CGFloat interItemWidth = (kScreenWidth - 30 - (self.interItemSpacing * (self.numberOfColumns + 1)))/self.numberOfColumns;
+    CGFloat interItemWidth = (int)(kScreenWidth - 30 - (self.interItemSpacing * (self.numberOfColumns + 1)))/self.numberOfColumns;
     self.layoutAttributes = [NSMutableDictionary dictionary];
     NSInteger numOfSection = [self.collectionView numberOfSections];
     for (int i = 0 ; i < numOfSection; i ++) {
@@ -69,8 +69,8 @@
 }
 
 - (CGSize)collectionViewContentSize{
-    CGFloat interItemWidth = (kScreenWidth - 30 - (self.interItemSpacing * (self.numberOfColumns + 1)))/self.numberOfColumns;
-    CGFloat interItemHeight = (interItemWidth/kImageScale);
+    CGFloat interItemWidth = (int)(kScreenWidth - 30 - (self.interItemSpacing * (self.numberOfColumns + 1)))/self.numberOfColumns;
+    CGFloat interItemHeight = (int)(interItemWidth/kImageScale);
     NSInteger numberOfItems = [self.collectionView numberOfItemsInSection:0];
     return CGSizeMake(kScreenWidth - 30, (numberOfItems/2)*(self.interItemBottomSpacing + interItemHeight) + (numberOfItems%2)*(interItemHeight + self.interItemBottomSpacing) + 15);
 }

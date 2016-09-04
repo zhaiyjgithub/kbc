@@ -17,6 +17,7 @@
         self.noteImageView = [[UIImageView alloc] init];
         self.noteImageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
         self.noteImageView.userInteractionEnabled = YES;
+        //self.noteImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.contentView addSubview:self.noteImageView];
         
         UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(longPressNoteImageView)];

@@ -146,12 +146,18 @@
         [self.voicebgView addSubview:voiceBtn];
         
         UIButton * deleteBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        deleteBtn.frame  = CGRectMake(0, 0, 17, 17);
+        deleteBtn.frame  = CGRectMake(0, 0, 30, 30);
         deleteBtn.center = CGPointMake(barView.frame.origin.x + barView.frame.size.width - 4, barView.frame.origin.y);
         deleteBtn.tag = i;
-        [deleteBtn setImage:[UIImage imageNamed:@"zbj_del"] forState:(UIControlStateNormal)];
         [deleteBtn addTarget:self action:@selector(clickDeleteBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+        deleteBtn.backgroundColor = [UIColor redColor];
         [self.voicebgView addSubview:deleteBtn];
+        
+        UIImageView * voiceImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"zbj_del"]];
+        voiceImageView.frame = CGRectMake(0, 0, 17, 17);
+        voiceImageView.center = deleteBtn.center;
+        [self.voicebgView addSubview:voiceImageView];
+
     }
     
     

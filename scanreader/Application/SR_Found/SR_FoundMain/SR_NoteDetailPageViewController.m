@@ -22,7 +22,7 @@
 #import <MBProgressHUD.h>
 #import <SVProgressHUD.h>
 
-@interface SR_NoteDetailPageViewController ()<textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate>
+@interface SR_NoteDetailPageViewController ()<textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate,UIAlertViewDelegate>
 @property(nonatomic,assign)CGFloat cellHeight;
 @property(nonatomic,strong)AVPlayer * remotePlayer;
 @property(nonatomic,strong)SR_ActionSheetTextView * actionSheetTextView;
@@ -156,7 +156,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell addDeleteBtnblock:^(NSInteger tag) {
             SSLog(@"delete tag:%ld",tag);
-            [weakSelf deleteResource:tag];
+            [weakSelf showDeleteAlertView:tag];
         }];
 
         return cell;
@@ -209,6 +209,18 @@
     [self.remotePlayer play];
 }
 
+- (void)showDeleteAlertView:(NSInteger)index{
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"是否删除这个资源" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alertView.tag = index;
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        [self deleteResource:alertView.tag - 100];
+    }
+}
+
 - (void)deleteResource:(NSInteger)index{
     NSString * userId = [UserInfo getUserId];
     NSString * userToken = [UserInfo getUserToken];
@@ -226,6 +238,7 @@
             [itemJsons addObject:itemJson];
         }
         //重新计算高度
+        self.noteModel.resourceList = itemJsons;
         if ([self.noteModel.type isEqualToString:NOTE_TYPE_TEXT]) {
             CGSize contentSize = [self.noteModel.content sizeForFont:[UIFont systemFontOfSize:14.0] size:CGSizeMake(kScreenWidth - 30, MAXFLOAT) mode:(NSLineBreakByWordWrapping)];
             self.cellHeight = contentSize.height + 10 + 135;
@@ -234,7 +247,6 @@
         }else if ([self.noteModel.type isEqualToString:NOTE_TYPE_VOICE]){
             self.cellHeight =  (90)*self.noteModel.resourceList.count + 135;
         }
-        self.noteModel.resourceList = itemJsons;
         [self.tableView reloadData];
 
     } failure:^(NSError *error) {

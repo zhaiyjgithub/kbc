@@ -14,7 +14,7 @@
 - (void)clickTextViewSendBtn:(NSString *)title text:(NSString *)text;
 @end
 
-@interface SR_ActionSheetTextView : UIView<UITextFieldDelegate>
+@interface SR_ActionSheetTextView : UIView<UITextFieldDelegate,UIAlertViewDelegate>
 @property(nonatomic,strong)UIButton * handerView;
 @property(nonatomic,weak)id<textViewSendBtnDelegate>delegate;
 @property(nonatomic,copy)NSString * articleTitle;

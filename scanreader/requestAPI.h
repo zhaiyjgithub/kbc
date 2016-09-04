@@ -61,5 +61,7 @@
 
 #define UPDATE_NOTE @"/api/note/update"
 #define GET_NOTE_ONE @"/api/note/getOne"
+#define DELETE_SESSION_MESSAGE_LIST @"/api/message/delete"
+#define CLEAR_ALL_MESSAGE @"/api/message/deleteAll"
 
 #endif /* requestAPI_h */

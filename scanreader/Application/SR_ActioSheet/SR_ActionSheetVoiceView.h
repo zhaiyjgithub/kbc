@@ -36,6 +36,9 @@
 @property(nonatomic,copy)NSString * book_id;
 @property(nonatomic,copy)NSString * requestType;
 @property(nonatomic,strong)NSMutableArray * filePathsDataSource;
+@property(nonatomic,strong)NSTimer * voiceTimer;
+@property(nonatomic,assign)NSInteger voiceTimeLength;
+@property(nonatomic,strong)NSMutableArray * voiceTimeLengthArray;
 
 - (id)initActionSheetWith:(NSString *)title voices:(NSArray *)voices viewController:(UIViewController *)viewController;
 - (void)show;

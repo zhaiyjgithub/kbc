@@ -14,7 +14,7 @@
 - (void)clickImageViewSendBtn:(NSString *)title images:(NSArray *)images;
 @end
 
-@interface SR_ActionSheetImageView : UIView<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITextFieldDelegate>
+@interface SR_ActionSheetImageView : UIView<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITextFieldDelegate,UIAlertViewDelegate>
 @property(nonatomic,strong)UIButton * handerView;
 @property(nonatomic,weak)id<imageViewSendBtnDelegate>delegate;
 @property(nonatomic,copy)NSString * articleTitle;

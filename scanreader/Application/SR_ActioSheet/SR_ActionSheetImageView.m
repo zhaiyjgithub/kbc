@@ -16,11 +16,13 @@
 #import "UserInfo.h"
 #import "requestAPI.h"
 #import "httpTools.h"
+#import <JFImagePickerController.h>
 
+#define ALERT_VIEW_TAG_DISMIESS (-1)
 
 static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
 
-@interface SR_ActionSheetImageView ()<UIAlertViewDelegate>
+@interface SR_ActionSheetImageView ()<UIAlertViewDelegate,JFImagePickerDelegate>
 @end
 
 @implementation SR_ActionSheetImageView
@@ -99,7 +101,7 @@ static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
     self.handerView = [UIButton buttonWithType:(UIButtonTypeCustom)];
     _handerView.frame = [UIScreen mainScreen].bounds;
     _handerView.backgroundColor = [UIColor clearColor];
-    [_handerView addTarget:self action:@selector(dismiss) forControlEvents:(UIControlEventTouchUpInside)];
+    [_handerView addTarget:self action:@selector(clickHandleView) forControlEvents:(UIControlEventTouchUpInside)];
     [_handerView addSubview:self];
     
     UIWindow * window = [UIApplication sharedApplication].keyWindow;
@@ -120,6 +122,12 @@ static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
     } completion:^(BOOL finished) {
         [self.handerView removeFromSuperview];
     }];
+}
+
+- (void)clickHandleView{
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"是否放弃已编辑的内容" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alertView.tag = ALERT_VIEW_TAG_DISMIESS;
+    [alertView show];
 }
 
 - (void)clickSendBtn:(UIButton *)btn{
@@ -183,23 +191,59 @@ static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
             self.handerView.hidden = NO;
             self.hidden = NO;
             [self.articleImages addObject:image];
-            
-            NSIndexPath * indexpath = [NSIndexPath indexPathForRow:self.articleImages.count - 1 inSection:0];
-            [self.collectionView insertItemsAtIndexPaths:@[indexpath]];
-            [self.collectionView scrollToItemAtIndexPath:indexpath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
+            [self.collectionView reloadData];
+//            NSIndexPath * indexpath = [NSIndexPath indexPathForRow:self.articleImages.count - 1 inSection:0];
+//            [self.collectionView insertItemsAtIndexPaths:@[indexpath]];
+//            [self.collectionView scrollToItemAtIndexPath:indexpath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
         }];
     }else{
-        [[PhotoPickerTool sharedPhotoPickerTool] showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceTypePhotoLibrary) onViewController:self.viewController compled:^(UIImage *image, NSDictionary *editingInfo) {
-            self.handerView.enabled = YES;
-            self.handerView.hidden = NO;
-            self.hidden = NO;
-            [self.articleImages addObject:image];
-            
-            NSIndexPath * indexpath = [NSIndexPath indexPathForRow:self.articleImages.count - 1 inSection:0];
-            [self.collectionView insertItemsAtIndexPaths:@[indexpath]];
-            [self.collectionView scrollToItemAtIndexPath:indexpath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
+//        [[PhotoPickerTool sharedPhotoPickerTool] showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceTypePhotoLibrary) onViewController:self.viewController compled:^(UIImage *image, NSDictionary *editingInfo) {
+//            self.handerView.enabled = YES;
+//            self.handerView.hidden = NO;
+//            self.hidden = NO;
+//            [self.articleImages addObject:image];
+//            
+//            NSIndexPath * indexpath = [NSIndexPath indexPathForRow:self.articleImages.count - 1 inSection:0];
+//            [self.collectionView insertItemsAtIndexPaths:@[indexpath]];
+//            [self.collectionView scrollToItemAtIndexPath:indexpath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
+//        }];
+        //跳转到图库
+        [self pickPhotos];
+    }
+}
+
+- (void)pickPhotos{
+    JFImagePickerController *picker = [[JFImagePickerController alloc] initWithRootViewController:nil];
+    picker.pickerDelegate = self;
+    [self.viewController presentViewController:picker animated:YES completion:nil];
+}
+
+#pragma mark - ImagePicker Delegate
+
+- (void)imagePickerDidFinished:(JFImagePickerController *)picker{
+    for (ALAsset *asset in picker.assets) {
+        [[JFImageManager sharedManager] thumbWithAsset:asset resultHandler:^(UIImage *result) {
+            SSLog(@"image size:%@",NSStringFromCGSize(result.size));
+            if (result.size.height != 75) {
+                [self.articleImages addObject:result];
+                SSLog(@"images count:%d",self.articleImages.count);
+                [self imagePickerDidCancel:picker];
+                self.handerView.enabled = YES;
+                self.handerView.hidden = NO;
+                self.hidden = NO;
+                [self.collectionView reloadData];
+            }
         }];
     }
+    
+}
+
+- (void)imagePickerDidCancel:(JFImagePickerController *)picker{
+    self.handerView.enabled = YES;
+    self.handerView.hidden = NO;
+    self.hidden = NO;
+    [self.collectionView reloadData];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -228,15 +272,23 @@ static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1) {
-        NSInteger row = alertView.tag;
-        NSIndexPath * indexpath = [NSIndexPath indexPathForRow:row inSection:0];
-        [self.articleImages removeObjectAtIndex:row];
-        [self.collectionView deleteItemsAtIndexPaths:@[indexpath]];
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.collectionView reloadData];
-        });
+    if (alertView.tag == ALERT_VIEW_TAG_DISMIESS) {
+        if (buttonIndex == 1) {
+            [self.articleImages removeAllObjects];
+            [self dismiss];
+        }
+    }else{
+        if (buttonIndex == 1) {
+            NSInteger row = alertView.tag;
+            NSIndexPath * indexpath = [NSIndexPath indexPathForRow:row inSection:0];
+            [self.articleImages removeObjectAtIndex:row];
+            [self.collectionView deleteItemsAtIndexPaths:@[indexpath]];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.collectionView reloadData];
+            });
+        }
+
     }
 }
 

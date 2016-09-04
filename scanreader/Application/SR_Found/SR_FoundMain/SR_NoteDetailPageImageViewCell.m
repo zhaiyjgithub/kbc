@@ -116,15 +116,26 @@
         YYAnimatedImageView * resouceImageView = [[YYAnimatedImageView alloc] init];
         resouceImageView.frame = CGRectMake(0, i*(280 + 10), 280, 280);
         [resouceImageView setImageWithURL:[NSURL URLWithString:resourceModel.path] placeholder:nil];
+        resouceImageView.userInteractionEnabled = YES;
+        resouceImageView.tag = 100 + i;
         [self.imagebgView addSubview:resouceImageView];
         
-        UIButton * deleteBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        deleteBtn.frame  = CGRectMake(0, 0, 17, 17);
-        deleteBtn.center = CGPointMake(resouceImageView.frame.origin.x + resouceImageView.frame.size.width, resouceImageView.frame.origin.y);
-        deleteBtn.tag = i;
-        [deleteBtn setImage:[UIImage imageNamed:@"zbj_del"] forState:(UIControlStateNormal)];
-        [deleteBtn addTarget:self action:@selector(clickDeleteBtn:) forControlEvents:(UIControlEventTouchUpInside)];
-        [self.imagebgView addSubview:deleteBtn];
+        UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickDeleteBtn:)];
+        [resouceImageView addGestureRecognizer:gesture];
+        
+//        UIButton * deleteBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+//        deleteBtn.frame  = CGRectMake(0, 0, 30, 30);
+//        deleteBtn.center = CGPointMake(resouceImageView.frame.origin.x + resouceImageView.frame.size.width, resouceImageView.frame.origin.y);
+//        deleteBtn.tag = i;
+//        [deleteBtn addTarget:self action:@selector(clickDeleteBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+//        deleteBtn.backgroundColor = [UIColor redColor];
+//        [self.imagebgView addSubview:deleteBtn];
+//        
+//        UIImageView * voiceImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"zbj_del"]];
+//        voiceImageView.frame = CGRectMake(0, 0, 17, 17);
+//        voiceImageView.center = deleteBtn.center;
+//        [self.imagebgView addSubview:voiceImageView];
+
         
     }
     if (!noteModel.page || [noteModel.page isEqualToString:@"null"]) {
@@ -146,9 +157,9 @@
     ;
 }
 
-- (void)clickDeleteBtn:(UIButton *)deleteBtn{
+- (void)clickDeleteBtn:(UIGestureRecognizer *)gesture{
     if (self.deleteBtnBlock) {
-        self.deleteBtnBlock(deleteBtn.tag);
+        self.deleteBtnBlock(gesture.view.tag);
     }
 }
 

@@ -15,6 +15,8 @@
 #import "httpTools.h"
 #import <SVProgressHUD.h>
 
+#define ALERT_VIEW_TAG_DISMIESS  (-1)
+
 @implementation SR_ActionSheetVoiceView
 - (id)initActionSheetWith:(NSString *)title voices:(NSArray *)voices viewController:(UIViewController *)viewController{
     self = [super init];
@@ -68,9 +70,9 @@
     btn.backgroundColor = baseColor;
     btn.layer.cornerRadius = 35.0;
     [btn setTitle:@"按住" forState:(UIControlStateNormal)];
-    [btn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
+    [btn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [btn setTitle:@"松开" forState:(UIControlStateHighlighted)];
-    [btn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateHighlighted)];
+    [btn setTitleColor:[UIColor whiteColor] forState:(UIControlStateHighlighted)];
     [btn addTarget:self action:@selector(clickVoice) forControlEvents:(UIControlEventTouchUpInside)];
     [btn addTarget:self action:@selector(touchdown) forControlEvents:(UIControlEventTouchDown)];
     self.voiceBtn = btn;
@@ -78,8 +80,8 @@
     
     UIButton * sendBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     sendBtn.frame = CGRectMake(kScreenWidth - 12 - 44, 10, 44, 44);
-    [sendBtn setTitle:@"发布" forState:(UIControlStateNormal)];
-    [sendBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
+    [sendBtn setTitle:@"发送" forState:(UIControlStateNormal)];
+    [sendBtn setTitleColor:baseColor forState:(UIControlStateNormal)];
     [sendBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateHighlighted)];
     [sendBtn addTarget:self action:@selector(clickSendBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [voiceView addSubview:sendBtn];
@@ -145,13 +147,22 @@
     }];
 }
 
+- (void)CountvoiceTimeLength{
+    self.voiceTimeLength +=1;
+}
+
 ///录制最多1min
 - (void)addTimer{
     self.timer = [NSTimer scheduledTimerWithTimeInterval:59 target:self selector:@selector(timeout) userInfo:nil repeats:YES];
+    self.voiceTimeLength = 0;
+    self.voiceTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(CountvoiceTimeLength) userInfo:nil repeats:YES];
 }
 
 - (void)removeTimer{
     [self.timer invalidate];
+    [self.voiceTimer invalidate];
+    NSString * voiceTimeLength = [[NSString alloc] initWithFormat:@"%d",self.voiceTimeLength];
+    [self.voiceTimeLengthArray addObject:voiceTimeLength];
 }
 
 //录制超时
@@ -256,6 +267,8 @@
     if (!cell) {
         cell = [[SR_ActionSheetVoiceViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
     }
+    NSString * voiceTimeLength = [NSString stringWithFormat:@"%@s",self.voiceTimeLengthArray[indexPath.row]];
+    [cell.voiceBtn setTitle:voiceTimeLength forState:(UIControlStateNormal)];
     __weak typeof(self) weakSelf = self;
     [cell addBlock:^(UIButton *btn) {
         if (btn.tag == 0) {
@@ -282,17 +295,25 @@
 }
 
 - (void)showDeleteAlertViewWithRow:(NSInteger)row{
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"要删除这条语音笔记吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"要删除这条语音笔记吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     alertView.tag = row;
     [alertView show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex) {
-        //删除本地
-        [self deleteFile:self.filePathsDataSource[alertView.tag]];
-        [self.filePathsDataSource removeObjectAtIndex:alertView.tag];
-        [self.tableView reloadData];
+    if (alertView.tag == ALERT_VIEW_TAG_DISMIESS) {
+        //如果确定丢弃已编辑内容
+        if (buttonIndex == 1) {
+            [self dismiss];
+        }
+    }else{
+        if (buttonIndex) {
+            //删除本地
+            [self deleteFile:self.filePathsDataSource[alertView.tag]];
+            [self.filePathsDataSource removeObjectAtIndex:alertView.tag];
+            [self.voiceTimeLengthArray removeObjectAtIndex:alertView.tag];
+            [self.tableView reloadData];
+        }
     }
 }
 
@@ -300,7 +321,7 @@
     self.handerView = [UIButton buttonWithType:(UIButtonTypeCustom)];
     _handerView.frame = [UIScreen mainScreen].bounds;
     _handerView.backgroundColor = [UIColor clearColor];
-    [_handerView addTarget:self action:@selector(dismiss) forControlEvents:(UIControlEventTouchUpInside)];
+    [_handerView addTarget:self action:@selector(clickHandleView) forControlEvents:(UIControlEventTouchUpInside)];
     [_handerView addSubview:self];
     
     UIWindow * window = [UIApplication sharedApplication].keyWindow;
@@ -314,8 +335,14 @@
     }];
 }
 
+- (void)clickHandleView{
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"是否放弃已编辑的内容" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alertView.tag = ALERT_VIEW_TAG_DISMIESS;
+    [alertView show];
+}
+
 - (void)dismiss{
-    //如果上传失败，还要删除本地的语音
+        //如果上传失败，还要删除本地的语音
     for (NSString * filePath in self.filePathsDataSource) {
         [self deleteFile:filePath];
     }
@@ -443,6 +470,11 @@
     return _filePathsDataSource;
 }
 
-
+- (NSMutableArray *)voiceTimeLengthArray{
+    if (!_voiceTimeLengthArray) {
+        _voiceTimeLengthArray = [[NSMutableArray alloc] init];
+    }
+    return _voiceTimeLengthArray;
+}
 
 @end

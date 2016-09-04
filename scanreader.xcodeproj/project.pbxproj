@@ -96,6 +96,7 @@
 		CBEEABE01D6B4524005B1C2B /* SR_FoundSearchNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEEABDF1D6B4524005B1C2B /* SR_FoundSearchNoteViewController.m */; };
 		CBEEABE31D6B4723005B1C2B /* SR_FoundSearchInterPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEEABE21D6B4723005B1C2B /* SR_FoundSearchInterPageViewController.m */; };
 		CBEEABE61D6B48C2005B1C2B /* SR_FoundSearchBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEEABE51D6B48C2005B1C2B /* SR_FoundSearchBookViewController.m */; };
+		CBF156E31D7ACD39005D1424 /* SR_ModifyNickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF156E21D7ACD39005D1424 /* SR_ModifyNickNameViewController.m */; };
 		CBFEA9041D35F4F5007276B6 /* SR_TabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9031D35F4F5007276B6 /* SR_TabbarViewController.m */; };
 		CBFEA90A1D35F576007276B6 /* SR_BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9091D35F576007276B6 /* SR_BaseTableViewController.m */; };
 		CBFEA9111D35F691007276B6 /* SR_FoundMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEA9101D35F691007276B6 /* SR_FoundMainViewController.m */; };
@@ -311,6 +312,8 @@
 		CBEEABE21D6B4723005B1C2B /* SR_FoundSearchInterPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundSearchInterPageViewController.m; path = Application/SR_Search/SR_FoundSearchInterPageViewController.m; sourceTree = "<group>"; };
 		CBEEABE41D6B48C2005B1C2B /* SR_FoundSearchBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundSearchBookViewController.h; path = Application/SR_Search/SR_FoundSearchBookViewController.h; sourceTree = "<group>"; };
 		CBEEABE51D6B48C2005B1C2B /* SR_FoundSearchBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundSearchBookViewController.m; path = Application/SR_Search/SR_FoundSearchBookViewController.m; sourceTree = "<group>"; };
+		CBF156E11D7ACD39005D1424 /* SR_ModifyNickNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ModifyNickNameViewController.h; path = Application/SR_Mine/SR_ModifyNickNameViewController.h; sourceTree = "<group>"; };
+		CBF156E21D7ACD39005D1424 /* SR_ModifyNickNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_ModifyNickNameViewController.m; path = Application/SR_Mine/SR_ModifyNickNameViewController.m; sourceTree = "<group>"; };
 		CBFEA9021D35F4F5007276B6 /* SR_TabbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_TabbarViewController.h; path = Base/Controller/SR_TabbarViewController.h; sourceTree = "<group>"; };
 		CBFEA9031D35F4F5007276B6 /* SR_TabbarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_TabbarViewController.m; path = Base/Controller/SR_TabbarViewController.m; sourceTree = "<group>"; };
 		CBFEA9081D35F576007276B6 /* SR_BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_BaseTableViewController.h; path = Base/Controller/SR_BaseTableViewController.h; sourceTree = "<group>"; };
@@ -754,6 +757,8 @@
 				CB719F351D3742CB005F5CFB /* SR_MineMessageListViewController.m */,
 				CB0F0C0B1D3DDDD200F60E5C /* SR_MineMessageSendViewController.h */,
 				CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */,
+				CBF156E11D7ACD39005D1424 /* SR_ModifyNickNameViewController.h */,
+				CBF156E21D7ACD39005D1424 /* SR_ModifyNickNameViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1257,6 +1262,7 @@
 				CB95AD871D6961E600BAA77B /* AVFooterRefresh.m in Sources */,
 				CB95AD8B1D6961E600BAA77B /* UIView+AVFrameExtension.m in Sources */,
 				CBAF190B1D421C6200DC0997 /* SR_MessageDialogLabel.m in Sources */,
+				CBF156E31D7ACD39005D1424 /* SR_ModifyNickNameViewController.m in Sources */,
 				CB95AD8A1D6961E600BAA77B /* UIScrollView+AVRefreshExtension.m in Sources */,
 				84AE3DD41D4366B500643989 /* SR_ScanResultNoneBookViewController.m in Sources */,
 				84AE3DD11D43634E00643989 /* SR_ScanResultHasBookViewController.m in Sources */,
