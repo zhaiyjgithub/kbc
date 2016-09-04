@@ -40,7 +40,7 @@
     childVc.tabBarItem.image = [UIImage imageNamed:imageName];
     childVc.tabBarItem.selectedImage = [[UIImage imageNamed:selectImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
   
-    [childVc.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:baseColor,NSForegroundColorAttributeName,nil] forState:(UIControlStateSelected)];
+    [childVc.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:baseColor,NSForegroundColorAttributeName,[UIFont systemFontOfSize:15.0],NSFontAttributeName,nil] forState:(UIControlStateSelected)];
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:childVc];
     [self addChildViewController:nav];

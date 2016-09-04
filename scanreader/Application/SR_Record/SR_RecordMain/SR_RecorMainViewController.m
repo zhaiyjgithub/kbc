@@ -23,6 +23,7 @@
 #import "SR_MineViewController.h"
 #import "SR_OthersMineViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import <MJRefresh.h>
 
 @interface SR_RecorMainViewController ()
 @property(nonatomic,assign)NSInteger selectedTagIndex;
@@ -31,6 +32,7 @@
 @property(nonatomic,strong)NSMutableArray * scanList;
 @property(nonatomic,assign)NSInteger collectionPageIndex;
 @property(nonatomic,assign)NSInteger notePageIndex;
+@property(nonatomic,assign)NSInteger scanPageIndex;
 @property(nonatomic,strong)AVPlayer * remotePlayer;
 @end
 
@@ -43,10 +45,32 @@
     self.tableView.av_footer = [AVFooterRefresh footerRefreshWithScrollView:self.tableView footerRefreshingBlock:^{
         [self loadData];
     }];
+    [self addHeaderRefresh];
+}
 
+- (void)addHeaderRefresh{
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    header.automaticallyChangeAlpha = YES;
+    header.lastUpdatedTimeLabel.hidden = YES;
+    [header beginRefreshing];
+    self.tableView.mj_header = header;
+}
+
+- (void)loadNewData
+{
+    [self.noteList removeAllObjects];
+    [self.collectionList removeAllObjects];
+    [self.scanList removeAllObjects];
+    
+    self.collectionPageIndex = 0;
+    self.notePageIndex = 0;
+    self.scanPageIndex = 0;
     [self getListAll:PAGE_NUM pageIndex:self.notePageIndex mode:NOTE_MODE_NOTE];//暂时只获取笔记列表
     [self getListAll:PAGE_NUM pageIndex:self.collectionPageIndex mode:NOTE_MODE_COLLECTION];//暂时只获取收藏列表
 }
+
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -311,6 +335,7 @@
         self.notePageIndex = (self.noteList.count/PAGE_NUM) + (self.noteList.count%PAGE_NUM > 0 ? 1 : 0);
         self.collectionPageIndex = (self.collectionList.count/PAGE_NUM) + (self.collectionList.count%PAGE_NUM > 0 ? 1 : 0);
         [self.tableView.av_footer endFooterRefreshing];
+        [self.tableView.mj_header endRefreshing];
         [self.tableView reloadData];
         //区分不同类型的笔记进行不同model的转换
     } failure:^(NSError *error) {

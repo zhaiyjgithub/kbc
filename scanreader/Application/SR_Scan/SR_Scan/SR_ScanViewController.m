@@ -34,6 +34,7 @@
 @property (nonatomic, strong) UIButton *cameraButton;
 //拍照
 @property (nonatomic, strong) UIButton *takePhotoButton;
+@property(nonatomic,strong)AVPlayer * localPlayer;
 @end
 
 @implementation SR_ScanViewController{
@@ -138,6 +139,9 @@
     if (!metadataOutputFlag) {
         return;
     }
+    NSURL * soundUrl = [[NSBundle mainBundle] URLForResource:@"sound.caf" withExtension:nil];
+    self.localPlayer = [[AVPlayer alloc] initWithURL:soundUrl];
+    [self.localPlayer play];
     if (metadataObjects.count>0) {
         AVMetadataMachineReadableCodeObject *metadataObject = [metadataObjects objectAtIndex :0];
 #ifndef FACE
