@@ -21,6 +21,8 @@
 #import "SR_ActionSheetVoiceView.h"
 #import <MBProgressHUD.h>
 #import <SVProgressHUD.h>
+#import "SR_InterPageListModel.h"
+#import "SR_InterPageDetailViewController.h"
 
 @interface SR_NoteDetailPageViewController ()<textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate,UIAlertViewDelegate>
 @property(nonatomic,assign)CGFloat cellHeight;
@@ -142,6 +144,22 @@
         cell.noteModel = self.noteModel;
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        __weak typeof(self) weakSelf = self;
+        [cell addInterBtnBlock:^{
+            SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+            interPageModel.content = @"";
+            interPageModel.pageId = weakSelf.noteModel.page.page_id;
+            interPageModel.member_total = weakSelf.noteModel.member_total;
+            interPageModel.note_total = weakSelf.noteModel.note_total;
+            interPageModel.picture = @"";
+            interPageModel.time_create = weakSelf.noteModel.time_create;
+            interPageModel.time_create = weakSelf.noteModel.time_create;
+            SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+            interPageDetailVC.pageListModel = interPageModel;
+            weakSelf.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+            weakSelf.hidesBottomBarWhenPushed = NO;
+        }];
         return cell;
     }else if ([self.noteModel.type isEqualToString:NOTE_TYPE_PIX]){
         NSString * cellId = @"SR_NoteDetailPageImageViewCell";
@@ -158,9 +176,23 @@
             SSLog(@"delete tag:%ld",tag);
             [weakSelf showDeleteAlertView:tag];
         }];
-
+        [cell addInterBtnBlock:^{
+            SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+            interPageModel.content = @"";
+            interPageModel.pageId = weakSelf.noteModel.page.page_id;
+            interPageModel.member_total = weakSelf.noteModel.member_total;
+            interPageModel.note_total = weakSelf.noteModel.note_total;
+            interPageModel.picture = @"";
+            interPageModel.time_create = weakSelf.noteModel.time_create;
+            interPageModel.time_create = weakSelf.noteModel.time_create;
+            SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+            interPageDetailVC.pageListModel = interPageModel;
+            weakSelf.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+            weakSelf.hidesBottomBarWhenPushed = NO;
+        }];
         return cell;
-    }else{
+    }else if ([self.noteModel.type isEqualToString:NOTE_TYPE_VOICE]){
         NSString * cellId = @"SR_NoteDetailPageVoiceViewCell";
         SR_NoteDetailPageVoiceViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
@@ -179,6 +211,49 @@
             SSLog(@"delete tag:%ld",tag);
             [weakSelf deleteResource:tag];
         }];
+        
+        [cell addInterBtnBlock:^{
+            SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+            interPageModel.content = @"";
+            interPageModel.pageId = weakSelf.noteModel.page.page_id;
+            interPageModel.member_total = weakSelf.noteModel.member_total;
+            interPageModel.note_total = weakSelf.noteModel.note_total;
+            interPageModel.picture = @"";
+            interPageModel.time_create = weakSelf.noteModel.time_create;
+            interPageModel.time_create = weakSelf.noteModel.time_create;
+            SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+            interPageDetailVC.pageListModel = interPageModel;
+            weakSelf.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+            weakSelf.hidesBottomBarWhenPushed = NO;
+        }];
+
+        return cell;
+    }else{
+        NSString * cellId = @"SR_NoteDetailPageTextViewCell";
+        SR_NoteDetailPageTextViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[SR_NoteDetailPageTextViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+        }
+        cell.noteModel = self.noteModel;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        __weak typeof(self) weakSelf = self;
+        [cell addInterBtnBlock:^{
+            SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+            interPageModel.content = @"";
+            interPageModel.pageId = weakSelf.noteModel.page.page_id;
+            interPageModel.member_total = weakSelf.noteModel.member_total;
+            interPageModel.note_total = weakSelf.noteModel.note_total;
+            interPageModel.picture = @"";
+            interPageModel.time_create = weakSelf.noteModel.time_create;
+            interPageModel.time_create = weakSelf.noteModel.time_create;
+            SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+            interPageDetailVC.pageListModel = interPageModel;
+            weakSelf.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+            weakSelf.hidesBottomBarWhenPushed = NO;
+        }];
         return cell;
     }
 }
@@ -194,13 +269,13 @@
         resourceModel.resource_id = item[@"id"];
         [self.dataSource addObject:resourceModel];
     }
-    if ([noteModel.type isEqualToString:NOTE_TYPE_TEXT]) {
-        CGSize contentSize = [noteModel.content sizeForFont:[UIFont systemFontOfSize:14.0] size:CGSizeMake(kScreenWidth - 30, MAXFLOAT) mode:(NSLineBreakByWordWrapping)];
-        self.cellHeight = contentSize.height + 10 + 135;
-    }else if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){
+    if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){
         self.cellHeight =  (280 + 10)*noteModel.resourceList.count + 135;
     }else if ([noteModel.type isEqualToString:NOTE_TYPE_VOICE]){
         self.cellHeight =  (90)*noteModel.resourceList.count + 135;
+    }else{
+        CGSize contentSize = [noteModel.content sizeForFont:[UIFont systemFontOfSize:14.0] size:CGSizeMake(kScreenWidth - 30, MAXFLOAT) mode:(NSLineBreakByWordWrapping)];
+        self.cellHeight = contentSize.height + 10 + 135;
     }
 }
 

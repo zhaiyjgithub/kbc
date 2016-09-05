@@ -10,6 +10,7 @@
 #import "SR_BookClubBookNoteModel.h"
 
 typedef void(^noteDetailPageImageViewCellDeleteBtnBlock)(NSInteger tag);
+typedef void(^noteDetailPageImageViewCellInterBtnBlock)(void);
 
 @interface SR_NoteDetailPageImageViewCell : UITableViewCell
 @property(nonatomic,strong)UILabel * titleLabel;
@@ -24,6 +25,9 @@ typedef void(^noteDetailPageImageViewCellDeleteBtnBlock)(NSInteger tag);
 @property(nonatomic,strong)UILabel * noMoreVoiceTipsLabel;
 @property(nonatomic,strong)NSMutableArray * resourceList;
 @property(nonatomic,strong)noteDetailPageImageViewCellDeleteBtnBlock deleteBtnBlock;
+@property(nonatomic,strong)noteDetailPageImageViewCellInterBtnBlock interBtnBlock;
 @property(nonatomic,strong)SR_BookClubBookNoteModel * noteModel;
 - (void)addDeleteBtnblock:(noteDetailPageImageViewCellDeleteBtnBlock)block;
+- (void)addInterBtnBlock:(noteDetailPageImageViewCellInterBtnBlock)block;
+
 @end

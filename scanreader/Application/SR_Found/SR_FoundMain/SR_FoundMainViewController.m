@@ -43,6 +43,8 @@
 
 #import "SR_InterPageViewController.h"
 #import <MJRefresh.h>
+#import "SR_InterPageListModel.h"
+#import "SR_InterPageDetailViewController.h"
 
 @interface SR_FoundMainViewController ()<addBtnDelegate,UIAlertViewDelegate,textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate>
 @property(nonatomic,assign)BOOL isSelectBookClub;
@@ -137,7 +139,7 @@
         }else if ([noteModel.type isEqualToString:NOTE_TYPE_VOICE]){
             return 180;
         }else{
-            return 146;
+            return 106;
         }
     }
 }
@@ -182,6 +184,22 @@
                     weakSelf.hidesBottomBarWhenPushed = NO;
                 }
             }];
+            [cell addInterBlock:^{
+                SR_BookClubBookNoteModel * noteModel = weakSelf.dynamicInfos[indexPath.row];
+                SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+                interPageModel.content = @"";
+                interPageModel.pageId = noteModel.page.page_id;
+                interPageModel.member_total = noteModel.member_total;
+                interPageModel.note_total = noteModel.note_total;
+                interPageModel.picture = @"";
+                interPageModel.time_create = noteModel.time_create;
+                interPageModel.time_create = noteModel.time_create;
+                SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+                interPageDetailVC.pageListModel = interPageModel;
+                weakSelf.hidesBottomBarWhenPushed = YES;
+                [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+                weakSelf.hidesBottomBarWhenPushed = NO;
+            }];
             return cell;
         }else if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){//图片
             NSString * cellId = @"SR_FoundMainImageViewCell";
@@ -205,6 +223,22 @@
                     [weakSelf.navigationController pushViewController:otherVC animated:YES];
                     weakSelf.hidesBottomBarWhenPushed = NO;
                 }
+            }];
+            [cell addInterBlock:^{
+                SR_BookClubBookNoteModel * noteModel = weakSelf.dynamicInfos[indexPath.row];
+                SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+                interPageModel.content = @"";
+                interPageModel.pageId = noteModel.page.page_id;
+                interPageModel.member_total = noteModel.member_total;
+                interPageModel.note_total = noteModel.note_total;
+                interPageModel.picture = @"";
+                interPageModel.time_create = noteModel.time_create;
+                interPageModel.time_create = noteModel.time_create;
+                SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+                interPageDetailVC.pageListModel = interPageModel;
+                weakSelf.hidesBottomBarWhenPushed = YES;
+                [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+                weakSelf.hidesBottomBarWhenPushed = NO;
             }];
             return cell;
 
@@ -232,8 +266,20 @@
                 }
             }];
             [cell addInterBlock:^{
-                SR_InterPageViewController * interPaageVC = [[SR_InterPageViewController alloc] init];
-                [weakSelf.navigationController pushViewController:interPaageVC animated:YES];
+                SR_BookClubBookNoteModel * noteModel = weakSelf.dynamicInfos[indexPath.row];
+                SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+                interPageModel.content = @"";
+                interPageModel.pageId = noteModel.page.page_id;
+                interPageModel.member_total = noteModel.member_total;
+                interPageModel.note_total = noteModel.note_total;
+                interPageModel.picture = @"";
+                interPageModel.time_create = noteModel.time_create;
+                interPageModel.time_create = noteModel.time_create;
+                SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+                interPageDetailVC.pageListModel = interPageModel;
+                weakSelf.hidesBottomBarWhenPushed = YES;
+                [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+                weakSelf.hidesBottomBarWhenPushed = NO;
             }];
             
             [cell addVoiceBtnBlock:^(NSString *voiceUrl) {
@@ -246,6 +292,7 @@
             if (!cell) {
                 cell = [[SR_FoundMainCollectionViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
             }
+            cell.noteModel = self.dynamicInfos[indexPath.row];
             __weak typeof(self) weakSelf = self;
             [cell addBlock:^{
                 if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
@@ -261,6 +308,22 @@
                     [weakSelf.navigationController pushViewController:otherVC animated:YES];
                     weakSelf.hidesBottomBarWhenPushed = NO;
                 }
+            }];
+            [cell addInterBlock:^{
+                SR_BookClubBookNoteModel * noteModel = weakSelf.dynamicInfos[indexPath.row];
+                SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+                interPageModel.content = @"";
+                interPageModel.pageId = noteModel.page.page_id;
+                interPageModel.member_total = noteModel.member_total;
+                interPageModel.note_total = noteModel.note_total;
+                interPageModel.picture = @"";
+                interPageModel.time_create = noteModel.time_create;
+                interPageModel.time_create = noteModel.time_create;
+                SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+                interPageDetailVC.pageListModel = interPageModel;
+                weakSelf.hidesBottomBarWhenPushed = YES;
+                [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+                weakSelf.hidesBottomBarWhenPushed = NO;
             }];
            
             return cell;
@@ -468,6 +531,9 @@
             noteModel.note_id = item[@"id"];
             if ([item[@"book"] isKindOfClass:[NSDictionary class]]) {
                 noteModel.book.book_id = item[@"book"][@"id"];
+            }
+            if ([item[@"page"] isKindOfClass:[NSDictionary class]]) {
+                noteModel.page.page_id = item[@"page"][@"id"];
             }
             noteModel.user.user_id = item[@"user"][@"id"];
             [self.dynamicInfos addObject:noteModel];

@@ -119,11 +119,11 @@
     NSDate * createData = [NSDate dateWithTimeIntervalSince1970:noteModel.time_create];
     NSString * time = [NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
     self.timeLabel.text = time;
-    [self.subtitleButton setTitle:noteModel.page forState:(UIControlStateNormal)];
+    [self.subtitleButton setTitle:noteModel.page.title forState:(UIControlStateNormal)];
     self.messageLabel.text = [NSString stringWithFormat:@"互动(%@)",noteModel.note_total];
     self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",noteModel.member_total];
     [self.headerImageView setImageWithURL:[NSURL URLWithString:noteModel.user.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
-    if (!noteModel.page || [noteModel.page isEqualToString:@"null"]) {
+    if (!noteModel.page) {
         self.subtitleImageView.hidden = YES;
         self.subtitleButton.hidden = YES;
     }

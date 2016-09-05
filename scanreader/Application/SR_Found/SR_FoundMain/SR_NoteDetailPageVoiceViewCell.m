@@ -100,7 +100,13 @@
 }
 
 - (void)clickInterBtn{
-    SSLog(@"click inter btn");
+    if (self.interBtnBlock) {
+        self.interBtnBlock();
+    }
+}
+
+- (void)addInterBtnBlock:(noteDetailPageVoiceViewCellInterBtnBlock)block{
+    self.interBtnBlock = block;
 }
 
 - (void)setNoteModel:(SR_BookClubBookNoteModel *)noteModel{
@@ -161,7 +167,7 @@
     }
     
     
-    if (!noteModel.page || [noteModel.page isEqualToString:@"null"]) {
+    if (!noteModel.page) {
         self.subtitleImageView.hidden = YES;
         self.subtitleButton.hidden = YES;
     }
@@ -174,7 +180,7 @@
     self.bookFriendsLabel.frame =CGRectMake(self.bookFriendsView.frame.origin.x + self.bookFriendsView.frame.size.width + 10, self.bookFriendsView.frame.origin.y, 64, 17);
     
     
-    [self.subtitleButton setTitle:noteModel.page forState:(UIControlStateNormal)];
+    [self.subtitleButton setTitle:noteModel.page.title forState:(UIControlStateNormal)];
     self.messageLabel.text = [NSString stringWithFormat:@"互动(%@)",noteModel.note_total];
     self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",noteModel.member_total];
     ;

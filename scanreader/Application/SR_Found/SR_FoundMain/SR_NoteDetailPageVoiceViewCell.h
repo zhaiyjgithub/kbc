@@ -11,6 +11,7 @@
 
 typedef void(^noteDetailPageVoiceViewCellVoiceBtnBlock)(NSString * filePath);
 typedef void(^noteDetailPageVoiceViewCellDeleteBtnBlock)(NSInteger tag);
+typedef void(^noteDetailPageVoiceViewCellInterBtnBlock)(void);
 
 @interface SR_NoteDetailPageVoiceViewCell : UITableViewCell
 @property(nonatomic,strong)UILabel * titleLabel;
@@ -27,7 +28,9 @@ typedef void(^noteDetailPageVoiceViewCellDeleteBtnBlock)(NSInteger tag);
 @property(nonatomic,strong)UILabel * noMoreVoiceTipsLabel;
 @property(nonatomic,strong)noteDetailPageVoiceViewCellVoiceBtnBlock voiceBtnblock;
 @property(nonatomic,strong)noteDetailPageVoiceViewCellDeleteBtnBlock deleteBtnBlock;
+@property(nonatomic,strong)noteDetailPageVoiceViewCellInterBtnBlock interBtnBlock;
 - (void)addVoicBtnblock:(noteDetailPageVoiceViewCellVoiceBtnBlock)block;
 - (void)addDeleteBtnblock:(noteDetailPageVoiceViewCellDeleteBtnBlock)block;
+- (void)addInterBtnBlock:(noteDetailPageVoiceViewCellInterBtnBlock)block;
 
 @end

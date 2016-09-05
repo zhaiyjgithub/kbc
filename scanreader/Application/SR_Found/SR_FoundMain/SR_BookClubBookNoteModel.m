@@ -20,6 +20,12 @@
 
 @end
 
+@implementation SR_BookClubNotePageModel
+
+
+
+@end
+
 @implementation SR_BookClubBookNoteModel
 
 @end

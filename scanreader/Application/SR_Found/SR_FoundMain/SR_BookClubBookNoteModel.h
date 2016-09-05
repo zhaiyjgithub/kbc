@@ -32,6 +32,13 @@
 @property(nonatomic,copy)NSString * username;
 @end
 
+@interface SR_BookClubNotePageModel : NSObject
+@property(nonatomic,copy)NSString * page_id;
+@property(nonatomic,copy)NSString * member_total;
+@property(nonatomic,copy)NSString * note_total;
+@property(nonatomic,copy)NSString * title;
+@end
+
 @interface SR_BookClubBookNoteModel : SR_BaseModel
 @property(nonatomic,copy)NSString * note_id;
 @property(nonatomic,copy)NSString * title;
@@ -42,6 +49,6 @@
 @property(nonatomic,copy)NSString * member_total;
 @property(nonatomic,strong)SR_BookClubNoteUserModel * user;
 @property(nonatomic,strong)SR_BookClubNoteBookModel * book;
-@property(nonatomic,copy)NSString * page;
+@property(nonatomic,strong)SR_BookClubNotePageModel * page;
 @property(nonatomic,copy)NSMutableArray * resourceList;
 @end

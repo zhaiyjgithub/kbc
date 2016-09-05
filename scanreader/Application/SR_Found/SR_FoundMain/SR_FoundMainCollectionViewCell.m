@@ -8,6 +8,8 @@
 
 #import "SR_FoundMainCollectionViewCell.h"
 #import "globalHeader.h"
+#import "NSString+JJ.h"
+#import "NSDate+JJ.h"
 
 @implementation SR_FoundMainCollectionViewCell
 
@@ -73,15 +75,34 @@
     self.bookFriendsLabel.font = [UIFont systemFontOfSize:12.0];
     [self.contentView addSubview:self.bookFriendsLabel];
     
-    self.headerBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    self.headerBtn.frame = CGRectMake(0, 0, 48, 48);
-    self.headerBtn.center = CGPointMake(kScreenWidth - 36, 54);
-    self.headerBtn.layer.cornerRadius = 24;
-    self.headerBtn.backgroundColor = [UIColor redColor];
-    [self.headerBtn addTarget:self action:@selector(clickHeaderBtn) forControlEvents:(UIControlEventTouchUpInside)];
-    [self.contentView addSubview:self.headerBtn];
+    self.headerImageView = [[YYAnimatedImageView alloc] init];
+    self.headerImageView.frame = CGRectMake(0, 0, 48, 48);
+    self.headerImageView.center = CGPointMake(kScreenWidth - 36, 54);
+    self.headerImageView.layer.cornerRadius = 24;
+    self.headerImageView.layer.masksToBounds = YES;
+    self.headerImageView.backgroundColor = [UIColor redColor];
+    [self.contentView addSubview:self.headerImageView];
     
-}   // Configure the view for the selected state
+    UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickHeaderBtn)];
+    self.headerImageView.userInteractionEnabled = YES;
+    [self.headerImageView addGestureRecognizer:gesture];
+    
+}   // Configure the view for the selected state、
+
+- (void)setNoteModel:(SR_BookClubBookNoteModel *)noteModel{
+    _noteModel = noteModel;
+    NSDate * createData = [NSDate dateWithTimeIntervalSince1970:noteModel.time_create];
+    NSString * time = [NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
+    self.timeLabel.text = time;
+    [self.subtitleButton setTitle:noteModel.page.title forState:(UIControlStateNormal)];
+    self.messageLabel.text = [NSString stringWithFormat:@"互动(%@)",noteModel.note_total];
+    self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",noteModel.member_total];
+    [self.headerImageView setImageWithURL:[NSURL URLWithString:noteModel.user.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
+    if (!noteModel.page) {
+        self.subtitleImageView.hidden = YES;
+        self.subtitleButton.hidden = YES;
+    }
+}
 
 - (void)clickHeaderBtn{
     SSLog(@"click header btn");
