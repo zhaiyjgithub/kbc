@@ -22,6 +22,7 @@
 
 @interface SR_FoundMainBookClubBookNoteListViewController ()<textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate,addBtnDelegate>
 @property(nonatomic,strong)UIButton * floatBtn;
+@property(nonatomic,assign)NSInteger bookClubNotePageIndex;
 @end
 
 @implementation SR_FoundMainBookClubBookNoteListViewController
@@ -30,7 +31,7 @@
     [super viewDidLoad];
     self.title = @"笔记列表";
     [self.view addSubview:self.floatBtn];
-    [self getBookMarkList:@"70" page:@"1"];
+    [self getBookMarkList:PAGE_NUM pageIndex:self.bookClubNotePageIndex];
 }
 
 
@@ -60,19 +61,22 @@
 - (void)clickTextViewSendBtn:(NSString *)title text:(NSString *)text{
     SSLog(@"title:%@ content:%@",title,text);
     [self.dataSource removeAllObjects];
-    [self getBookMarkList:@"70" page:@"1"];
+    self.bookClubNotePageIndex = 0;
+    [self getBookMarkList:PAGE_NUM pageIndex:self.bookClubNotePageIndex];
 }
 
 - (void)clickImageViewSendBtn:(NSString *)title images:(NSArray *)images{
     SSLog(@"image title:%@",title);
     [self.dataSource removeAllObjects];
-    [self getBookMarkList:@"70" page:@"1"];
+    self.bookClubNotePageIndex = 0;
+    [self getBookMarkList:PAGE_NUM pageIndex:self.bookClubNotePageIndex];
 }
 
 - (void)clickVoiceViewSendBtn:(NSString *)title text:(NSString *)text{
     SSLog(@"voice title:%@",title);
     [self.dataSource removeAllObjects];
-    [self getBookMarkList:@"70" page:@"1"];
+    self.bookClubNotePageIndex = 0;
+    [self getBookMarkList:PAGE_NUM pageIndex:self.bookClubNotePageIndex];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -115,7 +119,9 @@
     [self.navigationController pushViewController:itemDetailVC animated:YES];
 }
 
-- (void)getBookMarkList:(NSString *)limit page:(NSString *)page{
+- (void)getBookMarkList:(NSInteger)pageNum  pageIndex:(NSInteger)pageIndex{
+    NSString * limit = [NSString stringWithFormat:@"%d",pageNum];
+    NSString * page = [NSString stringWithFormat:@"%d",pageIndex];
     NSString * userId = [UserInfo getUserId];
     NSDictionary * param = @{@"book_id":self.bookModel.book_id,@"user_id":userId,@"mode":@"2",@"limit":limit,@"page":page};
     [httpTools post:GET_NOTE_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
@@ -128,6 +134,7 @@
             noteModel.user.user_id = item[@"user"][@"id"];
             [self.dataSource addObject:noteModel];
         }
+        self.bookClubNotePageIndex = (self.dataSource.count/PAGE_NUM) + (self.dataSource.count%PAGE_NUM > 0 ? 1 : 0);
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         

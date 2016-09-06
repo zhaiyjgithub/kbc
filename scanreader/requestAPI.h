@@ -9,7 +9,7 @@
 #ifndef requestAPI_h
 #define requestAPI_h
 
-#define PAGE_NUM 70
+#define PAGE_NUM 100
 
 #define SEARCH_TYPE_NOTE 1
 #define SEARCH_TYPE_INTER_PAGE 2

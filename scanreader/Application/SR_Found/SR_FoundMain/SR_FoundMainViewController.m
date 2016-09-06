@@ -516,7 +516,7 @@
     NSString * limit = [NSString stringWithFormat:@"%d",pageNum];
     NSString * page = [NSString stringWithFormat:@"%d",pageIndex];
     NSString * userId = [UserInfo getUserId];
-    NSDictionary * param = @{@"user_id":userId,@"limit":limit,@"page":page,@"mode":@"1"};
+    NSDictionary * param = @{@"limit":limit,@"page":page,@"mode":@"1"};
     [httpTools post:GET_NOTE_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
         SSLog(@"get lsit all:%@",dic);
         NSArray * list = dic[@"data"][@"list"];

@@ -25,13 +25,14 @@
 
 - (void)setupView{
     NSArray * titles = @[@"文字",@"拍照",@"语音"];
+    NSArray * imageNames = @[@"hdy_xuanfu_wz",@"hdy_xuanfu_pz",@"hdy_xuanfu_yy"];
     CGFloat boarder = (170 - 90 - 18 * 3)*1.0/2.0;
     for (int i = 0; i < 3; i ++) {
         SR_OAthouButton * btn = [[SR_OAthouButton alloc] initWithType:(BaseButtonTypeLeft) sizeType:(BaseButtonSizeTypeSmall)];
         btn.frame = CGRectMake(20,45 + i * (18 + boarder), 60,18);
         [btn setTitle:titles[i] forState:(UIControlStateNormal)];
         [btn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-        [btn setImage:[UIImage imageNamed:@"oathu2"] forState:(UIControlStateNormal)];
+        [btn setImage:[UIImage imageNamed:imageNames[i]] forState:(UIControlStateNormal)];
         [btn addTarget:self action:@selector(clickBtn:) forControlEvents:(UIControlEventTouchUpInside)];
         btn.tag = i;
         [self addSubview:btn];

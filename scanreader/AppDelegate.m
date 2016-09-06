@@ -28,8 +28,10 @@
     [self.window makeKeyAndVisible];
 
     NSString * phoneNumber = [UserInfo getUserPhoneNumber];
-//    NSString * password = [UserInfo getUserPassword];
-    if (!phoneNumber) {
+    NSString * password = [UserInfo getUserPassword];
+    NSString * userId = [UserInfo getUserId];
+    NSString * token = [UserInfo getUserToken];
+    if (!phoneNumber || !password || !userId || !token) {
         SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
         self.window.rootViewController = loginVC;
     }else{
