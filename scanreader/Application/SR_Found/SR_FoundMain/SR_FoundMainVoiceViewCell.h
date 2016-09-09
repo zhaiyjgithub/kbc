@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SR_BookClubBookNoteModel.h"
+#import <AVFoundation/AVFoundation.h>
 
 typedef void(^foundMainVoiceViewCellBlock)(void);
 typedef void(^foundMainVoiceViewCellInterBlock)(void);

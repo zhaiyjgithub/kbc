@@ -45,7 +45,7 @@
     deleteBtn.frame  = CGRectMake(0, 0, 30, 30);
     deleteBtn.center = CGPointMake(barView.frame.origin.x + barView.frame.size.width - 4, barView.frame.origin.y);
     deleteBtn.tag = 1;
-    deleteBtn.backgroundColor = [UIColor redColor];
+    deleteBtn.backgroundColor = [UIColor clearColor];
     [deleteBtn addTarget:self action:@selector(clickBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.contentView addSubview:deleteBtn];
     

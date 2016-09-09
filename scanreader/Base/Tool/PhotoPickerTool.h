@@ -10,9 +10,10 @@
 #import <UIKit/UIKit.h>
 #import "Singleton.h"
 typedef void(^DidFinishTakeMediaCompledBlock)(UIImage *image, NSDictionary *editingInfo);
+typedef void(^DidCancelBlock)(void);
 @interface PhotoPickerTool : NSObject
 single_interface(PhotoPickerTool)
-
+@property(nonatomic,strong)DidCancelBlock didCancelBlock;
 /**
  *  选择图片选择器
  *
@@ -20,5 +21,5 @@ single_interface(PhotoPickerTool)
  *  @param viewController 控制器
  *  @param compled        回调
  */
-- (void)showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceType)sourceType onViewController:(UIViewController *)viewController compled:(DidFinishTakeMediaCompledBlock)compled;
+- (void)showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceType)sourceType onViewController:(UIViewController *)viewController compled:(DidFinishTakeMediaCompledBlock)compled cancel:(DidCancelBlock)cancel;
 @end

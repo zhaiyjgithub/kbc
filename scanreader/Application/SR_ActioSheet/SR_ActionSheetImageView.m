@@ -195,6 +195,10 @@ static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
 //            NSIndexPath * indexpath = [NSIndexPath indexPathForRow:self.articleImages.count - 1 inSection:0];
 //            [self.collectionView insertItemsAtIndexPaths:@[indexpath]];
 //            [self.collectionView scrollToItemAtIndexPath:indexpath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
+        } cancel:^{
+            self.handerView.enabled = YES;
+            self.handerView.hidden = NO;
+            self.hidden = NO;
         }];
     }else{
 //        [[PhotoPickerTool sharedPhotoPickerTool] showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceTypePhotoLibrary) onViewController:self.viewController compled:^(UIImage *image, NSDictionary *editingInfo) {
@@ -213,7 +217,7 @@ static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
 }
 
 - (void)pickPhotos{
-    JFImagePickerController *picker = [[JFImagePickerController alloc] initWithRootViewController:nil];
+    JFImagePickerController *picker = [[JFImagePickerController alloc] initWithRootViewController:self.viewController];
     picker.pickerDelegate = self;
     [self.viewController presentViewController:picker animated:YES completion:nil];
 }

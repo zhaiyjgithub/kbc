@@ -18,6 +18,7 @@
 #import "UserInfo.h"
 #import <YYKit/YYKit.h>
 #import "SR_ModifyNickNameViewController.h"
+#import <SVProgressHUD.h>
 
 @interface SR_MineViewController ()<UIActionSheetDelegate,modifyNickNameViewControllerDelegate>
 @property(nonatomic,strong)UIImageView * headerImageView;
@@ -124,7 +125,7 @@
 }
 
 - (void)clickHeaderBtn{
-    UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:@"更改头像" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"相机" otherButtonTitles:@"拍照", nil];
+    UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:@"更改头像" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"拍照" otherButtonTitles:@"相册", nil];
     [sheet showInView:self.view];
 }
 
@@ -134,12 +135,16 @@
             UIImage * scaleImage = [self scaleToSize:image size:CGSizeMake(192, 192)];
             self.headerImageView.image = scaleImage;
             [self updateHeaderImageView];
+        } cancel:^{
+            
         }];
     }else if (buttonIndex == 1){
         [[PhotoPickerTool sharedPhotoPickerTool] showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceTypePhotoLibrary) onViewController:self compled:^(UIImage *image, NSDictionary *editingInfo) {
             UIImage * scaleImage = [self scaleToSize:image size:CGSizeMake(192, 192)];
             self.headerImageView.image = scaleImage;
             [self updateHeaderImageView];
+        } cancel:^{
+            
         }];
     }
 }
@@ -167,8 +172,13 @@
     NSString * userToken = [UserInfo getUserToken];
     NSDictionary * param = @{@"user_id":userId,@"user_token":userToken};
     [httpTools uploadHeaderImage:UPDATE_USER_INFO parameters:param images:@[self.headerImageView.image] file:@"avatar" success:^(NSDictionary *dic) {
+        if ([dic[@"status"] isEqualToString:@"-111"]){//你的账号已在其他地方登陆，请重新登陆
+            [UIApplication sharedApplication].keyWindow.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController = [[SR_LoginViewController alloc] init];
+            [SVProgressHUD showInfoWithStatus:@"你的账号已在其他地方登录，请重新登录"];
+        }else{
+            [self getUserInfo];
+        }
         //更新成功之后重新请求个人信息
-        [self getUserInfo];
     } failure:^(NSError *error) {
         
     }];

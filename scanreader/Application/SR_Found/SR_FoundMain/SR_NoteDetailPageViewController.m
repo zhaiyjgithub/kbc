@@ -39,7 +39,12 @@
     self.title = @"笔记详情";
     UIBarButtonItem * editBarItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:(UIBarButtonItemStyleDone) target:self action:@selector(clickEidtItem)];
     UIBarButtonItem * interPageBarItem = [[UIBarButtonItem alloc] initWithTitle:@"互动页" style:(UIBarButtonItemStyleDone) target:self action:@selector(clickinterPageItem)];
-    self.navigationItem.rightBarButtonItems = @[editBarItem,interPageBarItem];
+    //如果看别人的笔记就不会出现编辑窗口
+    if ([self.noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {
+        self.navigationItem.rightBarButtonItems = @[editBarItem,interPageBarItem];
+    }else{
+        self.navigationItem.rightBarButtonItems = @[interPageBarItem];
+    }
 }
 
 - (void)clickEidtItem{
@@ -115,6 +120,7 @@
 }
 
 - (void)clickinterPageItem{
+    self.hidesBottomBarWhenPushed = YES;
     SR_InterPageViewController * vc = [[SR_InterPageViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }

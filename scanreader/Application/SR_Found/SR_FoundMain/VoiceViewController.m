@@ -45,47 +45,52 @@
     [super viewDidLoad];
     self.title = @"录音";
     self.view.backgroundColor = [UIColor whiteColor];
+    //loadHTMLString
+    NSString * htmlString = @"<iframe src=\"http://open.iqiyi.com/developer/player_js/coopPlayerIndex.html?vid=97d6d80dd486ddc99c2150d81dbd4ae5&tvId=3002236009&accessToken=2.f22860a2479ad60d8da7697274de9346&appKey=3955c3425820435e86d0f4cdfe56f5e7&appId=1368&height=100%&width=100%\" frameborder=\"0\" allowfullscreen=\"true\" width=\"100%\" height=\"100%\"></iframe>";
+    UIWebView * webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    [webView loadHTMLString:htmlString baseURL:nil];
+    [self.view addSubview:webView];
     
-    self.playConvertedBtn = [[UIButton alloc] initWithFrame:CGRectMake(50, 100, 60, 40)];
-    [self.playConvertedBtn setTitle:@"后wav" forState:(UIControlStateNormal)];
-    [self.playConvertedBtn addTarget:self action:@selector(playConverted:) forControlEvents:(UIControlEventTouchUpInside)];
-    [self.playConvertedBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
-    [self.view addSubview:self.playConvertedBtn];
-    self.toWavLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 100, 150, 40)];
-    self.toWavLabel.font = [UIFont systemFontOfSize:12.0];
-    self.toWavLabel.text = @"towav";
-    [self.view addSubview:self.toWavLabel];
-    
-    self.recordBtn = [[UIButton alloc] initWithFrame:CGRectMake(50, 160, 60, 40)];
-    [self.recordBtn setTitle:@"录音" forState:(UIControlStateNormal)];
-    [self.recordBtn addTarget:self action:@selector(record:) forControlEvents:(UIControlEventTouchUpInside)];
-    [self.recordBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
-    [self.view addSubview:self.recordBtn];
-    
-    
-    self.playOriginalWavBtn = [[UIButton alloc] initWithFrame:CGRectMake(50, 220, 60, 40)];
-    [self.playOriginalWavBtn setTitle:@"原wav" forState:(UIControlStateNormal)];
-    [self.playOriginalWavBtn addTarget:self action:@selector(playOriginalWav:) forControlEvents:(UIControlEventTouchUpInside)];
-    [self.playOriginalWavBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
-    [self.view addSubview:self.playOriginalWavBtn];
-    
-    self.originalWavLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 220, 150, 40)];
-    self.originalWavLabel.font = [UIFont systemFontOfSize:12.0];
-    self.originalWavLabel.text = @"origin";
-    [self.view addSubview:self.originalWavLabel];
-    
-    self.toAmrLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 280, 150, 40)];
-    self.toAmrLabel.font = [UIFont systemFontOfSize:12.0];
-    self.toAmrLabel.text = @"toamr";
-    [self.view addSubview:self.toAmrLabel];
-    
-    UIButton * uploadBtn = [[UIButton alloc] initWithFrame:CGRectMake(159, 220, 60, 40)];
-    [uploadBtn setTitle:@"upload" forState:(UIControlStateNormal)];
-    [uploadBtn addTarget:self action:@selector(upload) forControlEvents:(UIControlEventTouchUpInside)];
-    [uploadBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
-    [self.view addSubview:uploadBtn];
-    
-    self.player = [[AVAudioPlayer alloc] init];
+//    self.playConvertedBtn = [[UIButton alloc] initWithFrame:CGRectMake(50, 100, 60, 40)];
+//    [self.playConvertedBtn setTitle:@"后wav" forState:(UIControlStateNormal)];
+//    [self.playConvertedBtn addTarget:self action:@selector(playConverted:) forControlEvents:(UIControlEventTouchUpInside)];
+//    [self.playConvertedBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+//    [self.view addSubview:self.playConvertedBtn];
+//    self.toWavLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 100, 150, 40)];
+//    self.toWavLabel.font = [UIFont systemFontOfSize:12.0];
+//    self.toWavLabel.text = @"towav";
+//    [self.view addSubview:self.toWavLabel];
+//    
+//    self.recordBtn = [[UIButton alloc] initWithFrame:CGRectMake(50, 160, 60, 40)];
+//    [self.recordBtn setTitle:@"录音" forState:(UIControlStateNormal)];
+//    [self.recordBtn addTarget:self action:@selector(record:) forControlEvents:(UIControlEventTouchUpInside)];
+//    [self.recordBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+//    [self.view addSubview:self.recordBtn];
+//    
+//    
+//    self.playOriginalWavBtn = [[UIButton alloc] initWithFrame:CGRectMake(50, 220, 60, 40)];
+//    [self.playOriginalWavBtn setTitle:@"原wav" forState:(UIControlStateNormal)];
+//    [self.playOriginalWavBtn addTarget:self action:@selector(playOriginalWav:) forControlEvents:(UIControlEventTouchUpInside)];
+//    [self.playOriginalWavBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+//    [self.view addSubview:self.playOriginalWavBtn];
+//    
+//    self.originalWavLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 220, 150, 40)];
+//    self.originalWavLabel.font = [UIFont systemFontOfSize:12.0];
+//    self.originalWavLabel.text = @"origin";
+//    [self.view addSubview:self.originalWavLabel];
+//    
+//    self.toAmrLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 280, 150, 40)];
+//    self.toAmrLabel.font = [UIFont systemFontOfSize:12.0];
+//    self.toAmrLabel.text = @"toamr";
+//    [self.view addSubview:self.toAmrLabel];
+//    
+//    UIButton * uploadBtn = [[UIButton alloc] initWithFrame:CGRectMake(159, 220, 60, 40)];
+//    [uploadBtn setTitle:@"upload" forState:(UIControlStateNormal)];
+//    [uploadBtn addTarget:self action:@selector(upload) forControlEvents:(UIControlEventTouchUpInside)];
+//    [uploadBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+//    [self.view addSubview:uploadBtn];
+//    
+//    self.player = [[AVAudioPlayer alloc] init];
     
 }
 

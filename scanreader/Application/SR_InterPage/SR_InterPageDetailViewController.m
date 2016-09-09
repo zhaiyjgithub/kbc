@@ -169,6 +169,7 @@
             SR_InterPageDetailItemMoudleListItemModel *  moduleListItemModel = [SR_InterPageDetailItemMoudleListItemModel modelWithDictionary:moduleItemModel];            SR_InterPageTextFrameModel * textFrameModel = [[SR_InterPageTextFrameModel alloc] init];
             textFrameModel.MoudleListItemModel = moduleListItemModel;
             [self.dataSource addObject:textFrameModel];
+            
             SSLog(@"type:%@",moduleListItemModel.type);
         }
         [self.tableView reloadData];

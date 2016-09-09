@@ -19,10 +19,19 @@
 #import "SR_ActionSheetVoiceView.h"
 #import "SR_ActionSheetTextView.h"
 #import "SR_AddBtnView.h"
+#import "SR_OthersMineViewController.h"
+#import "SR_InterPageListModel.h"
+#import "SR_MineViewController.h"
+#import "SR_InterPageDetailViewController.h"
+#import "SR_FoundMainImageViewCell.h"
+#import "SR_FoundMainCollectionViewCell.h"
+#import <AVFoundation/AVFoundation.h>
+#import "SR_NoteDetailPageViewController.h"
 
 @interface SR_FoundMainBookClubBookNoteListViewController ()<textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate,addBtnDelegate>
 @property(nonatomic,strong)UIButton * floatBtn;
 @property(nonatomic,assign)NSInteger bookClubNotePageIndex;
+@property(nonatomic,strong)AVPlayer * remotePlayer;
 @end
 
 @implementation SR_FoundMainBookClubBookNoteListViewController
@@ -101,29 +110,212 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     //还要判断不同类型
-    NSString * cellId = @"SR_FoundMainTextViewCell";
-    SR_FoundMainTextViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    if (!cell) {
-        cell = [[SR_FoundMainTextViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+//    NSString * cellId = @"SR_FoundMainTextViewCell";
+//    SR_FoundMainTextViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+//    if (!cell) {
+//        cell = [[SR_FoundMainTextViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+//    }
+//    cell.noteModel = self.dataSource[indexPath.row];
+//    [cell addBlock:^{
+//        SSLog(@"click header btn");
+//    }];
+//    return cell;
+    //根据type 来区分笔记的类型
+    //        1文字
+    //        2图片
+    //        3语音
+    //        4收藏
+    SR_BookClubBookNoteModel * noteModel = self.dataSource[indexPath.row];
+    if ([noteModel.type isEqualToString:NOTE_TYPE_TEXT]) {//文字信息
+        NSString * cellId = @"SR_FoundMainTextViewCell";
+        SR_FoundMainTextViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[SR_FoundMainTextViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+        }
+        cell.noteModel = self.dataSource[indexPath.row];
+        __weak typeof(self) weakSelf = self;
+        [cell addBlock:^{
+            if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
+                weakSelf.hidesBottomBarWhenPushed = YES;
+                SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+                [weakSelf.navigationController pushViewController:mineVC animated:YES];
+                weakSelf.hidesBottomBarWhenPushed = NO;
+            }else{
+                SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+                weakSelf.hidesBottomBarWhenPushed = YES;
+                SR_BookClubBookNoteModel * noteModel = weakSelf.dataSource[indexPath.row];
+                otherVC.userModel = noteModel.user;
+                [weakSelf.navigationController pushViewController:otherVC animated:YES];
+                weakSelf.hidesBottomBarWhenPushed = NO;
+            }
+        }];
+        [cell addInterBlock:^{
+            SR_BookClubBookNoteModel * noteModel = weakSelf.dataSource[indexPath.row];
+            SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+            interPageModel.content = @"";
+            interPageModel.pageId = noteModel.page.page_id;
+            interPageModel.member_total = noteModel.member_total;
+            interPageModel.note_total = noteModel.note_total;
+            interPageModel.picture = @"";
+            interPageModel.time_create = noteModel.time_create;
+            interPageModel.time_create = noteModel.time_create;
+            SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+            interPageDetailVC.pageListModel = interPageModel;
+            weakSelf.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+            weakSelf.hidesBottomBarWhenPushed = NO;
+        }];
+        return cell;
+    }else if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){//图片
+        NSString * cellId = @"SR_FoundMainImageViewCell";
+        SR_FoundMainImageViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[SR_FoundMainImageViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+        }
+        cell.noteModel = self.dataSource[indexPath.row];
+        __weak typeof(self) weakSelf = self;
+        [cell addBlock:^{
+            if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
+                weakSelf.hidesBottomBarWhenPushed = YES;
+                SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+                [weakSelf.navigationController pushViewController:mineVC animated:YES];
+                weakSelf.hidesBottomBarWhenPushed = NO;
+            }else{
+                SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+                weakSelf.hidesBottomBarWhenPushed = YES;
+                SR_BookClubBookNoteModel * noteModel = weakSelf.dataSource[indexPath.row];
+                otherVC.userModel = noteModel.user;
+                [weakSelf.navigationController pushViewController:otherVC animated:YES];
+                weakSelf.hidesBottomBarWhenPushed = NO;
+            }
+        }];
+        [cell addInterBlock:^{
+            SR_BookClubBookNoteModel * noteModel = weakSelf.dataSource[indexPath.row];
+            SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+            interPageModel.content = @"";
+            interPageModel.pageId = noteModel.page.page_id;
+            interPageModel.member_total = noteModel.member_total;
+            interPageModel.note_total = noteModel.note_total;
+            interPageModel.picture = @"";
+            interPageModel.time_create = noteModel.time_create;
+            interPageModel.time_create = noteModel.time_create;
+            SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+            interPageDetailVC.pageListModel = interPageModel;
+            weakSelf.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+            weakSelf.hidesBottomBarWhenPushed = NO;
+        }];
+        return cell;
+        
+    }else if ([noteModel.type isEqualToString:NOTE_TYPE_VOICE]){//语音
+        NSString * cellId = @"SR_FoundMainVoiceViewCell";
+        SR_FoundMainVoiceViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[SR_FoundMainVoiceViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+        }
+        cell.noteModel = self.dataSource[indexPath.row];
+        __weak typeof(self) weakSelf = self;
+        [cell addBlock:^{
+            if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
+                weakSelf.hidesBottomBarWhenPushed = YES;
+                SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+                [weakSelf.navigationController pushViewController:mineVC animated:YES];
+                weakSelf.hidesBottomBarWhenPushed = NO;
+            }else{
+                SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+                weakSelf.hidesBottomBarWhenPushed = YES;
+                SR_BookClubBookNoteModel * noteModel = weakSelf.dataSource[indexPath.row];
+                otherVC.userModel = noteModel.user;
+                [weakSelf.navigationController pushViewController:otherVC animated:YES];
+                weakSelf.hidesBottomBarWhenPushed = NO;
+            }
+        }];
+        [cell addInterBlock:^{
+            SR_BookClubBookNoteModel * noteModel = weakSelf.dataSource[indexPath.row];
+            SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+            interPageModel.content = @"";
+            interPageModel.pageId = noteModel.page.page_id;
+            interPageModel.member_total = noteModel.member_total;
+            interPageModel.note_total = noteModel.note_total;
+            interPageModel.picture = @"";
+            interPageModel.time_create = noteModel.time_create;
+            interPageModel.time_create = noteModel.time_create;
+            SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+            interPageDetailVC.pageListModel = interPageModel;
+            weakSelf.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+            weakSelf.hidesBottomBarWhenPushed = NO;
+        }];
+        
+        [cell addVoiceBtnBlock:^(NSString *voiceUrl) {
+            [weakSelf playVoiceWithFilePath:voiceUrl];
+        }];
+        return cell;
+    }else{//收藏
+        NSString * cellId = @"SR_FoundMainCollectionViewCell";
+        SR_FoundMainCollectionViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[SR_FoundMainCollectionViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+        }
+        cell.noteModel = self.dataSource[indexPath.row];
+        __weak typeof(self) weakSelf = self;
+        [cell addBlock:^{
+            if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
+                weakSelf.hidesBottomBarWhenPushed = YES;
+                SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+                [weakSelf.navigationController pushViewController:mineVC animated:YES];
+                weakSelf.hidesBottomBarWhenPushed = NO;
+            }else{
+                SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+                weakSelf.hidesBottomBarWhenPushed = YES;
+                SR_BookClubBookNoteModel * noteModel = weakSelf.dataSource[indexPath.row];
+                otherVC.userModel = noteModel.user;
+                [weakSelf.navigationController pushViewController:otherVC animated:YES];
+                weakSelf.hidesBottomBarWhenPushed = NO;
+            }
+        }];
+        [cell addInterBlock:^{
+            SR_BookClubBookNoteModel * noteModel = weakSelf.dataSource[indexPath.row];
+            SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+            interPageModel.content = @"";
+            interPageModel.pageId = noteModel.page.page_id;
+            interPageModel.member_total = noteModel.member_total;
+            interPageModel.note_total = noteModel.note_total;
+            interPageModel.picture = @"";
+            interPageModel.time_create = noteModel.time_create;
+            interPageModel.time_create = noteModel.time_create;
+            SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+            interPageDetailVC.pageListModel = interPageModel;
+            weakSelf.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+            weakSelf.hidesBottomBarWhenPushed = NO;
+        }];
+        
+        return cell;
     }
-    cell.noteModel = self.dataSource[indexPath.row];
-    [cell addBlock:^{
-        SSLog(@"click header btn");
-    }];
-    return cell;
+}
+
+- (void)playVoiceWithFilePath:(NSString *)filePath {
+    self.remotePlayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:filePath]];
+    [self.remotePlayer play];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    SR_FoundMainBookClubItemDetailViewController * itemDetailVC = [[SR_FoundMainBookClubItemDetailViewController alloc] init];
-    [self.navigationController pushViewController:itemDetailVC animated:YES];
+    
+    SR_BookClubBookNoteModel * noteModel = self.dataSource[indexPath.row];
+    SR_NoteDetailPageViewController * noteDetailVC = [[SR_NoteDetailPageViewController alloc] init];
+    noteDetailVC.noteModel = noteModel;
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:noteDetailVC animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
+
 }
 
 - (void)getBookMarkList:(NSInteger)pageNum  pageIndex:(NSInteger)pageIndex{
     NSString * limit = [NSString stringWithFormat:@"%d",pageNum];
     NSString * page = [NSString stringWithFormat:@"%d",pageIndex];
-    NSString * userId = [UserInfo getUserId];
-    NSDictionary * param = @{@"book_id":self.bookModel.book_id,@"user_id":userId,@"mode":@"2",@"limit":limit,@"page":page};
+    NSDictionary * param = @{@"book_id":self.bookModel.book_id,@"mode":@"2",@"limit":limit,@"page":page};
     [httpTools post:GET_NOTE_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
         SSLog(@"%@笔记:%@",self.bookModel.title,dic);
         NSArray * list = dic[@"data"][@"list"];

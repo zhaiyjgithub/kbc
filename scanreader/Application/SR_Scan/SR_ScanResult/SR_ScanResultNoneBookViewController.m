@@ -113,6 +113,8 @@
         [self.images addObject:image];
         [weakSelf.bookImageBtn setImage:image forState:(UIControlStateNormal)];
         [weakSelf.bookImageBtn setTitle:@"" forState:(UIControlStateNormal)];
+    } cancel:^{
+        
     }];
 }
 

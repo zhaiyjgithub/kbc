@@ -101,10 +101,13 @@
 }
 
 - (void)clickSearchItem{
-    self.hidesBottomBarWhenPushed = YES;
-    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
-    [self.navigationController pushViewController:foundVC animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
+//    self.hidesBottomBarWhenPushed = YES;
+//    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
+//    [self.navigationController pushViewController:foundVC animated:YES];
+//    self.hidesBottomBarWhenPushed = NO;
+    
+    VoiceViewController * voice = [[VoiceViewController alloc] init];
+    [self.navigationController pushViewController:voice animated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -137,7 +140,7 @@
         }else if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){
             return 180;
         }else if ([noteModel.type isEqualToString:NOTE_TYPE_VOICE]){
-            return 180;
+            return 150;
         }else{
             return 106;
         }

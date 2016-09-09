@@ -35,27 +35,27 @@
     self.timeLabel.font = [UIFont systemFontOfSize:12.0];
     [self.contentView addSubview:self.timeLabel];
     
-    UIView * barView = [[UIView alloc] initWithFrame:CGRectMake(18, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 20, 210, 42)];
+    UIView * barView = [[UIView alloc] initWithFrame:CGRectMake(18, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 22, 210, 14)];
     barView.backgroundColor = kColor(215, 215, 215);
-    barView.layer.cornerRadius = 21.0;
+    barView.layer.cornerRadius = 7.0;
     self.barView = barView;
     barView.hidden = YES;
     [self.contentView addSubview:barView];
     
     self.voiceBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    self.voiceBtn.frame = CGRectMake(0, 0, 70, 70);
+    self.voiceBtn.frame = CGRectMake(0, 0, 40, 40);
     self.voiceBtn.center = CGPointMake(barView.frame.origin.x + barView.frame.size.width/2, barView.frame.origin.y + barView.frame.size.height/2);
     self.voiceBtn.backgroundColor = baseColor;
-    self.voiceBtn.layer.cornerRadius = 35;
+    self.voiceBtn.layer.cornerRadius = 20;
     [self.voiceBtn addTarget:self action:@selector(clickVoiceBtn) forControlEvents:(UIControlEventTouchUpInside)];
     [self.voiceBtn setTitle:@"语音" forState:(UIControlStateNormal)];
-    self.voiceBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    self.voiceBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
     self.voiceBtn.hidden = YES;
     [self.contentView addSubview:self.voiceBtn];
     
     UILabel * noMoreVoiceTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, barView.frame.size.width, 16)];
     noMoreVoiceTipsLabel.center = barView.center;
-    noMoreVoiceTipsLabel.text = @"没有更多语音笔记，点击右上角添加语音笔记";
+    noMoreVoiceTipsLabel.text = @"没有更多语音笔记，点击添加语音笔记";
     noMoreVoiceTipsLabel.textColor = [UIColor lightGrayColor];
     noMoreVoiceTipsLabel.font = [UIFont systemFontOfSize:14.0];
     noMoreVoiceTipsLabel.textAlignment = NSTextAlignmentLeft;
@@ -123,6 +123,13 @@
     self.messageLabel.text = [NSString stringWithFormat:@"互动(%@)",noteModel.note_total];
     self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",noteModel.member_total];
     [self.headerImageView setImageWithURL:[NSURL URLWithString:noteModel.user.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
+    
+    NSString * voiceUrl = [self.noteModel.resourceList firstObject][@"path"];
+    AVPlayer * avplayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:voiceUrl]];
+    CMTime duartion = avplayer.currentItem.asset.duration;
+    float seconds = CMTimeGetSeconds(duartion);
+    
+    [self.voiceBtn setTitle:[NSString stringWithFormat:@"%.0fs",seconds] forState:(UIControlStateNormal)];
     if (!noteModel.page) {
         self.subtitleImageView.hidden = YES;
         self.subtitleButton.hidden = YES;
@@ -137,6 +144,8 @@
         self.voiceBtn.hidden = YES;
         self.noMoreVoiceTipsLabel.hidden = NO;
     }
+    
+    
 }
 
 - (void)clickVoiceBtn{

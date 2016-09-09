@@ -10,6 +10,8 @@
 #import "globalHeader.h"
 #import "NSDate+JJ.h"
 #import "NSString+JJ.h"
+#import <AVFoundation/AVFoundation.h>
+#import "UserInfo.h"
 
 
 @implementation SR_NoteDetailPageVoiceViewCell
@@ -144,26 +146,41 @@
         voiceBtn.center = CGPointMake((int)(barView.center.x), barView.center.y);
         voiceBtn.backgroundColor = baseColor;
         [voiceBtn setTitle:@"语音" forState:(UIControlStateNormal)];
-        [voiceBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
+        [voiceBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
         voiceBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
         voiceBtn.layer.cornerRadius = 35;
         [voiceBtn addTarget:self action:@selector(clickVoiceBtn:) forControlEvents:(UIControlEventTouchUpInside)];
         voiceBtn.tag = i + 100;
         [self.voicebgView addSubview:voiceBtn];
         
+        SR_BookClubNoteResourceModel * resourcesModel = self.resourceList[i];
+        NSString * voiceUrl = resourcesModel.path;
+        AVPlayer * avplayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:voiceUrl]];
+        CMTime duartion = avplayer.currentItem.asset.duration;
+        float seconds = CMTimeGetSeconds(duartion);
+        
+        [voiceBtn setTitle:[NSString stringWithFormat:@"%.0fs",seconds] forState:(UIControlStateNormal)];
+        
         UIButton * deleteBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
         deleteBtn.frame  = CGRectMake(0, 0, 30, 30);
         deleteBtn.center = CGPointMake(barView.frame.origin.x + barView.frame.size.width - 4, barView.frame.origin.y);
         deleteBtn.tag = i;
         [deleteBtn addTarget:self action:@selector(clickDeleteBtn:) forControlEvents:(UIControlEventTouchUpInside)];
-        deleteBtn.backgroundColor = [UIColor redColor];
+        deleteBtn.backgroundColor = [UIColor clearColor];
         [self.voicebgView addSubview:deleteBtn];
         
         UIImageView * voiceImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"zbj_del"]];
         voiceImageView.frame = CGRectMake(0, 0, 17, 17);
         voiceImageView.center = deleteBtn.center;
         [self.voicebgView addSubview:voiceImageView];
-
+        
+        if ([self.noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {
+            deleteBtn.hidden = NO;
+            voiceImageView.hidden = NO;
+        }else{
+            deleteBtn.hidden = YES;
+            voiceImageView.hidden = YES;
+        }
     }
     
     

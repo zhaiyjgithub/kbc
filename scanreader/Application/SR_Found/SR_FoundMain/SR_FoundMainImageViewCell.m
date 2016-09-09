@@ -37,7 +37,8 @@
     
     self.recordImageView = [[YYAnimatedImageView alloc] init];
     self.recordImageView.frame = CGRectMake(18, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 8, 75, 75);
-    self.recordImageView.backgroundColor = [UIColor redColor];
+    self.recordImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.recordImageView.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubview:self.recordImageView];
     
     self.subtitleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.recordImageView.frame.origin.y + self.recordImageView.frame.size.height + 11, 19, 19)];

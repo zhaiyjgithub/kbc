@@ -23,11 +23,12 @@ single_implementation(PhotoPickerTool) // 此处的单例宏定义不懂其含�
     self.didFinishTakeMediaCompled = nil;
 }
 
-- (void)showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceType)sourceType onViewController:(UIViewController *)viewController compled:(DidFinishTakeMediaCompledBlock)compled {
+- (void)showOnPickerViewControllerSourceType:(UIImagePickerControllerSourceType)sourceType onViewController:(UIViewController *)viewController compled:(DidFinishTakeMediaCompledBlock)compled cancel:(DidCancelBlock)cancel{
     if (![UIImagePickerController isSourceTypeAvailable:sourceType]) {
         compled(nil, nil);
         return;
     }
+    self.didCancelBlock = cancel;
     [viewController.view endEditing:YES];
     self.didFinishTakeMediaCompled = compled;
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
@@ -63,7 +64,7 @@ single_implementation(PhotoPickerTool) // 此处的单例宏定义不懂其含�
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
     if (self.didFinishTakeMediaCompled) {
-        self.didFinishTakeMediaCompled(image, editingInfo);
+        self.didFinishTakeMediaCompled(image, nil);
     }
     [self dismissPickerViewController:picker];
 }
@@ -77,6 +78,10 @@ single_implementation(PhotoPickerTool) // 此处的单例宏定义不懂其含�
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self dismissPickerViewController:picker];
+    if (self.didCancelBlock) {
+        self.didCancelBlock();
+    }
+    
 }
 
 @end

@@ -13,11 +13,11 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.contentView.backgroundColor = [UIColor blueColor];
+        self.contentView.backgroundColor = [UIColor whiteColor];
         self.noteImageView = [[UIImageView alloc] init];
         self.noteImageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
         self.noteImageView.userInteractionEnabled = YES;
-        //self.noteImageView.contentMode = UIViewContentModeScaleAspectFill;
+        self.noteImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:self.noteImageView];
         
         UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(longPressNoteImageView)];

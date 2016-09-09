@@ -37,7 +37,7 @@
     [self.contentView addSubview:self.timeLabel];
     
     self.imagebgView = [[UIView alloc] initWithFrame:CGRectMake((kScreenWidth - 280)/2, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8,280, 280 + 10)];
-    self.imagebgView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.imagebgView.backgroundColor = [UIColor whiteColor];
     self.imagebgView.hidden = YES;
     [self.contentView addSubview:self.imagebgView];
     
@@ -124,6 +124,7 @@
         [resouceImageView setImageWithURL:[NSURL URLWithString:resourceModel.path] placeholder:nil];
         resouceImageView.userInteractionEnabled = YES;
         resouceImageView.tag = 100 + i;
+        resouceImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.imagebgView addSubview:resouceImageView];
         
         UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickDeleteBtn:)];
