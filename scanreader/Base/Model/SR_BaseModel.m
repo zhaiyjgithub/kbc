@@ -7,18 +7,18 @@
 //
 
 #import "SR_BaseModel.h"
+#import "UserInfo.h"
 
 @implementation SR_BaseModel
-+(LKDBHelper *)getUsingLKDBHelper
-{
++(LKDBHelper *)getUsingLKDBHelper{
     static LKDBHelper* db;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString* dbpath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/sr.sqlite"];
-        //NSLog(@"路径:%@",dbpath);
+        NSString * userId = [UserInfo getUserId];
+        NSString * sqlName = [NSString stringWithFormat:@"Documents/sr-%@.sqlite",userId];
+        NSString* dbpath = [NSHomeDirectory() stringByAppendingPathComponent:sqlName];
+        NSLog(@"路径:%@",dbpath);
         db = [[LKDBHelper alloc]initWithDBPath:dbpath];
-        //or
-        //        db = [[LKDBHelper alloc]init];
     });
     return db;
 }

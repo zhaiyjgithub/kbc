@@ -22,6 +22,7 @@
     NSURLRequest* request = [NSURLRequest requestWithURL:requestUrl];//创建NSURLRequest
     UIWebView * webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:webView];
+    webView.scrollView.backgroundColor = [UIColor whiteColor];
     [webView loadRequest:request];
 }
 

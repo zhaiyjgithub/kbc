@@ -67,13 +67,33 @@
     self.navigationItem.rightBarButtonItems = @[mineItem,searchItem];
     
     [self.view addSubview:self.floatBtn];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scanHasBook:) name:SR_NOTI_SCAN_HAS_BOOK object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scanHasBook:) name:SR_NOTI_CREATE_BOOK object:nil];
+
  
     self.tableView.av_footer = [AVFooterRefresh footerRefreshWithScrollView:self.tableView footerRefreshingBlock:^{
         [self loadData];
     }];
-    
     [self addHeaderRefresh];
-    
+}
+
+- (void)scanHasBook:(NSNotification *)noti{
+    NSString * value = noti.userInfo[SR_NOTI_SCAN_HAS_BOOK_KEY_1];
+    if ([value isEqualToString:SR_NOTI_SCAN_HAS_BOOK_KEY_1]) {
+        self.isSelectBookClub = YES;
+        
+    }
+}
+
+- (void)createNewBook:(NSNotification *)noti{
+    NSString * value = noti.userInfo[SR_NOTI_CREATE_BOOK_KEY_1];
+    if ([value isEqualToString:SR_NOTI_CREATE_BOOK_KEY_1]) {
+        self.isSelectBookClub = YES;
+        [self.bookClubs removeAllObjects];
+        self.bookClubPageIndex = 0;
+        [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
+    }
 }
 
 - (void)addHeaderRefresh{
@@ -85,8 +105,7 @@
     self.tableView.mj_header = header;
 }
 
-- (void)loadNewData
-{
+- (void)loadNewData{
     [self.dynamicInfos removeAllObjects];
     [self.bookClubs removeAllObjects];
     self.dynamicInfoPageIndex = 0;
@@ -101,13 +120,10 @@
 }
 
 - (void)clickSearchItem{
-//    self.hidesBottomBarWhenPushed = YES;
-//    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
-//    [self.navigationController pushViewController:foundVC animated:YES];
-//    self.hidesBottomBarWhenPushed = NO;
-    
-    VoiceViewController * voice = [[VoiceViewController alloc] init];
-    [self.navigationController pushViewController:voice animated:YES];
+    self.hidesBottomBarWhenPushed = YES;
+    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
+    [self.navigationController pushViewController:foundVC animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -286,7 +302,7 @@
             }];
             
             [cell addVoiceBtnBlock:^(NSString *voiceUrl) {
-                [weakSelf playVoiceWithFilePath:voiceUrl];
+                [weakSelf playVoiceWithFilePath:voiceUrl row:indexPath.row];
             }];
             return cell;
         }else{//收藏
@@ -407,9 +423,15 @@
     }
 }
 
-- (void)playVoiceWithFilePath:(NSString *)filePath {
-    self.remotePlayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:filePath]];
-    [self.remotePlayer play];
+- (void)playVoiceWithFilePath:(NSString *)filePath row:(int)row{
+    static int lastRow = -1;
+    if (lastRow != row) {
+        self.remotePlayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:filePath]];
+        [self.remotePlayer play];
+        lastRow = row;
+    }else{
+        [self.remotePlayer pause];
+    }
 }
 
 
@@ -563,6 +585,8 @@
             model.book_id = item[@"id"];
             [self.bookClubs addObject:model];
         }
+        [self updateSR_BookClubBookModelToLocal:self.bookClubs];
+        
         self.bookClubPageIndex = (self.bookClubs.count/PAGE_NUM) + (self.bookClubs.count%PAGE_NUM > 0 ? 1 : 0);
         [self.tableView.av_footer endFooterRefreshing];
         [self.tableView.mj_header endRefreshing];
@@ -570,6 +594,19 @@
     } failure:^(NSError *error) {
         SSLog(@"error:%@",error);
     }];
+}
+
+- (void)queryBookClubModelFromLocal{
+    NSArray * models = [SR_BookClubBookModel queryModelWihtWhere:nil orderBy:nil count:0];
+    [self.bookClubs addObjectsFromArray:models];
+    [self.tableView reloadData];
+}
+
+- (void)updateSR_BookClubBookModelToLocal:(NSArray *)dataSource{
+    [LKDBHelper clearTableData:[SR_BookClubBookModel class]];
+    for (SR_BookClubBookModel * model in dataSource){
+        [SR_BookClubBookModel insertModel:model];
+    }
 }
 
 - (NSMutableArray *)bookClubs{
@@ -595,6 +632,10 @@
         [_floatBtn addTarget:self action:@selector(clickFloatBtn) forControlEvents:(UIControlEventTouchUpInside)];
     }
     return _floatBtn;
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 

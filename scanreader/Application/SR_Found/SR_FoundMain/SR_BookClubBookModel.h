@@ -23,4 +23,15 @@
 @property(nonatomic,copy)NSString * time_create;
 @property(nonatomic,copy)NSString * time_publish;
 @property(nonatomic,copy)NSString * title;
+
++ (void)insertModel:(SR_BookClubBookModel *)Model;
++ (NSMutableArray *)queryModelWihtWhere:(id)where
+                                orderBy:(NSString *)order
+                                  count:(NSUInteger)count;
++ (NSMutableArray *)queryModelWihtComplexSQL:(NSString *)SQL;
++ (NSMutableArray *)queryModelWithWhere:(id)key property:(id)property;
++ (void)deleteModel:(id)key property:(id)property;
++ (void)deleteModel:(SR_BookClubBookModel *)model;
+
+
 @end

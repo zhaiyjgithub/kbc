@@ -9,6 +9,6 @@
 #import "SR_BaseTableViewController.h"
 #import "SR_InterPageListModel.h"
 
-@interface SR_InterPageDetailViewController : SR_BaseTableViewController
+@interface SR_InterPageDetailViewController : UIViewController
 @property(nonatomic,strong)SR_InterPageListModel * pageListModel;
 @end

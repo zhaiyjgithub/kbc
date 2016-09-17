@@ -46,4 +46,11 @@
 #define SSLog(...)
 #endif
 
+#define SR_NOTI_SCAN_HAS_BOOK @"SR_NOTI_SCAN_HAS_BOOK"
+#define SR_NOTI_SCAN_HAS_BOOK_KEY_1 @"SR_NOTI_SCAN_HAS_BOOK_KEY_1"
+
+#define SR_NOTI_CREATE_BOOK @"SR_NOTI_CREATE_BOOK"
+#define SR_NOTI_CREATE_BOOK_KEY_1  @"SR_NOTI_CREATE_BOOK_KEY_1"
+
+
 #endif /* globalHeader_h */

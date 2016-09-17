@@ -24,7 +24,7 @@
 		CB03F5911D77288D00D19B0F /* SR_InterPageDetailVideoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB03F5901D77288D00D19B0F /* SR_InterPageDetailVideoViewCell.m */; };
 		CB0408021D77C2E700490862 /* SR_NoteDetailImageUpdateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0408011D77C2E700490862 /* SR_NoteDetailImageUpdateModel.m */; };
 		CB0408051D77C37C00490862 /* SR_NoteDetailVoiceUpdateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0408041D77C37C00490862 /* SR_NoteDetailVoiceUpdateModel.m */; };
-		CB0408081D78115700490862 /* SR_ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0408071D78115700490862 /* SR_ScanViewController.m */; };
+		CB0408081D78115700490862 /* SR_ScanViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB0408071D78115700490862 /* SR_ScanViewController.mm */; };
 		CB04080B1D78119C00490862 /* UIImage+help.m in Sources */ = {isa = PBXBuildFile; fileRef = CB04080A1D78119C00490862 /* UIImage+help.m */; };
 		CB04080E1D78133100490862 /* SR_ScanNetPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB04080D1D78133100490862 /* SR_ScanNetPageViewController.m */; };
 		CB0F0C0D1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0F0C0C1D3DDDD200F60E5C /* SR_MineMessageSendViewController.m */; };
@@ -36,6 +36,11 @@
 		CB186F0B1D730C1400C16705 /* SR_NoteDetailPageImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB186F0A1D730C1400C16705 /* SR_NoteDetailPageImageViewCell.m */; };
 		CB2A65FE1D60B26C006F735B /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65FD1D60B26C006F735B /* UserInfo.m */; };
 		CB32AD871D6DE7AF00CD6D34 /* SR_MineMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB32AD861D6DE7AF00CD6D34 /* SR_MineMessageModel.m */; };
+		CB36A9821D8D6FCE00FD2929 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB36A9811D8D6FCE00FD2929 /* CoreMedia.framework */; };
+		CB36A9851D8D700300FD2929 /* libFftOpencv2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB36A9831D8D700300FD2929 /* libFftOpencv2.a */; };
+		CB36A9861D8D700300FD2929 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB36A9841D8D700300FD2929 /* opencv2.framework */; };
+		CB36A98C1D8D702800FD2929 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB36A9891D8D702800FD2929 /* opencv2.framework */; };
+		CB36A98D1D8D702800FD2929 /* Watermark.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB36A98B1D8D702800FD2929 /* Watermark.mm */; };
 		CB42D0AE1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB42D0AD1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m */; };
 		CB42D0B41D6455B1002A75E5 /* VoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB42D0B31D6455B1002A75E5 /* VoiceViewController.m */; };
 		CB42D0B71D645ABC002A75E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB42D0B61D645ABC002A75E5 /* AVFoundation.framework */; };
@@ -165,7 +170,7 @@
 		CB0408031D77C37C00490862 /* SR_NoteDetailVoiceUpdateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_NoteDetailVoiceUpdateModel.h; path = Application/SR_InterPage/SR_NoteDetailVoiceUpdateModel.h; sourceTree = "<group>"; };
 		CB0408041D77C37C00490862 /* SR_NoteDetailVoiceUpdateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_NoteDetailVoiceUpdateModel.m; path = Application/SR_InterPage/SR_NoteDetailVoiceUpdateModel.m; sourceTree = "<group>"; };
 		CB0408061D78115700490862 /* SR_ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ScanViewController.h; path = Application/SR_Scan/SR_Scan/SR_ScanViewController.h; sourceTree = "<group>"; };
-		CB0408071D78115700490862 /* SR_ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_ScanViewController.m; path = Application/SR_Scan/SR_Scan/SR_ScanViewController.m; sourceTree = "<group>"; };
+		CB0408071D78115700490862 /* SR_ScanViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SR_ScanViewController.mm; path = Application/SR_Scan/SR_Scan/SR_ScanViewController.mm; sourceTree = "<group>"; };
 		CB0408091D78119C00490862 /* UIImage+help.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+help.h"; path = "Base/Category/UIImage+help.h"; sourceTree = "<group>"; };
 		CB04080A1D78119C00490862 /* UIImage+help.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+help.m"; path = "Base/Category/UIImage+help.m"; sourceTree = "<group>"; };
 		CB04080C1D78133100490862 /* SR_ScanNetPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ScanNetPageViewController.h; path = Application/SR_Scan/SR_Scan/SR_ScanNetPageViewController.h; sourceTree = "<group>"; };
@@ -189,6 +194,13 @@
 		CB2A65FD1D60B26C006F735B /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Base/Tool/UserInfo.m; sourceTree = "<group>"; };
 		CB32AD851D6DE7AF00CD6D34 /* SR_MineMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageModel.h; path = Application/SR_Mine/SR_MineMessageModel.h; sourceTree = "<group>"; };
 		CB32AD861D6DE7AF00CD6D34 /* SR_MineMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageModel.m; path = Application/SR_Mine/SR_MineMessageModel.m; sourceTree = "<group>"; };
+		CB36A9811D8D6FCE00FD2929 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		CB36A9831D8D700300FD2929 /* libFftOpencv2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFftOpencv2.a; path = scanreader/Base/Lib/waterMark/libFftOpencv2.a; sourceTree = "<group>"; };
+		CB36A9841D8D700300FD2929 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = scanreader/Base/Lib/waterMark/opencv2.framework; sourceTree = "<group>"; };
+		CB36A9881D8D702800FD2929 /* FftOpencvFun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FftOpencvFun.h; path = Base/Lib/waterMark/FftOpencvFun.h; sourceTree = "<group>"; };
+		CB36A9891D8D702800FD2929 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = Base/Lib/waterMark/opencv2.framework; sourceTree = "<group>"; };
+		CB36A98A1D8D702800FD2929 /* Watermark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Watermark.h; path = Base/Lib/waterMark/Watermark.h; sourceTree = "<group>"; };
+		CB36A98B1D8D702800FD2929 /* Watermark.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Watermark.mm; path = Base/Lib/waterMark/Watermark.mm; sourceTree = "<group>"; };
 		CB42D0AC1D640BFC002A75E5 /* SR_BookClubBookNoteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_BookClubBookNoteModel.h; path = Application/SR_Found/SR_FoundMain/SR_BookClubBookNoteModel.h; sourceTree = "<group>"; };
 		CB42D0AD1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_BookClubBookNoteModel.m; path = Application/SR_Found/SR_FoundMain/SR_BookClubBookNoteModel.m; sourceTree = "<group>"; };
 		CB42D0B21D6455B1002A75E5 /* VoiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VoiceViewController.h; path = Application/SR_Found/SR_FoundMain/VoiceViewController.h; sourceTree = "<group>"; };
@@ -337,6 +349,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB36A9851D8D700300FD2929 /* libFftOpencv2.a in Frameworks */,
+				CB36A9861D8D700300FD2929 /* opencv2.framework in Frameworks */,
+				CB36A98C1D8D702800FD2929 /* opencv2.framework in Frameworks */,
+				CB36A9821D8D6FCE00FD2929 /* CoreMedia.framework in Frameworks */,
 				CB42D0B71D645ABC002A75E5 /* AVFoundation.framework in Frameworks */,
 				CB42D0C81D645AF8002A75E5 /* libopencore-amrnb.a in Frameworks */,
 				CB42D0C91D645AF8002A75E5 /* libopencore-amrwb.a in Frameworks */,
@@ -364,6 +380,9 @@
 		81FA230C74050FFCF49D3A2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB36A9831D8D700300FD2929 /* libFftOpencv2.a */,
+				CB36A9841D8D700300FD2929 /* opencv2.framework */,
+				CB36A9811D8D6FCE00FD2929 /* CoreMedia.framework */,
 				CB42D0B61D645ABC002A75E5 /* AVFoundation.framework */,
 				4F7A3B784229D292DC0FC5F6 /* libPods-scanreader.a */,
 			);
@@ -495,9 +514,21 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		CB36A9871D8D700A00FD2929 /* waterMark */ = {
+			isa = PBXGroup;
+			children = (
+				CB36A9881D8D702800FD2929 /* FftOpencvFun.h */,
+				CB36A9891D8D702800FD2929 /* opencv2.framework */,
+				CB36A98A1D8D702800FD2929 /* Watermark.h */,
+				CB36A98B1D8D702800FD2929 /* Watermark.mm */,
+			);
+			name = waterMark;
+			sourceTree = "<group>";
+		};
 		CB42D0B51D645A96002A75E5 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				CB36A9871D8D700A00FD2929 /* waterMark */,
 				CB95AD7B1D6961E600BAA77B /* AVRefresh */,
 				CB42D0B81D645AF8002A75E5 /* VoiceConvert */,
 			);
@@ -996,7 +1027,7 @@
 				CBFEA9141D35F6F8007276B6 /* SR_ScanMainViewController.h */,
 				CBFEA9151D35F6F8007276B6 /* SR_ScanMainViewController.m */,
 				CB0408061D78115700490862 /* SR_ScanViewController.h */,
-				CB0408071D78115700490862 /* SR_ScanViewController.m */,
+				CB0408071D78115700490862 /* SR_ScanViewController.mm */,
 				CB04080C1D78133100490862 /* SR_ScanNetPageViewController.h */,
 				CB04080D1D78133100490862 /* SR_ScanNetPageViewController.m */,
 			);
@@ -1275,6 +1306,7 @@
 				CBFEA9161D35F6F8007276B6 /* SR_ScanMainViewController.m in Sources */,
 				CB42D0C71D645AF8002A75E5 /* amrFileCodec.mm in Sources */,
 				CBE47DFD1D407DAF0046C89C /* SR_FoundMainImageSelfViewCell.m in Sources */,
+				CB36A98D1D8D702800FD2929 /* Watermark.mm in Sources */,
 				CB32AD871D6DE7AF00CD6D34 /* SR_MineMessageModel.m in Sources */,
 				848DD4921D44FBD00061810F /* SR_ActionSheetVoiceView.m in Sources */,
 				CBFEA9221D35FC15007276B6 /* SR_LoginViewController.m in Sources */,
@@ -1288,7 +1320,7 @@
 				CB186EFB1D72D5BE00C16705 /* SR_MineMessageSendDialogMineSendViewCell.m in Sources */,
 				CBA1542A1D75B611009A619B /* SR_NoteDetailPageVoiceViewCell.m in Sources */,
 				CB854DA31D75DE97000F54CB /* SR_InterPageTitleFrameModel.m in Sources */,
-				CB0408081D78115700490862 /* SR_ScanViewController.m in Sources */,
+				CB0408081D78115700490862 /* SR_ScanViewController.mm in Sources */,
 				848429A71D44993B00855854 /* SR_ActionSheetTextView.m in Sources */,
 				CB63C7AF1D41F141009D40A4 /* SR_MineMessageListViewCell.m in Sources */,
 				CBD1D61F1D363F0400539056 /* SR_AddBtnView.m in Sources */,
@@ -1451,12 +1483,17 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/scanreader/Base/Lib/waterMark",
+				);
 				INFOPLIST_FILE = scanreader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/scanreader/Base/Lib/VoiceConvert/lib",
+					"$(PROJECT_DIR)/scanreader/Base/Lib/waterMark",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jb.scanreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1472,12 +1509,17 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/scanreader/Base/Lib/waterMark",
+				);
 				INFOPLIST_FILE = scanreader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/scanreader/Base/Lib/VoiceConvert/lib",
+					"$(PROJECT_DIR)/scanreader/Base/Lib/waterMark",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jb.scanreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";

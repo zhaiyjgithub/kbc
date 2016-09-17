@@ -14,6 +14,8 @@
 #import "UserInfo.h"
 #import <SVProgressHUD.h>
 #import <MBProgressHUD.h>
+#import "AppDelegate.h"
+#import "globalHeader.h"
 
 @interface SR_ScanResultNoneBookViewController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UIButton * bookImageBtn;
@@ -56,7 +58,7 @@
     [self.bgView addSubview:lineView];
     
     self.bookImageBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    self.bookImageBtn.frame = CGRectMake(0, 0, 125, 150);
+    self.bookImageBtn.frame = CGRectMake(0, 0, 150, 150);
     self.bookImageBtn.center = CGPointMake(kScreenWidth/2, lineView.frame.origin.y + 75 + sizeHeight(38));
     self.bookImageBtn.backgroundColor = [UIColor grayColor];
     [self.bookImageBtn setTitle:@"上传封面" forState:(UIControlStateNormal)];
@@ -139,6 +141,13 @@
         [SVProgressHUD showInfoWithStatus:@"上传成功"];
         [self.navigationController popViewControllerAnimated:YES];
         SSLog(@"upload book image:%@",dic);
+        self.hidesBottomBarWhenPushed = NO;
+        [[NSNotificationCenter defaultCenter] postNotificationName:SR_NOTI_CREATE_BOOK object:nil userInfo:@{SR_NOTI_CREATE_BOOK_KEY_1:@"SR_NOTI_CREATE_BOOK_KEY_1"}];
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        UITabBarController *tabViewController = (UITabBarController *) appDelegate.window.rootViewController;
+        [tabViewController setSelectedIndex:0];
+        //这里发送通知
+
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [SVProgressHUD showInfoWithStatus:@"上传失败"];

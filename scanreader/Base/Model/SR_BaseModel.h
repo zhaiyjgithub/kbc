@@ -10,5 +10,5 @@
 #import "LKDBHelper.h"
 #import <YYKit/YYKit.h>
 @interface SR_BaseModel : NSObject
-
++(LKDBHelper *)getUsingLKDBHelper;
 @end

@@ -210,7 +210,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         __weak typeof(self) weakSelf = self;
         [cell addVoicBtnblock:^(NSString *filePath) {
-            [weakSelf playVoiceWithFilePath:filePath];
+            [weakSelf playVoiceWithFilePath:filePath row:indexPath.row];
         }];
         
         [cell addDeleteBtnblock:^(NSInteger tag) {
@@ -285,9 +285,15 @@
     }
 }
 
-- (void)playVoiceWithFilePath:(NSString *)filePath {
-    self.remotePlayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:filePath]];
-    [self.remotePlayer play];
+- (void)playVoiceWithFilePath:(NSString *)filePath row:(int)row{
+    static int lastTag = -1;
+    if (lastTag != row) {
+        self.remotePlayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:filePath]];
+        [self.remotePlayer play];
+        lastTag = row;
+    }else{
+        [self.remotePlayer pause];
+    }
 }
 
 - (void)showDeleteAlertView:(NSInteger)index{

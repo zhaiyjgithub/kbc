@@ -151,7 +151,7 @@
         }];
         
         [cell addVoiceBtnBlock:^(NSString *voiceUrl) {
-            [weakSelf playVoiceWithFilePath:voiceUrl];
+            [weakSelf playVoiceWithFilePath:voiceUrl row:indexPath.row];
         }];
         return cell;
     }else{//收藏
@@ -189,9 +189,15 @@
     [self.searchBar resignFirstResponder];
 }
 
-- (void)playVoiceWithFilePath:(NSString *)filePath {
-    self.remotePlayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:filePath]];
-    [self.remotePlayer play];
+- (void)playVoiceWithFilePath:(NSString *)filePath row:(int)row{
+    static int lastTag = -1;
+    if (lastTag != row) {
+        self.remotePlayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:filePath]];
+        [self.remotePlayer play];
+        lastTag = row;
+    }else{
+        [self.remotePlayer pause];
+    }
 }
 
 

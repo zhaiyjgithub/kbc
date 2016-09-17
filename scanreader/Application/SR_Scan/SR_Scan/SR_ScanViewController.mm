@@ -12,6 +12,17 @@
 #import "SR_ScanNetPageViewController.h"
 #import "SR_ScanResultNoneBookViewController.h"
 #import <MBProgressHUD.h>
+#import "Watermark.h"
+#import <stdio.h>
+#import "FftOpencvFun.h"
+#import <opencv2/opencv.hpp>
+#import <opencv2/imgproc/types_c.h>
+#import <opencv2/highgui/highgui.hpp>
+#import "SR_BookClubBookModel.h"
+#import "AppDelegate.h"
+#import "SR_InterPageListModel.h"
+#import "SR_InterPageDetailViewController.h"
+#import "globalHeader.h"
 
 @interface SR_ScanViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureMetadataOutputObjectsDelegate,AVCaptureMetadataOutputObjectsDelegate>
 //硬件设备
@@ -87,7 +98,16 @@
         }
         NSData * imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
         UIImage *image = [UIImage imageWithData:imageData];
-        [self saveImageToPhotoAlbum:image];
+        [Watermark recognitionWithImage:image result:^(BOOL isOk, NSString *content) {
+            //这里的content就是互动页的ID
+            SR_InterPageDetailViewController * detailPageVC = [[SR_InterPageDetailViewController alloc] init];
+            SR_InterPageListModel * pageListModel = [[SR_InterPageListModel alloc] init];
+            pageListModel.pageId = content;
+            detailPageVC.pageListModel = pageListModel;
+            self.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:detailPageVC animated:YES];
+        }];
+
     }];
 }
 
@@ -104,7 +124,7 @@
     smallImage = [largeImage imageCompressTargetSize:CGSizeMake(512.0f, 512.0f)];
 }
 
-//CMSampleBufferRef转NSImage
+////CMSampleBufferRef转NSImage
 -(UIImage *)imageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer{
     // 为媒体数据设置一个CMSampleBuffer的Core Video图像缓存对象
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
@@ -148,13 +168,29 @@
         [self.session stopRunning];
         NSLog(@"qrcode is : %@",metadataObject.stringValue);
         NSString * value = metadataObject.stringValue;
-        if ([value hasPrefix:@"http"]) {
+        if ([value hasPrefix:@"http"]) {//如果返回的是http
             self.hidesBottomBarWhenPushed = YES;
             SR_ScanNetPageViewController * netPageVC = [[SR_ScanNetPageViewController alloc] init];
             netPageVC.url = [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             [self.navigationController pushViewController:netPageVC animated:YES];
             self.hidesBottomBarWhenPushed = NO;
-        }else{
+        }else{//9787508819341 == qrCode
+            //先搜索本地，入股没有就去创建读书会
+            NSArray * bookClubModels = [SR_BookClubBookModel queryModelWihtWhere:nil orderBy:nil count:0];
+            for (int i = 0; i < bookClubModels.count; i ++) {
+                SR_BookClubBookModel * model = bookClubModels[i];
+                
+                if ([model.qrcode isEqualToString:value]) {
+                    //发送通知
+                    self.hidesBottomBarWhenPushed = NO;
+                    [[NSNotificationCenter defaultCenter] postNotificationName:SR_NOTI_SCAN_HAS_BOOK object:nil userInfo:@{SR_NOTI_SCAN_HAS_BOOK_KEY_1:@"SR_NOTI_SCAN_HAS_BOOK_KEY_1"}];
+                    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                    UITabBarController *tabViewController = (UITabBarController *) appDelegate.window.rootViewController;
+                    [tabViewController setSelectedIndex:0];
+                    return;
+                }
+            }
+            
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -258,14 +294,14 @@
             stillImageFlag = YES;
         }
             break;
+//        case 11:
+//        {
+//            videoDataFlag = YES;
+//            largeImage = nil;
+//            smallImage = nil;
+//        }
+//            break;
         case 11:
-        {
-            videoDataFlag = YES;
-            largeImage = nil;
-            smallImage = nil;
-        }
-            break;
-        case 12:
         {
             metadataOutputFlag = YES;
         }
@@ -274,7 +310,7 @@
         default:
             break;
     }
-    for (int i = 10; i < 13; i ++) {
+    for (int i = 10; i < 12; i ++) {
         UIButton *button = (UIButton *)[self.view viewWithTag:i];
         button.selected = NO;
     }
@@ -282,9 +318,9 @@
 }
 
 -(void)setupMenuButton{
-    NSArray *titles = @[@"截取静态图像",@"截取实时图像",@"二维码识别"];
+    NSArray *titles = @[@"水印图识别",@"二维码/条形码识别"];
     CGFloat width = [UIScreen mainScreen].bounds.size.width / titles.count;
-    for (int i = 0; i < 3; i ++) {
+    for (int i = 0; i < titles.count; i ++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(i * width, [UIScreen mainScreen].bounds.size.height - 160.0f, width, 49.0f);
         button.tag = 10 + i;
