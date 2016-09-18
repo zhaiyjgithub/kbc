@@ -133,21 +133,19 @@
     NSString * userId = [UserInfo getUserId];
     NSString * userToken = [UserInfo getUserToken];
     
-    NSDictionary * param = @{@"title":self.bookNameTextField.text,@"content":@"无简介",@"author":self.bookAuthorTextField.text,@"user_id":userId,@"user_token":userToken};
+    NSDictionary * param = @{@"title":self.bookNameTextField.text,@"content":@"",@"author":self.bookAuthorTextField.text,@"user_id":userId,@"user_token":userToken};
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [httpTools uploadBookImage:CREATE_BOOK_CLUB parameters:param images:self.images file:@"picture" success:^(NSDictionary *dic) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [SVProgressHUD showInfoWithStatus:@"上传成功"];
-        [self.navigationController popViewControllerAnimated:YES];
         SSLog(@"upload book image:%@",dic);
-        self.hidesBottomBarWhenPushed = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:SR_NOTI_CREATE_BOOK object:nil userInfo:@{SR_NOTI_CREATE_BOOK_KEY_1:@"SR_NOTI_CREATE_BOOK_KEY_1"}];
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        UITabBarController *tabViewController = (UITabBarController *) appDelegate.window.rootViewController;
-        [tabViewController setSelectedIndex:0];
-        //这里发送通知
-
+        [self.navigationController popViewControllerAnimated:YES];
+        //创建成功就不跳转
+//        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//        UITabBarController *tabViewController = (UITabBarController *) appDelegate.window.rootViewController;
+//        [tabViewController setSelectedIndex:0];
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [SVProgressHUD showInfoWithStatus:@"上传失败"];

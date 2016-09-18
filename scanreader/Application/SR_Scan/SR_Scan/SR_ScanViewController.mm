@@ -174,15 +174,15 @@
             netPageVC.url = [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             [self.navigationController pushViewController:netPageVC animated:YES];
             self.hidesBottomBarWhenPushed = NO;
-        }else{//9787508819341 == qrCode
+        }else{//9787508819341 == isbn
             //先搜索本地，入股没有就去创建读书会
             NSArray * bookClubModels = [SR_BookClubBookModel queryModelWihtWhere:nil orderBy:nil count:0];
             for (int i = 0; i < bookClubModels.count; i ++) {
                 SR_BookClubBookModel * model = bookClubModels[i];
                 
-                if ([model.qrcode isEqualToString:value]) {
+                if ([model.isbn isEqualToString:value]) {
                     //发送通知
-                    self.hidesBottomBarWhenPushed = NO;
+                    //self.hidesBottomBarWhenPushed = NO;
                     [[NSNotificationCenter defaultCenter] postNotificationName:SR_NOTI_SCAN_HAS_BOOK object:nil userInfo:@{SR_NOTI_SCAN_HAS_BOOK_KEY_1:@"SR_NOTI_SCAN_HAS_BOOK_KEY_1"}];
                     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                     UITabBarController *tabViewController = (UITabBarController *) appDelegate.window.rootViewController;

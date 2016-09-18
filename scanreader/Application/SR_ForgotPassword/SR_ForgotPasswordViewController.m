@@ -8,6 +8,13 @@
 
 #import "SR_ForgotPasswordViewController.h"
 #import "globalHeader.h"
+#import <SVProgressHUD.h>
+#import <MBProgressHUD.h>
+#import "httpTools.h"
+#import "requestAPI.h"
+#import "globalHeader.h"
+
+
 @interface SR_ForgotPasswordViewController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UITextField * phoneTextField;
 @property(nonatomic,strong)UITextField * passwordTextField;
@@ -70,7 +77,7 @@
             [visiableBtn addTarget:self action:@selector(clickPasswordRightBtn:) forControlEvents:(UIControlEventTouchUpInside)];
             textfield.rightView = visiableBtn;
             textfield.rightViewMode = UITextFieldViewModeAlways;
-            textfield.placeholder = @"输入登录密码";
+            textfield.placeholder = @"输入新密码";
             textfield.secureTextEntry = !self.isVisable;
             textfield.keyboardType = UIKeyboardTypeASCIICapable;
             self.passwordTextField = textfield;
@@ -92,6 +99,7 @@
     [self.view addSubview:self.registerBtn];
 }
 
+///当前默认是1234
 - (void)clickCheckCodeBtn{
     SSLog(@"code..");
 }
@@ -103,7 +111,31 @@
 }
 
 - (void)clickregisterBtn{
-    SSLog(@"login");
+    SSLog(@"find pwd");
+    self.checkCodeTextield.text = @"1234";
+    if (!self.phoneTextField.text.length) {
+        [SVProgressHUD showErrorWithStatus:@"请输入正确的手机号码"];
+        return;
+    }
+    
+    if (!self.checkCodeTextield.text.length) {
+        [SVProgressHUD showErrorWithStatus:@"请输入验证码"];
+        return;
+    }
+    if (!self.passwordTextField.text.length){
+        [SVProgressHUD showErrorWithStatus:@"请输入新密码"];
+        return;
+    }
+    NSDictionary * param = @{@"password":self.passwordTextField.text,@"mobile":self.phoneTextField.text,
+                             @"code":self.checkCodeTextield.text};
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [httpTools post:FIND_PASSOWRD andParameters:param success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [SVProgressHUD showErrorWithStatus:@"找回密码成功！"];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

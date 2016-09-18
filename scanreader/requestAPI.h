@@ -64,4 +64,6 @@
 #define DELETE_SESSION_MESSAGE_LIST @"/api/message/delete"
 #define CLEAR_ALL_MESSAGE @"/api/message/deleteAll"
 
+#define FIND_PASSOWRD @"/api/user/findPassword"
+
 #endif /* requestAPI_h */

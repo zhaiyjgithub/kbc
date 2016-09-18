@@ -42,7 +42,7 @@
     [self.contentView addSubview:self.imagebgView];
     
     UILabel * noMoreVoiceTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, self.imagebgView.frame.origin.y, self.imagebgView.frame.size.width, 16)];
-    noMoreVoiceTipsLabel.text = @"没有更多语音笔记，点击右上角添加语音笔记";
+    noMoreVoiceTipsLabel.text = @"没有更多图片笔记，点击右上角添加图片笔记";
     noMoreVoiceTipsLabel.textColor = [UIColor lightGrayColor];
     noMoreVoiceTipsLabel.font = [UIFont systemFontOfSize:14.0];
     noMoreVoiceTipsLabel.textAlignment = NSTextAlignmentLeft;

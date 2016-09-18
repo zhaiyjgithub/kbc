@@ -54,6 +54,7 @@
 @property(nonatomic,assign)NSInteger dynamicInfoPageIndex;
 @property(nonatomic,strong)UIButton * floatBtn;
 @property(nonatomic,strong)AVPlayer * remotePlayer;
+@property(nonatomic,assign)NSInteger lastTag;
 @end
 
 @implementation SR_FoundMainViewController
@@ -69,7 +70,7 @@
     [self.view addSubview:self.floatBtn];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scanHasBook:) name:SR_NOTI_SCAN_HAS_BOOK object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scanHasBook:) name:SR_NOTI_CREATE_BOOK object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createNewBook:) name:SR_NOTI_CREATE_BOOK object:nil];
 
  
     self.tableView.av_footer = [AVFooterRefresh footerRefreshWithScrollView:self.tableView footerRefreshingBlock:^{
@@ -82,14 +83,14 @@
     NSString * value = noti.userInfo[SR_NOTI_SCAN_HAS_BOOK_KEY_1];
     if ([value isEqualToString:SR_NOTI_SCAN_HAS_BOOK_KEY_1]) {
         self.isSelectBookClub = YES;
-        
+        self.lastTag = 1;
+        [self.tableView reloadData];
     }
 }
 
 - (void)createNewBook:(NSNotification *)noti{
     NSString * value = noti.userInfo[SR_NOTI_CREATE_BOOK_KEY_1];
     if ([value isEqualToString:SR_NOTI_CREATE_BOOK_KEY_1]) {
-        self.isSelectBookClub = YES;
         [self.bookClubs removeAllObjects];
         self.bookClubPageIndex = 0;
         [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
@@ -434,7 +435,6 @@
     }
 }
 
-
 - (void)clickMineItem{
     self.hidesBottomBarWhenPushed = YES;
     SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
@@ -443,11 +443,10 @@
 }
 
 - (void)clickHeaderBtn:(UIButton *)btn{
-    static BOOL lastTag = 0;
-    if (lastTag != btn.tag) {
+    if (self.lastTag != btn.tag) {
         self.isSelectBookClub = !self.isSelectBookClub;
         [self.tableView reloadData];
-        lastTag = btn.tag;
+        self.lastTag = btn.tag;
     }
 }
 
