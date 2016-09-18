@@ -155,6 +155,11 @@ static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
         if (self.noteId) {//更新笔记
             param[@"id"] = self.noteId;
         }
+    }else if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_SAVE_PAGE]){
+        baseUrl = SAVE_NOTE;
+        if (self.page_id) {
+            param[@"page_id"] = self.page_id;
+        }
     }
 
     //这里的提示不起作用，用户可能会重复点发送按钮，

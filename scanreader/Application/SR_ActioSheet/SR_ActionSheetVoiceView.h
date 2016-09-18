@@ -34,6 +34,7 @@
 @property(nonatomic,assign)BOOL isTimeOut;
 @property(nonatomic,copy)NSString * noteId;
 @property(nonatomic,copy)NSString * book_id;
+@property(nonatomic,copy)NSString * page_id;
 @property(nonatomic,copy)NSString * requestType;
 @property(nonatomic,strong)NSMutableArray * filePathsDataSource;
 @property(nonatomic,strong)NSTimer * voiceTimer;

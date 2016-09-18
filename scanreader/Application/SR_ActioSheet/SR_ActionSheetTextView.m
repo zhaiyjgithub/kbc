@@ -140,13 +140,18 @@
     NSString * baseUrl = SAVE_NOTE;
     if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_SAVE]) {
         baseUrl = SAVE_NOTE;
-        if (self.book_id) {//创建有对象
+        if (self.book_id) {//创建有书籍对象
             param[@"book_id"] = self.book_id;
         }
     }else if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_UPDATE]){
         baseUrl = UPDATE_NOTE;
         if (self.noteId) {//更新笔记
             param[@"id"] = self.noteId;
+        }
+    }else if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_SAVE_PAGE]){
+        baseUrl = SAVE_NOTE;//创建互动页对象笔记
+        if (self.page_id) {
+            param[@"page_id"] = self.page_id;
         }
     }
     
@@ -158,7 +163,10 @@
         [btn setTitleColor:baseColor forState:(UIControlStateNormal)];
         btn.enabled = YES;
         [hud hideAnimated:YES];
-        [SVProgressHUD showSuccessWithStatus:@"更新成功"];
+        if ([dic[@"show"] isEqualToString:@"1"]) {
+            [SVProgressHUD showSuccessWithStatus:dic[@"msg"]];
+        }
+        
         if ([self.delegate conformsToProtocol:@protocol(textViewSendBtnDelegate)] && [self.delegate respondsToSelector:@selector(clickTextViewSendBtn:text:)]) {
             [self.delegate clickTextViewSendBtn:self.titleTextField.text text:self.textTextView.text];
         }
@@ -167,7 +175,7 @@
         [btn setTitleColor:baseColor forState:(UIControlStateNormal)];
         btn.enabled = YES;
         [hud hideAnimated:YES];
-        [SVProgressHUD showErrorWithStatus:@"更新失败"];
+        [SVProgressHUD showErrorWithStatus:@"请求失败"];
     }];
     
     

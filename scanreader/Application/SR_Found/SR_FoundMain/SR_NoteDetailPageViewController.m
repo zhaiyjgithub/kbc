@@ -41,9 +41,15 @@
     UIBarButtonItem * interPageBarItem = [[UIBarButtonItem alloc] initWithTitle:@"互动页" style:(UIBarButtonItemStyleDone) target:self action:@selector(clickinterPageItem)];
     //如果看别人的笔记就不会出现编辑窗口
     if ([self.noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {
-        self.navigationItem.rightBarButtonItems = @[editBarItem,interPageBarItem];
+        if (self.noteModel.page.page_id) {
+            self.navigationItem.rightBarButtonItems = @[editBarItem,interPageBarItem];
+        }else{
+            self.navigationItem.rightBarButtonItems = @[editBarItem];
+        }
     }else{
-        self.navigationItem.rightBarButtonItems = @[interPageBarItem];
+        if (self.noteModel.page.page_id) {
+            self.navigationItem.rightBarButtonItems = @[interPageBarItem];
+        }
     }
 }
 
@@ -214,7 +220,6 @@
         }];
         
         [cell addDeleteBtnblock:^(NSInteger tag) {
-            SSLog(@"delete tag:%ld",tag);
             [weakSelf deleteResource:tag];
         }];
         

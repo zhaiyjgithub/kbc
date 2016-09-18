@@ -36,6 +36,7 @@
 
 #define NOTE_REQUSERT_TYPE_SAVE  @"1"
 #define NOTE_REQUSERT_TYPE_UPDATE @"2"
+#define NOTE_REQUSERT_TYPE_SAVE_PAGE  @"3"
 
 #define USER_ID [UserInfo getUserUserId]
 #define TOKEN [UserInfo getUserToken]

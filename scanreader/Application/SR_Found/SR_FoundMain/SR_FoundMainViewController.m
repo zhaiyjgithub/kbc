@@ -77,6 +77,33 @@
         [self loadData];
     }];
     [self addHeaderRefresh];
+    [self checkTokenTimeout];
+}
+
+///查询当前账号是否在其他地方登录了。
+- (void)checkTokenTimeout{
+    NSString * userPhone = [UserInfo getUserPhoneNumber];
+    NSString * userPwd = [UserInfo getUserPassword];
+    NSDictionary * param = @{@"username":userPhone,@"password":userPwd};
+    [httpTools post:LOGIN andParameters:param success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        SSLog(@"login:%@",dic);
+        if ([dic[@"status"] isEqualToString:@"1"]) {
+            NSDictionary * userDic = dic[@"data"][@"user"];
+            [UserInfo saveUserAvatarWith:userDic[@"avatar"]];
+            [UserInfo saveUserIDWith:userDic[@"id"]];
+            [UserInfo saveUserTokenWith:dic[@"data"][@"user_token"]];
+            [UserInfo saveUserNameWith:userDic[@"username"]];
+            [UserInfo saveUserLevelWith:userDic[@"level"]];
+            [UserInfo saveUserPublicWith:userDic[@"public"]];
+            [UserInfo saveUserCreditWith:userDic[@"credit"]];
+            [UserInfo saveUserPhoneNumberWith:userPhone];
+            [UserInfo saveUserPasswordWith:userPwd];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+
 }
 
 - (void)scanHasBook:(NSNotification *)noti{
@@ -450,10 +477,34 @@
     }
 }
 
+///创建笔记之前先判断账号是否已经超时
 - (void)clickFloatBtn{
-    SR_AddBtnView * addBtnView = [[SR_AddBtnView alloc] initAlertView];
-    addBtnView.delegate = self;
-    [addBtnView show];
+    NSString * userPhone = [UserInfo getUserPhoneNumber];
+    NSString * userPwd = [UserInfo getUserPassword];
+    NSDictionary * param = @{@"username":userPhone,@"password":userPwd};
+    [httpTools post:LOGIN andParameters:param success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        SSLog(@"relogin:%@",dic);
+        if ([dic[@"status"] isEqualToString:@"1"]) {
+            NSDictionary * userDic = dic[@"data"][@"user"];
+            [UserInfo saveUserAvatarWith:userDic[@"avatar"]];
+            [UserInfo saveUserIDWith:userDic[@"id"]];
+            [UserInfo saveUserTokenWith:dic[@"data"][@"user_token"]];
+            [UserInfo saveUserNameWith:userDic[@"username"]];
+            [UserInfo saveUserLevelWith:userDic[@"level"]];
+            [UserInfo saveUserPublicWith:userDic[@"public"]];
+            [UserInfo saveUserCreditWith:userDic[@"credit"]];
+            [UserInfo saveUserPhoneNumberWith:userPhone];
+            [UserInfo saveUserPasswordWith:userPwd];
+            
+            SR_AddBtnView * addBtnView = [[SR_AddBtnView alloc] initAlertView];
+            addBtnView.delegate = self;
+            [addBtnView show];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+
 }
 
 - (void)clickAddBtnView:(NSInteger)tag{
@@ -478,7 +529,7 @@
 
 
 
-///做没有对象的笔记
+///做没有对象的笔记，已经刷新了数据，有可能后台没有更新那么快
 - (void)clickTextViewSendBtn:(NSString *)title text:(NSString *)text{
     SSLog(@"title:%@ content:%@",title,text);
     [self.dynamicInfos removeAllObjects];

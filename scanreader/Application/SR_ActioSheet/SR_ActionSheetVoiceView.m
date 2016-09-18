@@ -99,9 +99,6 @@
         return;
     }
     
-//    for (NSString * filePath in self.filePathsDataSource) {
-//        SSLog(@"for-in file path:%@",filePath);
-//    }
     [sendBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
     sendBtn.enabled = NO;
     
@@ -121,6 +118,11 @@
         baseUrl = UPDATE_NOTE;
         if (self.noteId) {//更新笔记
             param[@"id"] = self.noteId;
+        }
+    }else if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_SAVE]) {
+        baseUrl = SAVE_NOTE;
+        if (self.page_id) {//创建有对象
+            param[@"page_id"] = self.page_id;
         }
     }
     

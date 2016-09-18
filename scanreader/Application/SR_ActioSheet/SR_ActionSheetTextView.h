@@ -25,6 +25,7 @@
 @property(nonatomic,strong)UIButton * cancelBtn;
 @property(nonatomic,copy)NSString * noteId;
 @property(nonatomic,copy)NSString * book_id;
+@property(nonatomic,copy)NSString * page_id;
 @property(nonatomic,copy)NSString * requestType;
 - (id)initActionSheetWith:(NSString *)title text:(NSString *)text;
 - (void)show;

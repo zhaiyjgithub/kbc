@@ -15,6 +15,7 @@
 #import "httpTools.h"
 #import "SVProgressHUD.h"
 #import "UserInfo.h"
+#import <MBProgressHUD.h>
 
 @interface SR_LoginViewController()<UITextFieldDelegate>
 @property(nonatomic,strong)UIView * loginBgView;
@@ -168,9 +169,10 @@
         [SVProgressHUD showErrorWithStatus:@"密码不能为空"];
         return;
     }
-    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSDictionary * param = @{@"username":self.phoneTextField.text,@"password":self.passwordTextField.text};
     [httpTools post:LOGIN andParameters:param success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         SSLog(@"login:%@",dic);
         if ([dic[@"status"] isEqualToString:@"1"]) {
             NSDictionary * userDic = dic[@"data"][@"user"];
@@ -187,7 +189,7 @@
             [UIApplication sharedApplication].keyWindow.rootViewController = [[SR_TabbarViewController alloc] init];
         }
     } failure:^(NSError *error) {
-        
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
     
     
