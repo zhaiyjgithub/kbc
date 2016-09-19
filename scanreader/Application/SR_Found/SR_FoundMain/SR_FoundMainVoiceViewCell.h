@@ -23,6 +23,8 @@ typedef void(^foundMainVoiceViewCellVoiceBtnBlock)(NSString * voiceUrl);
 @property(nonatomic,strong)UILabel * messageLabel;
 @property(nonatomic,strong)UILabel * bookFriendsLabel;
 @property(nonatomic,strong)UIView * barView;
+@property(nonatomic,assign)float voiceLenth;
+@property(nonatomic,strong)UIView * voiceProgressView;
 @property(nonatomic,strong)YYAnimatedImageView * headerImageView;
 @property(nonatomic,strong)SR_BookClubBookNoteModel * noteModel;
 @property(nonatomic,strong)UILabel * noMoreVoiceTipsLabel;

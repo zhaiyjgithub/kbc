@@ -21,7 +21,6 @@
 
 - (void)setupCell{
     self.bookImageView = [[YYAnimatedImageView alloc] initWithFrame:CGRectMake(15, 15, 75, 93)];
-    self.bookImageView.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:self.bookImageView];
     
     self.bookNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bookImageView.frame.origin.x + self.bookImageView.frame.size.width + 15, 30, kScreenWidth - 30 - 15 - self.bookImageView.frame.size.width - 20, 15)];
@@ -63,7 +62,7 @@
 
 - (void)setBookModel:(SR_BookClubBookModel *)bookModel{
     _bookModel = bookModel;
-    [self.bookImageView setImageWithURL:[NSURL URLWithString:bookModel.picture] placeholder:nil];
+    [self.bookImageView setImageWithURL:[NSURL URLWithString:bookModel.picture] placeholder:[UIImage imageNamed:@"BookDefault"]];
     self.bookNameLabel.text = bookModel.title;
     self.bookAuthorLabel.text = [NSString stringWithFormat:@"作者:%@",bookModel.author];
     self.bookMessageLabel.text = [NSString stringWithFormat:@"互动(%@)",bookModel.note_total];

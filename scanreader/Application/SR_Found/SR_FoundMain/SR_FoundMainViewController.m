@@ -439,10 +439,21 @@
 - (void)playVoiceWithFilePath:(NSString *)filePath row:(int)row{
     static int lastRow = -1;
     if (lastRow != row) {
+        if (lastRow != -1) {//如果不是第一次打开的就可以获取上一次的语音的cell
+            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:lastRow inSection:0];
+            SR_FoundMainVoiceViewCell * lastVoiceViewCell = (SR_FoundMainVoiceViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+            UIView * progressView = lastVoiceViewCell.voiceProgressView;
+            [progressView.layer removeAllAnimations];//清除上一次的动画
+        }
         self.remotePlayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:filePath]];
         [self.remotePlayer play];
         lastRow = row;
     }else{
+        //停止当前的progressView动画
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+        SR_FoundMainVoiceViewCell * lastVoiceViewCell = (SR_FoundMainVoiceViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        UIView * progressView = lastVoiceViewCell.voiceProgressView;
+        [progressView.layer removeAllAnimations];//清除上一次的动画
         [self.remotePlayer pause];
         lastRow = -1;
     }

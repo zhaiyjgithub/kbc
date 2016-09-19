@@ -179,7 +179,7 @@
     self.isTimeOut = YES;
 }
 
-///松手
+///松手,少于1s就不停止录制，继续录制直到1s为止
 - (void)clickVoice{
     [self.voiceBtn setEnabled:YES];
     [self removeTimer];

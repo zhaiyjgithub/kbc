@@ -25,7 +25,6 @@
     barView.layer.cornerRadius = 21;
     [self.contentView addSubview:barView];
     
-    
     UIButton * voiceBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     voiceBtn.frame = CGRectMake(0, 0, 70, 70);
     voiceBtn.center = CGPointMake((int)(barView.frame.size.width/2) + 10, 45);
@@ -53,7 +52,6 @@
     voiceImageView.frame = CGRectMake(0, 0, 17, 17);
     voiceImageView.center = CGPointMake(barView.frame.origin.x + barView.frame.size.width - 4, barView.frame.origin.y);
     [self.contentView addSubview:voiceImageView];
-
 }
 
 - (void)clickBtn:(UIButton *)btn{
