@@ -172,7 +172,9 @@ static NSString *const cellID = @"SR_ActionSheetImageViewCollectionViewCell";
         btn.enabled = YES;
         SSLog(@"save pic:%@",dic);
         [hud hideAnimated:YES];
-        [SVProgressHUD showSuccessWithStatus:@"笔记创建成功"];
+        if ([dic[@"show"] isEqualToString:@"1"]) {
+            [SVProgressHUD showSuccessWithStatus:dic[@"msg"]];
+        }
         //上传成功回调
         if ([self.delegate conformsToProtocol:@protocol(imageViewSendBtnDelegate)] && [self.delegate respondsToSelector:@selector(clickImageViewSendBtn:images:)]) {
             [self.delegate clickImageViewSendBtn:self.titleTextField.text images:self.articleImages];

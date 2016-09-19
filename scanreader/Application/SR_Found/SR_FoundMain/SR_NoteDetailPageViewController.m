@@ -23,6 +23,7 @@
 #import <SVProgressHUD.h>
 #import "SR_InterPageListModel.h"
 #import "SR_InterPageDetailViewController.h"
+#import "SR_InterPageListModel.h"
 
 @interface SR_NoteDetailPageViewController ()<textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate,UIAlertViewDelegate>
 @property(nonatomic,assign)CGFloat cellHeight;
@@ -69,7 +70,7 @@
         self.actionSheetImageView = imageView;
         [imageView show];
     }else if ([self.noteModel.type isEqualToString:NOTE_TYPE_VOICE]){
-        SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:nil voices:nil viewController:self];
+        SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:self.noteModel.title voices:nil viewController:self];
         voiceView.requestType = NOTE_REQUSERT_TYPE_UPDATE;
         voiceView.noteId = self.noteModel.note_id;
         voiceView.delegate = self;
@@ -80,9 +81,7 @@
 
 ///做没有对象的笔记
 - (void)clickTextViewSendBtn:(NSString *)title text:(NSString *)text{
-    self.noteModel.title = title;
-    self.noteModel.content = text;
-    [self.tableView reloadData];
+    [self getNewModel];
 }
 
 ///添加新的图片文件
@@ -127,8 +126,12 @@
 
 - (void)clickinterPageItem{
     self.hidesBottomBarWhenPushed = YES;
-    SR_InterPageViewController * vc = [[SR_InterPageViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    NSString * pageId = self.noteModel.page.page_id;
+    SR_InterPageDetailViewController * pageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+    SR_InterPageListModel * PageListModel = [[SR_InterPageListModel alloc] init];
+    PageListModel.pageId = pageId;
+    pageDetailVC.pageListModel = PageListModel;
+    [self.navigationController pushViewController:pageDetailVC animated:YES];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
@@ -298,6 +301,7 @@
         lastTag = row;
     }else{
         [self.remotePlayer pause];
+        lastTag = -1;
     }
 }
 

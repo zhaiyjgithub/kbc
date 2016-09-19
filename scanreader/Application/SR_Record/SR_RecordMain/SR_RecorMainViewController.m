@@ -421,6 +421,7 @@
         lastTag = row;
     }else{
         [self.remotePlayer pause];
+        lastTag = -1;
     }
 }
 

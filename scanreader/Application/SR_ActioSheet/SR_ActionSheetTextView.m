@@ -166,7 +166,6 @@
         if ([dic[@"show"] isEqualToString:@"1"]) {
             [SVProgressHUD showSuccessWithStatus:dic[@"msg"]];
         }
-        
         if ([self.delegate conformsToProtocol:@protocol(textViewSendBtnDelegate)] && [self.delegate respondsToSelector:@selector(clickTextViewSendBtn:text:)]) {
             [self.delegate clickTextViewSendBtn:self.titleTextField.text text:self.textTextView.text];
         }

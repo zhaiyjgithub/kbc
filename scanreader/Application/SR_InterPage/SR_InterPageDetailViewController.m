@@ -14,6 +14,10 @@
 #import "SR_ActionSheetVoiceView.h"
 #import "globalHeader.h"
 #import "requestAPI.h"
+#import "UserInfo.h"
+#import "requestAPI.h"
+#import "globalHeader.h"
+#import "httpTools.h"
 
 @interface SR_InterPageDetailViewController ()<UIWebViewDelegate,addBtnDelegate,textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate>
 @property(nonatomic,strong)UIButton * floatBtn;
@@ -40,17 +44,20 @@
     if (tag == 0) {
         SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:nil text:nil];
         textView.delegate = self;
+        textView.page_id = self.pageListModel.pageId;
         textView.requestType = NOTE_REQUSERT_TYPE_SAVE_PAGE;
         [textView show];
     }else if (tag == 1){
         SR_ActionSheetImageView * imageView = [[SR_ActionSheetImageView alloc] initActionSheetWith:nil images:nil viewController:self];
         imageView.delegate = self;
+        imageView.page_id = self.pageListModel.pageId;
         imageView.viewController = self;
         imageView.requestType = NOTE_REQUSERT_TYPE_SAVE_PAGE;
         [imageView show];
     }else{
         SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:nil voices:nil viewController:self];
         voiceView.delegate = self;
+        voiceView.page_id = self.pageListModel.pageId;
         voiceView.requestType = NOTE_REQUSERT_TYPE_SAVE_PAGE;
         [voiceView show];
     }
@@ -59,24 +66,53 @@
 
 
 ///做没有对象的笔记，已经刷新了数据，有可能后台没有更新那么快
+///这里发送通知通知首页更新
 - (void)clickTextViewSendBtn:(NSString *)title text:(NSString *)text{
     SSLog(@"title:%@ content:%@",title,text);
+    [[NSNotificationCenter defaultCenter] postNotificationName:SR_NOTI_CREATE_PAGE_NOTE object:nil userInfo:@{SR_NOTI_CREATE_PAGE_NOTE_KEY_1:@"SR_NOTI_CREATE_PAGE_NOTE_KEY_1"}];
 }
 
 - (void)clickImageViewSendBtn:(NSString *)title images:(NSArray *)images{
     SSLog(@"image title:%@",title);
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:SR_NOTI_CREATE_PAGE_NOTE object:nil userInfo:@{SR_NOTI_CREATE_PAGE_NOTE_KEY_1:@"SR_NOTI_CREATE_PAGE_NOTE_KEY_1"}];
 }
 
 - (void)clickVoiceViewSendBtn:(NSString *)title text:(NSString *)text{
     SSLog(@"voice title:%@",title);
+    [[NSNotificationCenter defaultCenter] postNotificationName:SR_NOTI_CREATE_PAGE_NOTE object:nil userInfo:@{SR_NOTI_CREATE_PAGE_NOTE_KEY_1:@"SR_NOTI_CREATE_PAGE_NOTE_KEY_1"}];
 }
 
 
 - (void)clickFloatBtn{
-    SR_AddBtnView * addBtnView = [[SR_AddBtnView alloc] initAlertView];
-    addBtnView.delegate = self;
-    [addBtnView show];
+//    SR_AddBtnView * addBtnView = [[SR_AddBtnView alloc] initAlertView];
+//    addBtnView.delegate = self;
+//    [addBtnView show];
+    NSString * userPhone = [UserInfo getUserPhoneNumber];
+    NSString * userPwd = [UserInfo getUserPassword];
+    NSDictionary * param = @{@"username":userPhone,@"password":userPwd};
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [httpTools post:LOGIN andParameters:param success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        SSLog(@"relogin:%@",dic);
+        if ([dic[@"status"] isEqualToString:@"1"]) {
+            NSDictionary * userDic = dic[@"data"][@"user"];
+            [UserInfo saveUserAvatarWith:userDic[@"avatar"]];
+            [UserInfo saveUserIDWith:userDic[@"id"]];
+            [UserInfo saveUserTokenWith:dic[@"data"][@"user_token"]];
+            [UserInfo saveUserNameWith:userDic[@"username"]];
+            [UserInfo saveUserLevelWith:userDic[@"level"]];
+            [UserInfo saveUserPublicWith:userDic[@"public"]];
+            [UserInfo saveUserCreditWith:userDic[@"credit"]];
+            [UserInfo saveUserPhoneNumberWith:userPhone];
+            [UserInfo saveUserPasswordWith:userPwd];
+            
+            SR_AddBtnView * addBtnView = [[SR_AddBtnView alloc] initAlertView];
+            addBtnView.delegate = self;
+            [addBtnView show];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
 }
 
 
@@ -90,20 +126,6 @@
     }
     return _floatBtn;
 }
-
-
-//- (void)webViewDidFinishLoad:(UIWebView *)webView{
-//    [MBProgressHUD hideHUDForView:self.view animated:YES];
-//}
-//
-//- (void)webViewDidStartLoad:(UIWebView *)webView{
-//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//}
-//
-//- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-//    [MBProgressHUD hideHUDForView:self.view animated:YES];
-//}
-
 
 
 

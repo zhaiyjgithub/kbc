@@ -20,7 +20,7 @@
 }
 
 - (void)setupCell{
-    self.bookImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 75, 93)];
+    self.bookImageView = [[YYAnimatedImageView alloc] initWithFrame:CGRectMake(15, 15, 75, 93)];
     self.bookImageView.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:self.bookImageView];
     

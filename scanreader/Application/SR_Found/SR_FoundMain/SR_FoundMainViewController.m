@@ -70,40 +70,16 @@
     [self.view addSubview:self.floatBtn];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scanHasBook:) name:SR_NOTI_SCAN_HAS_BOOK object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createNewBook:) name:SR_NOTI_CREATE_BOOK object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createNewPageNote:) name:SR_NOTI_CREATE_PAGE_NOTE object:nil];
  
     self.tableView.av_footer = [AVFooterRefresh footerRefreshWithScrollView:self.tableView footerRefreshingBlock:^{
         [self loadData];
     }];
     [self addHeaderRefresh];
     [self checkTokenTimeout];
-}
-
-///查询当前账号是否在其他地方登录了。
-- (void)checkTokenTimeout{
-    NSString * userPhone = [UserInfo getUserPhoneNumber];
-    NSString * userPwd = [UserInfo getUserPassword];
-    NSDictionary * param = @{@"username":userPhone,@"password":userPwd};
-    [httpTools post:LOGIN andParameters:param success:^(NSDictionary *dic) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        SSLog(@"login:%@",dic);
-        if ([dic[@"status"] isEqualToString:@"1"]) {
-            NSDictionary * userDic = dic[@"data"][@"user"];
-            [UserInfo saveUserAvatarWith:userDic[@"avatar"]];
-            [UserInfo saveUserIDWith:userDic[@"id"]];
-            [UserInfo saveUserTokenWith:dic[@"data"][@"user_token"]];
-            [UserInfo saveUserNameWith:userDic[@"username"]];
-            [UserInfo saveUserLevelWith:userDic[@"level"]];
-            [UserInfo saveUserPublicWith:userDic[@"public"]];
-            [UserInfo saveUserCreditWith:userDic[@"credit"]];
-            [UserInfo saveUserPhoneNumberWith:userPhone];
-            [UserInfo saveUserPasswordWith:userPwd];
-        }
-    } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    }];
-
 }
 
 - (void)scanHasBook:(NSNotification *)noti{
@@ -121,6 +97,15 @@
         [self.bookClubs removeAllObjects];
         self.bookClubPageIndex = 0;
         [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
+    }
+}
+
+- (void)createNewPageNote:(NSNotification *)noti{
+    NSString * value = noti.userInfo[SR_NOTI_CREATE_PAGE_NOTE_KEY_1];
+    if ([value isEqualToString:SR_NOTI_CREATE_PAGE_NOTE_KEY_1]) {
+        [self.dynamicInfos removeAllObjects];
+        self.dynamicInfoPageIndex = 0;
+        [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex];
     }
 }
 
@@ -459,6 +444,7 @@
         lastRow = row;
     }else{
         [self.remotePlayer pause];
+        lastRow = -1;
     }
 }
 
@@ -482,6 +468,7 @@
     NSString * userPhone = [UserInfo getUserPhoneNumber];
     NSString * userPwd = [UserInfo getUserPassword];
     NSDictionary * param = @{@"username":userPhone,@"password":userPwd};
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [httpTools post:LOGIN andParameters:param success:^(NSDictionary *dic) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         SSLog(@"relogin:%@",dic);
@@ -643,6 +630,31 @@
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         SSLog(@"error:%@",error);
+    }];
+}
+
+///查询当前账号是否在其他地方登录了。
+- (void)checkTokenTimeout{
+    NSString * userPhone = [UserInfo getUserPhoneNumber];
+    NSString * userPwd = [UserInfo getUserPassword];
+    NSDictionary * param = @{@"username":userPhone,@"password":userPwd};
+    [httpTools post:LOGIN andParameters:param success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        SSLog(@"login:%@",dic);
+        if ([dic[@"status"] isEqualToString:@"1"]) {
+            NSDictionary * userDic = dic[@"data"][@"user"];
+            [UserInfo saveUserAvatarWith:userDic[@"avatar"]];
+            [UserInfo saveUserIDWith:userDic[@"id"]];
+            [UserInfo saveUserTokenWith:dic[@"data"][@"user_token"]];
+            [UserInfo saveUserNameWith:userDic[@"username"]];
+            [UserInfo saveUserLevelWith:userDic[@"level"]];
+            [UserInfo saveUserPublicWith:userDic[@"public"]];
+            [UserInfo saveUserCreditWith:userDic[@"credit"]];
+            [UserInfo saveUserPhoneNumberWith:userPhone];
+            [UserInfo saveUserPasswordWith:userPwd];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
 }
 

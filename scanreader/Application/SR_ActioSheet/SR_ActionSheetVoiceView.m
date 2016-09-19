@@ -131,7 +131,9 @@
         [sendBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
         sendBtn.enabled = YES;
         [MBProgressHUD hideHUDForView:self.handerView animated:YES];
-        [SVProgressHUD showSuccessWithStatus:@"笔记创建成功"];
+        if ([dic[@"show"] isEqualToString:@"1"]) {
+            [SVProgressHUD showSuccessWithStatus:dic[@"msg"]];
+        }
         for (NSString * filePath in self.filePathsDataSource) {
             [self deleteFile:filePath];
         }

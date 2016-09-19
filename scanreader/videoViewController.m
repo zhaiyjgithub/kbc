@@ -38,16 +38,21 @@
 //    playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
 //    [self.view.layer addSublayer:playerLayer];
     
-    NSString *urlStr = @"http://7xawdc.com2.z0.glb.qiniucdn.com/o_19p6vdmi9148s16fs1ptehbm1vd59.mp4";
-    urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURL *url1 = [NSURL URLWithString:urlStr];
+//    NSString *urlStr = @"http://7xawdc.com2.z0.glb.qiniucdn.com/o_19p6vdmi9148s16fs1ptehbm1vd59.mp4";
+//    urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    NSURL *url1 = [NSURL URLWithString:urlStr];
+//    
+//    MPMoviePlayerController * mpc = [[MPMoviePlayerController alloc] init];
+//    mpc.contentURL = url1;//[NSURL URLWithString:url];
+//    mpc.view.frame = CGRectMake(50, 100, 200, 100);
+//    [self.view addSubview:mpc.view];
+//    self.mpc = mpc;
     
-    MPMoviePlayerController * mpc = [[MPMoviePlayerController alloc] init];
-    mpc.contentURL = url1;//[NSURL URLWithString:url];
-    mpc.view.frame = CGRectMake(50, 100, 200, 100);
-    [self.view addSubview:mpc.view];
-    self.mpc = mpc;
     
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    self.player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:@"http://www.colortu.com/upload/2016/09/18/17/201609181735316084.wav"]];
     
 }
 
