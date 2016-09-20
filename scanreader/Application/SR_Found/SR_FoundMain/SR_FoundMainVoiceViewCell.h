@@ -12,7 +12,7 @@
 
 typedef void(^foundMainVoiceViewCellBlock)(void);
 typedef void(^foundMainVoiceViewCellInterBlock)(void);
-typedef void(^foundMainVoiceViewCellVoiceBtnBlock)(NSString * voiceUrl);
+typedef void(^foundMainVoiceViewCellVoiceBtnBlock)(NSString * voiceUrl,float voiceTimeLength);
 
 @interface SR_FoundMainVoiceViewCell : UITableViewCell
 @property(nonatomic,strong)UILabel * titleLabel;
@@ -23,7 +23,7 @@ typedef void(^foundMainVoiceViewCellVoiceBtnBlock)(NSString * voiceUrl);
 @property(nonatomic,strong)UILabel * messageLabel;
 @property(nonatomic,strong)UILabel * bookFriendsLabel;
 @property(nonatomic,strong)UIView * barView;
-@property(nonatomic,assign)float voiceLenth;
+@property(nonatomic,assign)float voiceTimeLength;
 @property(nonatomic,strong)UIView * voiceProgressView;
 @property(nonatomic,strong)YYAnimatedImageView * headerImageView;
 @property(nonatomic,strong)SR_BookClubBookNoteModel * noteModel;

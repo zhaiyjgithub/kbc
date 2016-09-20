@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SR_BookClubBookNoteModel.h"
 
-typedef void(^noteDetailPageVoiceViewCellVoiceBtnBlock)(NSString * filePath);
+typedef void(^noteDetailPageVoiceViewCellVoiceBtnBlock)(NSString * filePath,UIButton * voiceBtn,float voiceTimeLength);
 typedef void(^noteDetailPageVoiceViewCellDeleteBtnBlock)(NSInteger tag);
 typedef void(^noteDetailPageVoiceViewCellInterBtnBlock)(void);
 
@@ -23,6 +23,7 @@ typedef void(^noteDetailPageVoiceViewCellInterBtnBlock)(void);
 @property(nonatomic,strong)UIImageView * messageImageView;
 @property(nonatomic,strong)UIImageView * bookFriendsView;
 @property(nonatomic,strong)UIView * voicebgView;
+@property(nonatomic,assign)float voiceTimeLength;
 @property(nonatomic,strong)SR_BookClubBookNoteModel * noteModel;
 @property(nonatomic,strong)NSMutableArray * resourceList;
 @property(nonatomic,strong)UILabel * noMoreVoiceTipsLabel;

@@ -45,7 +45,6 @@
     self.voiceProgressView = [[UIView alloc] initWithFrame:CGRectMake(barView.frame.origin.x, barView.frame.origin.y, 1, barView.frame.size.height)];
     self.voiceProgressView.backgroundColor = kColor(215, 215, 215);
     self.voiceProgressView.layer.cornerRadius = 7.0;
-    self.voiceProgressView.hidden = YES;
     [self.contentView addSubview:self.voiceProgressView];
     
     self.voiceBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -131,9 +130,16 @@
     [self.headerImageView setImageWithURL:[NSURL URLWithString:noteModel.user.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
     
     NSString * voiceFileSize = [self.noteModel.resourceList firstObject][@"filesize"];
-    float voiceLength = (voiceFileSize.floatValue/1024.0/23.0 - 1.3) < 0.9 ? 0: (voiceFileSize.floatValue/1024.0/23.0 - 1.3);//模拟计算语音时长
+    self.voiceTimeLength = (voiceFileSize.floatValue/1024.0/23.0 - 1.3) < 0.9 ? 0: (voiceFileSize.floatValue/1024.0/23.0 - 1.3);//模拟计算语音时长
   //  SSLog(@"title:%@ filesize:%@ length:%0.1f  url:%@",self.noteModel.title,voiceFileSize,voiceLength,[self.noteModel.resourceList firstObject][@"path"]);
-    [self.voiceBtn setTitle:[NSString stringWithFormat:@"%.0fs",voiceLength] forState:(UIControlStateNormal)];
+    
+    NSString * voiceUrl = [self.noteModel.resourceList firstObject][@"path"];
+    AVPlayer * avplayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:voiceUrl]];
+    CMTime duartion = avplayer.currentItem.asset.duration;
+    float seconds = CMTimeGetSeconds(duartion);
+    self.voiceTimeLength = seconds + 1;
+    
+    [self.voiceBtn setTitle:[NSString stringWithFormat:@"%.0fs",self.voiceTimeLength] forState:(UIControlStateNormal)];
     if (!noteModel.page) {
         self.subtitleImageView.hidden = YES;
         self.subtitleButton.hidden = YES;
@@ -152,14 +158,7 @@
 
 - (void)clickVoiceBtn{
     if (self.voiceBtnBlock) {
-        self.voiceBtnBlock([self.noteModel.resourceList firstObject][@"path"]);
-        self.voiceProgressView.backgroundColor = baseColor;
-        [UIView animateWithDuration:13.0 animations:^{
-            self.voiceProgressView.frame = CGRectMake(20, 100, 250, 40);
-            self.voiceProgressView.backgroundColor = kColor(215, 215, 215);
-        } completion:^(BOOL finished) {
-            self.voiceProgressView.frame = CGRectMake(20, 100, 1, 40);
-        }];
+        self.voiceBtnBlock([self.noteModel.resourceList firstObject][@"path"],self.voiceTimeLength);
     }
 }
 

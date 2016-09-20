@@ -93,7 +93,7 @@
 - (void)clickVoiceBtn:(UIButton *)btn{
     if (self.voiceBtnblock) {
         SR_BookClubNoteResourceModel * resourceModel  = self.resourceList[btn.tag - 100];
-        self.voiceBtnblock(resourceModel.path);
+        self.voiceBtnblock(resourceModel.path,btn,self.voiceTimeLength);
     }
 }
 
@@ -139,7 +139,14 @@
         UIView * barView = [[UIView alloc] initWithFrame:CGRectMake(0, 24 + i*(70 + 24), self.voicebgView.frame.size.width, 42)];
         barView.backgroundColor = kColor(215, 215, 215);
         barView.layer.cornerRadius = 21;
+        barView.tag = 1000 + i;
         [self.voicebgView addSubview:barView];
+        
+        UIView * voiceProgressView = [[UIView alloc] initWithFrame:CGRectMake(barView.frame.origin.x, barView.frame.origin.y, 1, barView.frame.size.height)];
+        voiceProgressView.backgroundColor = kColor(215, 215, 215);
+        voiceProgressView.layer.cornerRadius = 21.0;
+        voiceProgressView.tag = 10000 + i;
+        [self.voicebgView addSubview:voiceProgressView];
         
         UIButton * voiceBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
         voiceBtn.frame = CGRectMake(0, 0, 70, 70);
@@ -158,8 +165,8 @@
         AVPlayer * avplayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:voiceUrl]];
         CMTime duartion = avplayer.currentItem.asset.duration;
         float seconds = CMTimeGetSeconds(duartion);
-        
-        [voiceBtn setTitle:[NSString stringWithFormat:@"%.0fs",seconds] forState:(UIControlStateNormal)];
+        self.voiceTimeLength = seconds + 1;
+        [voiceBtn setTitle:[NSString stringWithFormat:@"%.0fs",self.voiceTimeLength] forState:(UIControlStateNormal)];
         
         UIButton * deleteBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
         deleteBtn.frame  = CGRectMake(0, 0, 30, 30);
@@ -182,7 +189,6 @@
             voiceImageView.hidden = YES;
         }
     }
-    
     
     if (!noteModel.page) {
         self.subtitleImageView.hidden = YES;

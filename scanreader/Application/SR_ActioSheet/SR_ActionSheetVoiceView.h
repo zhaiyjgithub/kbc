@@ -31,6 +31,9 @@
 @property(nonatomic,strong)AVPlayer * remotePlayer;
 @property (strong,nonatomic)NSString         *recordFileName;
 @property (strong,nonatomic)NSString         *recordFilePath;
+@property(nonatomic,assign)NSInteger lastTag;
+@property(nonatomic,assign)BOOL isFinishedPlay;
+@property(nonatomic,strong)AVPlayerItem * playerItem;
 @property(nonatomic,assign)BOOL isTimeOut;
 @property(nonatomic,copy)NSString * noteId;
 @property(nonatomic,copy)NSString * book_id;

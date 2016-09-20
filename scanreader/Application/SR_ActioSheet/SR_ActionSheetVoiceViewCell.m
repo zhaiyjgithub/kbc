@@ -23,7 +23,14 @@
     UIView * barView = [[UIView alloc] initWithFrame:CGRectMake(10, 24, (kScreenWidth - 30 - 20), 42)];
     barView.backgroundColor = kColor(215, 215, 215);
     barView.layer.cornerRadius = 21;
+    self.barView = barView;
     [self.contentView addSubview:barView];
+    
+    self.voiceProgressView = [[UIView alloc] initWithFrame:CGRectMake(barView.frame.origin.x, barView.frame.origin.y, 1, barView.frame.size.height)];
+    self.voiceProgressView.backgroundColor = kColor(215, 215, 215);
+    self.voiceProgressView.layer.cornerRadius = 21.0;
+    [self.contentView addSubview:self.voiceProgressView];
+
     
     UIButton * voiceBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     voiceBtn.frame = CGRectMake(0, 0, 70, 70);

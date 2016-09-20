@@ -15,6 +15,7 @@
 #import "httpTools.h"
 #import <SVProgressHUD.h>
 
+
 #define ALERT_VIEW_TAG_DISMIESS  (-1)
 
 @implementation SR_ActionSheetVoiceView
@@ -277,7 +278,7 @@
     [cell addBlock:^(UIButton *btn) {
         if (btn.tag == 0) {
             SSLog(@"play");
-            [weakSelf playVoiceWithFilePath:weakSelf.filePathsDataSource[indexPath.row]];
+            [weakSelf playVoiceWithFilePath:weakSelf.filePathsDataSource[indexPath.row] row:indexPath.row voiceTimeLength:[self.voiceTimeLengthArray[indexPath.row] floatValue]];
         }else{
             SSLog(@"delete");
             [weakSelf showDeleteAlertViewWithRow:indexPath.row];
@@ -291,12 +292,84 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)playVoiceWithFilePath:(NSString *)filePath {
-    SSLog(@"begin to play path:%@",filePath);
-    NSURL * url = [NSURL fileURLWithPath:filePath];
-    self.remotePlayer = [[AVPlayer alloc] initWithURL:url];
-    [self.remotePlayer play];
+- (void)playVoiceWithFilePath:(NSString *)filePath row:(int)row voiceTimeLength:(float)voiceTimeLength{
+    static int lastRow = -1;
+    if (lastRow != row) {
+        if (lastRow != -1) {//如果不是第一次打开的就可以获取上一次的语音的cell
+            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:lastRow inSection:0];
+            SR_ActionSheetVoiceViewCell * lastVoiceViewCell = (SR_ActionSheetVoiceViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+            UIView * progressView = lastVoiceViewCell.voiceProgressView;
+            [progressView.layer removeAllAnimations];//清除上一次的动画
+        }
+        self.isFinishedPlay = NO;
+
+        self.playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL fileURLWithPath:filePath]];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(playerItemDidReachEnd)
+                                                     name:AVPlayerItemDidPlayToEndTimeNotification
+                                                   object:self.playerItem];
+        
+        self.remotePlayer = [[AVPlayer alloc] initWithPlayerItem:self.playerItem];
+        [self.remotePlayer play];
+        
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+        SR_ActionSheetVoiceViewCell * voiceViewCell = (SR_ActionSheetVoiceViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        
+        //
+        voiceViewCell.voiceProgressView.backgroundColor = baseColor;
+        CGRect voiceProgressViewFrame = voiceViewCell.voiceProgressView.frame;
+        [UIView animateWithDuration:voiceTimeLength animations:^{
+            voiceViewCell.voiceProgressView.frame = CGRectMake(voiceProgressViewFrame.origin.x, voiceProgressViewFrame.origin.y, voiceViewCell.barView.frame.size.width, voiceViewCell.barView.frame.size.height);
+            voiceViewCell.voiceProgressView.backgroundColor = kColor(215, 215, 215);
+        } completion:^(BOOL finished) {
+            voiceViewCell.voiceProgressView.frame = CGRectMake(voiceViewCell.barView.frame.origin.x, voiceViewCell.barView.frame.origin.y, 1, voiceViewCell.barView.frame.size.height);
+        }];
+        
+        lastRow = row;
+    }else{
+        //在这里查询当前播放的状态，如果在播放就停止，已经播放完毕之后就重新播放
+        if (!self.isFinishedPlay) {//点击了正在播放就可以终止播放
+            //停止当前的progressView动画
+            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+            SR_ActionSheetVoiceViewCell * currentVoiceViewCell = (SR_ActionSheetVoiceViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+            UIView * voiceProgressView = currentVoiceViewCell.voiceProgressView;
+            [voiceProgressView.layer removeAllAnimations];
+            
+            [self.remotePlayer pause];
+            self.isFinishedPlay = YES;
+        }else{//已经完成播放的可以重新继续播放同一个语音
+            self.isFinishedPlay = NO;
+            self.playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL fileURLWithPath:filePath]];
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(playerItemDidReachEnd)
+                                                         name:AVPlayerItemDidPlayToEndTimeNotification
+                                                       object:self.playerItem];
+            
+            self.remotePlayer = [[AVPlayer alloc] initWithPlayerItem:self.playerItem];
+            [self.remotePlayer play];
+            
+            //AVPlayerItem
+            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+            SR_ActionSheetVoiceViewCell * voiceViewCell = (SR_ActionSheetVoiceViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+            
+            voiceViewCell.voiceProgressView.backgroundColor = baseColor;
+            CGRect voiceProgressViewFrame = voiceViewCell.voiceProgressView.frame;
+            [UIView animateWithDuration:voiceTimeLength animations:^{
+                voiceViewCell.voiceProgressView.frame = CGRectMake(voiceProgressViewFrame.origin.x, voiceProgressViewFrame.origin.y, voiceViewCell.barView.frame.size.width, voiceViewCell.barView.frame.size.height);
+                voiceViewCell.voiceProgressView.backgroundColor = kColor(215, 215, 215);
+            } completion:^(BOOL finished) {
+                voiceViewCell.voiceProgressView.frame = CGRectMake(voiceViewCell.barView.frame.origin.x, voiceViewCell.barView.frame.origin.y, 1, voiceViewCell.barView.frame.size.height);
+            }];
+        }
+        
+    }
 }
+
+- (void)playerItemDidReachEnd{
+    NSLog(@"播放完毕");
+    self.isFinishedPlay = YES;
+}
+
 
 - (void)showDeleteAlertViewWithRow:(NSInteger)row{
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"要删除这条语音笔记吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];

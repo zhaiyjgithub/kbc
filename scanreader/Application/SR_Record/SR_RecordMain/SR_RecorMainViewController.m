@@ -36,6 +36,10 @@
 @property(nonatomic,assign)NSInteger notePageIndex;
 @property(nonatomic,assign)NSInteger scanPageIndex;
 @property(nonatomic,strong)AVPlayer * remotePlayer;
+@property(nonatomic,assign)NSInteger lastTag;
+@property(nonatomic,assign)BOOL isFinishedPlay;
+@property(nonatomic,strong)AVPlayerItem * playerItem;
+
 @end
 
 @implementation SR_RecorMainViewController
@@ -235,8 +239,8 @@
                 [weakSelf.navigationController pushViewController:interPaageVC animated:YES];
             }];
             
-            [cell addVoiceBtnBlock:^(NSString *voiceUrl) {
-                [weakSelf playVoiceWithFilePath:voiceUrl row:indexPath.row];
+            [cell addVoiceBtnBlock:^(NSString *voiceUrl,float voiceTimeLength) {
+                [weakSelf playVoiceWithFilePath:voiceUrl row:indexPath.row voiceTimeLength:voiceTimeLength];
             }];
             
             [cell addInterBlock:^{
@@ -413,18 +417,81 @@
     
 }
 
-- (void)playVoiceWithFilePath:(NSString *)filePath row:(int)row{
-    static int lastTag = -1;
-    if (lastTag != row) {
-        self.remotePlayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:filePath]];
+- (void)playVoiceWithFilePath:(NSString *)filePath row:(int)row voiceTimeLength:(float)voiceTimeLength{
+    static int lastRow = -1;
+    if (lastRow != row) {
+        if (lastRow != -1) {//如果不是第一次打开的就可以获取上一次的语音的cell
+            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:lastRow inSection:0];
+            SR_FoundMainVoiceViewCell * lastVoiceViewCell = (SR_FoundMainVoiceViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+            UIView * progressView = lastVoiceViewCell.voiceProgressView;
+            [progressView.layer removeAllAnimations];//清除上一次的动画
+        }
+        self.isFinishedPlay = NO;
+        self.playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:filePath]];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(playerItemDidReachEnd)
+                                                     name:AVPlayerItemDidPlayToEndTimeNotification
+                                                   object:self.playerItem];
+        
+        self.remotePlayer = [[AVPlayer alloc] initWithPlayerItem:self.playerItem];
         [self.remotePlayer play];
-        lastTag = row;
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+        SR_FoundMainVoiceViewCell * voiceViewCell = (SR_FoundMainVoiceViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        
+        //
+        voiceViewCell.voiceProgressView.backgroundColor = baseColor;
+        CGRect voiceProgressViewFrame = voiceViewCell.voiceProgressView.frame;
+        [UIView animateWithDuration:voiceTimeLength animations:^{
+            voiceViewCell.voiceProgressView.frame = CGRectMake(voiceProgressViewFrame.origin.x, voiceProgressViewFrame.origin.y, voiceViewCell.barView.frame.size.width, voiceViewCell.barView.frame.size.height);
+            voiceViewCell.voiceProgressView.backgroundColor = kColor(215, 215, 215);
+        } completion:^(BOOL finished) {
+            voiceViewCell.voiceProgressView.frame = CGRectMake(voiceViewCell.barView.frame.origin.x, voiceViewCell.barView.frame.origin.y, 1, voiceViewCell.barView.frame.size.height);
+        }];
+        
+        lastRow = row;
     }else{
-        [self.remotePlayer pause];
-        lastTag = -1;
+        //在这里查询当前播放的状态，如果在播放就停止，已经播放完毕之后就重新播放
+        if (!self.isFinishedPlay) {//点击了正在播放就可以终止播放
+            //停止当前的progressView动画
+            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+            SR_FoundMainVoiceViewCell * currentVoiceViewCell = (SR_FoundMainVoiceViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+            UIView * voiceProgressView = currentVoiceViewCell.voiceProgressView;
+            [voiceProgressView.layer removeAllAnimations];
+            
+            [self.remotePlayer pause];
+            self.isFinishedPlay = YES;
+        }else{//已经完成播放的可以重新继续播放同一个语音
+            self.isFinishedPlay = NO;
+            self.playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:filePath]];
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(playerItemDidReachEnd)
+                                                         name:AVPlayerItemDidPlayToEndTimeNotification
+                                                       object:self.playerItem];
+            
+            self.remotePlayer = [[AVPlayer alloc] initWithPlayerItem:self.playerItem];
+            [self.remotePlayer play];
+            
+            //AVPlayerItem
+            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+            SR_FoundMainVoiceViewCell * voiceViewCell = (SR_FoundMainVoiceViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+            
+            voiceViewCell.voiceProgressView.backgroundColor = baseColor;
+            CGRect voiceProgressViewFrame = voiceViewCell.voiceProgressView.frame;
+            [UIView animateWithDuration:voiceTimeLength animations:^{
+                voiceViewCell.voiceProgressView.frame = CGRectMake(voiceProgressViewFrame.origin.x, voiceProgressViewFrame.origin.y, voiceViewCell.barView.frame.size.width, voiceViewCell.barView.frame.size.height);
+                voiceViewCell.voiceProgressView.backgroundColor = kColor(215, 215, 215);
+            } completion:^(BOOL finished) {
+                voiceViewCell.voiceProgressView.frame = CGRectMake(voiceViewCell.barView.frame.origin.x, voiceViewCell.barView.frame.origin.y, 1, voiceViewCell.barView.frame.size.height);
+            }];
+        }
+        
     }
 }
 
+- (void)playerItemDidReachEnd{
+    NSLog(@"播放完毕");
+    self.isFinishedPlay = YES;
+}
 - (void)clickHeaderBtn:(UIButton *)btn{
     self.selectedTagIndex = btn.tag;
     [self.tableView reloadData];
