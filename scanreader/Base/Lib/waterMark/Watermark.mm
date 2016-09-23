@@ -9,19 +9,14 @@
 #import "Watermark.h"
 #import <stdio.h>
 #import "FftOpencvFun.h"
-//#import <opencv2/opencv.hpp>
-//#import <opencv2/imgproc/types_c.h>
-//#import <opencv2/highgui/highgui.hpp>
-
 #import <opencv2/opencv.hpp>
 #import <opencv2/imgproc/types_c.h>
-
 #import <opencv2/highgui/highgui.hpp>
-
+#import <UIKit/UIKit.h>
 
 @implementation Watermark
 
-+(void)recognitionWithImage:(UIImage *)aImage result:(void(^)(BOOL isOk, NSString* content))aResultBlock{
++(void)recognitionWithImage:(UIImage *)aImage result:(void(^)(BOOL, NSString*))aResultBlock{
 
     CFDataRef bitmapData = CGDataProviderCopyData(CGImageGetDataProvider(aImage.CGImage));
     char *imageData = (char *)CFDataGetBytePtr(bitmapData);

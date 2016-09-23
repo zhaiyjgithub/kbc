@@ -82,15 +82,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.hidesBottomBarWhenPushed = YES;
-    SR_ModifyNickNameViewController * updateVC = [[SR_ModifyNickNameViewController alloc] init];
-    updateVC.delegate = self;
-    [self.navigationController pushViewController:updateVC animated:YES];
+    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 170)];
     headerView.backgroundColor = baseColor;
+    
+    UITapGestureRecognizer * bgViewGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(updateUserName)];
+    [headerView addGestureRecognizer:bgViewGesture];
     
     YYAnimatedImageView * headerImageView = [[YYAnimatedImageView alloc] initWithFrame:CGRectMake(0, 0, 96, 96)];
     headerImageView.center = headerView.center;
@@ -107,6 +107,13 @@
     [headerImageView addGestureRecognizer:gesture];
     
     return headerView;
+}
+
+- (void)updateUserName{
+    self.hidesBottomBarWhenPushed = YES;
+    SR_ModifyNickNameViewController * updateVC = [[SR_ModifyNickNameViewController alloc] init];
+    updateVC.delegate = self;
+    [self.navigationController pushViewController:updateVC animated:YES];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{

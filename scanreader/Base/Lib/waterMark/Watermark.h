@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
-#import <UIKit/UIKit.h>
 
 @interface Watermark : NSObject
-+(void)recognitionWithImage:(UIImage *)aImage result:(void(^)(BOOL isOk, NSString* content))aResultBlock;
++(void)recognitionWithImage:(UIImage *)aImage result:(void(^)(BOOL, NSString*))aResultBlock;
 +(UIImage *)imageFromSampleBuffer:(CMSampleBufferRef) sampleBuffer;
 @end

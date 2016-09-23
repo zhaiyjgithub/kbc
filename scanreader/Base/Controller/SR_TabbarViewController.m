@@ -18,6 +18,7 @@
 #import "globalHeader.h"
 #import "SR_LoginViewController.h"
 #import "SR_ScanViewController.h"
+#import "SR_ScanImageViewController.h"
 
 @implementation SR_TabbarViewController
 
@@ -29,8 +30,10 @@
 - (void)setupAllChildViewControllers{
     SR_FoundMainViewController * foundVC = [[SR_FoundMainViewController alloc] init];
     [self setupChildViewController:foundVC title:@"发现" imageName:@"fx_fx_nor" selectImageName:@"fx_fx_hl"];
-    SR_ScanViewController * scanVC = [[SR_ScanViewController alloc] init];
+    
+    SR_ScanImageViewController * scanVC = [[SR_ScanImageViewController alloc] init];
     [self setupChildViewController:scanVC title:@"扫描" imageName:@"jl_sm" selectImageName:@"jl_sm"];
+    
     SR_RecorMainViewController * recordVC = [[SR_RecorMainViewController alloc] init];
     [self setupChildViewController:recordVC title:@"记录" imageName:@"fx_jl_nor" selectImageName:@"fx_jl_hl"];
 }

@@ -41,7 +41,6 @@
 #import "SR_NoteDetailPageViewController.h"
 #import "SR_OthersMineViewController.h"
 
-#import "SR_InterPageViewController.h"
 #import <MJRefresh.h>
 #import "SR_InterPageListModel.h"
 #import "SR_InterPageDetailViewController.h"

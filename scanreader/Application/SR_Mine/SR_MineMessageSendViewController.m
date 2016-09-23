@@ -17,6 +17,13 @@
 #import "SR_MineMessageFrameModel.h"
 #import "SR_MineMessageSendDialogMineSendViewCell.h"
 #import <SVProgressHUD.h>
+#import "SR_FoundMainBookClubBookNoteListViewController.h"
+#import "SR_BookClubBookModel.h"
+#import "SR_InterPageDetailViewController.h"
+#import "SR_InterPageListModel.h"
+#import "SR_OthersMineViewController.h"
+#import "SR_BookClubBookNoteModel.h"
+#import "SR_MineMessageOpenUrlViewController.h"
 
 @interface SR_MineMessageSendViewController ()<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong)UITableView * tableView;
@@ -73,7 +80,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return cell;
-    }else{
+    }else{//如果是创建的消息，就要区分跳转,当消息返回的内容包含了type这个字段才可以发生跳转
         NSString * cellId = @"SR_MineMessageSendDialogMineViewCell";
         SR_MineMessageSendDialogMineViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
@@ -83,6 +90,46 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return cell;
+    }
+}
+
+//返回值说明：
+//type: url为跳转链接， app为客户端跳转对象（如打开互动页）
+//
+//只有对象才有下面数据
+//target_type: book书籍， page互动页,  user用户
+//target_id: 对象ID
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    SR_MineMessageFrameModel * frameModel = self.dataSource[indexPath.row];
+    NSLog(@"target_id:%@",frameModel.messageModel.target.target_id);
+    ///判断target_type，APP
+    if ([frameModel.messageModel.type isEqualToString:@"app"]) {//跳转到对象
+        if ([frameModel.messageModel.target_type isEqualToString:@"book"]) {
+            SR_FoundMainBookClubBookNoteListViewController * bookMarkListVC = [[SR_FoundMainBookClubBookNoteListViewController alloc] init];
+            SR_BookClubBookModel * bookModel = [[SR_BookClubBookModel alloc] init];
+            bookModel.book_id = frameModel.messageModel.target.target_id;
+            bookMarkListVC.bookModel = bookModel;
+            [self.navigationController pushViewController:bookMarkListVC animated:YES];
+            
+        }else if ([frameModel.messageModel.target_type isEqualToString:@"page"]) {
+            
+            SR_InterPageDetailViewController * pageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+            SR_InterPageListModel * pageListModel = [[SR_InterPageListModel alloc] init];
+            pageListModel.pageId = frameModel.messageModel.target.target_id;
+            pageDetailVC.pageListModel = pageListModel;
+            [self.navigationController pushViewController:pageDetailVC animated:YES];
+        }else if ([frameModel.messageModel.target_type isEqualToString:@"user"]) {
+            SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+            SR_BookClubBookNoteModel * userModel = [[SR_BookClubBookNoteModel alloc] init];
+            userModel.user.user_id = frameModel.messageModel.target.target_id;
+            [self.navigationController pushViewController:otherVC animated:YES];
+        }
+    }else if ([frameModel.messageModel.type isEqualToString:@"url"]) {//跳转到互动页或者其他链接
+        SR_MineMessageOpenUrlViewController * openUrlVC = [[SR_MineMessageOpenUrlViewController alloc] init];
+        openUrlVC.url = frameModel.messageModel.url;
+        [self.navigationController pushViewController:openUrlVC animated:YES];
     }
 }
 

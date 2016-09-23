@@ -192,6 +192,9 @@
 
 ///按下
 - (void)touchdown{
+    NSURL * soundUrl = [[NSBundle mainBundle] URLForResource:@"sound.caf" withExtension:nil];
+    self.localPlayer = [[AVPlayer alloc] initWithURL:soundUrl];
+    [self.localPlayer play];
     [self addTimer];
     SSLog(@"touch down");
     [self beginRecord];
@@ -199,6 +202,9 @@
 
 ///录音完成
 - (void)stopRecord{
+    NSURL * soundUrl = [[NSBundle mainBundle] URLForResource:@"sound.caf" withExtension:nil];
+    self.localPlayer = [[AVPlayer alloc] initWithURL:soundUrl];
+    [self.localPlayer play];
     if (self.recorder.isRecording){//录音中
         //停止录音
         [self.recorder stop];

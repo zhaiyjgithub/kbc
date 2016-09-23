@@ -38,6 +38,7 @@
     self.nickNameTextField.backgroundColor = [UIColor groupTableViewBackgroundColor];
     self.nickNameTextField.layer.borderWidth = 0.5;
     self.nickNameTextField.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    [self.nickNameTextField becomeFirstResponder];
     [self.view addSubview:self.nickNameTextField];
 }
 

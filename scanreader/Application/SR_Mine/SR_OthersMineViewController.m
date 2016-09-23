@@ -15,9 +15,10 @@
 #import "httpTools.h"
 #import <SVProgressHUD.h>
 #import <MBProgressHUD.h>
+#import "SR_UserInfoModel.h"
 
 @interface SR_OthersMineViewController ()
-
+@property(nonatomic,strong)SR_UserInfoModel * userInfoModel;
 @end
 
 @implementation SR_OthersMineViewController
@@ -25,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"TA";
-    // Do any additional setup after loading the view.
+    [self getUserInfo];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -50,7 +51,7 @@
     if (!cell) {
         cell = [[SR_OthersMineViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
     }
-    cell.userModel =  self.userModel;
+    cell.userModel =  self.userInfoModel;
     __weak typeof(self) weakSelf = self;
     [cell addBlock:^(UITextView *textView) {
         SSLog(@"message:%@",textView.text);
@@ -70,7 +71,7 @@
     
     YYAnimatedImageView * headerImageView = [[YYAnimatedImageView alloc] initWithFrame:CGRectMake(0, 0, 92, 92)];
     headerImageView.center = headerView.center;
-    [headerImageView setImageWithURL:[NSURL URLWithString:self.userModel.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
+    [headerImageView setImageWithURL:[NSURL URLWithString:self.userInfoModel.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
     headerImageView.layer.cornerRadius = 46;
     headerImageView.layer.borderWidth = 2.0;
     headerImageView.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -91,6 +92,20 @@
     [httpTools post:SEND_MESSAGE andParameters:param success:^(NSDictionary *dic) {
         [hud hideAnimated:YES];
         [SVProgressHUD showSuccessWithStatus:@"发送成功"];
+    } failure:^(NSError *error) {
+        [hud hideAnimated:YES];
+    }];
+}
+
+- (void)getUserInfo{
+    MBProgressHUD * hud = [[MBProgressHUD alloc] initWithView:self.view];
+    NSDictionary * param = @{@"id":self.userModel.user_id};
+    [hud showAnimated:YES];
+    [httpTools post:GET_USER_INFO andParameters:param success:^(NSDictionary *dic) {
+        [hud hideAnimated:YES];
+        NSLog(@"dic:%@",dic);
+        self.userInfoModel = [SR_UserInfoModel modelWithDictionary:dic[@"data"][@"record"]];
+        [self.tableView reloadData];
     } failure:^(NSError *error) {
         [hud hideAnimated:YES];
     }];

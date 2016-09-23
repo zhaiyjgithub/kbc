@@ -65,9 +65,10 @@
     [self.contentView addSubview:sentBtn];
 }
 
-- (void)setUserModel:(SR_BookClubNoteUserModel *)userModel{
+- (void)setUserModel:(SR_UserInfoModel *)userModel{
     _userModel = userModel;
     self.nameLabel.text = [NSString stringWithFormat:@"用户名称: %@",userModel.username];
+    self.levelabel.text = [NSString stringWithFormat:@"等级: %@级",userModel.level];
 }
 
 - (void)clickSendBtn:(UIButton *)btn{

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SR_BookClubBookNoteModel.h"
+#import "SR_UserInfoModel.h"
 
 typedef void(^othersMineCellBlock)(UITextView * textView);
 
@@ -16,7 +16,7 @@ typedef void(^othersMineCellBlock)(UITextView * textView);
 @property(nonatomic,strong)UILabel * levelabel;
 @property(nonatomic,strong)UILabel * OAthuabel;
 @property(nonatomic,strong)UITextView * messageTextView;
-@property(nonatomic,strong)SR_BookClubNoteUserModel * userModel;
+@property(nonatomic,strong)SR_UserInfoModel * userModel;
 @property(nonatomic,strong)othersMineCellBlock block;
 - (void)addBlock:(othersMineCellBlock)block;
 @end

@@ -37,7 +37,7 @@
     }];
 
     [self addHeaderRefresh];
-    [self getMessageList:PAGE_NUM pageIndex:0];
+//    [self getMessageList:PAGE_NUM pageIndex:0];
 }
 
 - (void)addHeaderRefresh{
@@ -113,8 +113,6 @@
     }
 }
 
-
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     self.hidesBottomBarWhenPushed = YES;
@@ -163,6 +161,7 @@
             SR_MineMessageModel * model = [SR_MineMessageModel modelWithDictionary:item];
             model.message_id = item[@"id"];
             model.sender.sender_id = item[@"sender"][@"id"];
+            model.target.target_id = item[@"target"][@"id"];
             NSMutableArray * senderObjMessageList = senderObj[model.sender_id];
             [senderObjMessageList addObject:model];
         }

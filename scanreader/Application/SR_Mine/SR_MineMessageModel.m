@@ -13,6 +13,11 @@
 
 @end
 
+@implementation Target
+
+
+@end
+
 @implementation SR_MineMessageModel
 
 @end

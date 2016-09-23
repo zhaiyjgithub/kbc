@@ -1,30 +1,30 @@
 //
-//  SR_ScanViewController.m
+//  SR_ScanImageViewController.m
 //  scanreader
 //
-//  Created by jbmac01 on 16/9/1.
+//  Created by jbmac01 on 16/9/23.
 //  Copyright © 2016年 jb. All rights reserved.
 //
 
-#import "SR_ScanViewController.h"
+#import "SR_ScanImageViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "UIImage+help.h"
+#import "Watermark.h"
+
 #import "SR_ScanNetPageViewController.h"
 #import "SR_ScanResultNoneBookViewController.h"
 #import <MBProgressHUD.h>
-#import "Watermark.h"
-#import <stdio.h>
-#import "FftOpencvFun.h"
-#import <opencv2/opencv.hpp>
-#import <opencv2/imgproc/types_c.h>
-#import <opencv2/highgui/highgui.hpp>
 #import "SR_BookClubBookModel.h"
 #import "AppDelegate.h"
 #import "SR_InterPageListModel.h"
 #import "SR_InterPageDetailViewController.h"
 #import "globalHeader.h"
+#import "httpTools.h"
+#import "requestAPI.h"
+#import "SR_ScanNetPageViewController.h"
+#import "SR_FoundMainBookClubBookNoteListViewController.h"
 
-@interface SR_ScanViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureMetadataOutputObjectsDelegate,AVCaptureMetadataOutputObjectsDelegate>
+@interface SR_ScanImageViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureMetadataOutputObjectsDelegate,AVCaptureMetadataOutputObjectsDelegate>
 //硬件设备
 @property (nonatomic, strong) AVCaptureDevice *device;
 //输入流
@@ -45,12 +45,14 @@
 @property (nonatomic, strong) UIButton *cameraButton;
 //拍照
 @property (nonatomic, strong) UIButton *takePhotoButton;
-@property(nonatomic,strong)AVPlayer * localPlayer;
-@property(nonatomic,strong)NSTimer * scanTimer;
-@property(nonatomic,assign)BOOL isAvaliableAccessImageLock;
+
+@property(nonatomic,strong)UIButton * scanQRbtn;
+@property(nonatomic,strong)UIButton * scanImagebtn;
+@property(nonatomic,strong)UILabel * scanQRLabel;
+@property(nonatomic,strong)UILabel * scanImageLabel;
 @end
 
-@implementation SR_ScanViewController{
+@implementation SR_ScanImageViewController{
     BOOL stillImageFlag;
     BOOL videoDataFlag;
     BOOL metadataOutputFlag;
@@ -60,11 +62,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"扫描";
     [self.view.layer addSublayer:self.previewLayer];
     [self.view addSubview:self.torchButton];
     [self.view addSubview:self.cameraButton];
     [self setupMenuButton];
-    [self.view addSubview:self.takePhotoButton];
+//    [self.view addSubview:self.takePhotoButton];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -73,7 +76,6 @@
 }
 
 #pragma mark - 拍照
-//采用定时器定时执行
 - (void)takePhoto{
     if (metadataOutputFlag) {
         return;
@@ -81,27 +83,10 @@
     if (stillImageFlag) {
         [self screenshot];
     }else if (videoDataFlag){
-        //这里定时后去图片
-        [self.session stopRunning];
-        [Watermark recognitionWithImage:smallImage result:^(BOOL isOk, NSString *content) {
-            //这里的content就是互动页的ID
-            if (isOk) {
-                [self removeTimer];
-                [self.session stopRunning];
-                SSLog(@"content:%@",content);
-                SR_InterPageDetailViewController * detailPageVC = [[SR_InterPageDetailViewController alloc] init];
-                SR_InterPageListModel * pageListModel = [[SR_InterPageListModel alloc] init];
-                pageListModel.pageId = content;
-                detailPageVC.pageListModel = pageListModel;
-                self.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:detailPageVC animated:YES];
-            }else{
-                [self.session startRunning];
-            }
-        }];
-        
+        [self saveImageToPhotoAlbum:largeImage];
+        [self saveImageToPhotoAlbum:smallImage];
     }
-    
+    [self.session stopRunning];
 }
 
 //AVCaptureStillImageOutput截取静态图片，会有快门声
@@ -118,100 +103,71 @@
         }
         NSData * imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
         UIImage *image = [UIImage imageWithData:imageData];
-        [Watermark recognitionWithImage:image result:^(BOOL isOk, NSString *content) {
-            //这里的content就是互动页的ID
-            if (isOk) {
-                [self.session stopRunning];
-                SR_InterPageDetailViewController * detailPageVC = [[SR_InterPageDetailViewController alloc] init];
-                SR_InterPageListModel * pageListModel = [[SR_InterPageListModel alloc] init];
-                pageListModel.pageId = content;
-                detailPageVC.pageListModel = pageListModel;
-                self.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:detailPageVC animated:YES];
-            }else{
-                [self.session startRunning];
-            }
-        }];
-
+        [self saveImageToPhotoAlbum:image];
+        
+        
     }];
 }
-
-
-//^[1-9]\d*$
 
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
 //AVCaptureVideoDataOutput获取实时图像，这个代理方法的回调频率很快，几乎与手机屏幕的刷新频率一样快
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection{
-    static int count = 0;
     if (!videoDataFlag) {
         return;
     }
     
-    if (count > 40) {
-        count = 0;
-        NSLog(@"dynamic");
-        //设置图像方向，否则largeImage取出来是反的
-        self.isAvaliableAccessImageLock = NO;
-        [connection setVideoOrientation:AVCaptureVideoOrientationPortrait];
-        largeImage = [Watermark imageFromSampleBuffer:sampleBuffer];
-        smallImage = [largeImage imageCompressTargetSize:CGSizeMake(512.0f, 512.0f)];
-        self.isAvaliableAccessImageLock = YES;
-    }else{
-        count +=1;
-    }
+    //设置图像方向，否则largeImage取出来是反的
+    [connection setVideoOrientation:AVCaptureVideoOrientationPortrait];
+    largeImage = [self imageFromSampleBuffer:sampleBuffer];
+    smallImage = [largeImage imageCompressTargetSize:CGSizeMake(512.0f, 512.0f)];
+    
+    [Watermark recognitionWithImage:smallImage result:^(BOOL status, NSString *content) {
+        if (status) {
+            [self.session stopRunning];
+            NSString * value1 = [content substringToIndex:content.length/2];
+            NSString * value2 = [content substringFromIndex:content.length/2];
+            if ([value1 isEqualToString:value2]) {
+                [self readList:@"mark" code:value1];
+            }
+        }
+    }];
 }
 
-- (void)addTimer{
-     self.scanTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(beginToScan) userInfo:nil repeats:YES];
+//CMSampleBufferRef转NSImage
+-(UIImage *)imageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer{
+    // 为媒体数据设置一个CMSampleBuffer的Core Video图像缓存对象
+    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+    // 锁定pixel buffer的基地址
+    CVPixelBufferLockBaseAddress(imageBuffer, 0);
+    // 得到pixel buffer的基地址
+    void *baseAddress = CVPixelBufferGetBaseAddress(imageBuffer);
+    // 得到pixel buffer的行字节数
+    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
+    // 得到pixel buffer的宽和高
+    size_t width = CVPixelBufferGetWidth(imageBuffer);
+    size_t height = CVPixelBufferGetHeight(imageBuffer);
+    // 创建一个依赖于设备的RGB颜色空间
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    // 用抽样缓存的数据创建一个位图格式的图形上下文（graphics context）对象
+    CGContextRef context = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
+    // 根据这个位图context中的像素数据创建一个Quartz image对象
+    CGImageRef quartzImage = CGBitmapContextCreateImage(context);
+    // 解锁pixel buffer
+    CVPixelBufferUnlockBaseAddress(imageBuffer,0);
+    // 释放context和颜色空间
+    CGContextRelease(context); CGColorSpaceRelease(colorSpace);
+    // 用Quartz image创建一个UIImage对象image
+    UIImage *image = [UIImage imageWithCGImage:quartzImage];
+    // 释放Quartz image对象
+    CGImageRelease(quartzImage);
+    return (image);
 }
-
-- (void)removeTimer{
-    [self.scanTimer invalidate];
-}
-
-- (void)beginToScan{
-    SSLog(@"begin to screen shot");
-    [self takePhoto];
-}
-
-//////CMSampleBufferRef转NSImage
-//-(UIImage *)imageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer{
-//    // 为媒体数据设置一个CMSampleBuffer的Core Video图像缓存对象
-//    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-//    // 锁定pixel buffer的基地址
-//    CVPixelBufferLockBaseAddress(imageBuffer, 0);
-//    // 得到pixel buffer的基地址
-//    void *baseAddress = CVPixelBufferGetBaseAddress(imageBuffer);
-//    // 得到pixel buffer的行字节数
-//    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
-//    // 得到pixel buffer的宽和高
-//    size_t width = CVPixelBufferGetWidth(imageBuffer);
-//    size_t height = CVPixelBufferGetHeight(imageBuffer);
-//    // 创建一个依赖于设备的RGB颜色空间
-//    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-//    // 用抽样缓存的数据创建一个位图格式的图形上下文（graphics context）对象
-//    CGContextRef context = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
-//    // 根据这个位图context中的像素数据创建一个Quartz image对象
-//    CGImageRef quartzImage = CGBitmapContextCreateImage(context);
-//    // 解锁pixel buffer
-//    CVPixelBufferUnlockBaseAddress(imageBuffer,0);
-//    // 释放context和颜色空间
-//    CGContextRelease(context); CGColorSpaceRelease(colorSpace);
-//    // 用Quartz image创建一个UIImage对象image
-//    UIImage *image = [UIImage imageWithCGImage:quartzImage];
-//    // 释放Quartz image对象
-//    CGImageRelease(quartzImage);
-//    return (image);
-//}
 
 #pragma mark - AVCaptureMetadataOutputObjectsDelegate
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
     if (!metadataOutputFlag) {
         return;
     }
-    NSURL * soundUrl = [[NSBundle mainBundle] URLForResource:@"sound.caf" withExtension:nil];
-    self.localPlayer = [[AVPlayer alloc] initWithURL:soundUrl];
-    [self.localPlayer play];
     if (metadataObjects.count>0) {
         AVMetadataMachineReadableCodeObject *metadataObject = [metadataObjects objectAtIndex :0];
 #ifndef FACE
@@ -225,31 +181,10 @@
             [self.navigationController pushViewController:netPageVC animated:YES];
             self.hidesBottomBarWhenPushed = NO;
         }else{//9787508819341 == isbn
-            //先搜索本地，没有就去创建读书会
-            NSArray * bookClubModels = [SR_BookClubBookModel queryModelWihtWhere:nil orderBy:nil count:0];
-            for (int i = 0; i < bookClubModels.count; i ++) {
-                SR_BookClubBookModel * model = bookClubModels[i];
-                
-                if ([model.isbn isEqualToString:value]) {
-                    //发送通知
-                    //self.hidesBottomBarWhenPushed = NO;
-                    [[NSNotificationCenter defaultCenter] postNotificationName:SR_NOTI_SCAN_HAS_BOOK object:nil userInfo:@{SR_NOTI_SCAN_HAS_BOOK_KEY_1:@"SR_NOTI_SCAN_HAS_BOOK_KEY_1"}];
-                    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                    UITabBarController *tabViewController = (UITabBarController *) appDelegate.window.rootViewController;
-                    [tabViewController setSelectedIndex:0];
-                    return;
-                }
-            }
-            
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                self.hidesBottomBarWhenPushed = YES;
-                SR_ScanResultNoneBookViewController * noneBookVC = [[SR_ScanResultNoneBookViewController alloc] init];
-                [self.navigationController pushViewController:noneBookVC animated:YES];
-                self.hidesBottomBarWhenPushed = NO;
-            });
+            //这里利用二维码请求后台
+            [self readList:@"isbn" code:value];
         }
+
 #else
         AVMetadataObject *faceData = [self.previewLayer transformedMetadataObjectForMetadataObject:metadataObject];
         NSLog(@"faceData is : %@",faceData);
@@ -257,6 +192,60 @@
     }
 }
 
+- (void)readList:(NSString * )method code:(NSString *)code{
+    NSMutableDictionary * param = [NSMutableDictionary new];
+    if ([method isEqualToString:@"mark"]) {//读取水印图
+        param[@"mark"] = code;
+    }else if ([method isEqualToString:@"isbn"]){//读取isbn
+        param[@"isbn"] = code;
+    }
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [httpTools post:SCAN_READ andParameters:param success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        SSLog(@"请求后台code:%@",dic);
+        if (!dic[@"data"][@"record"]) {//如果没有数据就
+            if ([method isEqualToString:@"isbn"]) {//isbn找不到就提示创建读书会
+                self.hidesBottomBarWhenPushed = YES;
+                SR_ScanResultNoneBookViewController * noneBookVC = [[SR_ScanResultNoneBookViewController alloc] init];
+                [self.navigationController pushViewController:noneBookVC animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
+            }
+        }else{//读取isbn 水印图结果
+            //url优先
+            if (dic[@"data"][@"record"][@"url"] != [NSNull null] && dic[@"data"][@"record"][@"url"]){
+                self.hidesBottomBarWhenPushed = YES;
+                SR_ScanNetPageViewController * netPageVC = [[SR_ScanNetPageViewController alloc] init];
+                netPageVC.url = dic[@"data"][@"record"][@"url"];
+                [self.navigationController pushViewController:netPageVC animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
+            }else{
+                if ([dic[@"data"][@"record"][@"target_type"] isEqualToString:@"book"]) {//跳转到书本
+                    SR_FoundMainBookClubBookNoteListViewController * bookMarkListVC = [[SR_FoundMainBookClubBookNoteListViewController alloc] init];
+                    SR_BookClubBookModel * bookModel = [[SR_BookClubBookModel alloc] init];
+                    bookModel.book_id = dic[@"data"][@"record"][@"target_id"];
+                    bookMarkListVC.bookModel = bookModel;
+                    self.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:bookMarkListVC animated:YES];
+                    self.hidesBottomBarWhenPushed = NO;
+                }else if ([dic[@"data"][@"record"][@"target_type"] isEqualToString:@"page"]) {//跳转到互动页
+                    SR_InterPageDetailViewController * pageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+                    SR_InterPageListModel * pageListModel = [[SR_InterPageListModel alloc] init];
+                    pageListModel.pageId = dic[@"data"][@"record"][@"target_id"];
+                    pageDetailVC.pageListModel = pageListModel;
+                    self.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:pageDetailVC animated:YES];
+                    self.hidesBottomBarWhenPushed = NO;
+                }
+            }
+        }
+
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+}
+    
 #pragma mark - 保存至相册
 - (void)saveImageToPhotoAlbum:(UIImage*)savedImage{
     UIImageWriteToSavedPhotosAlbum(savedImage, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
@@ -349,11 +338,19 @@
             videoDataFlag = YES;
             largeImage = nil;
             smallImage = nil;
+            self.scanQRbtn.selected = YES;
+            self.scanQRLabel.textColor = baseColor;
+            self.scanImageLabel.textColor = [UIColor lightGrayColor];
+            self.scanImagebtn.selected = NO;
         }
             break;
         case 12:
         {
             metadataOutputFlag = YES;
+            self.scanImagebtn.selected = YES;
+            self.scanImageLabel.textColor = baseColor;
+            self.scanQRbtn.selected = NO;
+            self.scanQRLabel.textColor = [UIColor lightGrayColor];
         }
             break;
             
@@ -368,22 +365,32 @@
 }
 
 -(void)setupMenuButton{
-    NSArray *titles = @[@"静态图",@"动态图",@"二维码/条形码识别"];
-    CGFloat width = [UIScreen mainScreen].bounds.size.width / titles.count;
-    for (int i = 0; i < titles.count; i ++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(i * width, [UIScreen mainScreen].bounds.size.height - 160.0f, width, 49.0f);
-        button.tag = 10 + i;
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    NSArray * titles = @[@"扫码",@"扫图"];
+    for (int i = 0; i < 2; i ++) {
+        UIButton *button = [[UIButton alloc] init];
+        button.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 160.0f, 51, 49.0f);
+        button.center = CGPointMake(i*(width/2) + width/4, [UIScreen mainScreen].bounds.size.height - 120.0f);
+        button.tag = 11 + i;
         [button addTarget:self action:@selector(scanMenuChange:) forControlEvents:UIControlEventTouchUpInside];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor colorWithRed:36./255. green:185./255. blue:243./255. alpha:1.] forState:UIControlStateSelected];
-        [button setTitle:titles[i] forState:UIControlStateNormal];
-        [button setTitle:titles[i] forState:UIControlStateSelected];
         [self.view addSubview:button];
         if (i == 0) {
             [self scanMenuChange:button];
+            [button setImage:[UIImage imageNamed:@"sm_sm_hl"] forState:(UIControlStateSelected)];
+            [button setImage:[UIImage imageNamed:@"sm_sm_nor"] forState:(UIControlStateNormal)];
+        }else{
+
+            [button setImage:[UIImage imageNamed:@"sm_st_hl"] forState:(UIControlStateSelected)];
+            [button setImage:[UIImage imageNamed:@"sm_st_nor"] forState:(UIControlStateNormal)];
         }
+        UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(button.frame.origin.x , button.frame.origin.y + button.frame.size.height + 5, button.frame.size.width, 20)];
+        titleLabel.text = titles[i];
+        titleLabel.textColor = [UIColor lightGrayColor];
+        titleLabel.font = [UIFont systemFontOfSize:14.0];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        [self.view addSubview:titleLabel];
     }
+    
 }
 
 #pragma mark - getter
@@ -509,7 +516,7 @@
 -(UIButton *)takePhotoButton{
     if (_takePhotoButton == nil) {
         _takePhotoButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _takePhotoButton.frame = CGRectMake(15.0f, self.view.frame.size.height - 105.0f, self.view.frame.size.width - 30.0f, 42.0f);
+        _takePhotoButton.frame = CGRectMake(15.0f, self.view.frame.size.height - 91.0f, self.view.frame.size.width - 30.0f, 42.0f);
         _takePhotoButton.backgroundColor = [UIColor redColor];
         [_takePhotoButton setTitle:@"拍照" forState:UIControlStateNormal];
         [_takePhotoButton addTarget:self action:@selector(takePhoto) forControlEvents:UIControlEventTouchUpInside];
@@ -518,7 +525,6 @@
     }
     return _takePhotoButton;
 }
-
 
 
 @end

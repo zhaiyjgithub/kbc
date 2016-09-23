@@ -67,4 +67,6 @@
 
 #define FIND_PASSOWRD @"/api/user/findPassword"
 
+#define SCAN_READ @"/api/scan/read"
+
 #endif /* requestAPI_h */

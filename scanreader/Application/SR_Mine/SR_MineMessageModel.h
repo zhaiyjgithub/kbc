@@ -14,6 +14,12 @@
 @property(nonatomic,copy)NSString * username;
 @end
 
+@interface Target : SR_BaseModel
+@property(nonatomic,copy)NSString * target_id;
+@property(nonatomic,copy)NSString * picture;
+@property(nonatomic,copy)NSString * title;
+@end
+
 @interface SR_MineMessageModel : SR_BaseModel
 @property(nonatomic,copy)NSString * content;
 @property(nonatomic,copy)NSString * create_by;
@@ -21,7 +27,9 @@
 @property(nonatomic,copy)NSString * readed;
 @property(nonatomic,strong)Sender * sender;
 @property(nonatomic,copy)NSString * sender_id;
+@property(nonatomic,strong)Target * target;
 @property(nonatomic,copy)NSString * target_type;
+@property(nonatomic,copy)NSString * type;
 @property(nonatomic,copy)NSString * title;
 @property(nonatomic,assign)NSInteger time_create;
 @property(nonatomic,copy)NSString * url;
