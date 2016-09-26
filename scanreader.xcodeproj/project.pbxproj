@@ -44,6 +44,7 @@
 		CB42D0C91D645AF8002A75E5 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB42D0BE1D645AF8002A75E5 /* libopencore-amrwb.a */; };
 		CB42D0CA1D645AF8002A75E5 /* VoiceConverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB42D0C61D645AF8002A75E5 /* VoiceConverter.mm */; };
 		CB63C7AF1D41F141009D40A4 /* SR_MineMessageListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB63C7AE1D41F141009D40A4 /* SR_MineMessageListViewCell.m */; };
+		CB6DDD211D99234D002CDB96 /* SR_LogMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6DDD201D99234D002CDB96 /* SR_LogMessageModel.m */; };
 		CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB719F351D3742CB005F5CFB /* SR_MineMessageListViewController.m */; };
 		CB7377791D7344580028A6B3 /* SR_ActionSheetVoiceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7377781D7344580028A6B3 /* SR_ActionSheetVoiceViewCell.m */; };
 		CB74117B1D347B14002B8FB5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB74117A1D347B14002B8FB5 /* main.m */; };
@@ -216,6 +217,8 @@
 		CB42D0C61D645AF8002A75E5 /* VoiceConverter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VoiceConverter.mm; sourceTree = "<group>"; };
 		CB63C7AD1D41F141009D40A4 /* SR_MineMessageListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageListViewCell.h; path = Application/SR_Mine/SR_MineMessageListViewCell.h; sourceTree = "<group>"; };
 		CB63C7AE1D41F141009D40A4 /* SR_MineMessageListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageListViewCell.m; path = Application/SR_Mine/SR_MineMessageListViewCell.m; sourceTree = "<group>"; };
+		CB6DDD1F1D99234D002CDB96 /* SR_LogMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_LogMessageModel.h; path = Application/SR_Found/SR_FoundMain/SR_LogMessageModel.h; sourceTree = "<group>"; };
+		CB6DDD201D99234D002CDB96 /* SR_LogMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_LogMessageModel.m; path = Application/SR_Found/SR_FoundMain/SR_LogMessageModel.m; sourceTree = "<group>"; };
 		CB719F341D3742CB005F5CFB /* SR_MineMessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessageListViewController.h; path = Application/SR_Mine/SR_MineMessageListViewController.h; sourceTree = "<group>"; };
 		CB719F351D3742CB005F5CFB /* SR_MineMessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessageListViewController.m; path = Application/SR_Mine/SR_MineMessageListViewController.m; sourceTree = "<group>"; };
 		CB7377771D7344580028A6B3 /* SR_ActionSheetVoiceViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ActionSheetVoiceViewCell.h; path = Application/SR_ActioSheet/SR_ActionSheetVoiceViewCell.h; sourceTree = "<group>"; };
@@ -1021,6 +1024,8 @@
 			children = (
 				CB186F051D72E9D700C16705 /* NoteDetailPage */,
 				CB186F001D72E85400C16705 /* BookClub */,
+				CB6DDD1F1D99234D002CDB96 /* SR_LogMessageModel.h */,
+				CB6DDD201D99234D002CDB96 /* SR_LogMessageModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1343,6 +1348,7 @@
 				CB63C7AF1D41F141009D40A4 /* SR_MineMessageListViewCell.m in Sources */,
 				CBD1D61F1D363F0400539056 /* SR_AddBtnView.m in Sources */,
 				CBD1D5FF1D36198A00539056 /* SR_LoginBtn.m in Sources */,
+				CB6DDD211D99234D002CDB96 /* SR_LogMessageModel.m in Sources */,
 				CB95AD891D6961E600BAA77B /* AVRefresh.m in Sources */,
 				CB03F58B1D770DB500D19B0F /* SR_InterPageDetailImageViewCell.m in Sources */,
 				CBE47E001D407E930046C89C /* SR_FoundMainTextViewCell.m in Sources */,

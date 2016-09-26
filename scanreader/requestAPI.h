@@ -69,4 +69,6 @@
 
 #define SCAN_READ @"/api/scan/read"
 
+#define LOG_MESSAGE_LIST @"/api/log/getList"
+
 #endif /* requestAPI_h */

@@ -45,11 +45,14 @@
     [super viewDidLoad];
     self.title = @"录音";
     self.view.backgroundColor = [UIColor whiteColor];
+
+
+    
     //loadHTMLString
-    NSString * htmlString = @"<iframe src=\"http://open.iqiyi.com/developer/player_js/coopPlayerIndex.html?vid=97d6d80dd486ddc99c2150d81dbd4ae5&tvId=3002236009&accessToken=2.f22860a2479ad60d8da7697274de9346&appKey=3955c3425820435e86d0f4cdfe56f5e7&appId=1368&height=100%&width=100%\" frameborder=\"0\" allowfullscreen=\"true\" width=\"100%\" height=\"100%\"></iframe>";
-    UIWebView * webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
-    [webView loadHTMLString:htmlString baseURL:nil];
-    [self.view addSubview:webView];
+//    NSString * htmlString = @"<iframe src=\"http://open.iqiyi.com/developer/player_js/coopPlayerIndex.html?vid=97d6d80dd486ddc99c2150d81dbd4ae5&tvId=3002236009&accessToken=2.f22860a2479ad60d8da7697274de9346&appKey=3955c3425820435e86d0f4cdfe56f5e7&appId=1368&height=100%&width=100%\" frameborder=\"0\" allowfullscreen=\"true\" width=\"100%\" height=\"100%\"></iframe>";
+//    UIWebView * webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+//    [webView loadHTMLString:htmlString baseURL:nil];
+//    [self.view addSubview:webView];
     
 //    self.playConvertedBtn = [[UIButton alloc] initWithFrame:CGRectMake(50, 100, 60, 40)];
 //    [self.playConvertedBtn setTitle:@"后wav" forState:(UIControlStateNormal)];

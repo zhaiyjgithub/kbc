@@ -44,6 +44,9 @@
 #import <MJRefresh.h>
 #import "SR_InterPageListModel.h"
 #import "SR_InterPageDetailViewController.h"
+#import "SR_LogMessageModel.h"
+#import "SR_ScanNetPageViewController.h"
+#import <YYKit/YYKit.h>
 
 @interface SR_FoundMainViewController ()<addBtnDelegate,UIAlertViewDelegate,textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate>
 @property(nonatomic,assign)BOOL isSelectBookClub;
@@ -56,6 +59,10 @@
 @property(nonatomic,assign)NSInteger lastTag;
 @property(nonatomic,assign)BOOL isFinishedPlay;
 @property(nonatomic,strong)AVPlayerItem * playerItem;
+@property(nonatomic,strong)UIScrollView * scrollView;
+@property(nonatomic,strong)NSMutableArray * logMessages;
+@property(nonatomic,strong)NSTimer * timer;
+@property(nonatomic,assign)NSInteger scrollViewCurrentPage;
 @end
 
 @implementation SR_FoundMainViewController
@@ -81,6 +88,11 @@
     }];
     [self addHeaderRefresh];
     [self checkTokenTimeout];
+    
+//    [self.logMessages  addObject:@"ss"];
+//    [self.logMessages  addObject:@"ss"];
+//    [self.logMessages  addObject:@"ss"];
+    [self addTimer];
 }
 
 - (void)scanHasBook:(NSNotification *)noti{
@@ -126,6 +138,7 @@
     self.bookClubPageIndex = 0;
     [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex];
     [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
+    [self getLogMessageList:PAGE_NUM pageIndex:0];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -134,10 +147,10 @@
 }
 
 - (void)clickSearchItem{
-    self.hidesBottomBarWhenPushed = YES;
-    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
-    [self.navigationController pushViewController:foundVC animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
+//    self.hidesBottomBarWhenPushed = YES;
+//    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
+//    [self.navigationController pushViewController:foundVC animated:YES];
+//    self.hidesBottomBarWhenPushed = NO;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -150,7 +163,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        return 42;
+        if (self.logMessages.count) {
+            return 80;
+        }else{
+            return 42;
+        }
     }else{
         return 0.01;
     }
@@ -384,29 +401,60 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 42)];
+        CGFloat heightForScrollView = 38;
+        if (!self.logMessages.count) {
+            heightForScrollView = 0;
+        }
+        UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 42 + heightForScrollView)];//42 - 80
         headerView.backgroundColor = [UIColor whiteColor];
         
-//        UIView * headerNotiBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 36)];
-//        headerView.backgroundColor = kColor(0xe2, 0xea, 0xe8);
-//        [headerView addSubview:headerNotiBgView];
-//        
-//        UIImageView * headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 3, 30, 30)];
-//        headerImageView.layer.cornerRadius = 15;
-//        headerImageView.layer.masksToBounds = YES;
-//        headerImageView.image = [UIImage imageNamed:@"headerIcon"];
-//        [headerView addSubview:headerImageView];
-//        
-//        UILabel * notiLabel = [[UILabel alloc] initWithFrame:CGRectMake(headerImageView.frame.origin.x + headerImageView.frame.size.width + 10, 0, kScreenWidth - 30 - 10 - headerImageView.frame.size.width, 36)];
-//        notiLabel.text = @"Json刚才扫描了《天龙八部》";
-//        notiLabel.textColor = baseblackColor;
-//        notiLabel.font = [UIFont systemFontOfSize:13.0];
-//        notiLabel.textAlignment = NSTextAlignmentCenter;
-//        [headerView addSubview:notiLabel];
+        //添加轮播图
+        
+        if (self.logMessages.count) {
+            UIScrollView * scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 36)];
+            scrollView.backgroundColor = [UIColor whiteColor];
+            scrollView.pagingEnabled = YES;
+            scrollView.userInteractionEnabled = YES;
+            scrollView.showsVerticalScrollIndicator = YES;
+            scrollView.shouldGroupAccessibilityChildren = YES;
+            scrollView.delegate = self;
+            self.scrollView = scrollView;
+            
+            [headerView addSubview:scrollView];
+            scrollView.contentSize = CGSizeMake(kScreenWidth * self.logMessages.count, 36);
+            for (int i = 0 ; i < self.logMessages.count; i ++) {
+                
+                UIView * headerNotiBgView = [[UIView alloc] initWithFrame:CGRectMake(i*(kScreenWidth), 0, kScreenWidth, 36)];
+                headerView.backgroundColor = kColor(0xe2, 0xea, 0xe8);
+                headerNotiBgView.tag = 100 + i;
+                
+                UITapGestureRecognizer * headerNotiBgViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickScrollviewTitle:)];
+                [headerNotiBgView addGestureRecognizer:headerNotiBgViewTap];
+                
+                [scrollView addSubview:headerNotiBgView];
+                
+                SR_LogMessageModel * logMessageModel = self.logMessages[i];
+                
+                YYAnimatedImageView * headerImageView = [[YYAnimatedImageView alloc] initWithFrame:CGRectMake(15, 3, 30, 30)];
+                headerImageView.layer.cornerRadius = 15;
+                headerImageView.layer.masksToBounds = YES;
+                [headerImageView setImageWithURL:[NSURL URLWithString:logMessageModel.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
+                [headerNotiBgView addSubview:headerImageView];
+                
+                UILabel * notiLabel = [[UILabel alloc] initWithFrame:CGRectMake(headerImageView.frame.origin.x + headerImageView.frame.size.width + 10, 0, kScreenWidth - 30 - 10 - headerImageView.frame.size.width, 36)];
+                notiLabel.text = logMessageModel.content;
+                notiLabel.textColor = baseblackColor;
+                notiLabel.font = [UIFont systemFontOfSize:13.0];
+                notiLabel.textAlignment = NSTextAlignmentCenter;
+                [headerNotiBgView addSubview:notiLabel];
+            }
+        }else{
+            
+        }
         
         NSArray * titles = @[@"动态",@"读书会"];
         for (int i = 0; i < 2; i ++) {
-            UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(i*(kScreenWidth/2), 1, kScreenWidth/2, 42)];
+            UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(i*(kScreenWidth/2), 1 + heightForScrollView, kScreenWidth/2, 42)];
             [btn setTitle:titles[i] forState:(UIControlStateNormal)];
             [btn setTitleColor:baseColor forState:(UIControlStateNormal)];
             [btn setTitle:titles[i] forState:(UIControlStateSelected)];
@@ -423,10 +471,10 @@
             [headerView addSubview:btn];
         }
         
-        UIView * lineView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2, 1, 0.5, 40)];
+        UIView * lineView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2,  heightForScrollView + 1 , 0.5, 40)];
         lineView.backgroundColor = [UIColor lightGrayColor];
         [headerView addSubview:lineView];
-//
+
 //        UIView * notiLabelBottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, notiLabel.frame.origin.y + notiLabel.frame.size.height, kScreenWidth, 0.5)];
 //        notiLabelBottomLineView.backgroundColor = [UIColor lightGrayColor];
 //        [headerView addSubview:notiLabelBottomLineView];
@@ -435,6 +483,112 @@
     }else{
         return nil;
     }
+}
+
+- (void)clickScrollviewTitle:(UIGestureRecognizer *)gesture{
+    NSInteger index = gesture.view.tag - 100;
+    SR_LogMessageModel * logMessageModel = self.logMessages[index];
+    if (logMessageModel.target_type || logMessageModel.target_id){
+        if ([logMessageModel.target_type isEqualToString:@"book"]) {//跳转到书本
+            SR_FoundMainBookClubBookNoteListViewController * bookMarkListVC = [[SR_FoundMainBookClubBookNoteListViewController alloc] init];
+            SR_BookClubBookModel * bookModel = [[SR_BookClubBookModel alloc] init];
+            bookModel.book_id = logMessageModel.target_id;
+            bookMarkListVC.bookModel = bookModel;
+            self.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:bookMarkListVC animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
+        }else if ([logMessageModel.target_type isEqualToString:@"page"]) {//跳转到互动页
+            SR_InterPageDetailViewController * pageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+            SR_InterPageListModel * pageListModel = [[SR_InterPageListModel alloc] init];
+            pageListModel.pageId = logMessageModel.target_id;
+            pageDetailVC.pageListModel = pageListModel;
+            self.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:pageDetailVC animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
+        }else if ([logMessageModel.target_type isEqualToString:@"user"]) {//跳转到用户
+            if ([logMessageModel.target_id isEqualToString:[UserInfo getUserId]]) {
+                SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+                self.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:mineVC animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
+            }else{
+                SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+                SR_BookClubNoteUserModel * userModel = [[SR_BookClubNoteUserModel alloc] init];
+                userModel.user_id = logMessageModel.target_id;
+                otherVC.userModel = userModel;
+                self.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:otherVC animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
+            }
+    }else{
+        self.hidesBottomBarWhenPushed = YES;
+        SR_ScanNetPageViewController * netPageVC = [[SR_ScanNetPageViewController alloc] init];
+        netPageVC.url = logMessageModel.url;
+        [self.navigationController pushViewController:netPageVC animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+        
+        
+        }
+    }
+
+    
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (self.scrollView == scrollView) {
+        CGFloat scrollviewW =  scrollView.frame.size.width;
+        CGFloat x = scrollView.contentOffset.x;
+        int page = (x + scrollviewW / 2) /  scrollviewW;
+        self.scrollViewCurrentPage = page;
+    }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self removeTimer];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    [self addTimer];
+}
+
+- (void)addTimer{
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(nextImage) userInfo:nil repeats:YES];
+}
+
+- (void)removeTimer{
+    [self.timer invalidate];
+}
+
+- (void)nextImage{
+    static BOOL scrollDirection = YES;
+    int page = (int)self.scrollViewCurrentPage;
+    if (page == self.logMessages.count -1) {
+        page = 0;
+        scrollDirection = NO;
+        
+    }else{
+        if (scrollDirection == YES) {
+            page++;
+        }else{
+            page --;
+        }
+    }
+    if (page == 0){
+        scrollDirection = YES;
+        
+    }
+    if (page < 0) {
+        page = 0;
+    }
+    if (page > self.logMessages.count -1) {
+        page = (int)self.logMessages.count -1;
+    }
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.5f];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    CGFloat x = page * self.scrollView.frame.size.width;
+    self.scrollView.contentOffset = CGPointMake(x, 0);
+    [UIView commitAnimations];
 }
 
 - (void)playVoiceWithFilePath:(NSString *)filePath row:(int)row voiceTimeLength:(float)voiceTimeLength{
@@ -699,6 +853,25 @@
     }];
 }
 
+///获取轮播图消息
+- (void)getLogMessageList:(NSInteger)pageNum  pageIndex:(NSInteger)pageIndex{
+    NSString * limit = [NSString stringWithFormat:@"%d",pageNum];
+    NSString * page = [NSString stringWithFormat:@"%d",pageIndex];
+    NSDictionary * param = @{@"limit":limit,@"page":page};
+    [httpTools post:LOG_MESSAGE_LIST andParameters:param success:^(NSDictionary *dic) {
+        NSLog(@"log message:%@",dic);
+        NSArray * list = dic[@"data"][@"list"];
+        for (NSDictionary * item in list) {
+            SR_LogMessageModel * model = [SR_LogMessageModel modelWithDictionary:item];
+            model.logMessage_id = item[@"id"];
+            [self.logMessages addObject:model];
+        }
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        SSLog(@"error:%@",error);
+    }];
+}
+
 ///查询当前账号是否在其他地方登录了。
 - (void)checkTokenTimeout{
     NSString * userPhone = [UserInfo getUserPhoneNumber];
@@ -760,6 +933,13 @@
         [_floatBtn addTarget:self action:@selector(clickFloatBtn) forControlEvents:(UIControlEventTouchUpInside)];
     }
     return _floatBtn;
+}
+
+- (NSMutableArray *)logMessages{
+    if (!_logMessages) {
+        _logMessages = [[NSMutableArray alloc] init];
+    }
+    return _logMessages;
 }
 
 - (void)dealloc{

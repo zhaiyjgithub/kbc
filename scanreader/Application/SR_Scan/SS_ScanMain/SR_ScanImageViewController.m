@@ -23,6 +23,9 @@
 #import "requestAPI.h"
 #import "SR_ScanNetPageViewController.h"
 #import "SR_FoundMainBookClubBookNoteListViewController.h"
+#import "SR_OthersMineViewController.h"
+#import "SR_MineViewController.h"
+#import "UserInfo.h"
 
 @interface SR_ScanImageViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureMetadataOutputObjectsDelegate,AVCaptureMetadataOutputObjectsDelegate>
 //硬件设备
@@ -46,10 +49,7 @@
 //拍照
 @property (nonatomic, strong) UIButton *takePhotoButton;
 
-@property(nonatomic,strong)UIButton * scanQRbtn;
-@property(nonatomic,strong)UIButton * scanImagebtn;
-@property(nonatomic,strong)UILabel * scanQRLabel;
-@property(nonatomic,strong)UILabel * scanImageLabel;
+@property(nonatomic,assign)NSInteger scanImageDelegateCount;
 @end
 
 @implementation SR_ScanImageViewController{
@@ -73,6 +73,11 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.session startRunning];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.session stopRunning];
 }
 
 #pragma mark - 拍照
@@ -117,20 +122,30 @@
     }
     
     //设置图像方向，否则largeImage取出来是反的
-    [connection setVideoOrientation:AVCaptureVideoOrientationPortrait];
-    largeImage = [self imageFromSampleBuffer:sampleBuffer];
-    smallImage = [largeImage imageCompressTargetSize:CGSizeMake(512.0f, 512.0f)];
     
-    [Watermark recognitionWithImage:smallImage result:^(BOOL status, NSString *content) {
-        if (status) {
-            [self.session stopRunning];
-            NSString * value1 = [content substringToIndex:content.length/2];
-            NSString * value2 = [content substringFromIndex:content.length/2];
-            if ([value1 isEqualToString:value2]) {
-                [self readList:@"mark" code:value1];
+    
+    if (self.scanImageDelegateCount > 20) {//由于执行的速度过快，因此会导致按钮等其他交互不能进行，因此在这里添加一个适当的转换时间
+        [connection setVideoOrientation:AVCaptureVideoOrientationPortrait];
+        largeImage = [self imageFromSampleBuffer:sampleBuffer];
+        smallImage = [largeImage imageCompressTargetSize:CGSizeMake(512.0f, 512.0f)];
+        [Watermark recognitionWithImage:smallImage result:^(BOOL status, NSString *content) {
+            if (status) {
+                [self.session stopRunning];
+                NSString * value1 = [content substringToIndex:content.length/2];
+                NSString * value2 = [content substringFromIndex:content.length/2];
+                if ([value1 isEqualToString:value2]) {
+                    [self readList:@"mark" code:value1];
+                }else{
+                    [self.session startRunning];
+                }
             }
-        }
-    }];
+        }];
+        self.scanImageDelegateCount = 0;
+    }else{
+        self.scanImageDelegateCount +=1;
+    }
+    
+    
 }
 
 //CMSampleBufferRef转NSImage
@@ -212,14 +227,8 @@
                 self.hidesBottomBarWhenPushed = NO;
             }
         }else{//读取isbn 水印图结果
-            //url优先
-            if (dic[@"data"][@"record"][@"url"] != [NSNull null] && dic[@"data"][@"record"][@"url"]){
-                self.hidesBottomBarWhenPushed = YES;
-                SR_ScanNetPageViewController * netPageVC = [[SR_ScanNetPageViewController alloc] init];
-                netPageVC.url = dic[@"data"][@"record"][@"url"];
-                [self.navigationController pushViewController:netPageVC animated:YES];
-                self.hidesBottomBarWhenPushed = NO;
-            }else{
+            //对象优先
+            if (dic[@"data"][@"record"][@"target_type"]){
                 if ([dic[@"data"][@"record"][@"target_type"] isEqualToString:@"book"]) {//跳转到书本
                     SR_FoundMainBookClubBookNoteListViewController * bookMarkListVC = [[SR_FoundMainBookClubBookNoteListViewController alloc] init];
                     SR_BookClubBookModel * bookModel = [[SR_BookClubBookModel alloc] init];
@@ -236,11 +245,30 @@
                     self.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:pageDetailVC animated:YES];
                     self.hidesBottomBarWhenPushed = NO;
+                }else if ([dic[@"data"][@"record"][@"target_type"] isEqualToString:@"user"]){
+                    if ([dic[@"data"][@"record"][@"target_type"] isEqualToString:[UserInfo getUserId]]) {
+                        SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+                        self.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:mineVC animated:YES];
+                        self.hidesBottomBarWhenPushed = NO;
+                    }else{
+                        SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+                        SR_BookClubNoteUserModel * userModel = [[SR_BookClubNoteUserModel alloc] init];
+                        userModel.user_id = dic[@"data"][@"record"][@"target_id"];
+                        otherVC.userModel = userModel;
+                        self.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:otherVC animated:YES];
+                        self.hidesBottomBarWhenPushed = NO;
+                    }
                 }
+            }else{
+                self.hidesBottomBarWhenPushed = YES;
+                SR_ScanNetPageViewController * netPageVC = [[SR_ScanNetPageViewController alloc] init];
+                netPageVC.url = dic[@"data"][@"record"][@"url"];
+                [self.navigationController pushViewController:netPageVC animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
             }
         }
-
-        
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
@@ -333,24 +361,16 @@
             stillImageFlag = YES;
         }
             break;
-        case 11:
+        case 11: //扫码
         {
+            metadataOutputFlag = YES;
+            self.scanImageDelegateCount = 0;
+        }
+            break;
+        case 12:{//扫图
             videoDataFlag = YES;
             largeImage = nil;
             smallImage = nil;
-            self.scanQRbtn.selected = YES;
-            self.scanQRLabel.textColor = baseColor;
-            self.scanImageLabel.textColor = [UIColor lightGrayColor];
-            self.scanImagebtn.selected = NO;
-        }
-            break;
-        case 12:
-        {
-            metadataOutputFlag = YES;
-            self.scanImagebtn.selected = YES;
-            self.scanImageLabel.textColor = baseColor;
-            self.scanQRbtn.selected = NO;
-            self.scanQRLabel.textColor = [UIColor lightGrayColor];
         }
             break;
             
@@ -361,7 +381,13 @@
         UIButton *button = (UIButton *)[self.view viewWithTag:i];
         button.selected = NO;
     }
+    for (int i = 100; i < 102; i ++) {
+        UILabel *titleLabel = (UILabel *)[self.view viewWithTag:i];
+        titleLabel.textColor = [UIColor lightGrayColor];
+    }
     aButton.selected = YES;
+    UILabel *titleLabel = (UILabel *)[self.view viewWithTag:aButton.tag - 11 + 100];
+    titleLabel.textColor = baseColor;
 }
 
 -(void)setupMenuButton{
@@ -379,13 +405,18 @@
             [button setImage:[UIImage imageNamed:@"sm_sm_hl"] forState:(UIControlStateSelected)];
             [button setImage:[UIImage imageNamed:@"sm_sm_nor"] forState:(UIControlStateNormal)];
         }else{
-
+            
             [button setImage:[UIImage imageNamed:@"sm_st_hl"] forState:(UIControlStateSelected)];
             [button setImage:[UIImage imageNamed:@"sm_st_nor"] forState:(UIControlStateNormal)];
         }
-        UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(button.frame.origin.x , button.frame.origin.y + button.frame.size.height + 5, button.frame.size.width, 20)];
+        UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(button.frame.origin.x , button.frame.origin.y + button.frame.size.height, button.frame.size.width, 16)];
         titleLabel.text = titles[i];
-        titleLabel.textColor = [UIColor lightGrayColor];
+        titleLabel.tag = 100 + i;
+        if (i == 0) {
+            titleLabel.textColor = baseColor;
+        }else{
+            titleLabel.textColor = [UIColor lightGrayColor];
+        }
         titleLabel.font = [UIFont systemFontOfSize:14.0];
         titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:titleLabel];
