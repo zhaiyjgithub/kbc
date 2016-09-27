@@ -24,8 +24,9 @@
 #import "SR_InterPageListModel.h"
 #import "SR_InterPageDetailViewController.h"
 #import "SR_InterPageListModel.h"
+#import "SR_AddBtnView.h"
 
-@interface SR_NoteDetailPageViewController ()<textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate,UIAlertViewDelegate>
+@interface SR_NoteDetailPageViewController ()<textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate,UIAlertViewDelegate,addBtnDelegate>
 @property(nonatomic,assign)CGFloat cellHeight;
 @property(nonatomic,strong)AVPlayer * remotePlayer;
 @property(nonatomic,strong)AVPlayerItem * playerItem;
@@ -36,6 +37,7 @@
 @property(nonatomic,strong)SR_ActionSheetTextView * actionSheetTextView;
 @property(nonatomic,strong)SR_ActionSheetImageView * actionSheetImageView;
 @property(nonatomic,strong)SR_ActionSheetVoiceView * actionSheetVoiceView;
+@property(nonatomic,strong)UIButton * floatBtn;
 @end
 
 @implementation SR_NoteDetailPageViewController
@@ -55,50 +57,90 @@
         }else{
             self.navigationItem.rightBarButtonItems = @[editBarItem];
         }
-    }else{
+    }else{//现在看的是别人的笔记，可以出现浮动按钮
+        [self.view addSubview:self.floatBtn];
         if (self.noteModel.page.page_id) {
             self.navigationItem.rightBarButtonItems = @[interPageBarItem];
         }
     }
 }
 
+///先检测是否登录超时了。
 - (void)clickEidtItem{
-    if ([self.noteModel.type isEqualToString:NOTE_TYPE_TEXT]){
-        SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:self.noteModel.title text:self.noteModel.content];
-        textView.delegate = self;
-        textView.requestType = NOTE_REQUSERT_TYPE_UPDATE;
-        textView.noteId = self.noteModel.note_id;
-        self.actionSheetTextView = textView;
-        [textView show];
-    }else if ([self.noteModel.type isEqualToString:NOTE_TYPE_PIX]){
-        SR_ActionSheetImageView * imageView = [[SR_ActionSheetImageView alloc] initActionSheetWith:self.noteModel.title images:nil viewController:self];
-        imageView.delegate = self;
-        imageView.requestType = NOTE_REQUSERT_TYPE_UPDATE;
-        imageView.noteId = self.noteModel.note_id;
-        self.actionSheetImageView = imageView;
-        [imageView show];
-    }else if ([self.noteModel.type isEqualToString:NOTE_TYPE_VOICE]){
-        SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:self.noteModel.title voices:nil viewController:self];
-        voiceView.requestType = NOTE_REQUSERT_TYPE_UPDATE;
-        voiceView.noteId = self.noteModel.note_id;
-        voiceView.delegate = self;
-        self.actionSheetVoiceView = voiceView;
-        [voiceView show];
-    }
+    NSString * userPhone = [UserInfo getUserPhoneNumber];
+    NSString * userPwd = [UserInfo getUserPassword];
+    NSDictionary * param = @{@"username":userPhone,@"password":userPwd};
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [httpTools post:LOGIN andParameters:param success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        SSLog(@"relogin:%@",dic);
+        if ([dic[@"status"] isEqualToString:@"1"]) {
+            NSDictionary * userDic = dic[@"data"][@"user"];
+            [UserInfo saveUserAvatarWith:userDic[@"avatar"]];
+            [UserInfo saveUserIDWith:userDic[@"id"]];
+            [UserInfo saveUserTokenWith:dic[@"data"][@"user_token"]];
+            [UserInfo saveUserNameWith:userDic[@"username"]];
+            [UserInfo saveUserLevelWith:userDic[@"level"]];
+            [UserInfo saveUserPublicWith:userDic[@"public"]];
+            [UserInfo saveUserCreditWith:userDic[@"credit"]];
+            [UserInfo saveUserPhoneNumberWith:userPhone];
+            [UserInfo saveUserPasswordWith:userPwd];
+            
+            if ([self.noteModel.type isEqualToString:NOTE_TYPE_TEXT]){
+                SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:self.noteModel.title text:self.noteModel.content];
+                textView.delegate = self;
+                textView.requestType = NOTE_REQUSERT_TYPE_UPDATE;
+                textView.noteId = self.noteModel.note_id;
+                self.actionSheetTextView = textView;
+                [textView show];
+            }else if ([self.noteModel.type isEqualToString:NOTE_TYPE_PIX]){
+                SR_ActionSheetImageView * imageView = [[SR_ActionSheetImageView alloc] initActionSheetWith:self.noteModel.title images:nil viewController:self];
+                imageView.delegate = self;
+                imageView.requestType = NOTE_REQUSERT_TYPE_UPDATE;
+                imageView.noteId = self.noteModel.note_id;
+                self.actionSheetImageView = imageView;
+                [imageView show];
+            }else if ([self.noteModel.type isEqualToString:NOTE_TYPE_VOICE]){
+                SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:self.noteModel.title voices:nil viewController:self];
+                voiceView.requestType = NOTE_REQUSERT_TYPE_UPDATE;
+                voiceView.noteId = self.noteModel.note_id;
+                voiceView.delegate = self;
+                self.actionSheetVoiceView = voiceView;
+                [voiceView show];
+            }
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
 }
 
 ///做没有对象的笔记
 - (void)clickTextViewSendBtn:(NSString *)title text:(NSString *)text{
-    [self getNewModel];
+    if ([self.noteModel.user.user_id isEqualToString:[UserInfo getUserId]]){
+        [self getNewModel];
+    }else{//看别人的笔记没有了编辑，但是可以做笔记
+        SSLog(@"title:%@ content:%@",title,text);
+        [[NSNotificationCenter defaultCenter] postNotificationName:SR_NOTI_CREATE_PAGE_NOTE object:nil userInfo:@{SR_NOTI_CREATE_PAGE_NOTE_KEY_1:@"SR_NOTI_CREATE_PAGE_NOTE_KEY_1"}];
+    }
 }
 
 ///添加新的图片文件
 - (void)clickImageViewSendBtn:(NSString *)title images:(NSArray *)images{
-    [self getNewModel];
+    if ([self.noteModel.user.user_id isEqualToString:[UserInfo getUserId]]){
+        [self getNewModel];
+    }else{
+        SSLog(@"image title:%@",title);
+        [[NSNotificationCenter defaultCenter] postNotificationName:SR_NOTI_CREATE_PAGE_NOTE object:nil userInfo:@{SR_NOTI_CREATE_PAGE_NOTE_KEY_1:@"SR_NOTI_CREATE_PAGE_NOTE_KEY_1"}];
+    }
 }
 
 - (void)clickVoiceViewSendBtn:(NSString *)title text:(NSString *)text{
-    [self getNewModel];
+    if ([self.noteModel.user.user_id isEqualToString:[UserInfo getUserId]]){
+        [self getNewModel];
+    }else{
+        SSLog(@"voice title:%@",title);
+        [[NSNotificationCenter defaultCenter] postNotificationName:SR_NOTI_CREATE_PAGE_NOTE object:nil userInfo:@{SR_NOTI_CREATE_PAGE_NOTE_KEY_1:@"SR_NOTI_CREATE_PAGE_NOTE_KEY_1"}];
+    }
 }
 
 - (void)getNewModel{
@@ -445,5 +487,65 @@
 
 }
 
+- (UIButton *)floatBtn{
+    if (!_floatBtn) {
+        _floatBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        _floatBtn.frame = CGRectMake(0, 0, 65, 65);
+        _floatBtn.center = CGPointMake(kScreenWidth - 5 - 33, kScreenHeight/2);
+        [_floatBtn setImage:[UIImage imageNamed:@"add_note"] forState:(UIControlStateNormal)];
+        [_floatBtn addTarget:self action:@selector(clickFloatBtn) forControlEvents:(UIControlEventTouchUpInside)];
+    }
+    return _floatBtn;
+}
+
+///创建笔记之前先判断账号是否已经超时
+- (void)clickFloatBtn{
+    NSString * userPhone = [UserInfo getUserPhoneNumber];
+    NSString * userPwd = [UserInfo getUserPassword];
+    NSDictionary * param = @{@"username":userPhone,@"password":userPwd};
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [httpTools post:LOGIN andParameters:param success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        SSLog(@"relogin:%@",dic);
+        if ([dic[@"status"] isEqualToString:@"1"]) {
+            NSDictionary * userDic = dic[@"data"][@"user"];
+            [UserInfo saveUserAvatarWith:userDic[@"avatar"]];
+            [UserInfo saveUserIDWith:userDic[@"id"]];
+            [UserInfo saveUserTokenWith:dic[@"data"][@"user_token"]];
+            [UserInfo saveUserNameWith:userDic[@"username"]];
+            [UserInfo saveUserLevelWith:userDic[@"level"]];
+            [UserInfo saveUserPublicWith:userDic[@"public"]];
+            [UserInfo saveUserCreditWith:userDic[@"credit"]];
+            [UserInfo saveUserPhoneNumberWith:userPhone];
+            [UserInfo saveUserPasswordWith:userPwd];
+            
+            SR_AddBtnView * addBtnView = [[SR_AddBtnView alloc] initAlertView];
+            addBtnView.delegate = self;
+            [addBtnView show];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+}
+
+- (void)clickAddBtnView:(NSInteger)tag{
+    if (tag == 0) {
+        SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:nil text:nil];
+        textView.delegate = self;
+        textView.requestType = NOTE_REQUSERT_TYPE_SAVE;
+        [textView show];
+    }else if (tag == 1){
+        SR_ActionSheetImageView * imageView = [[SR_ActionSheetImageView alloc] initActionSheetWith:nil images:nil viewController:self];
+        imageView.delegate = self;
+        imageView.viewController = self;
+        imageView.requestType = NOTE_REQUSERT_TYPE_SAVE;
+        [imageView show];
+    }else{
+        SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:nil voices:nil viewController:self];
+        voiceView.delegate = self;
+        voiceView.requestType = NOTE_REQUSERT_TYPE_SAVE;
+        [voiceView show];
+    }
+}
 
 @end

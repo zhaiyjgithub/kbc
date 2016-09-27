@@ -442,10 +442,10 @@
                 [headerNotiBgView addSubview:headerImageView];
                 
                 UILabel * notiLabel = [[UILabel alloc] initWithFrame:CGRectMake(headerImageView.frame.origin.x + headerImageView.frame.size.width + 10, 0, kScreenWidth - 30 - 10 - headerImageView.frame.size.width, 36)];
-                notiLabel.text = logMessageModel.content;
+                notiLabel.text = [NSString stringWithFormat:@"%@  %@",logMessageModel.username,logMessageModel.content];
                 notiLabel.textColor = baseblackColor;
                 notiLabel.font = [UIFont systemFontOfSize:13.0];
-                notiLabel.textAlignment = NSTextAlignmentCenter;
+                notiLabel.textAlignment = NSTextAlignmentLeft;
                 [headerNotiBgView addSubview:notiLabel];
             }
         }else{
@@ -711,7 +711,6 @@
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
-
 }
 
 - (void)clickAddBtnView:(NSInteger)tag{
@@ -733,8 +732,6 @@
         [voiceView show];
     }
 }
-
-
 
 ///做没有对象的笔记，已经刷新了数据，有可能后台没有更新那么快
 - (void)clickTextViewSendBtn:(NSString *)title text:(NSString *)text{
