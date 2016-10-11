@@ -17,6 +17,7 @@
 		84AE3DD41D4366B500643989 /* SR_ScanResultNoneBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD31D4366B500643989 /* SR_ScanResultNoneBookViewController.m */; };
 		84AE3DD71D436E1200643989 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DD61D436E1200643989 /* Tools.m */; };
 		84AE3DDC1D436E6400643989 /* PhotoPickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE3DDA1D436E6400643989 /* PhotoPickerTool.m */; };
+		CB016E051DACDC6D00A8F4FE /* SR_ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB016E041DACDC6D00A8F4FE /* SR_ShareView.m */; };
 		CB03F5851D77084A00D19B0F /* SR_InterPageTextFrameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB03F5841D77084A00D19B0F /* SR_InterPageTextFrameModel.m */; };
 		CB03F5881D7709A200D19B0F /* SR_InterPageDetailTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB03F5871D7709A200D19B0F /* SR_InterPageDetailTextViewCell.m */; };
 		CB03F58B1D770DB500D19B0F /* SR_InterPageDetailImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB03F58A1D770DB500D19B0F /* SR_InterPageDetailImageViewCell.m */; };
@@ -158,6 +159,8 @@
 		84AE3DDA1D436E6400643989 /* PhotoPickerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoPickerTool.m; path = Base/Tool/PhotoPickerTool.m; sourceTree = "<group>"; };
 		84AE3DDB1D436E6400643989 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Singleton.h; path = Base/Tool/Singleton.h; sourceTree = "<group>"; };
 		BE41DAAFFD8A4D526A8427FD /* Pods-scanreader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scanreader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-scanreader/Pods-scanreader.debug.xcconfig"; sourceTree = "<group>"; };
+		CB016E031DACDC6D00A8F4FE /* SR_ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_ShareView.h; path = Application/SR_ActioSheet/SR_ShareView.h; sourceTree = "<group>"; };
+		CB016E041DACDC6D00A8F4FE /* SR_ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_ShareView.m; path = Application/SR_ActioSheet/SR_ShareView.m; sourceTree = "<group>"; };
 		CB03F5831D77084A00D19B0F /* SR_InterPageTextFrameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_InterPageTextFrameModel.h; path = Application/SR_InterPage/SR_InterPageTextFrameModel.h; sourceTree = "<group>"; };
 		CB03F5841D77084A00D19B0F /* SR_InterPageTextFrameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_InterPageTextFrameModel.m; path = Application/SR_InterPage/SR_InterPageTextFrameModel.m; sourceTree = "<group>"; };
 		CB03F5861D7709A200D19B0F /* SR_InterPageDetailTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_InterPageDetailTextViewCell.h; path = Application/SR_InterPage/SR_InterPageDetailTextViewCell.h; sourceTree = "<group>"; };
@@ -425,6 +428,7 @@
 		848429A41D4498C400855854 /* SR_ActionSheet */ = {
 			isa = PBXGroup;
 			children = (
+				CB016E021DACDC4900A8F4FE /* shareView */,
 				848DD48F1D44FBA50061810F /* VoiceView */,
 				846C6DDD1D44ACF800401A35 /* ImageView */,
 				846C6DDC1D44ACE600401A35 /* TextView */,
@@ -468,6 +472,15 @@
 				CB2A65FD1D60B26C006F735B /* UserInfo.m */,
 			);
 			name = Tools;
+			sourceTree = "<group>";
+		};
+		CB016E021DACDC4900A8F4FE /* shareView */ = {
+			isa = PBXGroup;
+			children = (
+				CB016E031DACDC6D00A8F4FE /* SR_ShareView.h */,
+				CB016E041DACDC6D00A8F4FE /* SR_ShareView.m */,
+			);
+			name = shareView;
 			sourceTree = "<group>";
 		};
 		CB186EFF1D72E82900C16705 /* NoteDetailPage(笔记详情页) */ = {
@@ -1308,6 +1321,7 @@
 				CB42D0AE1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m in Sources */,
 				CB186F0B1D730C1400C16705 /* SR_NoteDetailPageImageViewCell.m in Sources */,
 				CBD1D6191D363AC700539056 /* SR_OthersMineViewController.m in Sources */,
+				CB016E051DACDC6D00A8F4FE /* SR_ShareView.m in Sources */,
 				CB03F5851D77084A00D19B0F /* SR_InterPageTextFrameModel.m in Sources */,
 				CB42D0CA1D645AF8002A75E5 /* VoiceConverter.mm in Sources */,
 				CB42D0B41D6455B1002A75E5 /* VoiceViewController.m in Sources */,

@@ -48,6 +48,13 @@
 #import "SR_ScanNetPageViewController.h"
 #import <YYKit/YYKit.h>
 
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKConnector/ShareSDKConnector.h>
+#import <ShareSDKUI/ShareSDKUI.h>
+#import <ShareSDKUI/SSUIShareActionSheetStyle.h>
+#import "WeiboSDK.h"
+#import "SR_ShareView.h"
+
 @interface SR_FoundMainViewController ()<addBtnDelegate,UIAlertViewDelegate,textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate>
 @property(nonatomic,assign)BOOL isSelectBookClub;
 @property(nonatomic,strong)NSMutableArray * bookClubs;
@@ -88,57 +95,7 @@
     }];
     [self addHeaderRefresh];
     [self checkTokenTimeout];
-    
-//    [self.logMessages  addObject:@"ss"];
-//    [self.logMessages  addObject:@"ss"];
-//    [self.logMessages  addObject:@"ss"];
     [self addTimer];
-}
-
-- (void)scanHasBook:(NSNotification *)noti{
-    NSString * value = noti.userInfo[SR_NOTI_SCAN_HAS_BOOK_KEY_1];
-    if ([value isEqualToString:SR_NOTI_SCAN_HAS_BOOK_KEY_1]) {
-        self.isSelectBookClub = YES;
-        self.lastTag = 1;
-        [self.tableView reloadData];
-    }
-}
-
-- (void)createNewBook:(NSNotification *)noti{
-    NSString * value = noti.userInfo[SR_NOTI_CREATE_BOOK_KEY_1];
-    if ([value isEqualToString:SR_NOTI_CREATE_BOOK_KEY_1]) {
-        [self.bookClubs removeAllObjects];
-        self.bookClubPageIndex = 0;
-        [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
-    }
-}
-
-- (void)createNewPageNote:(NSNotification *)noti{
-    NSString * value = noti.userInfo[SR_NOTI_CREATE_PAGE_NOTE_KEY_1];
-    if ([value isEqualToString:SR_NOTI_CREATE_PAGE_NOTE_KEY_1]) {
-        [self.dynamicInfos removeAllObjects];
-        self.dynamicInfoPageIndex = 0;
-        [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex];
-    }
-}
-
-- (void)addHeaderRefresh{
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
-    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
-    header.automaticallyChangeAlpha = YES;
-    header.lastUpdatedTimeLabel.hidden = YES;
-    [header beginRefreshing];
-    self.tableView.mj_header = header;
-}
-
-- (void)loadNewData{
-    [self.dynamicInfos removeAllObjects];
-    [self.bookClubs removeAllObjects];
-    self.dynamicInfoPageIndex = 0;
-    self.bookClubPageIndex = 0;
-    [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex];
-    [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
-    [self getLogMessageList:PAGE_NUM pageIndex:0];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -151,6 +108,60 @@
 //    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
 //    [self.navigationController pushViewController:foundVC animated:YES];
 //    self.hidesBottomBarWhenPushed = NO;
+    
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    [shareParams SSDKEnableUseClientShare]; //打开客户端分享
+//    [shareParams SSDKSetupShareParamsByText:@"分享内容"
+//                                     images:[UIImage imageNamed:@"传入的图片名"]
+//                                        url:[NSURL URLWithString:@"http://mob.com"]
+//                                      title:@"分享标题"
+//                                       type:SSDKContentTypeAuto];
+    
+    // 定制新浪微博的分享内容
+    [shareParams SSDKSetupSinaWeiboShareParamsByText:@"定制新浪微博的分享内容" title:nil image:[UIImage imageNamed:@"传入的图片名"] url:nil latitude:0 longitude:0 objectID:nil type:SSDKContentTypeAuto];
+    // 定制微信好友的分享内容
+//    [shareParams SSDKSetupWeChatParamsByText:@"定制微信的分享内容" title:@"title" url:[NSURL URLWithString:@"http://mob.com"] thumbImage:nil image:[UIImage imageNamed:@"传入的图片名"] musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeAuto forPlatformSubType:SSDKPlatformSubTypeWechatSession];// 微信好友子平台
+    
+    //2、分享
+    [ShareSDK share:(SSDKPlatformTypeSinaWeibo) parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+        NSLog(@"state:%d",state);
+        
+    }];
+
+}
+
+- (void)clickMineItem{
+//    self.hidesBottomBarWhenPushed = YES;
+//    SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+//    [self.navigationController pushViewController:mineVC animated:YES];
+//    self.hidesBottomBarWhenPushed = NO;
+    
+//    [ShareSDK getUserInfo:SSDKPlatformTypeSinaWeibo
+//           onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
+//     {
+//         if (state == SSDKResponseStateSuccess)
+//         {
+//             
+//             NSLog(@"uid=%@",user.uid);
+//             NSLog(@"%@",user.credential);
+//             NSLog(@"token=%@",user.credential.token);
+//             NSLog(@"nickname=%@",user.nickname);
+//         }
+//         
+//         else
+//         {
+//             NSLog(@"%@",error);
+//         }
+//         
+//     }];
+
+//        SSUIShareActionSheetController *sheet = [ShareSDK showShareActionSheet:self.view items:@[@(SSDKPlatformSubTypeWechatSession),@(SSDKPlatformTypeSinaWeibo),@(SSDKPlatformTypeTencentWeibo)] shareParams:nil onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+//            NSLog(@"type:%d",platformType);
+//            
+//        }];
+    SR_ShareView * shareView = [[SR_ShareView alloc] initShareView];
+    [shareView show];
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -485,6 +496,52 @@
     }
 }
 
+- (void)scanHasBook:(NSNotification *)noti{
+    NSString * value = noti.userInfo[SR_NOTI_SCAN_HAS_BOOK_KEY_1];
+    if ([value isEqualToString:SR_NOTI_SCAN_HAS_BOOK_KEY_1]) {
+        self.isSelectBookClub = YES;
+        self.lastTag = 1;
+        [self.tableView reloadData];
+    }
+}
+
+- (void)createNewBook:(NSNotification *)noti{
+    NSString * value = noti.userInfo[SR_NOTI_CREATE_BOOK_KEY_1];
+    if ([value isEqualToString:SR_NOTI_CREATE_BOOK_KEY_1]) {
+        [self.bookClubs removeAllObjects];
+        self.bookClubPageIndex = 0;
+        [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
+    }
+}
+
+- (void)createNewPageNote:(NSNotification *)noti{
+    NSString * value = noti.userInfo[SR_NOTI_CREATE_PAGE_NOTE_KEY_1];
+    if ([value isEqualToString:SR_NOTI_CREATE_PAGE_NOTE_KEY_1]) {
+        [self.dynamicInfos removeAllObjects];
+        self.dynamicInfoPageIndex = 0;
+        [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex];
+    }
+}
+
+- (void)addHeaderRefresh{
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    header.automaticallyChangeAlpha = YES;
+    header.lastUpdatedTimeLabel.hidden = YES;
+    [header beginRefreshing];
+    self.tableView.mj_header = header;
+}
+
+- (void)loadNewData{
+    [self.dynamicInfos removeAllObjects];
+    [self.bookClubs removeAllObjects];
+    self.dynamicInfoPageIndex = 0;
+    self.bookClubPageIndex = 0;
+    [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex];
+    [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
+    [self getLogMessageList:PAGE_NUM pageIndex:0];
+}
+
 - (void)clickScrollviewTitle:(UIGestureRecognizer *)gesture{
     NSInteger index = gesture.view.tag - 100;
     SR_LogMessageModel * logMessageModel = self.logMessages[index];
@@ -665,14 +722,6 @@
 - (void)playerItemDidReachEnd{
     NSLog(@"播放完毕");
     self.isFinishedPlay = YES;
-}
-
-
-- (void)clickMineItem{
-    self.hidesBottomBarWhenPushed = YES;
-    SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
-    [self.navigationController pushViewController:mineVC animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
 }
 
 - (void)clickHeaderBtn:(UIButton *)btn{

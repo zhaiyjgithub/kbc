@@ -39,6 +39,36 @@
     }
 }
 
+//- (id)initAlertView{
+//    self = [super init];
+//    if (self) {
+//        self.frame = CGRectMake(0, 0, 240, 240);
+//        self.center = CGPointMake(kScreenWidth, kScreenHeight/2);
+//        self.backgroundColor  = baseColor;
+//        self.layer.cornerRadius = 120;
+//        [self setupView];
+//    }
+//    return self;
+//}
+//
+//- (void)setupView{
+//    NSArray * titles = @[@"收藏",@"分享",@"文字",@"拍照",@"语音"];
+//    NSArray * imageNames = @[@"hdy_xuanfu_wz",@"hdy_xuanfu_pz",@"hdy_xuanfu_yy",@"hdy_xuanfu_yy",@"hdy_xuanfu_yy"];
+//    CGFloat upBoarder = (240 - titles.count* (18 + 15))/2 + 7.5;
+//    
+//    for (int i = 0; i < titles.count; i ++) {
+//        SR_OAthouButton * btn = [[SR_OAthouButton alloc] initWithType:(BaseButtonTypeLeft) sizeType:(BaseButtonSizeTypeSmall)];
+//        
+//        btn.frame = CGRectMake(20,upBoarder + i * (18 + 15), 60,18);
+//        [btn setTitle:titles[i] forState:(UIControlStateNormal)];
+//        [btn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+//        [btn setImage:[UIImage imageNamed:imageNames[i]] forState:(UIControlStateNormal)];
+//        [btn addTarget:self action:@selector(clickBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+//        btn.tag = i;
+//        [self addSubview:btn];
+//    }
+//}
+
 - (void)show{
     self.handerView = [UIButton buttonWithType:(UIButtonTypeCustom)];
     _handerView.frame = [UIScreen mainScreen].bounds;
