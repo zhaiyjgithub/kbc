@@ -18,6 +18,7 @@
 @interface SR_AddBtnView : UIView
 @property(nonatomic,strong)UIButton * handerView;
 @property(nonatomic,weak)id<addBtnDelegate>delegate;
+@property(nonatomic,copy)NSString * btnType;
 - (id)initAlertView;
 - (void)show;
 - (void)dismiss;

@@ -61,15 +61,15 @@
     _tableView = tableView;
     [self addSubview:self.tableView];
     
-    UIView * voiceView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.origin.y + self.tableView.frame.size.height + 5, kScreenWidth, sizeHeight(30 + 54))];
+    UIView * voiceView = [[UIView alloc] initWithFrame:CGRectMake(0, sizeHeight(400) - sizeHeight(30 + 54) , kScreenWidth, sizeHeight((30 + 54)))];
     voiceView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     [self addSubview:voiceView];
     
     UIButton * btn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    btn.frame = CGRectMake(0, 0, 70, 70);
-    btn.center = CGPointMake(kScreenWidth/2, 47);
+    btn.frame = CGRectMake(0, 0, sizeHeight(70), sizeHeight(70));
+    btn.center = CGPointMake(kScreenWidth/2, voiceView.frame.size.height/2.0);
     btn.backgroundColor = baseColor;
-    btn.layer.cornerRadius = 35.0;
+    btn.layer.cornerRadius = sizeHeight(70)/2.0;
     [btn setTitle:@"按住" forState:(UIControlStateNormal)];
     [btn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [btn setTitle:@"松开" forState:(UIControlStateHighlighted)];

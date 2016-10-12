@@ -37,7 +37,7 @@
 #define kColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 #define kColorAlpha(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]
 
-#define sizeHeight(x) (x/667.0)* kScreenHeight //高度适配iPhone6
+#define sizeHeight(x) ((x)/667.0)* kScreenHeight //高度适配iPhone6
 
 //// 2.定义全局的调试输出接口
 #ifdef DEBUG

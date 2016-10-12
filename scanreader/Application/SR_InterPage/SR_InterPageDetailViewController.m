@@ -41,20 +41,24 @@
 
 ///这里做的偶都是有对象的笔记，需要传入page_id
 - (void)clickAddBtnView:(NSInteger)tag{
-    if (tag == 0) {
+    if (tag == 0) {//收藏
+        [self collectOnePage:self.pageListModel.pageId];
+    }else if (tag == 1){//分享
+    
+    }else if (tag == 2) {
         SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:nil text:nil];
         textView.delegate = self;
         textView.page_id = self.pageListModel.pageId;
         textView.requestType = NOTE_REQUSERT_TYPE_SAVE_PAGE;
         [textView show];
-    }else if (tag == 1){
+    }else if (tag == 3){
         SR_ActionSheetImageView * imageView = [[SR_ActionSheetImageView alloc] initActionSheetWith:nil images:nil viewController:self];
         imageView.delegate = self;
         imageView.page_id = self.pageListModel.pageId;
         imageView.viewController = self;
         imageView.requestType = NOTE_REQUSERT_TYPE_SAVE_PAGE;
         [imageView show];
-    }else{
+    }else if (tag == 4){
         SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:nil voices:nil viewController:self];
         voiceView.delegate = self;
         voiceView.page_id = self.pageListModel.pageId;
@@ -63,7 +67,17 @@
     }
 }
 
-
+- (void)collectOnePage:(NSString *)pageId{
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"page_id":pageId,@"type":@"4"};
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [httpTools post:SAVE_NOTE andParameters:param success:^(NSDictionary *dic) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
 ///做没有对象的笔记，已经刷新了数据，有可能后台没有更新那么快
 ///这里发送通知通知首页更新
@@ -107,6 +121,7 @@
             [UserInfo saveUserPasswordWith:userPwd];
             
             SR_AddBtnView * addBtnView = [[SR_AddBtnView alloc] initAlertView];
+            addBtnView.btnType = @"share";
             addBtnView.delegate = self;
             [addBtnView show];
         }

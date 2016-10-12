@@ -529,18 +529,18 @@
 }
 
 - (void)clickAddBtnView:(NSInteger)tag{
-    if (tag == 0) {
+    if (tag == 2) {
         SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:nil text:nil];
         textView.delegate = self;
         textView.requestType = NOTE_REQUSERT_TYPE_SAVE;
         [textView show];
-    }else if (tag == 1){
+    }else if (tag == 3){
         SR_ActionSheetImageView * imageView = [[SR_ActionSheetImageView alloc] initActionSheetWith:nil images:nil viewController:self];
         imageView.delegate = self;
         imageView.viewController = self;
         imageView.requestType = NOTE_REQUSERT_TYPE_SAVE;
         [imageView show];
-    }else{
+    }else if (tag == 4){
         SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:nil voices:nil viewController:self];
         voiceView.delegate = self;
         voiceView.requestType = NOTE_REQUSERT_TYPE_SAVE;

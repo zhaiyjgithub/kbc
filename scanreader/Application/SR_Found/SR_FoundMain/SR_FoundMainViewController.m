@@ -55,6 +55,8 @@
 #import "WeiboSDK.h"
 #import "SR_ShareView.h"
 
+#import "ShareTool.h"
+
 @interface SR_FoundMainViewController ()<addBtnDelegate,UIAlertViewDelegate,textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate>
 @property(nonatomic,assign)BOOL isSelectBookClub;
 @property(nonatomic,strong)NSMutableArray * bookClubs;
@@ -104,13 +106,13 @@
 }
 
 - (void)clickSearchItem{
-//    self.hidesBottomBarWhenPushed = YES;
-//    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
-//    [self.navigationController pushViewController:foundVC animated:YES];
-//    self.hidesBottomBarWhenPushed = NO;
+    self.hidesBottomBarWhenPushed = YES;
+    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
+    [self.navigationController pushViewController:foundVC animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
     
-    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKEnableUseClientShare]; //打开客户端分享
+//    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+//    [shareParams SSDKEnableUseClientShare]; //打开客户端分享
 //    [shareParams SSDKSetupShareParamsByText:@"分享内容"
 //                                     images:[UIImage imageNamed:@"传入的图片名"]
 //                                        url:[NSURL URLWithString:@"http://mob.com"]
@@ -118,50 +120,23 @@
 //                                       type:SSDKContentTypeAuto];
     
     // 定制新浪微博的分享内容
-    [shareParams SSDKSetupSinaWeiboShareParamsByText:@"定制新浪微博的分享内容" title:nil image:[UIImage imageNamed:@"传入的图片名"] url:nil latitude:0 longitude:0 objectID:nil type:SSDKContentTypeAuto];
+//    [shareParams SSDKSetupSinaWeiboShareParamsByText:@"定制新浪微博的分享内容" title:nil image:[UIImage imageNamed:@"传入的图片名"] url:nil latitude:0 longitude:0 objectID:nil type:SSDKContentTypeAuto];
     // 定制微信好友的分享内容
 //    [shareParams SSDKSetupWeChatParamsByText:@"定制微信的分享内容" title:@"title" url:[NSURL URLWithString:@"http://mob.com"] thumbImage:nil image:[UIImage imageNamed:@"传入的图片名"] musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeAuto forPlatformSubType:SSDKPlatformSubTypeWechatSession];// 微信好友子平台
     
     //2、分享
-    [ShareSDK share:(SSDKPlatformTypeSinaWeibo) parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
-        NSLog(@"state:%d",state);
-        
-    }];
+//    [ShareSDK share:(SSDKPlatformTypeSinaWeibo) parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+//        NSLog(@"state:%d",state);
+//        
+//    }];
 
 }
 
 - (void)clickMineItem{
-//    self.hidesBottomBarWhenPushed = YES;
-//    SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
-//    [self.navigationController pushViewController:mineVC animated:YES];
-//    self.hidesBottomBarWhenPushed = NO;
-    
-//    [ShareSDK getUserInfo:SSDKPlatformTypeSinaWeibo
-//           onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
-//     {
-//         if (state == SSDKResponseStateSuccess)
-//         {
-//             
-//             NSLog(@"uid=%@",user.uid);
-//             NSLog(@"%@",user.credential);
-//             NSLog(@"token=%@",user.credential.token);
-//             NSLog(@"nickname=%@",user.nickname);
-//         }
-//         
-//         else
-//         {
-//             NSLog(@"%@",error);
-//         }
-//         
-//     }];
-
-//        SSUIShareActionSheetController *sheet = [ShareSDK showShareActionSheet:self.view items:@[@(SSDKPlatformSubTypeWechatSession),@(SSDKPlatformTypeSinaWeibo),@(SSDKPlatformTypeTencentWeibo)] shareParams:nil onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
-//            NSLog(@"type:%d",platformType);
-//            
-//        }];
-    SR_ShareView * shareView = [[SR_ShareView alloc] initShareView];
-    [shareView show];
-    
+    self.hidesBottomBarWhenPushed = YES;
+    SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+    [self.navigationController pushViewController:mineVC animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -763,18 +738,18 @@
 }
 
 - (void)clickAddBtnView:(NSInteger)tag{
-    if (tag == 0) {
+    if (tag == 2) {
         SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:nil text:nil];
         textView.delegate = self;
         textView.requestType = NOTE_REQUSERT_TYPE_SAVE;
         [textView show];
-    }else if (tag == 1){
+    }else if (tag == 3){
         SR_ActionSheetImageView * imageView = [[SR_ActionSheetImageView alloc] initActionSheetWith:nil images:nil viewController:self];
         imageView.delegate = self;
         imageView.viewController = self;
         imageView.requestType = NOTE_REQUSERT_TYPE_SAVE;
         [imageView show];
-    }else{
+    }else if (tag == 4){
         SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:nil voices:nil viewController:self];
         voiceView.delegate = self;
         voiceView.requestType = NOTE_REQUSERT_TYPE_SAVE;

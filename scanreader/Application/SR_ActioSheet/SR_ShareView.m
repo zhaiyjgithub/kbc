@@ -11,11 +11,12 @@
 
 @implementation SR_ShareView
 
-- (id)initShareView{
+- (id)initShareViewWithBlock:(shareViewBlock)block{
     self = [super init];
     if (self) {
         self.frame = CGRectMake(0, kScreenHeight, kScreenWidth, kScreenHeight);
         self.backgroundColor = [UIColor clearColor];
+        self.block = block;
         [self setupView];
     
     }
@@ -53,8 +54,8 @@
 }
 
 - (void)clickIconBtn:(UIButton *)btn{
-    if ([self.delegate conformsToProtocol:@protocol(SR_ShareViewDelegate)] && [self.delegate respondsToSelector:@selector(clickShareViewBtnIndex:)]) {
-        [self.delegate clickShareViewBtnIndex:btn.tag];
+    if (self.block) {
+        self.block(btn.tag);
     }
 }
 

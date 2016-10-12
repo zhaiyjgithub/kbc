@@ -73,6 +73,7 @@
 		CBAF19081D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAF19071D420AB100DC0997 /* SR_MineMessageSendDialogMineViewCell.m */; };
 		CBAF190B1D421C6200DC0997 /* SR_MessageDialogLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAF190A1D421C6200DC0997 /* SR_MessageDialogLabel.m */; };
 		CBB69E631D781F4D006DC86D /* SR_FoundMainHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB69E621D781F4D006DC86D /* SR_FoundMainHeaderViewCell.m */; };
+		CBCAF2FA1DADD66E007D51E8 /* ShareTool.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCAF2F91DADD66E007D51E8 /* ShareTool.m */; };
 		CBCF4F841D367F3500DD7015 /* SR_FoundMainImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCF4F831D367F3500DD7015 /* SR_FoundMainImageViewCell.m */; };
 		CBCF4F871D36958800DD7015 /* SR_FoundMainVoiceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCF4F861D36958800DD7015 /* SR_FoundMainVoiceViewCell.m */; };
 		CBCF4F8A1D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCF4F891D3697FF00DD7015 /* SR_FoundMainCollectionViewCell.m */; };
@@ -278,6 +279,8 @@
 		CBAF190A1D421C6200DC0997 /* SR_MessageDialogLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MessageDialogLabel.m; path = Application/SR_Mine/SR_MessageDialogLabel.m; sourceTree = "<group>"; };
 		CBB69E611D781F4D006DC86D /* SR_FoundMainHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainHeaderViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainHeaderViewCell.h; sourceTree = "<group>"; };
 		CBB69E621D781F4D006DC86D /* SR_FoundMainHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainHeaderViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainHeaderViewCell.m; sourceTree = "<group>"; };
+		CBCAF2F81DADD66E007D51E8 /* ShareTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareTool.h; path = Base/Tool/ShareTool.h; sourceTree = "<group>"; };
+		CBCAF2F91DADD66E007D51E8 /* ShareTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareTool.m; path = Base/Tool/ShareTool.m; sourceTree = "<group>"; };
 		CBCF4F821D367F3500DD7015 /* SR_FoundMainImageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainImageViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainImageViewCell.h; sourceTree = "<group>"; };
 		CBCF4F831D367F3500DD7015 /* SR_FoundMainImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_FoundMainImageViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_FoundMainImageViewCell.m; sourceTree = "<group>"; };
 		CBCF4F851D36958800DD7015 /* SR_FoundMainVoiceViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_FoundMainVoiceViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_FoundMainVoiceViewCell.h; sourceTree = "<group>"; };
@@ -470,6 +473,8 @@
 				84AE3DD61D436E1200643989 /* Tools.m */,
 				CB2A65FC1D60B26C006F735B /* UserInfo.h */,
 				CB2A65FD1D60B26C006F735B /* UserInfo.m */,
+				CBCAF2F81DADD66E007D51E8 /* ShareTool.h */,
+				CBCAF2F91DADD66E007D51E8 /* ShareTool.m */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -1351,6 +1356,7 @@
 				CB719F361D3742CB005F5CFB /* SR_MineMessageListViewController.m in Sources */,
 				CB94EAAC1D6C4A0A000E633B /* NSDate+JJ.m in Sources */,
 				CBA1543A1D75D57B009A619B /* SR_InterPageDetailItemModel.m in Sources */,
+				CBCAF2FA1DADD66E007D51E8 /* ShareTool.m in Sources */,
 				CBE47E0E1D40A79F0046C89C /* SR_FoundMainBookClubBookNoteListViewController.m in Sources */,
 				CBEAEFE21D59D98700263D9C /* httpTools.m in Sources */,
 				CBD1D6131D3636F400539056 /* SR_OthersMineViewCell.m in Sources */,

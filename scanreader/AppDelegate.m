@@ -31,7 +31,7 @@
     NSString * password = [UserInfo getUserPassword];
     NSString * userId = [UserInfo getUserId];
     NSString * token = [UserInfo getUserToken];
-    if (!phoneNumber || !password || !userId || !token) {
+    if (!phoneNumber.length || !password.length || !userId.length || !token.length) {
         SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
         self.window.rootViewController = loginVC;
     }else{

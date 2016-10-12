@@ -220,6 +220,7 @@
         [UserInfo saveUserIDWith:@""];
         [UserInfo saveUserAvatarWith:@""];
         [UserInfo saveUserNameWith:@""];
+        NSLog(@"%@-%@",[UserInfo getUserId],[UserInfo getUserToken]);
         SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
         [UIApplication sharedApplication].keyWindow.rootViewController = loginVC;
     } failure:^(NSError *error) {

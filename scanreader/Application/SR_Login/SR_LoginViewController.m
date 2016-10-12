@@ -16,6 +16,7 @@
 #import "SVProgressHUD.h"
 #import "UserInfo.h"
 #import <MBProgressHUD.h>
+#import "ShareTool.h"
 
 @interface SR_LoginViewController()<UITextFieldDelegate>
 @property(nonatomic,strong)UIView * loginBgView;
@@ -76,7 +77,7 @@
         btn.tag = i;
         btn.backgroundColor = [UIColor whiteColor];
         btn.titleLabel.font = [UIFont systemFontOfSize:10.0];
-        [btn addTarget:self action:@selector(clickOtherLoginBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+        [btn addTarget:self action:@selector(clickThirdLoginBtn:) forControlEvents:(UIControlEventTouchUpInside)];
         [self.loginBgView addSubview:btn];
     }
     
@@ -153,7 +154,6 @@
 }
 
 - (void)clickPasswordRightBtn:(UIButton *)btn{
-    SSLog(@"click righbtn");
     self.isVisable = !self.isVisable;
     [btn setSelected:self.isVisable];
     self.passwordTextField.secureTextEntry = !self.isVisable;
@@ -195,8 +195,20 @@
     
 }
 
-- (void)clickOtherLoginBtn:(UIButton *)btn{
-    SSLog(@"tag:%d",btn.tag);
+- (void)clickThirdLoginBtn:(UIButton *)btn{
+    SSDKPlatformType platType = SSDKPlatformTypeUnknown;
+    if (btn.tag == 0) {
+        platType = SSDKPlatformTypeWechat;
+    }else if (btn.tag == 1){
+        platType = SSDKPlatformTypeSinaWeibo;
+    }else if (btn.tag == 2){
+        platType = SSDKPlatformTypeQQ;
+    }else{
+        platType = SSDKPlatformTypeDouBan;
+    }
+    [ShareTool loginWithThirdAccountWithType:platType infoBlock:^(SSDKUser *user) {
+        NSLog(@"user nickName:%@",user.nickname);
+    }];
 }
 
 - (void)clickBottomBtn:(UIButton *)btn{

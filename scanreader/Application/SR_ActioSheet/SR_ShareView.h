@@ -8,17 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol SR_ShareViewDelegate <NSObject>
-
-@optional
-- (void)clickShareViewBtnIndex:(NSInteger)index;
-
-@end
+typedef void(^shareViewBlock)(NSInteger index);
 
 @interface SR_ShareView : UIView
 @property(nonatomic,strong)UIButton * handerView;
-@property(nonatomic,weak)id<SR_ShareViewDelegate>delegate;
-- (id)initShareView;
+@property(nonatomic,strong)shareViewBlock block;
+- (id)initShareViewWithBlock:(shareViewBlock)block;
 - (void)show;
 - (void)dismiss;
+
 @end
