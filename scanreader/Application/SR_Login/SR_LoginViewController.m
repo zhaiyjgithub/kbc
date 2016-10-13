@@ -208,6 +208,7 @@
     }
     [ShareTool loginWithThirdAccountWithType:platType infoBlock:^(SSDKUser *user) {
         NSLog(@"user nickName:%@",user.nickname);
+        //这里使用nickname去注册
     }];
 }
 

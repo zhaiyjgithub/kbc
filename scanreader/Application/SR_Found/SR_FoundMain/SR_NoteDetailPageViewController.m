@@ -459,14 +459,14 @@
     SR_BookClubNoteResourceModel * resourceModel = self.dataSource[index];
     NSDictionary * param = @{@"id":resourceModel.resource_id,@"user_id":userId,@"user_token":userToken};
     [httpTools post:DELETE_REOURCE andParameters:param success:^(NSDictionary *dic) {
-        SSLog(@"delete dic:%@",dic);
+       // SSLog(@"delete dic:%@",dic);
         
         [self.dataSource removeObjectAtIndex:index];
         NSMutableArray * itemJsons = [NSMutableArray new];
         for (SR_BookClubNoteResourceModel * resurceModel in self.dataSource) {
             NSMutableDictionary * itemJson = [resurceModel modelToJSONObject];
             itemJson[@"id"] = resurceModel.resource_id;
-            SSLog(@"itemJson:%@",itemJson);
+          //  SSLog(@"itemJson:%@",itemJson);
             [itemJsons addObject:itemJson];
         }
         //重新计算高度

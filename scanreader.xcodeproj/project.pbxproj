@@ -1541,7 +1541,7 @@
 					"$(PROJECT_DIR)/scanreader/Base/Lib/VoiceConvert/lib",
 					"$(PROJECT_DIR)/scanreader/Base/Lib/waterMark",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jb.scanreader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.color.scanreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1567,7 +1567,7 @@
 					"$(PROJECT_DIR)/scanreader/Base/Lib/VoiceConvert/lib",
 					"$(PROJECT_DIR)/scanreader/Base/Lib/waterMark",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jb.scanreader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.color.scanreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

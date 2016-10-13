@@ -25,7 +25,15 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wb4010495604</string>
+				<string>wb806727643</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx6706a006d4324d73</string>
 			</array>
 		</dict>
 	</array>
@@ -33,6 +41,8 @@
 	<string>1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>weixin</string>
+		<string>wechat</string>
 		<string>weibosdk2.5</string>
 		<string>weibosdk</string>
 		<string>sinaweibohdsso</string>

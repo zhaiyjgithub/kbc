@@ -10,6 +10,7 @@
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
 #import "WeiboSDK.h"
+#import "WXApi.h"
 #import "SR_TabbarViewController.h"
 #import "SR_LoginViewController.h"
 #import "httpTools.h"
@@ -39,17 +40,24 @@
     }
     [self setNavigationBarStyle];
     
+    /*
+        记得上下的全部参数都要设置完整
+     */
     [ShareSDK registerApp:@"14cd112af4f4c"
      
           activePlatforms:@[
-                            @(SSDKPlatformTypeSinaWeibo)]
+                            @(SSDKPlatformTypeSinaWeibo),
+                            @(SSDKPlatformTypeWechat),
+                            ]
                  onImport:^(SSDKPlatformType platformType){
          switch (platformType){
-             case SSDKPlatformTypeSinaWeibo:
+            case SSDKPlatformTypeSinaWeibo:
                  [ShareSDKConnector connectWeibo:[WeiboSDK class]];
                  break;
-            
-             default:
+            case SSDKPlatformTypeWechat:
+                 [ShareSDKConnector connectWeChat:[WXApi class]];
+                 break;
+            default:
                  break;
          }
      }
@@ -59,10 +67,14 @@
              case SSDKPlatformTypeSinaWeibo:
                  //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
                  //如果出现跳转授权失败，一般都是新浪开发平台的bundleid与当前项目的不匹配
-                 [appInfo SSDKSetupSinaWeiboByAppKey:@"4010495604"
-                                           appSecret:@"659740b5af735acdb55dcb4788108058"
+                 [appInfo SSDKSetupSinaWeiboByAppKey:@"806727643"
+                                           appSecret:@"ba0611c3bcb1b02a860a40faeef50e17"
                                          redirectUri:@"http://www.sharesdk.cn"
                                             authType:SSDKAuthTypeBoth];
+                 break;
+            case SSDKPlatformTypeWechat:
+                 [appInfo SSDKSetupWeChatByAppId:@"wx6706a006d4324d73" appSecret:@"4d673f73665034a90c857cd313f7f286"];
+            
                  break;
                     default:
                  break;
@@ -71,6 +83,8 @@
     
     return YES;
 }
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

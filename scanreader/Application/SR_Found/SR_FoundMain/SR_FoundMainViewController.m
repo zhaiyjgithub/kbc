@@ -106,29 +106,27 @@
 }
 
 - (void)clickSearchItem{
-    self.hidesBottomBarWhenPushed = YES;
-    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
-    [self.navigationController pushViewController:foundVC animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
+//    self.hidesBottomBarWhenPushed = YES;
+//    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
+//    [self.navigationController pushViewController:foundVC animated:YES];
+//    self.hidesBottomBarWhenPushed = NO;
     
-//    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-//    [shareParams SSDKEnableUseClientShare]; //打开客户端分享
-//    [shareParams SSDKSetupShareParamsByText:@"分享内容"
-//                                     images:[UIImage imageNamed:@"传入的图片名"]
-//                                        url:[NSURL URLWithString:@"http://mob.com"]
-//                                      title:@"分享标题"
-//                                       type:SSDKContentTypeAuto];
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    [shareParams SSDKEnableUseClientShare]; //打开客户端分享
     
     // 定制新浪微博的分享内容
 //    [shareParams SSDKSetupSinaWeiboShareParamsByText:@"定制新浪微博的分享内容" title:nil image:[UIImage imageNamed:@"传入的图片名"] url:nil latitude:0 longitude:0 objectID:nil type:SSDKContentTypeAuto];
     // 定制微信好友的分享内容
-//    [shareParams SSDKSetupWeChatParamsByText:@"定制微信的分享内容" title:@"title" url:[NSURL URLWithString:@"http://mob.com"] thumbImage:nil image:[UIImage imageNamed:@"传入的图片名"] musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeAuto forPlatformSubType:SSDKPlatformSubTypeWechatSession];// 微信好友子平台
+  
+    [shareParams SSDKSetupWeChatParamsByText:@"定制微信的分享内容" title:@"title" url:nil thumbImage:nil image:nil musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeText forPlatformSubType:SSDKPlatformSubTypeWechatTimeline];// 微信好友子平台
+//
+//    //2、分享
+    [ShareSDK share:(SSDKPlatformSubTypeWechatTimeline) parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+        NSLog(@"state:%d",state);
+        
+    }];
     
-    //2、分享
-//    [ShareSDK share:(SSDKPlatformTypeSinaWeibo) parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
-//        NSLog(@"state:%d",state);
-//        
-//    }];
+//    [ShareTool show];
 
 }
 

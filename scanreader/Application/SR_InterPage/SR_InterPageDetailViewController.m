@@ -18,6 +18,7 @@
 #import "requestAPI.h"
 #import "globalHeader.h"
 #import "httpTools.h"
+#import "ShareTool.h"
 
 @interface SR_InterPageDetailViewController ()<UIWebViewDelegate,addBtnDelegate,textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate>
 @property(nonatomic,strong)UIButton * floatBtn;
@@ -44,7 +45,7 @@
     if (tag == 0) {//收藏
         [self collectOnePage:self.pageListModel.pageId];
     }else if (tag == 1){//分享
-    
+        [ShareTool show];
     }else if (tag == 2) {
         SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:nil text:nil];
         textView.delegate = self;
