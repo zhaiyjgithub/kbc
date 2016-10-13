@@ -27,6 +27,10 @@
 #import "SR_MineViewController.h"
 #import "UserInfo.h"
 
+#import "QRView.h"
+#import "QRUtil.h"
+
+
 @interface SR_ScanImageViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureMetadataOutputObjectsDelegate,AVCaptureMetadataOutputObjectsDelegate>
 //硬件设备
 @property (nonatomic, strong) AVCaptureDevice *device;
@@ -50,6 +54,7 @@
 @property (nonatomic, strong) UIButton *takePhotoButton;
 
 @property(nonatomic,assign)NSInteger scanImageDelegateCount;
+@property(nonatomic,strong)QRView *qrView;
 @end
 
 @implementation SR_ScanImageViewController{
@@ -64,6 +69,7 @@
     [super viewDidLoad];
     self.title = @"扫描";
     [self.view.layer addSublayer:self.previewLayer];
+    [self.view addSubview:self.qrView];
     [self.view addSubview:self.torchButton];
     [self.view addSubview:self.cameraButton];
     [self setupMenuButton];
@@ -555,6 +561,19 @@
         [_takePhotoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
     return _takePhotoButton;
+}
+
+-(QRView *)qrView{
+    if (!_qrView){
+        CGRect screenRect = [QRUtil screenBounds];
+        _qrView = [[QRView alloc] initWithFrame:screenRect];
+
+        _qrView.transparentArea = CGSizeMake(300, 300);
+        
+        _qrView.backgroundColor = [UIColor clearColor];
+        //_qrView.delegate = self;
+    }
+    return _qrView;
 }
 
 

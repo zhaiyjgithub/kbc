@@ -33,17 +33,17 @@ static NSTimeInterval kQrLineanimateDuration = 0.02;
 - (void)layoutSubviews {
     
     [super layoutSubviews];
-    if (!qrLine) {
+   // if (!qrLine) {
         
         [self initQRLine];
         
         NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:kQrLineanimateDuration target:self selector:@selector(show) userInfo:nil repeats:YES];
         [timer fire];
-    }
+  //  }
     
-    if (!qrMenu) {
-        [self initQrMenu];
-    }
+//    if (!qrMenu) {
+//        [self initQrMenu];
+//    }
 }
 
 - (void)initQRLine {
@@ -144,7 +144,8 @@ static NSTimeInterval kQrLineanimateDuration = 0.02;
     
     //画四个边角
     CGContextSetLineWidth(ctx, 2);
-    CGContextSetRGBStrokeColor(ctx, 83 /255.0, 239/255.0, 111/255.0, 1);//绿色
+    //kColor(0x43,0xdf,0xd9)
+    CGContextSetRGBStrokeColor(ctx, (0x43) /255.0, (0xdf)/255.0, (0xd9)/255.0, 1);//绿色
     
     //左上角
     CGPoint poinsTopLeftA[] = {
