@@ -31,10 +31,10 @@
     iconBgView.layer.cornerRadius = 5.0;
     [self addSubview:iconBgView];
     
-    CGFloat boarder = (iconBgView.frame.size.width - 10 - 50*4)*1.0/3.0;
+    CGFloat boarder = (iconBgView.frame.size.width- 50*4)*1.0/5.0;
     for (int i = 0; i < imageNames.count; i ++) {
         UIButton * btn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        btn.frame = CGRectMake(5 + (i%4)*(50 + boarder), 10 + (i/4)*(10 + 67), 50, 67);
+        btn.frame = CGRectMake(boarder + (i%4)*(50 + boarder), 10 + (i/4)*(10 + 67), 50, 67);
         [btn setImage:[UIImage imageNamed:imageNames[i]] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         btn.tag = i + 100;
@@ -71,7 +71,7 @@
     
     [UIView animateWithDuration:0.15 delay:0.0 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
         _handerView.backgroundColor = kColorAlpha(0, 0, 0, 0.20);
-        self.frame = CGRectMake(0, kScreenHeight - sizeHeight(300), kScreenWidth, kScreenHeight);
+        self.frame = CGRectMake(0, kScreenHeight - 250, kScreenWidth, kScreenHeight);
     } completion:^(BOOL finished) {
         
     }];
