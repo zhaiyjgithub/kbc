@@ -117,7 +117,13 @@ static NSTimeInterval kQrLineanimateDuration = 0.02;
     
     [self addCornerLineWithContext:ctx rect:clearDrawRect];
     
-    
+    UILabel * tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, clearDrawRect.origin.y + clearDrawRect.size.height + 10, [UIScreen mainScreen].bounds.size.width, 16)];
+    tipsLabel.text = @"将图形放进框内，即可自动扫描";
+    tipsLabel.textColor = [UIColor whiteColor];
+    tipsLabel.textAlignment = NSTextAlignmentCenter;
+    tipsLabel.font = [UIFont systemFontOfSize:14.0];
+    tipsLabel.backgroundColor = [UIColor clearColor];
+    [self addSubview:tipsLabel];
 }
 
 - (void)addScreenFillRect:(CGContextRef)ctx rect:(CGRect)rect {

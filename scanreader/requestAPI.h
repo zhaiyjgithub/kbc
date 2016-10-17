@@ -23,6 +23,7 @@
 #define NOTE_MODE_COLLECTION_AND_NOTE @"1"
 #define NOTE_MODE_NOTE @"2"
 #define NOTE_MODE_COLLECTION @"3"
+#define NOTE_MODE_SCAN @"4"
 
 #define PAGE_TYPY_1 @"1"
 #define PAGE_TYPY_2 @"2"
@@ -70,5 +71,5 @@
 #define SCAN_READ @"/api/scan/read"
 
 #define LOG_MESSAGE_LIST @"/api/log/getList"
-
+#define GET_SCAN_PAGE_LIST @"/api/scan/getList"
 #endif /* requestAPI_h */

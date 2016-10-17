@@ -26,6 +26,10 @@
 #import <MJRefresh.h>
 #import "SR_InterPageListModel.h"
 #import "SR_InterPageDetailViewController.h"
+#import "NSDate+JJ.h"
+#import "SR_ScanListItmeModel.h"
+#import "SR_FoundMainBookClubBookNoteListViewController.h"
+#import "SR_ScanNetPageViewController.h"
 
 @interface SR_RecorMainViewController ()
 @property(nonatomic,assign)NSInteger selectedTagIndex;
@@ -73,7 +77,9 @@
     self.notePageIndex = 0;
     self.scanPageIndex = 0;
     [self getListAll:PAGE_NUM pageIndex:self.notePageIndex mode:NOTE_MODE_NOTE];//暂时只获取笔记列表
+//    [self getListAll:PAGE_NUM pageIndex:self.scanPageIndex mode:NOTE_MODE_SCAN];//暂时只获取扫描列表
     [self getListAll:PAGE_NUM pageIndex:self.collectionPageIndex mode:NOTE_MODE_COLLECTION];//暂时只获取收藏列表
+    [self getScanPageList:PAGE_NUM pageIndex:self.scanPageIndex];
 }
 
 
@@ -117,7 +123,7 @@
             return 106;
         }
     }else{
-        return 106;
+        return 50;
     }
 }
 
@@ -301,49 +307,51 @@
             }];
             return cell;
         }
-    }else if (self.selectedTagIndex == 2){
-        SR_BookClubBookNoteModel * noteModel = self.collectionList[indexPath.row];
-        NSString * cellId = @"SR_FoundMainCollectionViewCell";
-        SR_FoundMainCollectionViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-        if (!cell) {
-            cell = [[SR_FoundMainCollectionViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
-        }
-        cell.noteModel = self.collectionList[indexPath.row];
-        __weak typeof(self) weakSelf = self;
-        [cell addBlock:^{
-            if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
-                weakSelf.hidesBottomBarWhenPushed = YES;
-                SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
-                [weakSelf.navigationController pushViewController:mineVC animated:YES];
-                weakSelf.hidesBottomBarWhenPushed = NO;
-            }else{
-                SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
-                weakSelf.hidesBottomBarWhenPushed = YES;
-                SR_BookClubBookNoteModel * noteModel = weakSelf.collectionList[indexPath.row];
-                otherVC.userModel = noteModel.user;
-                [weakSelf.navigationController pushViewController:otherVC animated:YES];
-                weakSelf.hidesBottomBarWhenPushed = NO;
-            }
-        }];
-        [cell addInterBlock:^{
-            SR_BookClubBookNoteModel * noteModel = weakSelf.collectionList[indexPath.row];
-            SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
-            interPageModel.content = @"";
-            interPageModel.pageId = noteModel.page.page_id;
-            interPageModel.member_total = noteModel.member_total;
-            interPageModel.note_total = noteModel.note_total;
-            interPageModel.picture = @"";
-            interPageModel.time_create = noteModel.time_create;
-            interPageModel.time_create = noteModel.time_create;
-            SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
-            interPageDetailVC.pageListModel = interPageModel;
-            weakSelf.hidesBottomBarWhenPushed = YES;
-            [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
-            weakSelf.hidesBottomBarWhenPushed = NO;
-        }];
-        
-        return cell;
-    } else{//扫描列表
+    }
+//    else if (self.selectedTagIndex == 2){//收藏列表
+//        SR_BookClubBookNoteModel * noteModel = self.collectionList[indexPath.row];
+//        NSString * cellId = @"SR_FoundMainCollectionViewCell";
+//        SR_FoundMainCollectionViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+//        if (!cell) {
+//            cell = [[SR_FoundMainCollectionViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
+//        }
+//        cell.noteModel = self.collectionList[indexPath.row];
+//        __weak typeof(self) weakSelf = self;
+//        [cell addBlock:^{
+//            if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
+//                weakSelf.hidesBottomBarWhenPushed = YES;
+//                SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+//                [weakSelf.navigationController pushViewController:mineVC animated:YES];
+//                weakSelf.hidesBottomBarWhenPushed = NO;
+//            }else{
+//                SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+//                weakSelf.hidesBottomBarWhenPushed = YES;
+//                SR_BookClubBookNoteModel * noteModel = weakSelf.collectionList[indexPath.row];
+//                otherVC.userModel = noteModel.user;
+//                [weakSelf.navigationController pushViewController:otherVC animated:YES];
+//                weakSelf.hidesBottomBarWhenPushed = NO;
+//            }
+//        }];
+//        [cell addInterBlock:^{
+//            SR_BookClubBookNoteModel * noteModel = weakSelf.collectionList[indexPath.row];
+//            SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+//            interPageModel.content = @"";
+//            interPageModel.pageId = noteModel.page.page_id;
+//            interPageModel.member_total = noteModel.member_total;
+//            interPageModel.note_total = noteModel.note_total;
+//            interPageModel.picture = @"";
+//            interPageModel.time_create = noteModel.time_create;
+//            interPageModel.time_create = noteModel.time_create;
+//            SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+//            interPageDetailVC.pageListModel = interPageModel;
+//            weakSelf.hidesBottomBarWhenPushed = YES;
+//            [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+//            weakSelf.hidesBottomBarWhenPushed = NO;
+//        }];
+//        
+//        return cell;
+//    }
+    else{//扫描列表
         NSString * cellId = @"UITableViewCell";
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
@@ -354,11 +362,18 @@
         cell.detailTextLabel.font = [UIFont systemFontOfSize:15.0];
         cell.detailTextLabel.textColor = baseblackColor;
         if (self.selectedTagIndex == 1) {//扫描
-            cell.textLabel.text = @"2016-07-28 14:00";
-            cell.detailTextLabel.text = @"扫描了25页 天龙八部";
+            SR_BookClubBookNoteModel * noteModel = self.scanList[indexPath.row];
+            NSDate * createData = [NSDate dateWithTimeIntervalSince1970:noteModel.time_create];
+            NSString * time = [NSDate compareCurrentTime:createData];
+            cell.textLabel.text = time;
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"扫描了 %@",noteModel.title];
         }else{//收藏
-            cell.textLabel.text = @"2016-07-28 14:00";
-            cell.detailTextLabel.text = @"收藏了25页 论语";
+            SR_BookClubBookNoteModel * noteModel = self.collectionList[indexPath.row];
+            NSDate * createData = [NSDate dateWithTimeIntervalSince1970:noteModel.time_create];
+            NSString * time = [NSDate compareCurrentTime:createData];//[NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
+        
+            cell.textLabel.text = time;
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"收藏了 %@",noteModel.title];
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
@@ -410,11 +425,57 @@
         self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:noteDetailVC animated:YES];
         self.hidesBottomBarWhenPushed = NO;
-    }else{//扫描、收藏
-        SR_InterPageViewController * interPageVC = [[SR_InterPageViewController alloc] init];
-        [self.navigationController pushViewController:interPageVC animated:YES];
+    }else if (self.selectedTagIndex == 2){//扫描、收藏
+        SR_BookClubBookNoteModel * noteModel = self.collectionList[indexPath.row];
+        noteModel.type = NOTE_TYPE_COLLECTION;
+        SR_NoteDetailPageViewController * noteDetailVC = [[SR_NoteDetailPageViewController alloc] init];
+        noteDetailVC.noteModel = noteModel;
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:noteDetailVC animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+    }else{
+        SR_ScanListItmeModel * itemModel = self.scanList[indexPath.row];
+        if (itemModel.target_type || itemModel.target_id){
+            if ([itemModel.target_type isEqualToString:@"book"]) {//跳转到书本
+                SR_FoundMainBookClubBookNoteListViewController * bookMarkListVC = [[SR_FoundMainBookClubBookNoteListViewController alloc] init];
+                SR_BookClubBookModel * bookModel = [[SR_BookClubBookModel alloc] init];
+                bookModel.book_id = itemModel.target_id;
+                bookMarkListVC.bookModel = bookModel;
+                self.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:bookMarkListVC animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
+            }else if ([itemModel.target_type isEqualToString:@"page"]) {//跳转到互动页
+                SR_InterPageDetailViewController * pageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+                SR_InterPageListModel * pageListModel = [[SR_InterPageListModel alloc] init];
+                pageListModel.pageId = itemModel.target_id;
+                pageDetailVC.pageListModel = pageListModel;
+                self.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:pageDetailVC animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
+            }else if ([itemModel.target_type isEqualToString:@"user"]) {//跳转到用户
+                if ([itemModel.target_id isEqualToString:[UserInfo getUserId]]) {
+                    SR_MineViewController * mineVC = [[SR_MineViewController alloc] init];
+                    self.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:mineVC animated:YES];
+                    self.hidesBottomBarWhenPushed = NO;
+                }else{
+                    SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
+                    SR_BookClubNoteUserModel * userModel = [[SR_BookClubNoteUserModel alloc] init];
+                    userModel.user_id = itemModel.target_id;
+                    otherVC.userModel = userModel;
+                    self.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:otherVC animated:YES];
+                    self.hidesBottomBarWhenPushed = NO;
+                }
+            }else{
+                self.hidesBottomBarWhenPushed = YES;
+                SR_ScanNetPageViewController * netPageVC = [[SR_ScanNetPageViewController alloc] init];
+                netPageVC.url = itemModel.url;
+                [self.navigationController pushViewController:netPageVC animated:YES];
+                self.hidesBottomBarWhenPushed = NO;
+            }
+        }
     }
-    
 }
 
 - (void)playVoiceWithFilePath:(NSString *)filePath row:(int)row voiceTimeLength:(float)voiceTimeLength{
@@ -503,8 +564,8 @@
     NSString * page = [NSString stringWithFormat:@"%d",pageIndex];
     NSDictionary * param = @{@"user_id":userId,@"limit":limit,@"page":page,@"mode":mode};
     [httpTools post:GET_NOTE_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
-        SSLog(@"get lsit all:%@",dic);
-         NSArray * list = dic[@"data"][@"list"];
+        
+        NSArray * list = dic[@"data"][@"list"];
         for (NSDictionary * item in list) {
             SR_BookClubBookNoteModel * noteModel = [SR_BookClubBookNoteModel modelWithDictionary:item];
             noteModel.note_id = item[@"id"];
@@ -517,12 +578,21 @@
             noteModel.user.user_id = item[@"user"][@"id"];
             if ([mode isEqualToString:NOTE_MODE_COLLECTION]) {//请求收藏列表
                 [self.collectionList addObject:noteModel];
+                
             }else if ([mode isEqualToString:NOTE_MODE_NOTE]){//请求笔记列表
                 [self.noteList addObject:noteModel];
+                
             }
         }
-        self.notePageIndex = (self.noteList.count/PAGE_NUM) + (self.noteList.count%PAGE_NUM > 0 ? 1 : 0);
-        self.collectionPageIndex = (self.collectionList.count/PAGE_NUM) + (self.collectionList.count%PAGE_NUM > 0 ? 1 : 0);
+        
+        if ([mode isEqualToString:NOTE_MODE_COLLECTION]) {//请求收藏列表
+            self.collectionPageIndex = (self.collectionList.count/PAGE_NUM) + (self.collectionList.count%PAGE_NUM > 0 ? 1 : 0);
+        }else if ([mode isEqualToString:NOTE_MODE_NOTE]){//请求笔记列表
+            self.notePageIndex = (self.noteList.count/PAGE_NUM) + (self.noteList.count%PAGE_NUM > 0 ? 1 : 0);
+        }else if ([mode isEqualToString:NOTE_MODE_SCAN]){//请求扫描列表
+            
+        }
+        
         [self.tableView.av_footer endFooterRefreshing];
         [self.tableView.mj_header endRefreshing];
         [self.tableView reloadData];
@@ -532,10 +602,30 @@
     }];
 }
 
+- (void)getScanPageList:(NSInteger)pageNum pageIndex:(NSInteger)pageIndex{
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSString * limit = [NSString stringWithFormat:@"%d",pageNum];
+    NSString * page = [NSString stringWithFormat:@"%d",pageIndex];
+    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"limit":limit,@"page":page};
+    //SR_ScanListItmeModel
+    [httpTools post:GET_SCAN_PAGE_LIST andParameters:param success:^(NSDictionary *dic) {
+        NSLog(@"scan:%@",dic);
+        NSArray * list = dic[@"data"][@"list"];
+        for (NSDictionary * dic in list) {
+            SR_ScanListItmeModel * itemModel = [SR_ScanListItmeModel modelWithDictionary:dic];
+            itemModel.modelId = dic[@"id"];
+            [self.scanList addObject:itemModel];
+        }
+        self.scanPageIndex = (self.scanList.count/PAGE_NUM) + (self.scanList.count%PAGE_NUM > 0 ? 1 : 0);
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 - (void)loadData{
     if (self.selectedTagIndex == 0) {
-       // [self getListAll:PAGE_NUM pageIndex:self.notePageIndex mode:NOTE_MODE_NOTE];//暂时只获取笔记列表
-        
         if (self.noteList.count < PAGE_NUM*(self.notePageIndex + 1)) {
             SSLog(@"已经是最后一条数据了");
             [self.tableView.av_footer endFooterRefreshing];
@@ -543,7 +633,6 @@
             [self getListAll:PAGE_NUM pageIndex:self.notePageIndex mode:NOTE_MODE_NOTE];
         }
     }else if (self.selectedTagIndex == 1){
-        //[self getListAll:PAGE_NUM pageIndex:self.collectionPageIndex mode:NOTE_MODE_COLLECTION];//暂时只获取收藏列表
         if (self.collectionList.count < PAGE_NUM*(self.notePageIndex + 1)) {
             SSLog(@"已经是最后一条数据了");
             [self.tableView.av_footer endFooterRefreshing];
@@ -552,6 +641,12 @@
         }
     }else{
         //获取扫描列表
+        if (self.scanList.count < PAGE_NUM*(self.scanPageIndex + 1)) {
+            SSLog(@"已经是最后一条数据了");
+            [self.tableView.av_footer endFooterRefreshing];
+        }else{
+            [self getScanPageList:PAGE_NUM pageIndex:self.scanPageIndex];
+        }
     }
 }
 

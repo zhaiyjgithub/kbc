@@ -572,12 +572,8 @@
         netPageVC.url = logMessageModel.url;
         [self.navigationController pushViewController:netPageVC animated:YES];
         self.hidesBottomBarWhenPushed = NO;
-        
-        
         }
     }
-
-    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

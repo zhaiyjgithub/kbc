@@ -40,6 +40,8 @@
     self.timeLabel.font = [UIFont systemFontOfSize:12.0];
     [self.contentView addSubview:self.timeLabel];
     
+    
+    
     self.subtitleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 16, 19, 19)];
     self.subtitleImageView.image = [UIImage imageNamed:@"fx_book"];
     [self.contentView addSubview:self.subtitleImageView];
