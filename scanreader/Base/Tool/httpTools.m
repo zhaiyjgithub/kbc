@@ -54,6 +54,7 @@
                 [UIApplication sharedApplication].keyWindow.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController = [[SR_LoginViewController alloc] init];
                 [SVProgressHUD showInfoWithStatus:@"你的账号已在其他地方登录，请重新登录"];
             }else{
+                [SVProgressHUD setAnimationDuration:1.5];
                 [SVProgressHUD showInfoWithStatus:responseObject[@"msg"]];
                 success(responseObject);
             }

@@ -106,10 +106,10 @@
 }
 
 - (void)clickSearchItem{
-//    self.hidesBottomBarWhenPushed = YES;
-//    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
-//    [self.navigationController pushViewController:foundVC animated:YES];
-//    self.hidesBottomBarWhenPushed = NO;
+    self.hidesBottomBarWhenPushed = YES;
+    SR_FoundSearchTableViewController * foundVC = [[SR_FoundSearchTableViewController alloc] init];
+    [self.navigationController pushViewController:foundVC animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
     
 //    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
 //    [shareParams SSDKEnableUseClientShare]; //打开客户端分享
@@ -126,7 +126,23 @@
 //        
 //    }];
     
-    [ShareTool show];
+//    [ShareSDK getUserInfo:SSDKPlatformTypeSinaWeibo
+//           onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
+//     {
+//         if (state == SSDKResponseStateSuccess)
+//         {
+//             
+//             NSLog(@"uid=%@",user.uid);
+//             NSLog(@"%@",user.credential);
+//             NSLog(@"token=%@",user.credential.token);
+//             NSLog(@"nickname=%@",user.nickname);
+//         }else{
+//             [SVProgressHUD setAnimationDuration:1.5];
+//             [SVProgressHUD showErrorWithStatus:@"授权登录失败"];
+//             NSLog(@"%@",error);
+//         }
+//         
+//     }];
 
 }
 
@@ -726,7 +742,7 @@
             [UserInfo saveUserPhoneNumberWith:userPhone];
             [UserInfo saveUserPasswordWith:userPwd];
             
-            SR_AddBtnView * addBtnView = [[SR_AddBtnView alloc] initAlertView];
+            SR_AddBtnView * addBtnView = [[SR_AddBtnView alloc] initAlertViewWithType:SR_BTN_TYPE_NORMAL];
             addBtnView.delegate = self;
             [addBtnView show];
         }
@@ -736,18 +752,18 @@
 }
 
 - (void)clickAddBtnView:(NSInteger)tag{
-    if (tag == 2) {
+    if (tag == 0) {
         SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:nil text:nil];
         textView.delegate = self;
         textView.requestType = NOTE_REQUSERT_TYPE_SAVE;
         [textView show];
-    }else if (tag == 3){
+    }else if (tag == 1){
         SR_ActionSheetImageView * imageView = [[SR_ActionSheetImageView alloc] initActionSheetWith:nil images:nil viewController:self];
         imageView.delegate = self;
         imageView.viewController = self;
         imageView.requestType = NOTE_REQUSERT_TYPE_SAVE;
         [imageView show];
-    }else if (tag == 4){
+    }else if (tag == 2){
         SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:nil voices:nil viewController:self];
         voiceView.delegate = self;
         voiceView.requestType = NOTE_REQUSERT_TYPE_SAVE;

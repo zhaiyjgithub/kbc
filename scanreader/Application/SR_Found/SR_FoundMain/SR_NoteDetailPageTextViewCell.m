@@ -97,7 +97,7 @@
     _noteModel = noteModel;
     self.titleLabel.text = noteModel.title;
     NSDate * createData = [NSDate dateWithTimeIntervalSince1970:noteModel.time_create];
-    NSString * time = [NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
+    NSString * time = [NSDate compareCurrentTime:createData];// [NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
     self.timeLabel.text = time;
     CGSize contentSize = [noteModel.content sizeForFont:[UIFont systemFontOfSize:14.0] size:CGSizeMake(kScreenWidth - 30, MAXFLOAT) mode:(NSLineBreakByWordWrapping)];
     self.bodyTextLabel.frame = CGRectMake(15, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8, (int)contentSize.width, (int)contentSize.height + 10);

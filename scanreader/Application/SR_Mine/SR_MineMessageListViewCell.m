@@ -70,7 +70,7 @@
     [self.hub setCount:[messageModel.readed intValue]];
         [self.headerImageView setImageWithURL:[NSURL URLWithString:messageModel.sender.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
     NSDate * createData = [NSDate dateWithTimeIntervalSince1970:messageModel.time_create];
-    NSString * time = [NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
+    NSString * time = [NSDate compareCurrentTime:createData];//[NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
     self.timeLabel.text = time;
     self.messageLabel.text = messageModel.content;
     self.nameLabel.text = messageModel.sender.username;

@@ -97,7 +97,7 @@
     _noteModel = noteModel;
     self.titleLabel.text = noteModel.title;
     NSDate * createData = [NSDate dateWithTimeIntervalSince1970:noteModel.time_create];
-    NSString * time = [NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
+    NSString * time = [NSDate compareCurrentTime:createData];//[NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
     self.timeLabel.text = time;
     self.bodyTextLabel.text = noteModel.content;
     [self.subtitleButton setTitle:noteModel.page.title forState:(UIControlStateNormal)];

@@ -25,6 +25,7 @@
 #import "SR_InterPageDetailViewController.h"
 #import "SR_InterPageListModel.h"
 #import "SR_AddBtnView.h"
+#import "ShareTool.h"
 
 @interface SR_NoteDetailPageViewController ()<textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate,UIAlertViewDelegate,addBtnDelegate>
 @property(nonatomic,assign)CGFloat cellHeight;
@@ -48,19 +49,25 @@
     
     self.lastTag = -1;
     
-    UIBarButtonItem * editBarItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:(UIBarButtonItemStyleDone) target:self action:@selector(clickEidtItem)];
-    UIBarButtonItem * interPageBarItem = [[UIBarButtonItem alloc] initWithTitle:@"互动页" style:(UIBarButtonItemStyleDone) target:self action:@selector(clickinterPageItem)];
-    //如果看别人的笔记就不会出现编辑窗口
-    if ([self.noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {
-        if (self.noteModel.page.page_id) {
-            self.navigationItem.rightBarButtonItems = @[editBarItem,interPageBarItem];
-        }else{
-            self.navigationItem.rightBarButtonItems = @[editBarItem];
-        }
-    }else{//现在看的是别人的笔记，可以出现浮动按钮
-        [self.view addSubview:self.floatBtn];
-        if (self.noteModel.page.page_id) {
-            self.navigationItem.rightBarButtonItems = @[interPageBarItem];
+        //这里还有收藏人家的笔记，只是可以分享
+    if ([self.noteModel.type isEqualToString:NOTE_TYPE_COLLECTION]) {
+        UIBarButtonItem * shareBarItem = [[UIBarButtonItem alloc] initWithTitle:@"分享" style:(UIBarButtonItemStyleDone) target:self action:@selector(clickShareBarButtonItem)];
+        self.navigationItem.rightBarButtonItems = @[shareBarItem];
+    }else{
+        UIBarButtonItem * editBarItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:(UIBarButtonItemStyleDone) target:self action:@selector(clickEidtItem)];
+        UIBarButtonItem * interPageBarItem = [[UIBarButtonItem alloc] initWithTitle:@"互动页" style:(UIBarButtonItemStyleDone) target:self action:@selector(clickinterPageItem)];
+        //如果看别人的笔记就不会出现编辑窗口
+        if ([self.noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {
+            if (self.noteModel.page.page_id) {
+                self.navigationItem.rightBarButtonItems = @[editBarItem,interPageBarItem];
+            }else{
+                self.navigationItem.rightBarButtonItems = @[editBarItem];
+            }
+        }else{//现在看的是别人的笔记，可以出现浮动按钮
+            [self.view addSubview:self.floatBtn];
+            if (self.noteModel.page.page_id) {
+                self.navigationItem.rightBarButtonItems = @[interPageBarItem];
+            }
         }
     }
 }
@@ -112,6 +119,10 @@
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
+}
+
+- (void)clickShareBarButtonItem{
+    [ShareTool show];
 }
 
 ///做没有对象的笔记
@@ -430,8 +441,6 @@
             } completion:^(BOOL finished) {
                 voiceProgressView.frame = CGRectMake(barView.frame.origin.x, barView.frame.origin.y, 1, barView.frame.size.height);
             }];
-            
-         //   self.lastTag = row;//这里也是相当于重新播放
         }
     }
 }
@@ -519,7 +528,7 @@
             [UserInfo saveUserPhoneNumberWith:userPhone];
             [UserInfo saveUserPasswordWith:userPwd];
             
-            SR_AddBtnView * addBtnView = [[SR_AddBtnView alloc] initAlertView];
+            SR_AddBtnView * addBtnView = [[SR_AddBtnView alloc] initAlertViewWithType:SR_BTN_TYPE_SHARE];
             addBtnView.delegate = self;
             [addBtnView show];
         }
@@ -529,7 +538,11 @@
 }
 
 - (void)clickAddBtnView:(NSInteger)tag{
-    if (tag == 2) {
+    if (tag == 0) {
+        [self collectOneNote:self.noteModel.note_id];
+    }else if (tag == 1){
+        [ShareTool show];
+    }else if (tag == 2) {
         SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:nil text:nil];
         textView.delegate = self;
         textView.requestType = NOTE_REQUSERT_TYPE_SAVE;
@@ -546,6 +559,22 @@
         voiceView.requestType = NOTE_REQUSERT_TYPE_SAVE;
         [voiceView show];
     }
+}
+
+- (void)collectOneNote:(NSString *)noteId{
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"note_id":noteId,@"type":@"4"};
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [httpTools post:SAVE_NOTE andParameters:param success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if ([dic[@"show"] isEqualToString:@"1"]) {
+            [SVProgressHUD showSuccessWithStatus:dic[@"msg"]];
+        }
+        NSLog(@"dic:%@",dic);
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
 }
 
 @end

@@ -421,7 +421,7 @@
 }
 
 - (void)clickFloatBtn{
-    SR_AddBtnView * addBtnView = [[SR_AddBtnView alloc] initAlertView];
+    SR_AddBtnView * addBtnView = [[SR_AddBtnView alloc] initAlertViewWithType:SR_BTN_TYPE_NORMAL];
     addBtnView.delegate = self;
     [addBtnView show];
 }

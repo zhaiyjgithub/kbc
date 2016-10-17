@@ -55,5 +55,8 @@
 #define  SR_NOTI_CREATE_PAGE_NOTE @"SR_NOTI_CREATE_PAGE_NOTE"
 #define  SR_NOTI_CREATE_PAGE_NOTE_KEY_1 @"SR_NOTI_CREATE_PAGE_NOTE_KEY_1"
 
+#define SR_BTN_TYPE_NORMAL @"normal"
+#define SR_BTN_TYPE_SHARE @"share"
+
 
 #endif /* globalHeader_h */

@@ -35,6 +35,7 @@
 		CB186EFE1D72E74800C16705 /* SR_NoteDetailPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB186EFD1D72E74800C16705 /* SR_NoteDetailPageViewController.m */; };
 		CB186F041D72E8A500C16705 /* SR_NoteDetailPageTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB186F031D72E8A500C16705 /* SR_NoteDetailPageTextViewCell.m */; };
 		CB186F0B1D730C1400C16705 /* SR_NoteDetailPageImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB186F0A1D730C1400C16705 /* SR_NoteDetailPageImageViewCell.m */; };
+		CB1E7EBD1DB47AB9003FB4C3 /* shareImage.png in Resources */ = {isa = PBXBuildFile; fileRef = CB1E7EBC1DB47AB9003FB4C3 /* shareImage.png */; };
 		CB2A65FE1D60B26C006F735B /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65FD1D60B26C006F735B /* UserInfo.m */; };
 		CB32AD871D6DE7AF00CD6D34 /* SR_MineMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB32AD861D6DE7AF00CD6D34 /* SR_MineMessageModel.m */; };
 		CB42D0AE1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB42D0AD1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m */; };
@@ -196,6 +197,7 @@
 		CB186F031D72E8A500C16705 /* SR_NoteDetailPageTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_NoteDetailPageTextViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_NoteDetailPageTextViewCell.m; sourceTree = "<group>"; };
 		CB186F091D730C1400C16705 /* SR_NoteDetailPageImageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_NoteDetailPageImageViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_NoteDetailPageImageViewCell.h; sourceTree = "<group>"; };
 		CB186F0A1D730C1400C16705 /* SR_NoteDetailPageImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_NoteDetailPageImageViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_NoteDetailPageImageViewCell.m; sourceTree = "<group>"; };
+		CB1E7EBC1DB47AB9003FB4C3 /* shareImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shareImage.png; sourceTree = "<group>"; };
 		CB2A65FB1D60AB87006F735B /* requestAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = requestAPI.h; path = scanreader/requestAPI.h; sourceTree = "<group>"; };
 		CB2A65FC1D60B26C006F735B /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfo.h; path = Base/Tool/UserInfo.h; sourceTree = "<group>"; };
 		CB2A65FD1D60B26C006F735B /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Base/Tool/UserInfo.m; sourceTree = "<group>"; };
@@ -622,6 +624,7 @@
 			isa = PBXGroup;
 			children = (
 				CB843DCD1D7BF8DA0042B814 /* sound.caf */,
+				CB1E7EBC1DB47AB9003FB4C3 /* shareImage.png */,
 				CB2A65FB1D60AB87006F735B /* requestAPI.h */,
 				CB7411B01D3486B6002B8FB5 /* globalHeader.h */,
 				CB7411851D347B14002B8FB5 /* Assets.xcassets */,
@@ -1219,6 +1222,7 @@
 				CB7411891D347B14002B8FB5 /* LaunchScreen.storyboard in Resources */,
 				CB843DCE1D7BF8DA0042B814 /* sound.caf in Resources */,
 				CB7411861D347B14002B8FB5 /* Assets.xcassets in Resources */,
+				CB1E7EBD1DB47AB9003FB4C3 /* shareImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1541,7 +1545,7 @@
 					"$(PROJECT_DIR)/scanreader/Base/Lib/VoiceConvert/lib",
 					"$(PROJECT_DIR)/scanreader/Base/Lib/waterMark",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.color.scanreader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.clolortu.scanreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1567,7 +1571,7 @@
 					"$(PROJECT_DIR)/scanreader/Base/Lib/VoiceConvert/lib",
 					"$(PROJECT_DIR)/scanreader/Base/Lib/waterMark",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.color.scanreader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.clolortu.scanreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

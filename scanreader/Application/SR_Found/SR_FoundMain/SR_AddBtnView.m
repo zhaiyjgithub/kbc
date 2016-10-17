@@ -12,9 +12,10 @@
 
 @implementation SR_AddBtnView
 
-- (id)initAlertView{
+- (id)initAlertViewWithType:(NSString *)type{
     self = [super init];
     if (self) {
+        self.btnType = type;
         if ([self.btnType isEqualToString:@"share"]) {
             self.frame = CGRectMake(0, 0, 220, 220);
             self.center = CGPointMake(kScreenWidth, kScreenHeight/2);

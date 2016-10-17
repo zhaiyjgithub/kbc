@@ -433,9 +433,9 @@
 		0160BA9A29915357016F4432686FA482 /* YYWebImageOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYWebImageOperation.h; path = YYKit/Image/YYWebImageOperation.h; sourceTree = "<group>"; };
 		0176308470DBE9973BBDB986C9F7EF81 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+MJRefresh.m"; path = "MJRefresh/UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		01D902BB895B1305DDB5566666965544 /* UIImage+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+YYAdd.m"; path = "YYKit/Base/UIKit/UIImage+YYAdd.m"; sourceTree = "<group>"; };
-		02070D9725D84D9A9AEAF95800303675 /* WeiboSDK.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = WeiboSDK.bundle; path = ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK.bundle; sourceTree = "<group>"; };
 		02821A12E48F80D52B13494A7799C8F4 /* YYSpriteSheetImage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYSpriteSheetImage.h; path = YYKit/Image/YYSpriteSheetImage.h; sourceTree = "<group>"; };
 		029FF1A71E5B88C8F213FBC353ADA139 /* MBProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		02B956D152BC0F05E6F5C019A8DAA9AB /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShareSDK.framework; path = ShareSDK/ShareSDK.framework; sourceTree = "<group>"; };
 		043AB33184FD600AAF1C36C0D94DD1A8 /* YYKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = YYKit.xcconfig; sourceTree = "<group>"; };
 		04C0F1D8FA591F80401AF1F72C6349FE /* MJRefresh.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MJRefresh.xcconfig; sourceTree = "<group>"; };
 		04E2CA3136A483F0D179D19B6C30D2D4 /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
@@ -446,21 +446,26 @@
 		075179B58C81C6B4A2D702AA74387681 /* YYTextContainerView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYTextContainerView.m; path = YYKit/Text/Component/YYTextContainerView.m; sourceTree = "<group>"; };
 		088EFF61049DF4B5E8D02611FA84946A /* UIProgressView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIProgressView+AFNetworking.m"; path = "UIKit+AFNetworking/UIProgressView+AFNetworking.m"; sourceTree = "<group>"; };
 		08BE74B66B2F641A509D801BE305B49A /* QRView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRView.h; path = DDQRCode/Classes/QRView.h; sourceTree = "<group>"; };
+		09036713CDC8E5E54F158FDE9E229A6D /* WeiboSDK.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = WeiboSDK.bundle; path = ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK.bundle; sourceTree = "<group>"; };
 		09375A6B2E62575EB3801393A0DED3BB /* NSData+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSData+YYAdd.h"; path = "YYKit/Base/Foundation/NSData+YYAdd.h"; sourceTree = "<group>"; };
 		09A6D62CBA8CC63E8A5680121F7474B6 /* YYTextMagnifier.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYTextMagnifier.m; path = YYKit/Text/Component/YYTextMagnifier.m; sourceTree = "<group>"; };
 		09DDFE3C79B062B42ADDEB6F08945875 /* NSParagraphStyle+YYText.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSParagraphStyle+YYText.h"; path = "YYKit/Text/String/NSParagraphStyle+YYText.h"; sourceTree = "<group>"; };
 		0C44CCE7D07E503E890F677A1F500762 /* UIView+MJExtension.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+MJExtension.m"; path = "MJRefresh/UIView+MJExtension.m"; sourceTree = "<group>"; };
+		0D7566C97C2A617260E6C851B843EAFE /* WeiboSDK.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WeiboSDK.h; path = ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK.h; sourceTree = "<group>"; };
 		0DAADCC8073D0A54775D97A528C0C95E /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVRadialGradientLayer.m; path = SVProgressHUD/SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		0E59864CCD088633254E82B40EB73777 /* NSAttributedString+YYText.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSAttributedString+YYText.h"; path = "YYKit/Text/String/NSAttributedString+YYText.h"; sourceTree = "<group>"; };
+		0E7EC09AF0BEBC051F6542B5D9B9E000 /* WechatAuthSDK.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WechatAuthSDK.h; path = ShareSDK/Support/PlatformSDK/WeChatSDK/WechatAuthSDK.h; sourceTree = "<group>"; };
 		0ED015F5A0282E6EFAD859AE61C46C89 /* YYTextAttribute.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYTextAttribute.h; path = YYKit/Text/String/YYTextAttribute.h; sourceTree = "<group>"; };
+		0F788EE7277988B6D65C5D68DEDC0B09 /* WBHttpRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WBHttpRequest.h; path = ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest.h; sourceTree = "<group>"; };
 		107DB76132EF183D290DD4BFC3076D04 /* UIButton+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIButton+AFNetworking.h"; path = "UIKit+AFNetworking/UIButton+AFNetworking.h"; sourceTree = "<group>"; };
-		1081DF79ED1126EAA6AC238E61AEB8F7 /* WBHttpRequest+WeiboGame.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboGame.h"; path = "ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest+WeiboGame.h"; sourceTree = "<group>"; };
 		10B99A3FDAA5078DF4B6C4384BB2596E /* DDQRCode-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DDQRCode-dummy.m"; sourceTree = "<group>"; };
 		10CE308A0B9303B4361E28232DF35A09 /* JFPhotoView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JFPhotoView.h; path = JFImagePickerController/JFImagePickerController/JFPhotoView.h; sourceTree = "<group>"; };
 		11492DFD196DED20D9B420C43A15B28A /* MJRefreshConst.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshConst.m; path = MJRefresh/MJRefreshConst.m; sourceTree = "<group>"; };
 		123824B5587E56651B334D1766F2A98E /* UIScrollView+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+YYAdd.m"; path = "YYKit/Base/UIKit/UIScrollView+YYAdd.m"; sourceTree = "<group>"; };
 		12F0FEF0457CBE151CA1C25F3A7928E7 /* NSObject+YYAddForARC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+YYAddForARC.h"; path = "YYKit/Base/Foundation/NSObject+YYAddForARC.h"; sourceTree = "<group>"; };
 		1376FDC4C173B528F15108549ED1993F /* YYKitMacro.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYKitMacro.h; path = YYKit/Base/YYKitMacro.h; sourceTree = "<group>"; };
+		151488823D1FB9A6CBF855408DE942E0 /* WXApiObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WXApiObject.h; path = ShareSDK/Support/PlatformSDK/WeChatSDK/WXApiObject.h; sourceTree = "<group>"; };
+		167775938A73114E3DF6068188F88425 /* WeiboUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WeiboUser.h; path = ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboUser.h; sourceTree = "<group>"; };
 		167DD74C3C09F2CEEDC57A248B7435BE /* UIBarButtonItem+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+YYAdd.m"; path = "YYKit/Base/UIKit/UIBarButtonItem+YYAdd.m"; sourceTree = "<group>"; };
 		16A942AFF80F380D444E35D4C527DFAD /* AFNetworking-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AFNetworking-dummy.m"; sourceTree = "<group>"; };
 		16E26B49CA8D463EF80DEFE3DC11C5A7 /* YYClassInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYClassInfo.h; path = YYKit/Model/YYClassInfo.h; sourceTree = "<group>"; };
@@ -480,7 +485,6 @@
 		1D17A0BACF95B02241C9B51B06980FC5 /* YYWebImageManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYWebImageManager.m; path = YYKit/Image/YYWebImageManager.m; sourceTree = "<group>"; };
 		1DC21338AE0D708902FC0A9C86FFC41C /* YYFileHash.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYFileHash.m; path = YYKit/Utility/YYFileHash.m; sourceTree = "<group>"; };
 		1DE4AC714A719513383E72C40568C42B /* YYTextArchiver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYTextArchiver.h; path = YYKit/Text/String/YYTextArchiver.h; sourceTree = "<group>"; };
-		1E973D3F432D22AD36E6824BA1A04082 /* WBSDKCommentButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WBSDKCommentButton.h; path = ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBSDKCommentButton.h; sourceTree = "<group>"; };
 		1E9E4CA95E6ADBDF9B3A94CF31581498 /* YYKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "YYKit-dummy.m"; sourceTree = "<group>"; };
 		1EBB8CC16431C064302CE04BCC2DBF8D /* YYTextAttribute.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYTextAttribute.m; path = YYKit/Text/String/YYTextAttribute.m; sourceTree = "<group>"; };
 		1ED0CF624527F0AEAD516E7BCFF49BCE /* MJRefresh-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MJRefresh-dummy.m"; sourceTree = "<group>"; };
@@ -488,12 +492,12 @@
 		1FBC951F508FCC98A001446A69C78BAD /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = src/fmdb/FMDatabaseAdditions.m; sourceTree = "<group>"; };
 		21376F0EB0D521CC4600D1B4E28479D8 /* FMResultSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
 		214220F685CFED112C4A4901E8DBD27B /* YYLabel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYLabel.m; path = YYKit/Text/YYLabel.m; sourceTree = "<group>"; };
+		21AAAE2C8B6A869E0850C7BC0E77AD6B /* ShareSDKUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShareSDKUI.framework; path = ShareSDK/Support/Optional/ShareSDKUI.framework; sourceTree = "<group>"; };
 		21C8080587D62A4A42548975687004C9 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworkReachabilityManager.h; path = AFNetworking/AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
 		22103758D6236B999BE14ACAA776E169 /* QRView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRView.m; path = DDQRCode/Classes/QRView.m; sourceTree = "<group>"; };
 		22A74591E39744554E90D2B2888011AF /* NSNotificationCenter+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSNotificationCenter+YYAdd.m"; path = "YYKit/Base/Foundation/NSNotificationCenter+YYAdd.m"; sourceTree = "<group>"; };
 		22AB09EFB38C7A4856486D2BE7B8463C /* MJRefreshBackStateFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshBackStateFooter.h; path = MJRefresh/Custom/Footer/Back/MJRefreshBackStateFooter.h; sourceTree = "<group>"; };
 		22ECDFEEF47DA7EDC8948D99B6EDE8E3 /* UIView+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+YYAdd.m"; path = "YYKit/Base/UIKit/UIView+YYAdd.m"; sourceTree = "<group>"; };
-		23A65065090E88ABA5338E96B99EC560 /* libWeiboSDK.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = ShareSDK/Support/PlatformSDK/SinaWeiboSDK/libWeiboSDK.a; sourceTree = "<group>"; };
 		23C13E230A028C72884389D915EE76C7 /* JFPhotoBrowserViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JFPhotoBrowserViewController.m; path = JFImagePickerController/JFImagePickerController/JFPhotoBrowserViewController.m; sourceTree = "<group>"; };
 		243F6B628286DD767795272D76A5D348 /* DDQRCode-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DDQRCode-prefix.pch"; sourceTree = "<group>"; };
 		249CB3C77D824091555DE3CF395AC194 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -501,10 +505,8 @@
 		262976F050F01D554E95762B690B9C21 /* DDQRCode.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DDQRCode.xcconfig; sourceTree = "<group>"; };
 		26D9698CFDB22C0F4C675EF8B128D441 /* MJRefreshComponent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshComponent.m; path = MJRefresh/Base/MJRefreshComponent.m; sourceTree = "<group>"; };
 		272BF098FDA3A89D3C50121ED873A723 /* FMDatabasePool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
-		27B2B887E502AFC6B7C7AD55A5C4A31A /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboShare.h"; path = "ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
 		28157C0AFF35B0ACC3EEC855B746903A /* NSNotificationCenter+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSNotificationCenter+YYAdd.h"; path = "YYKit/Base/Foundation/NSNotificationCenter+YYAdd.h"; sourceTree = "<group>"; };
 		285E7375BC2E3ACDF285C1C2B88D5A7A /* FMResultSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
-		288BC5530EE78E7FC11C880AB05DC6A3 /* WBSDKBasicButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WBSDKBasicButton.h; path = ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBSDKBasicButton.h; sourceTree = "<group>"; };
 		296EBE0D19CD63CE7307884AFDD2BD00 /* QRMenu.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRMenu.m; path = DDQRCode/Classes/QRMenu.m; sourceTree = "<group>"; };
 		297667CFD79EC05F26A3137303AC7F96 /* JFPhotoView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JFPhotoView.m; path = JFImagePickerController/JFImagePickerController/JFPhotoView.m; sourceTree = "<group>"; };
 		2A6F8F09805131A4423D4705B9E21A32 /* YYTextContainerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYTextContainerView.h; path = YYKit/Text/Component/YYTextContainerView.h; sourceTree = "<group>"; };
@@ -519,12 +521,9 @@
 		2FC8851F12B77878F2E5EE67D2726083 /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLRequestSerialization.m; path = AFNetworking/AFURLRequestSerialization.m; sourceTree = "<group>"; };
 		302323A05A9776FD4CEB7667DB78BD85 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+AFNetworking.m"; path = "UIKit+AFNetworking/UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		3050BB8BC06B17238BD64B51CF55FFE5 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
-		30C99BDF3FDAAD6DC9D6A440397B23A7 /* WBHttpRequest+WeiboToken.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboToken.h"; path = "ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest+WeiboToken.h"; sourceTree = "<group>"; };
 		30F9CB3062BFFD3E9DC4AB07C23B8121 /* Pods-scanreader-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-scanreader-acknowledgements.plist"; sourceTree = "<group>"; };
-		324A117D1A4F079C524FE8C2AA7A2AD3 /* WBSDKRelationshipButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WBSDKRelationshipButton.h; path = ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBSDKRelationshipButton.h; sourceTree = "<group>"; };
 		326E34EA0D7E8FE31CC2821CA54BF704 /* YYTextLine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYTextLine.m; path = YYKit/Text/Component/YYTextLine.m; sourceTree = "<group>"; };
 		3278B1A0E43D0B2E81E73247D1189215 /* CALayer+YYWebImage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "CALayer+YYWebImage.m"; path = "YYKit/Image/Categories/CALayer+YYWebImage.m"; sourceTree = "<group>"; };
-		32FE7901B6228DBD4EAA31C88C49739C /* WBHttpRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WBHttpRequest.h; path = ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest.h; sourceTree = "<group>"; };
 		332E5B613FA54EF3B332B79BE6CD04E1 /* YYImageCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYImageCache.m; path = YYKit/Image/YYImageCache.m; sourceTree = "<group>"; };
 		337DC81FF768B961953F75E3654FF5B9 /* MJRefreshAutoGifFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshAutoGifFooter.h; path = MJRefresh/Custom/Footer/Auto/MJRefreshAutoGifFooter.h; sourceTree = "<group>"; };
 		33830B3E1673B89E70A17A4EFA13DA6C /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = src/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -537,22 +536,21 @@
 		36E01EC506D438DFE00242529D7BF420 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/AssetsLibrary.framework; sourceTree = DEVELOPER_DIR; };
 		38F2C9A9003C8BAA1F89E3D6F1A7114A /* UIFont+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIFont+YYAdd.m"; path = "YYKit/Base/UIKit/UIFont+YYAdd.m"; sourceTree = "<group>"; };
 		3A23CC4E50DD8F311988E63F67C2E2CA /* YYMemoryCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYMemoryCache.m; path = YYKit/Cache/YYMemoryCache.m; sourceTree = "<group>"; };
-		3A9F9377C321FC8A570DC0EC8A626490 /* ShareSDKExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShareSDKExtension.framework; path = ShareSDK/Support/Optional/ShareSDKExtension.framework; sourceTree = "<group>"; };
 		3B15F2813ED63871A5AE63BE37B11F26 /* NSTimer+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSTimer+YYAdd.m"; path = "YYKit/Base/Foundation/NSTimer+YYAdd.m"; sourceTree = "<group>"; };
 		3B3A10B5D90FCCD0FD808ED9328601A0 /* Pods-scanreader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-scanreader.debug.xcconfig"; sourceTree = "<group>"; };
 		3B5B4C77DAD05AA8A4A328070224F319 /* SVProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-prefix.pch"; sourceTree = "<group>"; };
-		3C2AB122BD67D373A4B82E42E47EA71B /* libWeChatSDK.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = ShareSDK/Support/PlatformSDK/WeChatSDK/libWeChatSDK.a; sourceTree = "<group>"; };
+		3CD9134303C2D80C314B29854BB8C793 /* WXApi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WXApi.h; path = ShareSDK/Support/PlatformSDK/WeChatSDK/WXApi.h; sourceTree = "<group>"; };
 		3D31E5CB895F17A3AB1E3A9BC5F41C0B /* YYCGUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYCGUtilities.h; path = YYKit/Base/Quartz/YYCGUtilities.h; sourceTree = "<group>"; };
 		3EBCF23C0B6C0E7320FD64633A43EC21 /* NSKeyedUnarchiver+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSKeyedUnarchiver+YYAdd.m"; path = "YYKit/Base/Foundation/NSKeyedUnarchiver+YYAdd.m"; sourceTree = "<group>"; };
 		3F340E77CFF2B273448FFA232AAA33EF /* YYThreadSafeArray.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYThreadSafeArray.m; path = YYKit/Utility/YYThreadSafeArray.m; sourceTree = "<group>"; };
 		40F5582882A9478AE79D7F96AD9E8505 /* MJRefresh-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MJRefresh-prefix.pch"; sourceTree = "<group>"; };
 		41E48AEB7984D963DBBA39757DD5375C /* YYTextParser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYTextParser.m; path = YYKit/Text/String/YYTextParser.m; sourceTree = "<group>"; };
 		4240159F6ACDDBE6F33EAF70970AB08C /* MJRefreshHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshHeader.h; path = MJRefresh/Base/MJRefreshHeader.h; sourceTree = "<group>"; };
-		442626A0822E217177E5944CD1C21D70 /* WXApi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WXApi.h; path = ShareSDK/Support/PlatformSDK/WeChatSDK/WXApi.h; sourceTree = "<group>"; };
 		4447729AD7E4ED80F401680749FD9B1C /* MJRefreshBackNormalFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshBackNormalFooter.m; path = MJRefresh/Custom/Footer/Back/MJRefreshBackNormalFooter.m; sourceTree = "<group>"; };
 		445052E2334E1E108C65F81979C3DF35 /* MJRefresh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefresh.h; path = MJRefresh/MJRefresh.h; sourceTree = "<group>"; };
 		447BDE02716CCD31D52D9DD0A7898827 /* NSNumber+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSNumber+YYAdd.h"; path = "YYKit/Base/Foundation/NSNumber+YYAdd.h"; sourceTree = "<group>"; };
 		45E0A819D29C9E5CA3FE945FCC90D673 /* YYKVStorage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYKVStorage.m; path = YYKit/Cache/YYKVStorage.m; sourceTree = "<group>"; };
+		464E67E9E5F94C5F7259D7F787BBC2E4 /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboShare.h"; path = "ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
 		47890E3D8FB48454E1AB14B0B7A561BC /* UIApplication+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+YYAdd.m"; path = "YYKit/Base/UIKit/UIApplication+YYAdd.m"; sourceTree = "<group>"; };
 		47E29089F17CB70A577A09F2F168EDF8 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVRadialGradientLayer.h; path = SVProgressHUD/SVRadialGradientLayer.h; sourceTree = "<group>"; };
 		48E24385E05F1BF4EA226361CA972243 /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFHTTPSessionManager.m; path = AFNetworking/AFHTTPSessionManager.m; sourceTree = "<group>"; };
@@ -563,15 +561,17 @@
 		4A866F03AD69284F55E6579FAE312240 /* UITextField+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UITextField+YYAdd.h"; path = "YYKit/Base/UIKit/UITextField+YYAdd.h"; sourceTree = "<group>"; };
 		4B11309B2C4FC744898AF0238BB88D38 /* UIView+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+YYAdd.h"; path = "YYKit/Base/UIKit/UIView+YYAdd.h"; sourceTree = "<group>"; };
 		4B432B3B2FBDECC9B722AA18E5E8B971 /* FMDB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FMDB-dummy.m"; sourceTree = "<group>"; };
-		4EB9E2F5F52C76077538273E41B00A8E /* ShareSDKConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShareSDKConnector.framework; path = ShareSDK/Support/Required/ShareSDKConnector.framework; sourceTree = "<group>"; };
 		4ED8E529CFF7808EFFF6E7C3C8C06EF6 /* UIImageView+YYWebImage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+YYWebImage.m"; path = "YYKit/Image/Categories/UIImageView+YYWebImage.m"; sourceTree = "<group>"; };
 		4F0E727C58D2A5AAAD5C1A8BE6485B68 /* YYTimer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYTimer.h; path = YYKit/Utility/YYTimer.h; sourceTree = "<group>"; };
 		4F8401E35BF89E3746B7F46F62037066 /* JFImagePickerController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JFImagePickerController.h; path = JFImagePickerController/JFImagePickerController/JFImagePickerController.h; sourceTree = "<group>"; };
 		502ACF26BD4895A3A1471A8A764FDEF3 /* WebP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebP.framework; path = Vendor/WebP.framework; sourceTree = "<group>"; };
+		51177E11633E9E7331D239CA27555EC5 /* libWeiboSDK.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = ShareSDK/Support/PlatformSDK/SinaWeiboSDK/libWeiboSDK.a; sourceTree = "<group>"; };
 		52497C8A27D559E94EF774A29C6D9CFE /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshAutoFooter.h; path = MJRefresh/Base/MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		5294110A58C4BB562702B62335A61CE2 /* YYTransaction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYTransaction.h; path = YYKit/Utility/YYTransaction.h; sourceTree = "<group>"; };
 		5367F4FEFDFDBF4A31AD618946342A18 /* YYLabel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYLabel.h; path = YYKit/Text/YYLabel.h; sourceTree = "<group>"; };
+		5562ABD8F575511D6C8997C180D44219 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = TencentOpenApi_IOS_Bundle.bundle; path = ShareSDK/Support/PlatformSDK/QQSDK/TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		5825EA29F129AD1D2CE02605C72696EC /* UIScrollView+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+YYAdd.h"; path = "YYKit/Base/UIKit/UIScrollView+YYAdd.h"; sourceTree = "<group>"; };
+		5841874FC9465428D35DE7958BD59D9D /* WBHttpRequest+WeiboGame.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboGame.h"; path = "ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest+WeiboGame.h"; sourceTree = "<group>"; };
 		58AB27A2B13041241DF16EBA7683A8AC /* YYFrameImage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYFrameImage.h; path = YYKit/Image/YYFrameImage.h; sourceTree = "<group>"; };
 		58E0ED87FB627B13078EDC3E915F534D /* UIButton+YYWebImage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIButton+YYWebImage.h"; path = "YYKit/Image/Categories/UIButton+YYWebImage.h"; sourceTree = "<group>"; };
 		5C50F153580A6C259F066D5E4D95EFED /* NSBundle+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSBundle+YYAdd.h"; path = "YYKit/Base/Foundation/NSBundle+YYAdd.h"; sourceTree = "<group>"; };
@@ -595,8 +595,6 @@
 		67323B9415960FD0C574E305BA0A42AC /* MBProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD-dummy.m"; sourceTree = "<group>"; };
 		681221B639C0A1C6B754018028F12CFF /* JFImageCollectionViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JFImageCollectionViewController.m; path = JFImagePickerController/JFImagePickerController/JFImageCollectionViewController.m; sourceTree = "<group>"; };
 		687F96AD3867158E09546784D7DCE56B /* UIPasteboard+YYText.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIPasteboard+YYText.h"; path = "YYKit/Text/String/UIPasteboard+YYText.h"; sourceTree = "<group>"; };
-		6930D0E267DBDF9856CB40E088A0145F /* WXApiObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WXApiObject.h; path = ShareSDK/Support/PlatformSDK/WeChatSDK/WXApiObject.h; sourceTree = "<group>"; };
-		69AA9EC72F416DC860086D4839636961 /* ShareSDK.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = ShareSDK.bundle; path = ShareSDK/Support/Required/ShareSDK.bundle; sourceTree = "<group>"; };
 		6B1571D026C778D65F0FD0C24F028377 /* YYReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYReachability.h; path = YYKit/Utility/YYReachability.h; sourceTree = "<group>"; };
 		6C12958796E2D611A7B5E685A9DBA5D2 /* NSObject+YYAddForKVO.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+YYAddForKVO.m"; path = "YYKit/Base/Foundation/NSObject+YYAddForKVO.m"; sourceTree = "<group>"; };
 		6CDE27394AA803CA129BD6FDA14B43DA /* libMBProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMBProgressHUD.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -608,6 +606,7 @@
 		6FAB8FCF29F6DCC76FD427929A1596DF /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
 		701BCC57A0FCCB53C78A0B43F414C0CD /* YYTextView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYTextView.m; path = YYKit/Text/YYTextView.m; sourceTree = "<group>"; };
 		709F486FE0B2DA91F650A76B8FD38891 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIRefreshControl+AFNetworking.m"; path = "UIKit+AFNetworking/UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
+		7232F8C3129889F662DB7E03D85C56E7 /* WBHttpRequest+WeiboUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboUser.h"; path = "ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest+WeiboUser.h"; sourceTree = "<group>"; };
 		726D9F002E14E2EC0F61D372D582D96E /* YYTextKeyboardManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYTextKeyboardManager.h; path = YYKit/Text/Component/YYTextKeyboardManager.h; sourceTree = "<group>"; };
 		72ED5E864901D344A82B062EB5A0AE98 /* YYTextEffectWindow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYTextEffectWindow.m; path = YYKit/Text/Component/YYTextEffectWindow.m; sourceTree = "<group>"; };
 		732252F17C62E1A323D6BC3590AD224C /* UIColor+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIColor+YYAdd.h"; path = "YYKit/Base/UIKit/UIColor+YYAdd.h"; sourceTree = "<group>"; };
@@ -621,10 +620,12 @@
 		76322228117D37F0C8C3F102E1B2DA42 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		77FF4E92D0B0B087703BAF4189160D06 /* MBProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MBProgressHUD.xcconfig; sourceTree = "<group>"; };
 		7A692706ECB5925C704C67F71D6A97A1 /* YYTextRunDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYTextRunDelegate.h; path = YYKit/Text/String/YYTextRunDelegate.h; sourceTree = "<group>"; };
+		7B091BE882F39A2137746AA744149D34 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TencentOpenAPI.framework; path = ShareSDK/Support/PlatformSDK/QQSDK/TencentOpenAPI.framework; sourceTree = "<group>"; };
 		7B1B4606840FBB026A4F5B4D320948DC /* libSVProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSVProgressHUD.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B8CD8DF72AF2041B62BE6857BBEFBC6 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFNetworkActivityIndicatorManager.m; path = "UIKit+AFNetworking/AFNetworkActivityIndicatorManager.m"; sourceTree = "<group>"; };
-		7BC31C0A127CB15198419EC68A39A38C /* WeiboSDK+Statistics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WeiboSDK+Statistics.h"; path = "ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK+Statistics.h"; sourceTree = "<group>"; };
+		7C0321DAF17A53A63D168298240F2F64 /* ShareSDKConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShareSDKConnector.framework; path = ShareSDK/Support/Required/ShareSDKConnector.framework; sourceTree = "<group>"; };
 		7D6A2AC25AA95B3DAE5099486B63C780 /* libFMDB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFMDB.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D7AB0665C45BDB7A4D8FCBE30FEA3BF /* ShareSDKExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShareSDKExtension.framework; path = ShareSDK/Support/Optional/ShareSDKExtension.framework; sourceTree = "<group>"; };
 		7E6F89C767739B1DAC4DA49E2B4694D5 /* AFNetworking.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AFNetworking.xcconfig; sourceTree = "<group>"; };
 		7F53421BDF701BC1DF37FE754A2FF818 /* MKAnnotationView+YYWebImage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MKAnnotationView+YYWebImage.m"; path = "YYKit/Image/Categories/MKAnnotationView+YYWebImage.m"; sourceTree = "<group>"; };
 		7F7B78D933A466DE4E1D85EB7EEE4833 /* SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SVProgressHUD.xcconfig; sourceTree = "<group>"; };
@@ -641,11 +642,9 @@
 		856FBA1314F4611D502CA20FAB445D13 /* NSBundle+MJRefresh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSBundle+MJRefresh.h"; path = "MJRefresh/NSBundle+MJRefresh.h"; sourceTree = "<group>"; };
 		85A3B0679907EA5F55954D4D7ACC2390 /* Pods-scanreader-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-scanreader-acknowledgements.markdown"; sourceTree = "<group>"; };
 		85C0CDFA72846D9373979A8EB955A240 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFHTTPSessionManager.h; path = AFNetworking/AFHTTPSessionManager.h; sourceTree = "<group>"; };
-		85CA325C6063B95C41BA35A66CE92F47 /* ShareSDKUI.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = ShareSDKUI.bundle; path = ShareSDK/Support/Optional/ShareSDKUI.bundle; sourceTree = "<group>"; };
 		86CF4164970C212F025BC3A037E3981C /* UIImage+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+YYAdd.h"; path = "YYKit/Base/UIKit/UIImage+YYAdd.h"; sourceTree = "<group>"; };
 		87FCBEEC829EA8325333A32EB0C3E774 /* MJRefreshBackGifFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshBackGifFooter.m; path = MJRefresh/Custom/Footer/Back/MJRefreshBackGifFooter.m; sourceTree = "<group>"; };
 		88A84E2474B51390C2231B55A93B7E52 /* FMDB.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FMDB.xcconfig; sourceTree = "<group>"; };
-		88F8648A7C2699798629B7669ACD1F0C /* ShareSDKUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShareSDKUI.framework; path = ShareSDK/Support/Optional/ShareSDKUI.framework; sourceTree = "<group>"; };
 		89794CC4C9D71CBFFD3273ADE1230682 /* JFImageManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JFImageManager.h; path = JFImagePickerController/JFImagePickerController/JFImageManager.h; sourceTree = "<group>"; };
 		89AD955DC8B8466994C06F5699B05582 /* YYTimer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYTimer.m; path = YYKit/Utility/YYTimer.m; sourceTree = "<group>"; };
 		8A7D71C2E2D3BF7666A2CAB5584D2B40 /* AFAutoPurgingImageCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFAutoPurgingImageCache.m; path = "UIKit+AFNetworking/AFAutoPurgingImageCache.m"; sourceTree = "<group>"; };
@@ -669,6 +668,7 @@
 		9B265E0B7FF814F483D5EC9BDC4D9EE4 /* UIActivityIndicatorView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIActivityIndicatorView+AFNetworking.m"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.m"; sourceTree = "<group>"; };
 		9B462264FAA6529B3192E40E65FC8486 /* QRUtil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRUtil.m; path = DDQRCode/Classes/QRUtil.m; sourceTree = "<group>"; };
 		9D45FCEEA808E0C71FAEAB4F00E5D267 /* JFImagePickerViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JFImagePickerViewCell.m; path = JFImagePickerController/JFImagePickerController/JFImagePickerViewCell.m; sourceTree = "<group>"; };
+		9D8AFD05AC6FED2302DE22D3362BD4C4 /* ShareSDK.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = ShareSDK.bundle; path = ShareSDK/Support/Required/ShareSDK.bundle; sourceTree = "<group>"; };
 		9D974B564D804BCB521278D6A568E354 /* NSDate+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDate+YYAdd.h"; path = "YYKit/Base/Foundation/NSDate+YYAdd.h"; sourceTree = "<group>"; };
 		9DB27BCD079289451566AAAF9697E089 /* LKDBHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LKDBHelper.m; path = LKDBHelper/Helper/LKDBHelper.m; sourceTree = "<group>"; };
 		9E4A7BE88C861BDB866B45CAF6C65516 /* MJRefreshBackFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshBackFooter.h; path = MJRefresh/Base/MJRefreshBackFooter.h; sourceTree = "<group>"; };
@@ -676,14 +676,13 @@
 		9FD6AE17468A809E1344A50ED46B6A5B /* NSNumber+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSNumber+YYAdd.m"; path = "YYKit/Base/Foundation/NSNumber+YYAdd.m"; sourceTree = "<group>"; };
 		A091F408EB014F448CBDFD35A36BED8B /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLResponseSerialization.h; path = AFNetworking/AFURLResponseSerialization.h; sourceTree = "<group>"; };
 		A1E61B187CC3CF48744DDC2230994B88 /* AFImageDownloader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFImageDownloader.m; path = "UIKit+AFNetworking/AFImageDownloader.m"; sourceTree = "<group>"; };
-		A2CD52736B3FDA33A7B31227F2E8C07F /* WBHttpRequest+WeiboUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboUser.h"; path = "ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest+WeiboUser.h"; sourceTree = "<group>"; };
 		A4C5C735D6B7AFD0A2F303AA0809F2AC /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
 		A5261CC01F0659D5FD97FB9264CC52EB /* NSAttributedString+YYText.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+YYText.m"; path = "YYKit/Text/String/NSAttributedString+YYText.m"; sourceTree = "<group>"; };
 		A551E69E705C0C4926AA5FA43F2C6A35 /* AFURLSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLSessionManager.h; path = AFNetworking/AFURLSessionManager.h; sourceTree = "<group>"; };
-		A5596D23F5FFDB0D8049011B92292D8F /* WechatAuthSDK.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WechatAuthSDK.h; path = ShareSDK/Support/PlatformSDK/WeChatSDK/WechatAuthSDK.h; sourceTree = "<group>"; };
 		A5C13348FB3C7D7E934D1651B96595C5 /* FMDatabase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = src/fmdb/FMDatabase.h; sourceTree = "<group>"; };
 		A66D09A5D45835554535F3779244F5CD /* JFAssetHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JFAssetHelper.m; path = JFImagePickerController/JFImagePickerController/JFAssetHelper.m; sourceTree = "<group>"; };
 		A878763954ACD83B8A390A16E8D47010 /* YYTextInput.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYTextInput.m; path = YYKit/Text/Component/YYTextInput.m; sourceTree = "<group>"; };
+		AA62519D6CA12E861726956D171A8384 /* WBSDKRelationshipButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WBSDKRelationshipButton.h; path = ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBSDKRelationshipButton.h; sourceTree = "<group>"; };
 		ABC592188659938A284D208AF57E5E2C /* NSObject+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+YYAdd.m"; path = "YYKit/Base/Foundation/NSObject+YYAdd.m"; sourceTree = "<group>"; };
 		B0024A653FFD00FBB34632C60D7C60BE /* YYTextLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYTextLayout.h; path = YYKit/Text/Component/YYTextLayout.h; sourceTree = "<group>"; };
 		B1AA0E914451AF651D82355B0D96F213 /* LKDBUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LKDBUtils.h; path = LKDBHelper/Helper/LKDBUtils.h; sourceTree = "<group>"; };
@@ -694,6 +693,7 @@
 		B3CB48266B31795837917B34DD05678B /* CALayer+YYAdd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CALayer+YYAdd.h"; path = "YYKit/Base/Quartz/CALayer+YYAdd.h"; sourceTree = "<group>"; };
 		B43924482E56AE7775E4A9AB20C43BB0 /* YYTextRubyAnnotation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYTextRubyAnnotation.m; path = YYKit/Text/String/YYTextRubyAnnotation.m; sourceTree = "<group>"; };
 		B4FD809C6701434FAE51517C12E3480A /* libPods-scanreader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-scanreader.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B59196AF7B93D8ADC4D171094F9F2EED /* WBSDKBasicButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WBSDKBasicButton.h; path = ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBSDKBasicButton.h; sourceTree = "<group>"; };
 		B63323C65BAAC416C5982E631FC05D92 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFSecurityPolicy.m; path = AFNetworking/AFSecurityPolicy.m; sourceTree = "<group>"; };
 		B65E39BCF94D553ED6EEEECBB6BA15C5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		B670533DD4B0BB93148901FE20DC14DE /* YYTextArchiver.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYTextArchiver.m; path = YYKit/Text/String/YYTextArchiver.m; sourceTree = "<group>"; };
@@ -714,6 +714,7 @@
 		BF311C5CD0BAA35A6D713914CE51008C /* YYFrameImage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYFrameImage.m; path = YYKit/Image/YYFrameImage.m; sourceTree = "<group>"; };
 		BF9838AE5B35BE1FD44329D63D325D8F /* QRMenu.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRMenu.h; path = DDQRCode/Classes/QRMenu.h; sourceTree = "<group>"; };
 		C0BF676CA2615F0B7C83E0CE69B3DF85 /* NSObject+LKModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+LKModel.m"; path = "LKDBHelper/Helper/NSObject+LKModel.m"; sourceTree = "<group>"; };
+		C0D2E7FDBC53BD6EA62F36C3E0076BDF /* libWeChatSDK.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = ShareSDK/Support/PlatformSDK/WeChatSDK/libWeChatSDK.a; sourceTree = "<group>"; };
 		C1B53596A7C1C5B23C00AF2472C5B9F9 /* SVProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressHUD.h; path = SVProgressHUD/SVProgressHUD.h; sourceTree = "<group>"; };
 		C28783721A1FB30D676077C3F90D105A /* YYTextUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYTextUtilities.h; path = YYKit/Text/String/YYTextUtilities.h; sourceTree = "<group>"; };
 		C2B46C223C29214E029833B40C79214F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -749,7 +750,6 @@
 		D5A5BD60017BFF92DC4A9CBA658B4C11 /* YYKeychain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYKeychain.h; path = YYKit/Utility/YYKeychain.h; sourceTree = "<group>"; };
 		D662265FD0B9D8D020205943F2377DB9 /* LKDB+Mapping.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "LKDB+Mapping.h"; path = "LKDBHelper/Helper/LKDB+Mapping.h"; sourceTree = "<group>"; };
 		D6D909A0B5C9221D675F7925CBF169AB /* YYTextRunDelegate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYTextRunDelegate.m; path = YYKit/Text/String/YYTextRunDelegate.m; sourceTree = "<group>"; };
-		D6DDA83263E5AA173DF46B55E7C6E6CE /* WeiboSDK.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WeiboSDK.h; path = ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK.h; sourceTree = "<group>"; };
 		D6EAAA7AE6441504BA73BD3135108353 /* UIProgressView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIProgressView+AFNetworking.h"; path = "UIKit+AFNetworking/UIProgressView+AFNetworking.h"; sourceTree = "<group>"; };
 		D73532FFBD4D1A4FABA9971B01F01A81 /* YYThreadSafeDictionary.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYThreadSafeDictionary.h; path = YYKit/Utility/YYThreadSafeDictionary.h; sourceTree = "<group>"; };
 		D777210EA8931CDC93B05C35ADB37F61 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIWebView+AFNetworking.h"; path = "UIKit+AFNetworking/UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -779,6 +779,7 @@
 		E2CABFB8AA14793343F0111AB7A0483E /* MJRefreshAutoStateFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshAutoStateFooter.m; path = MJRefresh/Custom/Footer/Auto/MJRefreshAutoStateFooter.m; sourceTree = "<group>"; };
 		E2D6C0ED9543CBBE0FD6BFC5DA167753 /* MBProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD-prefix.pch"; sourceTree = "<group>"; };
 		E3F7FD0D6F5ED8031709AA73C25C7430 /* UIPasteboard+YYText.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIPasteboard+YYText.m"; path = "YYKit/Text/String/UIPasteboard+YYText.m"; sourceTree = "<group>"; };
+		E57C98EB01772038973161ECA98D12A0 /* WBSDKCommentButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WBSDKCommentButton.h; path = ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBSDKCommentButton.h; sourceTree = "<group>"; };
 		E60B6579D73D412A6C851CE042897F09 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
 		E63E39FBA11B24F560ACADC71BFBF246 /* YYTextLine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYTextLine.h; path = YYKit/Text/Component/YYTextLine.h; sourceTree = "<group>"; };
 		E6B739C22CBE49360D190046825B237A /* MJRefreshFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshFooter.h; path = MJRefresh/Base/MJRefreshFooter.h; sourceTree = "<group>"; };
@@ -786,20 +787,21 @@
 		E7A844417B2C796BDB94128D7D8E2B59 /* UIGestureRecognizer+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIGestureRecognizer+YYAdd.m"; path = "YYKit/Base/UIKit/UIGestureRecognizer+YYAdd.m"; sourceTree = "<group>"; };
 		E7B58BFEDF4CF31F53A33B2CBC983A99 /* UIView+MJExtension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+MJExtension.h"; path = "MJRefresh/UIView+MJExtension.h"; sourceTree = "<group>"; };
 		E8F5733333156C882F0DDCD854DFA572 /* JFImagePickerController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JFImagePickerController.m; path = JFImagePickerController/JFImagePickerController/JFImagePickerController.m; sourceTree = "<group>"; };
-		E9A89164A84CDC3004576D074E1B13F8 /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShareSDK.framework; path = ShareSDK/ShareSDK.framework; sourceTree = "<group>"; };
 		EA1EE3A75747F1C10E4B650B3E38A499 /* MJRefreshGifHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshGifHeader.m; path = MJRefresh/Custom/Header/MJRefreshGifHeader.m; sourceTree = "<group>"; };
 		EA316846D295C236CF89DEF773225A6C /* QRItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRItem.h; path = DDQRCode/Classes/QRItem.h; sourceTree = "<group>"; };
 		EA56E30C23E7A92FED3A98FA54BC719B /* YYTextDebugOption.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYTextDebugOption.h; path = YYKit/Text/Component/YYTextDebugOption.h; sourceTree = "<group>"; };
 		EBD2EFC4DCC113A0B1AF4C9B7D126AA1 /* libLKDBHelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLKDBHelper.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC04F71BDFD4234658FC0BECB455848F /* MJRefreshAutoNormalFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshAutoNormalFooter.h; path = MJRefresh/Custom/Footer/Auto/MJRefreshAutoNormalFooter.h; sourceTree = "<group>"; };
 		ECD064F35AAAC17C91C537F2C97E5F0A /* NSDate+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDate+YYAdd.m"; path = "YYKit/Base/Foundation/NSDate+YYAdd.m"; sourceTree = "<group>"; };
+		EFDB4276B722A54AEC8D8C5DCCDB2FCD /* ShareSDKUI.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = ShareSDKUI.bundle; path = ShareSDK/Support/Optional/ShareSDKUI.bundle; sourceTree = "<group>"; };
+		EFF66255DD750FBCA3978020B40ADD04 /* WBHttpRequest+WeiboToken.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WBHttpRequest+WeiboToken.h"; path = "ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WBHttpRequest+WeiboToken.h"; sourceTree = "<group>"; };
 		F164ADFCF7DF3E6ACB18BCD413B5083A /* UIScreen+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIScreen+YYAdd.m"; path = "YYKit/Base/UIKit/UIScreen+YYAdd.m"; sourceTree = "<group>"; };
-		F327D118CFDD447B3810B21B505C8DFD /* WeiboUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WeiboUser.h; path = ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboUser.h; sourceTree = "<group>"; };
 		F41E4D3429B1088FC53A01ABD4E2A96A /* MJRefreshStateHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshStateHeader.h; path = MJRefresh/Custom/Header/MJRefreshStateHeader.h; sourceTree = "<group>"; };
 		F433BB867C18034D8EDF7D0043D70C57 /* UIScrollView+MJExtension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+MJExtension.h"; path = "MJRefresh/UIScrollView+MJExtension.h"; sourceTree = "<group>"; };
 		F5B5B2427D8954DD24B7FB29DD898F00 /* UIRefreshControl+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIRefreshControl+AFNetworking.h"; path = "UIKit+AFNetworking/UIRefreshControl+AFNetworking.h"; sourceTree = "<group>"; };
 		F63673A118DE1C79392B3AECCC497695 /* JFImagePickerViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JFImagePickerViewCell.h; path = JFImagePickerController/JFImagePickerController/JFImagePickerViewCell.h; sourceTree = "<group>"; };
 		F765E0298F0B2CA3322587E695CDCEDC /* MJRefreshStateHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshStateHeader.m; path = MJRefresh/Custom/Header/MJRefreshStateHeader.m; sourceTree = "<group>"; };
+		F765F620BCE4CD96FE127BD0030D4C8A /* WeiboSDK+Statistics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "WeiboSDK+Statistics.h"; path = "ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK+Statistics.h"; sourceTree = "<group>"; };
 		F847668A7FADC7A9C85991592F33B6C8 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFNetworkReachabilityManager.m; path = AFNetworking/AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
 		F977019F51E997AF76BB98F09A0DA065 /* UIColor+YYAdd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIColor+YYAdd.m"; path = "YYKit/Base/UIKit/UIColor+YYAdd.m"; sourceTree = "<group>"; };
 		F9861979637A9DC34FB0D07070E98311 /* JFImageGroupTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JFImageGroupTableViewController.h; path = JFImagePickerController/JFImagePickerController/JFImageGroupTableViewController.h; sourceTree = "<group>"; };
@@ -930,43 +932,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		01A7E8106CCC8B77739B3EEADCC15B5A /* Frameworks */ = {
+		061C483978B0E6DFA752109E8A10A334 /* ShareSDK */ = {
 			isa = PBXGroup;
 			children = (
-				E9A89164A84CDC3004576D074E1B13F8 /* ShareSDK.framework */,
+				9C33EA14FBA8A94DAA3663D12F48FA76 /* Frameworks */,
+				0C3B57392A76818D93F0DF53DC032FD8 /* Resources */,
 			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		0209672AEFCBA623C201EFF821BAB5F1 /* ShareSDK3 */ = {
-			isa = PBXGroup;
-			children = (
-				01A7E8106CCC8B77739B3EEADCC15B5A /* Frameworks */,
-				21B12C8E3A925FBCC60183A52F5629E5 /* ShareSDK */,
-				946F07BE58B37EDBAC6B5BFB5080FCFC /* ShareSDKPlatforms */,
-				9730A5AB5302D6DEF1E80D37D6644ECB /* ShareSDKUI */,
-			);
-			path = ShareSDK3;
-			sourceTree = "<group>";
-		};
-		0289BC14307E178972AB8D8A9ACB5497 /* SinaWeibo */ = {
-			isa = PBXGroup;
-			children = (
-				32FE7901B6228DBD4EAA31C88C49739C /* WBHttpRequest.h */,
-				1081DF79ED1126EAA6AC238E61AEB8F7 /* WBHttpRequest+WeiboGame.h */,
-				27B2B887E502AFC6B7C7AD55A5C4A31A /* WBHttpRequest+WeiboShare.h */,
-				30C99BDF3FDAAD6DC9D6A440397B23A7 /* WBHttpRequest+WeiboToken.h */,
-				A2CD52736B3FDA33A7B31227F2E8C07F /* WBHttpRequest+WeiboUser.h */,
-				288BC5530EE78E7FC11C880AB05DC6A3 /* WBSDKBasicButton.h */,
-				1E973D3F432D22AD36E6824BA1A04082 /* WBSDKCommentButton.h */,
-				324A117D1A4F079C524FE8C2AA7A2AD3 /* WBSDKRelationshipButton.h */,
-				D6DDA83263E5AA173DF46B55E7C6E6CE /* WeiboSDK.h */,
-				7BC31C0A127CB15198419EC68A39A38C /* WeiboSDK+Statistics.h */,
-				F327D118CFDD447B3810B21B505C8DFD /* WeiboUser.h */,
-				7F8AE15D380986FB897FECB35FD1B895 /* Frameworks */,
-				81EEAF4CFA2583D53D34B2E78704A9D5 /* Resources */,
-			);
-			name = SinaWeibo;
+			name = ShareSDK;
 			sourceTree = "<group>";
 		};
 		06EBBAD9CFB859EE76EBFDAC5C1667B3 /* MJRefresh */ = {
@@ -1017,13 +989,12 @@
 			path = MJRefresh;
 			sourceTree = "<group>";
 		};
-		0B96480CB94C004CCA7C478CEA3B60D4 /* Frameworks */ = {
+		0C3B57392A76818D93F0DF53DC032FD8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4EB9E2F5F52C76077538273E41B00A8E /* ShareSDKConnector.framework */,
-				3A9F9377C321FC8A570DC0EC8A626490 /* ShareSDKExtension.framework */,
+				9D8AFD05AC6FED2302DE22D3362BD4C4 /* ShareSDK.bundle */,
 			);
-			name = Frameworks;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		0E5CACAF23268AE04F77310AB0D7CAD0 /* MBProgressHUD */ = {
@@ -1047,14 +1018,6 @@
 			path = "../Target Support Files/MJRefresh";
 			sourceTree = "<group>";
 		};
-		120E9F55CC9D0CBCF5D00E07E480E699 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3C2AB122BD67D373A4B82E42E47EA71B /* libWeChatSDK.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		1248EF7D1884D00F70046EFA58E62AFB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1069,15 +1032,6 @@
 				38D8242A99357538ABE1635AF8843A0D /* iOS */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		21B12C8E3A925FBCC60183A52F5629E5 /* ShareSDK */ = {
-			isa = PBXGroup;
-			children = (
-				0B96480CB94C004CCA7C478CEA3B60D4 /* Frameworks */,
-				A5E10F71B816F08006A7A4936CAF6ED0 /* Resources */,
-			);
-			name = ShareSDK;
 			sourceTree = "<group>";
 		};
 		23E34F7BCC05CA3D30D6F6B727190534 /* UIKit */ = {
@@ -1105,6 +1059,22 @@
 				302323A05A9776FD4CEB7667DB78BD85 /* UIWebView+AFNetworking.m */,
 			);
 			name = UIKit;
+			sourceTree = "<group>";
+		};
+		2BF27946B27ADA898E7870A17855B2E3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				09036713CDC8E5E54F158FDE9E229A6D /* WeiboSDK.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		2C1F8E4F14C0163C0FCA2FD822E92A84 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C0D2E7FDBC53BD6EA62F36C3E0076BDF /* libWeChatSDK.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		38D8242A99357538ABE1635AF8843A0D /* iOS */ = {
@@ -1140,7 +1110,7 @@
 				06EBBAD9CFB859EE76EBFDAC5C1667B3 /* MJRefresh */,
 				D7AF5AC4DA8A18136E9C54AE6B724944 /* MOBFoundation */,
 				79287299D7CA758FE3134A955D08DF66 /* RKNotificationHub */,
-				0209672AEFCBA623C201EFF821BAB5F1 /* ShareSDK3 */,
+				ADE4C79717966171BDB84DC88AA7BE62 /* ShareSDK3 */,
 				B9AD1359A0D9347A0874F64A6E12D89A /* SVProgressHUD */,
 				A1320FAD6D98DC578B9A13C1D11A4C1D /* YYKit */,
 			);
@@ -1169,6 +1139,22 @@
 			name = NSURLSession;
 			sourceTree = "<group>";
 		};
+		67FDF32FE339E645EDD6409BAD65BE7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				02B956D152BC0F05E6F5C019A8DAA9AB /* ShareSDK.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		78F80AD2CDEC8DB30E24952BDBC8E2BB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EFDB4276B722A54AEC8D8C5DCCDB2FCD /* ShareSDKUI.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		79287299D7CA758FE3134A955D08DF66 /* RKNotificationHub */ = {
 			isa = PBXGroup;
 			children = (
@@ -1177,17 +1163,6 @@
 				B5A2BA848B65126C700D70D8F53AB655 /* Support Files */,
 			);
 			path = RKNotificationHub;
-			sourceTree = "<group>";
-		};
-		79C41A536138B5D5D319018C80E4D4CF /* WeChat */ = {
-			isa = PBXGroup;
-			children = (
-				A5596D23F5FFDB0D8049011B92292D8F /* WechatAuthSDK.h */,
-				442626A0822E217177E5944CD1C21D70 /* WXApi.h */,
-				6930D0E267DBDF9856CB40E088A0145F /* WXApiObject.h */,
-				120E9F55CC9D0CBCF5D00E07E480E699 /* Frameworks */,
-			);
-			name = WeChat;
 			sourceTree = "<group>";
 		};
 		7ABBDC166D984981B7431047EAA3033F /* Support Files */ = {
@@ -1219,38 +1194,6 @@
 				8ECC43C901F9CE4F64D5CE0CE1728AEF /* Support Files */,
 			);
 			path = FMDB;
-			sourceTree = "<group>";
-		};
-		7F8AE15D380986FB897FECB35FD1B895 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				23A65065090E88ABA5338E96B99EC560 /* libWeiboSDK.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		81EEAF4CFA2583D53D34B2E78704A9D5 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				02070D9725D84D9A9AEAF95800303675 /* WeiboSDK.bundle */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		878694405EE593036652C36AD5859650 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				88F8648A7C2699798629B7669ACD1F0C /* ShareSDKUI.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		8A01CBD33F310369A85E8180757ED0A3 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				85CA325C6063B95C41BA35A66CE92F47 /* ShareSDKUI.bundle */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		8CEBB6D7AC406EC6E828AF4E03F0F115 /* Targets Support Files */ = {
@@ -1317,15 +1260,6 @@
 			name = Serialization;
 			sourceTree = "<group>";
 		};
-		946F07BE58B37EDBAC6B5BFB5080FCFC /* ShareSDKPlatforms */ = {
-			isa = PBXGroup;
-			children = (
-				0289BC14307E178972AB8D8A9ACB5497 /* SinaWeibo */,
-				79C41A536138B5D5D319018C80E4D4CF /* WeChat */,
-			);
-			name = ShareSDKPlatforms;
-			sourceTree = "<group>";
-		};
 		959DD96BEA51CE57A6E2FEBBBC3E4264 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -1355,15 +1289,6 @@
 			path = LKDBHelper;
 			sourceTree = "<group>";
 		};
-		9730A5AB5302D6DEF1E80D37D6644ECB /* ShareSDKUI */ = {
-			isa = PBXGroup;
-			children = (
-				878694405EE593036652C36AD5859650 /* Frameworks */,
-				8A01CBD33F310369A85E8180757ED0A3 /* Resources */,
-			);
-			name = ShareSDKUI;
-			sourceTree = "<group>";
-		};
 		99970B64C2BFC12E5D48DA7994893CB9 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -1373,6 +1298,33 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/SVProgressHUD";
+			sourceTree = "<group>";
+		};
+		9A11220C2CA14219F07CC24B51539B8E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7B091BE882F39A2137746AA744149D34 /* TencentOpenAPI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9C1B27DE6EE55516E82B815461CEDEB5 /* ShareSDKPlatforms */ = {
+			isa = PBXGroup;
+			children = (
+				F334E7F99C4090788BF67794BBDB6A69 /* QQ */,
+				EFB10837ECD7C66B539FEA2D2C9BB8FF /* SinaWeibo */,
+				AAEF169FD348D2AAB72D09FBFC642935 /* WeChat */,
+			);
+			name = ShareSDKPlatforms;
+			sourceTree = "<group>";
+		};
+		9C33EA14FBA8A94DAA3663D12F48FA76 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7C0321DAF17A53A63D168298240F2F64 /* ShareSDKConnector.framework */,
+				7D7AB0665C45BDB7A4D8FCBE30FEA3BF /* ShareSDKExtension.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A1320FAD6D98DC578B9A13C1D11A4C1D /* YYKit */ = {
@@ -1556,12 +1508,15 @@
 			path = "../Target Support Files/JFImagePicker";
 			sourceTree = "<group>";
 		};
-		A5E10F71B816F08006A7A4936CAF6ED0 /* Resources */ = {
+		AAEF169FD348D2AAB72D09FBFC642935 /* WeChat */ = {
 			isa = PBXGroup;
 			children = (
-				69AA9EC72F416DC860086D4839636961 /* ShareSDK.bundle */,
+				0E7EC09AF0BEBC051F6542B5D9B9E000 /* WechatAuthSDK.h */,
+				3CD9134303C2D80C314B29854BB8C793 /* WXApi.h */,
+				151488823D1FB9A6CBF855408DE942E0 /* WXApiObject.h */,
+				2C1F8E4F14C0163C0FCA2FD822E92A84 /* Frameworks */,
 			);
-			name = Resources;
+			name = WeChat;
 			sourceTree = "<group>";
 		};
 		AB5B9E6EB1458E723CFCC20C223D4BCD /* Resources */ = {
@@ -1581,6 +1536,25 @@
 				D2F8F490C466619C9E5972148ECD47F5 /* NSThread+YYAdd.m */,
 			);
 			name = "no-arc";
+			sourceTree = "<group>";
+		};
+		ADE4C79717966171BDB84DC88AA7BE62 /* ShareSDK3 */ = {
+			isa = PBXGroup;
+			children = (
+				67FDF32FE339E645EDD6409BAD65BE7C /* Frameworks */,
+				061C483978B0E6DFA752109E8A10A334 /* ShareSDK */,
+				9C1B27DE6EE55516E82B815461CEDEB5 /* ShareSDKPlatforms */,
+				F6922DDE0CF589D8BFB6C3B4654EFB7A /* ShareSDKUI */,
+			);
+			path = ShareSDK3;
+			sourceTree = "<group>";
+		};
+		B2959BDDDA44A8AFD88BBA82731130A4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				51177E11633E9E7331D239CA27555EC5 /* libWeiboSDK.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		B3329BC4D76398827659278F175002A5 /* Support Files */ = {
@@ -1715,6 +1689,60 @@
 				4ED3D8D7E486B6EA0515900008E303D8 /* Support Files */,
 			);
 			path = DDQRCode;
+			sourceTree = "<group>";
+		};
+		EA7DBC1560EDE313B2CC441488838265 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5562ABD8F575511D6C8997C180D44219 /* TencentOpenApi_IOS_Bundle.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		EF87AE1998493962E3C41390BBDCA8D0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				21AAAE2C8B6A869E0850C7BC0E77AD6B /* ShareSDKUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EFB10837ECD7C66B539FEA2D2C9BB8FF /* SinaWeibo */ = {
+			isa = PBXGroup;
+			children = (
+				0F788EE7277988B6D65C5D68DEDC0B09 /* WBHttpRequest.h */,
+				5841874FC9465428D35DE7958BD59D9D /* WBHttpRequest+WeiboGame.h */,
+				464E67E9E5F94C5F7259D7F787BBC2E4 /* WBHttpRequest+WeiboShare.h */,
+				EFF66255DD750FBCA3978020B40ADD04 /* WBHttpRequest+WeiboToken.h */,
+				7232F8C3129889F662DB7E03D85C56E7 /* WBHttpRequest+WeiboUser.h */,
+				B59196AF7B93D8ADC4D171094F9F2EED /* WBSDKBasicButton.h */,
+				E57C98EB01772038973161ECA98D12A0 /* WBSDKCommentButton.h */,
+				AA62519D6CA12E861726956D171A8384 /* WBSDKRelationshipButton.h */,
+				0D7566C97C2A617260E6C851B843EAFE /* WeiboSDK.h */,
+				F765F620BCE4CD96FE127BD0030D4C8A /* WeiboSDK+Statistics.h */,
+				167775938A73114E3DF6068188F88425 /* WeiboUser.h */,
+				B2959BDDDA44A8AFD88BBA82731130A4 /* Frameworks */,
+				2BF27946B27ADA898E7870A17855B2E3 /* Resources */,
+			);
+			name = SinaWeibo;
+			sourceTree = "<group>";
+		};
+		F334E7F99C4090788BF67794BBDB6A69 /* QQ */ = {
+			isa = PBXGroup;
+			children = (
+				9A11220C2CA14219F07CC24B51539B8E /* Frameworks */,
+				EA7DBC1560EDE313B2CC441488838265 /* Resources */,
+			);
+			name = QQ;
+			sourceTree = "<group>";
+		};
+		F6922DDE0CF589D8BFB6C3B4654EFB7A /* ShareSDKUI */ = {
+			isa = PBXGroup;
+			children = (
+				EF87AE1998493962E3C41390BBDCA8D0 /* Frameworks */,
+				78F80AD2CDEC8DB30E24952BDBC8E2BB /* Resources */,
+			);
+			name = ShareSDKUI;
 			sourceTree = "<group>";
 		};
 		F90B1E0D01211BDD4A881BE05A7E657B /* AFNetworking */ = {

@@ -74,9 +74,9 @@
     NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"page_id":pageId,@"type":@"4"};
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [httpTools post:SAVE_NOTE andParameters:param success:^(NSDictionary *dic) {
-        
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     } failure:^(NSError *error) {
-        
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
 }
 
@@ -121,8 +121,7 @@
             [UserInfo saveUserPhoneNumberWith:userPhone];
             [UserInfo saveUserPasswordWith:userPwd];
             
-            SR_AddBtnView * addBtnView = [[SR_AddBtnView alloc] initAlertView];
-            addBtnView.btnType = @"share";
+            SR_AddBtnView * addBtnView = [[SR_AddBtnView alloc] initAlertViewWithType:SR_BTN_TYPE_SHARE];
             addBtnView.delegate = self;
             [addBtnView show];
         }

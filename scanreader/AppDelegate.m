@@ -17,6 +17,9 @@
 #import "SVProgressHUD.h"
 #import "UserInfo.h"
 #import "globalHeader.h"
+#import <TencentOpenAPI/TencentOAuth.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+
 @interface AppDelegate ()
 
 @end
@@ -48,6 +51,7 @@
           activePlatforms:@[
                             @(SSDKPlatformTypeSinaWeibo),
                             @(SSDKPlatformTypeWechat),
+                            @(SSDKPlatformTypeQQ),
                             ]
                  onImport:^(SSDKPlatformType platformType){
          switch (platformType){
@@ -57,6 +61,10 @@
             case SSDKPlatformTypeWechat:
                  [ShareSDKConnector connectWeChat:[WXApi class]];
                  break;
+            case SSDKPlatformTypeQQ:
+                 [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
+                 break;
+                 
             default:
                  break;
          }
@@ -67,19 +75,24 @@
              case SSDKPlatformTypeSinaWeibo:
                  //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
                  //如果出现跳转授权失败，一般都是新浪开发平台的bundleid与当前项目的不匹配
+                 //授权失败可能就是重定向的url出错
                  [appInfo SSDKSetupSinaWeiboByAppKey:@"806727643"
                                            appSecret:@"ba0611c3bcb1b02a860a40faeef50e17"
-                                         redirectUri:@"http://www.sharesdk.cn"
+                                         redirectUri:@"http://www.colortu.com"
                                             authType:SSDKAuthTypeBoth];
                  break;
             case SSDKPlatformTypeWechat:
                  [appInfo SSDKSetupWeChatByAppId:@"wx6706a006d4324d73" appSecret:@"4d673f73665034a90c857cd313f7f286"];
+                 break;
             
+            case SSDKPlatformTypeQQ:
+                 [appInfo SSDKSetupQQByAppId:@"1105683125" appKey:@"XIsOgGmb3zVhLRPL" authType:SSDKAuthTypeBoth];
                  break;
                     default:
                  break;
          }
      }];
+
     
     return YES;
 }

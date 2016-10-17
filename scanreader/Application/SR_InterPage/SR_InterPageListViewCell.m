@@ -73,7 +73,7 @@
     _pageListModel = pageListModel;
     self.titleLabel.text = pageListModel.title;
     NSDate * createData = [NSDate dateWithTimeIntervalSince1970:pageListModel.time_create];
-    NSString * time = [NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
+    NSString * time = [NSDate compareCurrentTime:createData];//[NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
     self.timeLabel.text = time;
 
     self.contentLabel.text = pageListModel.content;

@@ -55,7 +55,7 @@
     self.messageLabel.frame = CGRectMake(self.headerImageView.frame.origin.x - width - 12, 15, width, frameModel.cellMessageLableSize.height + 15);
     self.messageLabel.text = frameModel.messageModel.content;
     NSDate * createData = [NSDate dateWithTimeIntervalSince1970:frameModel.messageModel.time_create];
-    NSString * time = [NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
+    NSString * time = [NSDate compareCurrentTime:createData];//[NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
     self.timeLabel.text = time;
     
     self.timeLabel.frame = CGRectMake(15, self.messageLabel.frame.origin.y + self.messageLabel.frame.size.height + 5, 120, 14);

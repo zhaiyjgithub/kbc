@@ -19,7 +19,7 @@
 @property(nonatomic,strong)UIButton * handerView;
 @property(nonatomic,weak)id<addBtnDelegate>delegate;
 @property(nonatomic,copy)NSString * btnType;
-- (id)initAlertView;
+- (id)initAlertViewWithType:(NSString *)type;
 - (void)show;
 - (void)dismiss;
 @end

@@ -503,7 +503,7 @@
     NSString * page = [NSString stringWithFormat:@"%d",pageIndex];
     NSDictionary * param = @{@"user_id":userId,@"limit":limit,@"page":page,@"mode":mode};
     [httpTools post:GET_NOTE_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
-       // SSLog(@"get lsit all:%@",dic);
+        SSLog(@"get lsit all:%@",dic);
          NSArray * list = dic[@"data"][@"list"];
         for (NSDictionary * item in list) {
             SR_BookClubBookNoteModel * noteModel = [SR_BookClubBookNoteModel modelWithDictionary:item];

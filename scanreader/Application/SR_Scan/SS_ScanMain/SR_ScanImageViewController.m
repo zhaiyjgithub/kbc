@@ -73,7 +73,6 @@
     [self.view addSubview:self.torchButton];
     [self.view addSubview:self.cameraButton];
     [self setupMenuButton];
-//    [self.view addSubview:self.takePhotoButton];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -401,7 +400,7 @@
     NSArray * titles = @[@"扫码",@"扫图"];
     for (int i = 0; i < 2; i ++) {
         UIButton *button = [[UIButton alloc] init];
-        button.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 160.0f, 51, 49.0f);
+        button.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150.0f, 51, 49.0f);
         button.center = CGPointMake(i*(width/2) + width/4, [UIScreen mainScreen].bounds.size.height - 120.0f);
         button.tag = 11 + i;
         [button addTarget:self action:@selector(scanMenuChange:) forControlEvents:UIControlEventTouchUpInside];
@@ -568,7 +567,7 @@
         CGRect screenRect = [QRUtil screenBounds];
         _qrView = [[QRView alloc] initWithFrame:screenRect];
 
-        _qrView.transparentArea = CGSizeMake(300, 300);
+        _qrView.transparentArea = CGSizeMake(260, 260);
         
         _qrView.backgroundColor = [UIColor clearColor];
         //_qrView.delegate = self;
