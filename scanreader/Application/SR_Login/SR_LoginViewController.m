@@ -185,7 +185,7 @@
             [UserInfo saveUserCreditWith:userDic[@"credit"]];
             [UserInfo saveUserPhoneNumberWith:self.phoneTextField.text];
             [UserInfo saveUserPasswordWith:self.passwordTextField.text];
-
+            [UserInfo saveUserMediaTypeWith:[NSString stringWithFormat:@"%d",0]];
             [UIApplication sharedApplication].keyWindow.rootViewController = [[SR_TabbarViewController alloc] init];
         }
     } failure:^(NSError *error) {
@@ -197,18 +197,79 @@
 
 - (void)clickThirdLoginBtn:(UIButton *)btn{
     SSDKPlatformType platType = SSDKPlatformTypeUnknown;
+    NSInteger media = 0;
     if (btn.tag == 0) {
+        media = 1;
         platType = SSDKPlatformTypeWechat;
     }else if (btn.tag == 1){
+        media = 2;
         platType = SSDKPlatformTypeSinaWeibo;
     }else if (btn.tag == 2){
+        media = 3;
         platType = SSDKPlatformTypeQQ;
     }else{
+        media = 4;
         platType = SSDKPlatformTypeDouBan;
     }
-    [ShareTool loginWithThirdAccountWithType:platType infoBlock:^(SSDKUser *user) {
-        NSLog(@"user nickName:%@",user.nickname);
-        //这里使用nickname去注册
+  
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [ShareTool loginWithThirdAccountWithType:platType infoBlock:^(SSDKUser *user, BOOL isNewAuthorized) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if (!isNewAuthorized) {//第一次授权登录，需要使用这些信息去注册一个
+            NSString * userName = user.nickname;
+            NSString * openid = user.uid;
+            NSString * avatar = user.icon;
+            NSDictionary * param = @{@"username":userName,@"media":@(media),@"openid":openid,@"avatar":avatar};
+            [httpTools post:REGISTER andParameters:param success:^(NSDictionary *dic) {
+                SSLog(@"register:%@",dic);
+                NSDictionary * param = @{@"media":@(media),@"openid":openid};
+                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                //去登录
+                [httpTools post:LOGIN andParameters:param success:^(NSDictionary *dic) {
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    NSLog(@"third login:%@",dic);
+                    
+                    NSDictionary * userDic = dic[@"data"][@"user"];
+                    [UserInfo saveUserAvatarWith:userDic[@"avatar"]];
+                    [UserInfo saveUserIDWith:userDic[@"id"]];
+                    [UserInfo saveUserTokenWith:dic[@"data"][@"user_token"]];
+                    [UserInfo saveUserNameWith:userDic[@"username"]];
+                    [UserInfo saveUserLevelWith:userDic[@"level"]];
+                    [UserInfo saveUserPublicWith:userDic[@"public"]];
+                    [UserInfo saveUserCreditWith:userDic[@"credit"]];
+                    [UserInfo saveUserMediaTypeWith:[NSString stringWithFormat:@"%d",media]];
+                    [UserInfo saveUserOpenIdWith:[NSString stringWithFormat:@"%@",openid]];
+                    [UIApplication sharedApplication].keyWindow.rootViewController = [[SR_TabbarViewController alloc] init];
+                } failure:^(NSError *error) {
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                }];
+            } failure:^(NSError *error) {
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            }];
+        }else{//已经授权过，直接使用信息登录即可
+            NSString * openid = user.uid;
+            NSDictionary * param = @{@"media":@(media),@"openid":openid};
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            //去登录
+            [httpTools post:LOGIN andParameters:param success:^(NSDictionary *dic) {
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                NSLog(@"third login:%@",dic);
+                
+                NSDictionary * userDic = dic[@"data"][@"user"];
+                [UserInfo saveUserAvatarWith:userDic[@"avatar"]];
+                [UserInfo saveUserIDWith:userDic[@"id"]];
+                [UserInfo saveUserTokenWith:dic[@"data"][@"user_token"]];
+                [UserInfo saveUserNameWith:userDic[@"username"]];
+                [UserInfo saveUserLevelWith:userDic[@"level"]];
+                [UserInfo saveUserPublicWith:userDic[@"public"]];
+                [UserInfo saveUserCreditWith:userDic[@"credit"]];
+                [UserInfo saveUserMediaTypeWith:[NSString stringWithFormat:@"%d",media]];
+                [UserInfo saveUserOpenIdWith:[NSString stringWithFormat:@"%@",openid]];
+                [UIApplication sharedApplication].keyWindow.rootViewController = [[SR_TabbarViewController alloc] init];
+            } failure:^(NSError *error) {
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            }];
+        }
     }];
 }
 
@@ -255,7 +316,6 @@
     [UIView animateWithDuration:animationDuration animations:^{
         self.loginBgView.frame = self.view.bounds;
     }];
-    
 }
 
 @end

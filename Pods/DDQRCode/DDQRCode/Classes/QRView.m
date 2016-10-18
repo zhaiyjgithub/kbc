@@ -47,8 +47,6 @@ static NSTimeInterval kQrLineanimateDuration = 0.02;
 }
 
 - (void)initQRLine {
-    
-    
     CGRect screenBounds = [QRUtil screenBounds];
     qrLine  = [[UIImageView alloc] initWithFrame:CGRectMake(screenBounds.size.width / 2 - self.transparentArea.width / 2, screenBounds.size.height / 2 - self.transparentArea.height / 2, self.transparentArea.width, 2)];
     qrLine.image = [UIImage imageNamed:@"qr_scan_line"];

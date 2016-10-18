@@ -14,7 +14,7 @@
 #import "WeiboSDK.h"
 #import "SR_ShareView.h"
 
-typedef void(^loginInInfoBlock)(SSDKUser * user);
+typedef void(^loginInInfoBlock)(SSDKUser * user,BOOL isNewAuthorized);
 
 @interface ShareTool : NSObject
 @property(nonatomic,strong)loginInInfoBlock infoBlock;

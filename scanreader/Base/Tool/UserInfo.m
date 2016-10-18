@@ -17,6 +17,8 @@
 #define USER_LEVEL @"userLevel"
 #define USER_CREDIT @"userCredit"
 #define USER_IS_PUBLIC @"userIsPulic"
+#define USER_MEIDA_TYPE @"userMediaType"
+#define USER_OPEN_ID @"openid"
 
 @implementation UserInfo
 
@@ -74,7 +76,19 @@
     [defaults synchronize];
 }
 
++(void)saveUserMediaTypeWith:(NSString *)mediaType{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:mediaType forKey:USER_MEIDA_TYPE];
+    [defaults synchronize];
+}
 
++(void)saveUserOpenIdWith:(NSString *)openId{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:openId forKey:USER_OPEN_ID];
+    [defaults synchronize];
+}
+
+/////
 
 +(NSString *)getUserAvatar{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -130,6 +144,16 @@
     return string;
 }
 
++(NSString *)getUserMediaType{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *string = [defaults objectForKey:USER_MEIDA_TYPE];
+    return string;
+}
 
++(NSString *)getUserOpenId{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *string = [defaults objectForKey:USER_OPEN_ID];
+    return string;
+}
 
 @end

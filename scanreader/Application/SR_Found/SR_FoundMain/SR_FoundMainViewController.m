@@ -721,7 +721,16 @@
 - (void)clickFloatBtn{
     NSString * userPhone = [UserInfo getUserPhoneNumber];
     NSString * userPwd = [UserInfo getUserPassword];
-    NSDictionary * param = @{@"username":userPhone,@"password":userPwd};
+    
+    NSMutableDictionary * param = [NSMutableDictionary dictionary];
+    if ([[UserInfo getUserMediaType] isEqualToString:@"0"]) {
+        param[@"username"] = userPhone;
+        param[@"password"] = userPwd;
+    }else{
+        param[@"media"] = [UserInfo getUserMediaType];
+        param[@"openid"] = [UserInfo getUserOpenId];
+    }
+
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [httpTools post:LOGIN andParameters:param success:^(NSDictionary *dic) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -907,7 +916,15 @@
 - (void)checkTokenTimeout{
     NSString * userPhone = [UserInfo getUserPhoneNumber];
     NSString * userPwd = [UserInfo getUserPassword];
-    NSDictionary * param = @{@"username":userPhone,@"password":userPwd};
+    
+    NSMutableDictionary * param = [NSMutableDictionary dictionary];
+    if ([[UserInfo getUserMediaType] isEqualToString:@"0"]) {
+        param[@"username"] = userPhone;
+        param[@"password"] = userPwd;
+    }else{
+        param[@"media"] = [UserInfo getUserMediaType];
+        param[@"openid"] = [UserInfo getUserOpenId];
+    }
     [httpTools post:LOGIN andParameters:param success:^(NSDictionary *dic) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         SSLog(@"login:%@",dic);

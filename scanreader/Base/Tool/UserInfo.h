@@ -18,6 +18,8 @@
 +(void)saveUserLevelWith:(NSString *)level;
 +(void)saveUserCreditWith:(NSString *)credit;
 +(void)saveUserPublicWith:(NSString *)isPublic;
++(void)saveUserMediaTypeWith:(NSString *)mediaType;
++(void)saveUserOpenIdWith:(NSString *)openId;
 +(NSString *)getUserAvatar;
 +(NSString *)getUserId;
 +(NSString *)getUserToken;
@@ -27,4 +29,6 @@
 +(NSString *)getUserLevel;
 +(NSString *)getUserCredit;
 +(NSString *)getUserPublic;
++(NSString *)getUserMediaType;
++(NSString *)getUserOpenId;
 @end

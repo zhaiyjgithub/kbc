@@ -83,25 +83,25 @@
 }
 
 + (void)loginWithThirdAccountWithType:(SSDKPlatformType)platformType infoBlock:(loginInInfoBlock)infoBlock{
+    BOOL isHasAuthorized = [ShareSDK hasAuthorized:platformType];
+    if (isHasAuthorized) {
+        NSLog(@"已经授权了");
+    }else{
+        NSLog(@"还没有授权!!!");
+    }
     [ShareSDK getUserInfo:platformType
-        onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
-       {
-           if (state == SSDKResponseStateSuccess)
-           {
-
+        onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error){
+           if (state == SSDKResponseStateSuccess){
                NSLog(@"uid=%@",user.uid);
                NSLog(@"%@",user.credential);
                NSLog(@"token=%@",user.credential.token);
                NSLog(@"nickname=%@",user.nickname);
-               if (infoBlock) {
-                   infoBlock(user);
-               }
+               infoBlock(user,isHasAuthorized);
            }else{
                [SVProgressHUD setAnimationDuration:1.5];
                [SVProgressHUD showErrorWithStatus:@"授权登录失败"];
                NSLog(@"%@",error);
            }
-           
        }];
 }
 

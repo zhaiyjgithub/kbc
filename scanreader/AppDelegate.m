@@ -31,15 +31,27 @@
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window makeKeyAndVisible];
 
-    NSString * phoneNumber = [UserInfo getUserPhoneNumber];
-    NSString * password = [UserInfo getUserPassword];
-    NSString * userId = [UserInfo getUserId];
-    NSString * token = [UserInfo getUserToken];
-    if (!phoneNumber.length || !password.length || !userId.length || !token.length) {
-        SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
-        self.window.rootViewController = loginVC;
-    }else{
-        self.window.rootViewController = [[SR_TabbarViewController alloc] init];
+    
+    NSString * mediaType = [UserInfo getUserMediaType];
+    if ([mediaType isEqualToString:@"0"]) {//手机号码登录
+        NSString * phoneNumber = [UserInfo getUserPhoneNumber];
+        NSString * password = [UserInfo getUserPassword];
+        NSString * userId = [UserInfo getUserId];
+        NSString * token = [UserInfo getUserToken];
+        if (!phoneNumber.length || !password.length || !userId.length || !token.length) {
+            SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
+            self.window.rootViewController = loginVC;
+        }else{
+            self.window.rootViewController = [[SR_TabbarViewController alloc] init];
+        }
+    }else{//第三方登录
+        NSString * openId = [UserInfo getUserOpenId];
+        if (!openId.length) {
+            SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
+            self.window.rootViewController = loginVC;
+        }else{
+            self.window.rootViewController = [[SR_TabbarViewController alloc] init];
+        }
     }
     [self setNavigationBarStyle];
     

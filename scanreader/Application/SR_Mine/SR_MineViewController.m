@@ -214,13 +214,18 @@
     NSDictionary * param = @{@"user_id":userId,@"user_token":userToken};
     [httpTools post:LOGIN_OUT andParameters:param success:^(NSDictionary *dic) {
         SSLog(@"loginOut:%@",dic);
-        [UserInfo saveUserPhoneNumberWith:@""];
-        [UserInfo saveUserPasswordWith:@""];
-        [UserInfo saveUserTokenWith:@""];
-        [UserInfo saveUserIDWith:@""];
-        [UserInfo saveUserAvatarWith:@""];
-        [UserInfo saveUserNameWith:@""];
-        NSLog(@"%@-%@",[UserInfo getUserId],[UserInfo getUserToken]);
+        NSString * mediaType = [UserInfo getUserMediaType];
+        if ([mediaType isEqualToString:@"0"]) {
+            [UserInfo saveUserPhoneNumberWith:@""];
+            [UserInfo saveUserPasswordWith:@""];
+            [UserInfo saveUserTokenWith:@""];
+            [UserInfo saveUserIDWith:@""];
+            [UserInfo saveUserAvatarWith:@""];
+            [UserInfo saveUserNameWith:@""];
+        }else{
+            [UserInfo saveUserOpenIdWith:@""];
+        }
+        
         SR_LoginViewController * loginVC = [[SR_LoginViewController alloc] init];
         [UIApplication sharedApplication].keyWindow.rootViewController = loginVC;
     } failure:^(NSError *error) {
