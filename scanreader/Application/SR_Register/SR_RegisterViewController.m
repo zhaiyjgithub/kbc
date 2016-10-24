@@ -98,6 +98,7 @@
     [self.view addSubview:self.registerBtn];
 }
 
+//暂时使用1234
 - (void)clickCheckCodeBtn{
     SSLog(@"code..");
 }
@@ -118,7 +119,7 @@
         [SVProgressHUD showErrorWithStatus:@"密码不能为空"];
         return;
     }
-    
+    //测试过程中不能使用这个
     if (!self.checkCodeTextield.text.length) {
         [SVProgressHUD showErrorWithStatus:@"验证码不能为空"];
         return;

@@ -103,7 +103,11 @@
     self.titleLabel.text = noteModel.title;
     NSDate * createData = [NSDate dateWithTimeIntervalSince1970:noteModel.time_create];
     NSString * time = [NSDate compareCurrentTime:createData];//[NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
-    self.timeLabel.text = time;
+    NSString * nameAndTime = [NSString stringWithFormat:@"%@ %@",noteModel.user.username,time];
+    NSMutableAttributedString * attributesString = [[NSMutableAttributedString alloc] initWithString:nameAndTime];
+    [attributesString addAttribute:NSForegroundColorAttributeName value:kColor(0x20, 0x20, 0x20) range:NSMakeRange(0, noteModel.user.username.length)];
+    [attributesString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(noteModel.user.username.length, nameAndTime.length - noteModel.user.username.length)];
+    self.timeLabel.attributedText = attributesString;
 
     for (UIView * sonView in self.imagebgView.subviews) {
         [sonView removeFromSuperview];

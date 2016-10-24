@@ -32,7 +32,7 @@
     self.titleLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.titleLabel];
     
-    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(15,self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 8,120,16)];
+    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(15,self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 8,kScreenWidth - 30,16)];
     self.timeLabel.text = @"2016-06-28 12:30";
     self.timeLabel.textAlignment = NSTextAlignmentLeft;
     self.timeLabel.font = [UIFont systemFontOfSize:12.0];
@@ -116,9 +116,11 @@
     self.titleLabel.text = noteModel.title;
     NSDate * createData = [NSDate dateWithTimeIntervalSince1970:noteModel.time_create];
     NSString * time = [NSDate compareCurrentTime:createData];//[NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
-    self.timeLabel.text = time;
-    //    CGSize contentSize = [noteModel.content sizeForFont:[UIFont systemFontOfSize:14.0] size:CGSizeMake(kScreenWidth - 30, MAXFLOAT) mode:(NSLineBreakByWordWrapping)];
-    //    self.voicebgView.frame = CGRectMake(15, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8, (int)contentSize.width, (int)contentSize.height + 10);
+    NSString * nameAndTime = [NSString stringWithFormat:@"%@ %@",noteModel.user.username,time];
+    NSMutableAttributedString * attributesString = [[NSMutableAttributedString alloc] initWithString:nameAndTime];
+    [attributesString addAttribute:NSForegroundColorAttributeName value:kColor(0x20, 0x20, 0x20) range:NSMakeRange(0, noteModel.user.username.length)];
+    [attributesString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(noteModel.user.username.length, nameAndTime.length - noteModel.user.username.length)];
+    self.timeLabel.attributedText = attributesString;
     
     for (UIView * sonView in self.voicebgView.subviews) {
         [sonView removeFromSuperview];

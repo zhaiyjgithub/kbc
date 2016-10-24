@@ -98,9 +98,15 @@
     self.titleLabel.text = noteModel.title;
     NSDate * createData = [NSDate dateWithTimeIntervalSince1970:noteModel.time_create];
     NSString * time = [NSDate compareCurrentTime:createData];// [NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
-    self.timeLabel.text = time;
+    
+    NSString * nameAndTime = [NSString stringWithFormat:@"%@ %@",_noteModel.user.username,time];
+    NSMutableAttributedString * attributesString = [[NSMutableAttributedString alloc] initWithString:nameAndTime];
+    [attributesString addAttribute:NSForegroundColorAttributeName value:kColor(0x20, 0x20, 0x20) range:NSMakeRange(0, _noteModel.user.username.length)];
+    [attributesString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(noteModel.user.username.length, nameAndTime.length - noteModel.user.username.length)];
+    self.timeLabel.attributedText = attributesString;
+    
     CGSize contentSize = [noteModel.content sizeForFont:[UIFont systemFontOfSize:14.0] size:CGSizeMake(kScreenWidth - 30, MAXFLOAT) mode:(NSLineBreakByWordWrapping)];
-    self.bodyTextLabel.frame = CGRectMake(15, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8, (int)contentSize.width, (int)contentSize.height + 10);
+    self.bodyTextLabel.frame = CGRectMake(15, self.timeLabel.frame.origin.y + self.timeLabel.frame.size.height + 8, (int)contentSize.width + 1, (int)contentSize.height + 10);
     self.bodyTextLabel.text = noteModel.content;
     
     if (!noteModel.page) {
