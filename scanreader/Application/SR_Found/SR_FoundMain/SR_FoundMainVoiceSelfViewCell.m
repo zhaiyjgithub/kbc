@@ -20,7 +20,7 @@
 }
 
 - (void)setupCell{
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 125, 15)];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 125, 17)];
     self.titleLabel.text = @"笔记标题";
     self.titleLabel.font = [UIFont systemFontOfSize:15.0];
     self.titleLabel.textColor = [UIColor blackColor];
