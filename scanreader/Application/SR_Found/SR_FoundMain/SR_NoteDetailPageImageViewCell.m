@@ -131,23 +131,12 @@
         resouceImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.imagebgView addSubview:resouceImageView];
         
-        UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickDeleteBtn:)];
-        [resouceImageView addGestureRecognizer:gesture];
+        UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPreScanBtn:)];
+        [resouceImageView addGestureRecognizer:tapGesture];
         
-//        UIButton * deleteBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-//        deleteBtn.frame  = CGRectMake(0, 0, 30, 30);
-//        deleteBtn.center = CGPointMake(resouceImageView.frame.origin.x + resouceImageView.frame.size.width, resouceImageView.frame.origin.y);
-//        deleteBtn.tag = i;
-//        [deleteBtn addTarget:self action:@selector(clickDeleteBtn:) forControlEvents:(UIControlEventTouchUpInside)];
-//        deleteBtn.backgroundColor = [UIColor redColor];
-//        [self.imagebgView addSubview:deleteBtn];
-//        
-//        UIImageView * voiceImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"zbj_del"]];
-//        voiceImageView.frame = CGRectMake(0, 0, 17, 17);
-//        voiceImageView.center = deleteBtn.center;
-//        [self.imagebgView addSubview:voiceImageView];
-
-        
+        UILongPressGestureRecognizer * longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(clickDeleteBtn:)];
+        longPressGesture.minimumPressDuration = 1.5;
+        [resouceImageView addGestureRecognizer:longPressGesture];
     }
     if (!noteModel.page) {
         self.subtitleImageView.hidden = YES;
@@ -168,14 +157,28 @@
     ;
 }
 
-- (void)clickDeleteBtn:(UIGestureRecognizer *)gesture{
-    if (self.deleteBtnBlock) {
-        self.deleteBtnBlock(gesture.view.tag);
+- (void)clickDeleteBtn:(UILongPressGestureRecognizer *)gesture{
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        if (self.deleteBtnBlock) {
+            self.deleteBtnBlock(gesture.view.tag);
+        }
+    }else{
+      //  NSLog(@"--%d",gesture.state);
     }
 }
 
 - (void)addDeleteBtnblock:(noteDetailPageImageViewCellDeleteBtnBlock)block{
     self.deleteBtnBlock = block;
+}
+
+- (void)clickPreScanBtn:(UITapGestureRecognizer *)gesture{
+    if (self.preScanViewBlock) {
+        self.preScanViewBlock(gesture.view.tag);
+    }
+}
+
+- (void)addPreScanViewBlock:(noteDetailPageImageViewCellPreScanViewBtnBlock)block{
+    self.preScanViewBlock = block;
 }
 
 

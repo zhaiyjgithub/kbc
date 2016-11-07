@@ -11,6 +11,7 @@
 
 typedef void(^noteDetailPageImageViewCellDeleteBtnBlock)(NSInteger tag);
 typedef void(^noteDetailPageImageViewCellInterBtnBlock)(void);
+typedef void(^noteDetailPageImageViewCellPreScanViewBtnBlock)(NSInteger tag);
 
 @interface SR_NoteDetailPageImageViewCell : UITableViewCell
 @property(nonatomic,strong)UILabel * titleLabel;
@@ -26,8 +27,10 @@ typedef void(^noteDetailPageImageViewCellInterBtnBlock)(void);
 @property(nonatomic,strong)NSMutableArray * resourceList;
 @property(nonatomic,strong)noteDetailPageImageViewCellDeleteBtnBlock deleteBtnBlock;
 @property(nonatomic,strong)noteDetailPageImageViewCellInterBtnBlock interBtnBlock;
+@property(nonatomic,strong)noteDetailPageImageViewCellPreScanViewBtnBlock preScanViewBlock;
 @property(nonatomic,strong)SR_BookClubBookNoteModel * noteModel;
 - (void)addDeleteBtnblock:(noteDetailPageImageViewCellDeleteBtnBlock)block;
 - (void)addInterBtnBlock:(noteDetailPageImageViewCellInterBtnBlock)block;
+- (void)addPreScanViewBlock:(noteDetailPageImageViewCellPreScanViewBtnBlock)block;
 
 @end

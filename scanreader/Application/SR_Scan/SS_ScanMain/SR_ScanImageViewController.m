@@ -55,6 +55,7 @@
 
 @property(nonatomic,assign)NSInteger scanImageDelegateCount;
 @property(nonatomic,strong)QRView *qrView;
+@property(nonatomic,strong)AVPlayer * localPlayer;
 @end
 
 @implementation SR_ScanImageViewController{
@@ -127,8 +128,6 @@
     }
     
     //设置图像方向，否则largeImage取出来是反的
-    
-    
     if (self.scanImageDelegateCount > 20) {//由于执行的速度过快，因此会导致按钮等其他交互不能进行，因此在这里添加一个适当的转换时间
         [connection setVideoOrientation:AVCaptureVideoOrientationPortrait];
         largeImage = [self imageFromSampleBuffer:sampleBuffer];
@@ -139,6 +138,9 @@
                 NSString * value1 = [content substringToIndex:content.length/2];
                 NSString * value2 = [content substringFromIndex:content.length/2];
                 if ([value1 isEqualToString:value2]) {
+                    NSURL * soundUrl = [[NSBundle mainBundle] URLForResource:@"sound.caf" withExtension:nil];
+                    self.localPlayer = [[AVPlayer alloc] initWithURL:soundUrl];
+                    [self.localPlayer play];
                     [self readList:@"mark" code:value1];
                 }else{
                     [self.session startRunning];
@@ -192,7 +194,9 @@
         AVMetadataMachineReadableCodeObject *metadataObject = [metadataObjects objectAtIndex :0];
 #ifndef FACE
         [self.session stopRunning];
-        NSLog(@"qrcode is : %@",metadataObject.stringValue);
+        NSURL * soundUrl = [[NSBundle mainBundle] URLForResource:@"sound.caf" withExtension:nil];
+        self.localPlayer = [[AVPlayer alloc] initWithURL:soundUrl];
+        [self.localPlayer play];
         NSString * value = metadataObject.stringValue;
         if ([value hasPrefix:@"http"]) {//如果返回的是http
             self.hidesBottomBarWhenPushed = YES;
@@ -219,6 +223,11 @@
     }else if ([method isEqualToString:@"isbn"]){//读取isbn
         param[@"isbn"] = code;
     }
+    //这个用于记录用户的扫描列表
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    param[@"user_id"] = userId;
+    param[@"user_token"] = userToken;
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [httpTools post:SCAN_READ andParameters:param success:^(NSDictionary *dic) {

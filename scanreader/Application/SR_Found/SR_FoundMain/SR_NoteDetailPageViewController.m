@@ -26,6 +26,7 @@
 #import "SR_InterPageListModel.h"
 #import "SR_AddBtnView.h"
 #import "ShareTool.h"
+#import "SR_PreScanView.h"
 
 @interface SR_NoteDetailPageViewController ()<textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate,UIAlertViewDelegate,addBtnDelegate>
 @property(nonatomic,assign)CGFloat cellHeight;
@@ -255,9 +256,21 @@
         cell.noteModel = self.noteModel;
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        //本人的笔记是可以编辑，其他人的编辑是不可以
         [cell addDeleteBtnblock:^(NSInteger tag) {
-            SSLog(@"delete tag:%ld",tag);
-            [weakSelf showDeleteAlertView:tag];
+            NSString * userId = [UserInfo getUserId];
+            if ([weakSelf.noteModel.user.user_id isEqualToString:userId]) {
+                [weakSelf showDeleteAlertView:tag];
+            }else{
+                SSLog(@"他人的笔记不可以编辑");
+            }
+        }];
+        
+        [cell addPreScanViewBlock:^(NSInteger tag) {
+            SR_BookClubNoteResourceModel * resourceModel = self.dataSource[tag - 100];
+            NSString * imagePath = resourceModel.path;
+            SR_PreScanView * scanView = [[SR_PreScanView alloc] initPreScanViewWithImagePath:imagePath];
+            [scanView show];
         }];
         [cell addInterBtnBlock:^{
             SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
@@ -290,9 +303,15 @@
             weakSelf.voiceBtn = voiceBtn;
              [weakSelf playVoiceWithFilePath:filePath row:(voiceBtn.tag - 100) voiceBtn:voiceBtn voiceTimeLength:voiceTimeLength];
         }];
-        
+        //本人的笔记才可以进行编辑
         [cell addDeleteBtnblock:^(NSInteger tag) {
-            [weakSelf deleteResource:tag];
+//            NSString * userId = [UserInfo getUserId];
+//            if ([weakSelf.noteModel.user.user_id isEqualToString:userId]) {
+//                [weakSelf deleteResource:tag];
+//            }else{
+//                SSLog(@"他人的笔记不可以编辑");
+//            }
+            
         }];
         
         [cell addInterBtnBlock:^{

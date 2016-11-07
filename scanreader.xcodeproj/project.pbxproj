@@ -37,6 +37,7 @@
 		CB186F041D72E8A500C16705 /* SR_NoteDetailPageTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB186F031D72E8A500C16705 /* SR_NoteDetailPageTextViewCell.m */; };
 		CB186F0B1D730C1400C16705 /* SR_NoteDetailPageImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB186F0A1D730C1400C16705 /* SR_NoteDetailPageImageViewCell.m */; };
 		CB1E7EBD1DB47AB9003FB4C3 /* shareImage.png in Resources */ = {isa = PBXBuildFile; fileRef = CB1E7EBC1DB47AB9003FB4C3 /* shareImage.png */; };
+		CB2804FB1DBDF445000E00C5 /* SR_PreScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2804FA1DBDF445000E00C5 /* SR_PreScanView.m */; };
 		CB2A65FE1D60B26C006F735B /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2A65FD1D60B26C006F735B /* UserInfo.m */; };
 		CB32AD871D6DE7AF00CD6D34 /* SR_MineMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB32AD861D6DE7AF00CD6D34 /* SR_MineMessageModel.m */; };
 		CB42D0AE1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB42D0AD1D640BFC002A75E5 /* SR_BookClubBookNoteModel.m */; };
@@ -201,6 +202,8 @@
 		CB186F091D730C1400C16705 /* SR_NoteDetailPageImageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_NoteDetailPageImageViewCell.h; path = Application/SR_Found/SR_FoundMain/SR_NoteDetailPageImageViewCell.h; sourceTree = "<group>"; };
 		CB186F0A1D730C1400C16705 /* SR_NoteDetailPageImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_NoteDetailPageImageViewCell.m; path = Application/SR_Found/SR_FoundMain/SR_NoteDetailPageImageViewCell.m; sourceTree = "<group>"; };
 		CB1E7EBC1DB47AB9003FB4C3 /* shareImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shareImage.png; sourceTree = "<group>"; };
+		CB2804F91DBDF445000E00C5 /* SR_PreScanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_PreScanView.h; path = Application/SR_ActioSheet/SR_PreScanView.h; sourceTree = "<group>"; };
+		CB2804FA1DBDF445000E00C5 /* SR_PreScanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_PreScanView.m; path = Application/SR_ActioSheet/SR_PreScanView.m; sourceTree = "<group>"; };
 		CB2A65FB1D60AB87006F735B /* requestAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = requestAPI.h; path = scanreader/requestAPI.h; sourceTree = "<group>"; };
 		CB2A65FC1D60B26C006F735B /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfo.h; path = Base/Tool/UserInfo.h; sourceTree = "<group>"; };
 		CB2A65FD1D60B26C006F735B /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Base/Tool/UserInfo.m; sourceTree = "<group>"; };
@@ -436,6 +439,7 @@
 		848429A41D4498C400855854 /* SR_ActionSheet */ = {
 			isa = PBXGroup;
 			children = (
+				CB2804F81DBDF408000E00C5 /* PreScanView */,
 				CB016E021DACDC4900A8F4FE /* shareView */,
 				848DD48F1D44FBA50061810F /* VoiceView */,
 				846C6DDD1D44ACF800401A35 /* ImageView */,
@@ -544,6 +548,15 @@
 				CB0408041D77C37C00490862 /* SR_NoteDetailVoiceUpdateModel.m */,
 			);
 			name = NoteDetailPage;
+			sourceTree = "<group>";
+		};
+		CB2804F81DBDF408000E00C5 /* PreScanView */ = {
+			isa = PBXGroup;
+			children = (
+				CB2804F91DBDF445000E00C5 /* SR_PreScanView.h */,
+				CB2804FA1DBDF445000E00C5 /* SR_PreScanView.m */,
+			);
+			name = PreScanView;
 			sourceTree = "<group>";
 		};
 		CB32AD841D6DE77800CD6D34 /* Model */ = {
@@ -1395,6 +1408,7 @@
 				CBA87BDC1D3C73ED006C0648 /* SR_FoundSearchTableViewController.m in Sources */,
 				CBCF4F871D36958800DD7015 /* SR_FoundMainVoiceViewCell.m in Sources */,
 				8443ACEA1D46563A00634BC3 /* DDQRCodeViewController.m in Sources */,
+				CB2804FB1DBDF445000E00C5 /* SR_PreScanView.m in Sources */,
 				846C6DE31D44B06D00401A35 /* SR_ActionSheetImageLayout.m in Sources */,
 				CBD0FC5C1D951E20009B9E62 /* UIImage+help.m in Sources */,
 				CBE47E181D40BC1C0046C89C /* SR_RecordMainTagButton.m in Sources */,

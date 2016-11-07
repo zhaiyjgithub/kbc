@@ -40,8 +40,6 @@
 
     char result[50];
     bool ret = FftOpencvFun(buff,  512, 512, result);
-    printf("ret is : %d\n", ret);
-    printf("result is : %s\n", result);
     NSString *content = [NSString stringWithUTF8String:result];
     if (aResultBlock) {
         aResultBlock(ret,content);
