@@ -436,7 +436,7 @@
 			name = ImageView;
 			sourceTree = "<group>";
 		};
-		848429A41D4498C400855854 /* SR_ActionSheet */ = {
+		848429A41D4498C400855854 /* SR_ActionSheet(弹窗) */ = {
 			isa = PBXGroup;
 			children = (
 				CB2804F81DBDF408000E00C5 /* PreScanView */,
@@ -445,7 +445,7 @@
 				846C6DDD1D44ACF800401A35 /* ImageView */,
 				846C6DDC1D44ACE600401A35 /* TextView */,
 			);
-			name = SR_ActionSheet;
+			name = "SR_ActionSheet(弹窗)";
 			sourceTree = "<group>";
 		};
 		848DD48F1D44FBA50061810F /* VoiceView */ = {
@@ -717,11 +717,11 @@
 			children = (
 				CBA1542B1D75C77A009A619B /* SR_InterPage(互动页) */,
 				CBEEABDC1D6B44BE005B1C2B /* SR_Seach(搜索) */,
-				848429A41D4498C400855854 /* SR_ActionSheet */,
+				848429A41D4498C400855854 /* SR_ActionSheet(弹窗) */,
 				CBE47DF11D4066AD0046C89C /* SR_ForgotPassword(忘记密码) */,
 				CBD1D6051D3622B500539056 /* SR_Register(注册) */,
 				CBD1D6001D3621B000539056 /* SR_Mine(我的) */,
-				CBFEA91F1D35FB8A007276B6 /* SR_Login */,
+				CBFEA91F1D35FB8A007276B6 /* SR_Login(登录) */,
 				CBFEA9051D35F50F007276B6 /* SR_Found(发现) */,
 				CBFEA9061D35F51C007276B6 /* SR_Scan(扫描) */,
 				CBFEA9071D35F527007276B6 /* SR_Record(记录) */,
@@ -1120,13 +1120,13 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
-		CBFEA91F1D35FB8A007276B6 /* SR_Login */ = {
+		CBFEA91F1D35FB8A007276B6 /* SR_Login(登录) */ = {
 			isa = PBXGroup;
 			children = (
 				CBFEA9201D35FC15007276B6 /* SR_LoginViewController.h */,
 				CBFEA9211D35FC15007276B6 /* SR_LoginViewController.m */,
 			);
-			name = SR_Login;
+			name = "SR_Login(登录)";
 			sourceTree = "<group>";
 		};
 		F55A30E3507DECA6812F6CB2 /* Pods */ = {

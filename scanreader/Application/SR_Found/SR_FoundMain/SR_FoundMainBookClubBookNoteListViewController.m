@@ -209,6 +209,12 @@
             [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
             weakSelf.hidesBottomBarWhenPushed = NO;
         }];
+        
+        [cell addImageBlock:^(NSString *imagePath) {
+            SR_PreScanView * scanView = [[SR_PreScanView alloc] initPreScanViewWithImagePath:imagePath];
+            [scanView show];
+        }];
+        
         return cell;
         
     }else if ([noteModel.type isEqualToString:NOTE_TYPE_VOICE]){//语音

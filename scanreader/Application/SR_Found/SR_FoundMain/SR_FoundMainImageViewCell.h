@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SR_BookClubBookNoteModel.h"
+#import "SR_PreScanView.h"
 
 typedef void(^foundMainImageViewCellBlock)(void);
 typedef void(^foundMainImageViewCellInterBlock)(void);
+typedef void(^foundMainImageViewCellImageBlock)(NSString * imagePath);
 
 @interface SR_FoundMainImageViewCell : UITableViewCell
 @property(nonatomic,strong)UILabel * titleLabel;
@@ -24,6 +26,8 @@ typedef void(^foundMainImageViewCellInterBlock)(void);
 @property(nonatomic,strong)SR_BookClubBookNoteModel * noteModel;
 @property(nonatomic,strong)foundMainImageViewCellBlock block;
 @property(nonatomic,strong)foundMainImageViewCellInterBlock interBlock;
+@property(nonatomic,strong)foundMainImageViewCellImageBlock imageBlock;
 - (void)addBlock:(foundMainImageViewCellBlock)block;
 - (void)addInterBlock:(foundMainImageViewCellInterBlock)interBlock;
+- (void)addImageBlock:(foundMainImageViewCellImageBlock)imageBlock;
 @end

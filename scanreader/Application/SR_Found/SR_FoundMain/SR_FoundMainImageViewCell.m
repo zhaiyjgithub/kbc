@@ -21,17 +21,17 @@
 }
 
 - (void)setupCell{
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 125, 17)];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, kScreenWidth - 30 - 75, 17)];
     self.titleLabel.text = @"笔记标题";
     self.titleLabel.font = [UIFont systemFontOfSize:15.0];
     self.titleLabel.textColor = [UIColor blackColor];
     self.titleLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.titleLabel];
     
-    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.titleLabel.frame.origin.x + self.titleLabel.frame.size.width + 15,15,120,16)];
-    self.timeLabel.text = @"2016-06-28 12:30";
+    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth - 15 - 75,15,75,16)];
+    self.timeLabel.text = @"06-28";
     self.timeLabel.textColor = [UIColor lightGrayColor];
-    self.timeLabel.textAlignment = NSTextAlignmentLeft;
+    self.timeLabel.textAlignment = NSTextAlignmentRight;
     self.timeLabel.font = [UIFont systemFontOfSize:12.0];
     [self.contentView addSubview:self.timeLabel];
     
@@ -40,6 +40,10 @@
     self.recordImageView.contentMode = UIViewContentModeScaleAspectFit;
     self.recordImageView.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubview:self.recordImageView];
+    
+    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImage)];
+    self.recordImageView.userInteractionEnabled = YES;
+    [self.recordImageView addGestureRecognizer:tapGesture];
     
     self.subtitleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, self.recordImageView.frame.origin.y + self.recordImageView.frame.size.height + 11, 19, 19)];
     self.subtitleImageView.image = [UIImage imageNamed:@"fx_book"];
@@ -127,8 +131,19 @@
     }
 }
 
+- (void)tapImage{
+    if (self.imageBlock) {
+        SR_BookClubNoteResourceModel * resourceModel = [SR_BookClubNoteResourceModel modelWithJSON:[_noteModel.resourceList firstObject]];
+        self.imageBlock(resourceModel.path);
+    }
+}
+
 - (void)addInterBlock:(foundMainImageViewCellInterBlock)interBlock{
     self.interBlock = interBlock;
+}
+
+- (void)addImageBlock:(foundMainImageViewCellImageBlock)imageBlock{
+    self.imageBlock = imageBlock;
 }
 
 @end

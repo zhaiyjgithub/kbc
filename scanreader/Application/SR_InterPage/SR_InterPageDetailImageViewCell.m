@@ -8,7 +8,6 @@
 
 #import "SR_InterPageDetailImageViewCell.h"
 #import "globalHeader.h"
-#import "NSDate+JJ.h"
 #import "NSString+JJ.h"
 
 

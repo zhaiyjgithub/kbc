@@ -274,6 +274,7 @@
                     weakSelf.hidesBottomBarWhenPushed = NO;
                 }
             }];
+            
             [cell addInterBlock:^{
                 SR_BookClubBookNoteModel * noteModel = weakSelf.dynamicInfos[indexPath.row];
                 SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
@@ -289,6 +290,11 @@
                 weakSelf.hidesBottomBarWhenPushed = YES;
                 [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
                 weakSelf.hidesBottomBarWhenPushed = NO;
+            }];
+            
+            [cell addImageBlock:^(NSString *imagePath) {
+                SR_PreScanView * scanView = [[SR_PreScanView alloc] initPreScanViewWithImagePath:imagePath];
+                [scanView show];
             }];
             return cell;
 

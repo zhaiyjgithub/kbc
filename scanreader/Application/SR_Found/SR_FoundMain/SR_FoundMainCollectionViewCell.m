@@ -33,10 +33,10 @@
     self.titleLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.titleLabel];
     
-    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.titleLabel.frame.origin.x + self.titleLabel.frame.size.width + 15,15,120,19)];
+    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth - 15 - 75,15,75,19)];
     self.timeLabel.text = @"2016-06-28 12:30";
     self.timeLabel.textColor = [UIColor lightGrayColor];
-    self.timeLabel.textAlignment = NSTextAlignmentLeft;
+    self.timeLabel.textAlignment = NSTextAlignmentRight;
     self.timeLabel.font = [UIFont systemFontOfSize:12.0];
     [self.contentView addSubview:self.timeLabel];
     
