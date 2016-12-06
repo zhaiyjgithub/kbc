@@ -64,7 +64,13 @@
     _bookModel = bookModel;
     [self.bookImageView setImageWithURL:[NSURL URLWithString:bookModel.picture] placeholder:[UIImage imageNamed:@"BookDefault"]];
     self.bookNameLabel.text = bookModel.title;
-    self.bookAuthorLabel.text = [NSString stringWithFormat:@"作者:%@",bookModel.author];
+    
+    BOOL isAuthor = bookModel.author.length > 0 ? YES : NO;
+    self.bookAuthorLabel.hidden = isAuthor;
+    if (isAuthor) {
+        self.bookAuthorLabel.text = [NSString stringWithFormat:@"作者:%@",bookModel.author];
+    }
+    
     self.bookMessageLabel.text = [NSString stringWithFormat:@"互动(%@)",bookModel.note_total];
     self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",bookModel.member_total];
 }

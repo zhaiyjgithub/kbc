@@ -108,9 +108,19 @@
     if (resourceModel) {
         [self.recordImageView setImageWithURL:[NSURL URLWithString:resourceModel.path] placeholder:nil];
     }
-    if (!noteModel.page) {
+    
+    if (!noteModel.page && !noteModel.book) { //没有互动页或者读书标题
         self.subtitleImageView.hidden = YES;
         self.subtitleButton.hidden = YES;
+    }else{
+        self.subtitleImageView.hidden = NO;
+        self.subtitleButton.hidden = NO;
+        if (noteModel.page) {
+            [self.subtitleButton setTitle:noteModel.page.title forState:(UIControlStateNormal)];
+        }else{
+            [self.subtitleButton setTitle:noteModel.book.title forState:(UIControlStateNormal)];
+        }
+        
     }
 }
 

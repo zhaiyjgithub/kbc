@@ -27,7 +27,7 @@
 #import "SR_FoundMainCollectionViewCell.h"
 #import <AVFoundation/AVFoundation.h>
 #import "SR_NoteDetailPageViewController.h"
-
+#import <MBProgressHUD.h>
 
 @interface SR_FoundMainBookClubBookNoteListViewController ()<textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate,addBtnDelegate>
 @property(nonatomic,strong)UIButton * floatBtn;
@@ -109,7 +109,16 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 145;
+    SR_BookClubBookNoteModel * noteModel = self.dataSource[indexPath.row];
+    if ([noteModel.type isEqualToString:NOTE_TYPE_TEXT]) {
+        return 146;
+    }else if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){
+        return 180;
+    }else if ([noteModel.type isEqualToString:NOTE_TYPE_VOICE]){
+        return 150;
+    }else{
+        return 106;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -372,7 +381,6 @@
                 voiceViewCell.voiceProgressView.frame = CGRectMake(voiceViewCell.barView.frame.origin.x, voiceViewCell.barView.frame.origin.y, 1, voiceViewCell.barView.frame.size.height);
             }];
         }
-        
     }
 }
 
@@ -380,7 +388,6 @@
     NSLog(@"播放完毕");
     self.isFinishedPlay = YES;
 }
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -398,8 +405,11 @@
     NSString * limit = [NSString stringWithFormat:@"%d",pageNum];
     NSString * page = [NSString stringWithFormat:@"%d",pageIndex];
     NSDictionary * param = @{@"book_id":self.bookModel.book_id,@"mode":@"2",@"limit":limit,@"page":page};
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [httpTools post:GET_NOTE_LIST_ALL andParameters:param success:^(NSDictionary *dic) {
         SSLog(@"%@笔记:%@",self.bookModel.title,dic);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSArray * list = dic[@"data"][@"list"];
         for (NSDictionary * item in list) {
             SR_BookClubBookNoteModel * noteModel = [SR_BookClubBookNoteModel modelWithDictionary:item];
@@ -411,7 +421,7 @@
         self.bookClubNotePageIndex = (self.dataSource.count/PAGE_NUM) + (self.dataSource.count%PAGE_NUM > 0 ? 1 : 0);
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
 }
 

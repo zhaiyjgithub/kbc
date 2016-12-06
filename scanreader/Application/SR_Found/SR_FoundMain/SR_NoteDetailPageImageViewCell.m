@@ -23,7 +23,7 @@
 }
 
 - (void)setupCell{
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 125, 17)];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, kScreenWidth - 30, 17)];
     self.titleLabel.text = @"笔记标题";
     self.titleLabel.font = [UIFont systemFontOfSize:15.0];
     self.titleLabel.textColor = [UIColor blackColor];
@@ -138,10 +138,6 @@
         longPressGesture.minimumPressDuration = 1.5;
         [resouceImageView addGestureRecognizer:longPressGesture];
     }
-    if (!noteModel.page) {
-        self.subtitleImageView.hidden = YES;
-        self.subtitleButton.hidden = YES;
-    }
     
     self.subtitleImageView.frame = CGRectMake(15, self.imagebgView.frame.origin.y + self.imagebgView.frame.size.height + 11, 19, 19);
     self.subtitleButton.frame = CGRectMake(self.subtitleImageView.frame.origin.x + self.subtitleImageView.frame.size.width + 5, self.subtitleImageView.frame.origin.y, 200, 19);
@@ -150,11 +146,21 @@
     self.bookFriendsView.frame = CGRectMake(self.messageLabel.frame.origin.x + self.messageLabel.frame.size.width + 25, self.messageLabel.frame.origin.y, 17, 17);
     self.bookFriendsLabel.frame =CGRectMake(self.bookFriendsView.frame.origin.x + self.bookFriendsView.frame.size.width + 10, self.bookFriendsView.frame.origin.y, 64, 17);
     
-    
-    [self.subtitleButton setTitle:noteModel.page.title forState:(UIControlStateNormal)];
     self.messageLabel.text = [NSString stringWithFormat:@"互动(%@)",noteModel.note_total];
     self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",noteModel.member_total];
-    ;
+    
+    if (!noteModel.page && !noteModel.book) { //没有互动页或者读书标题
+        self.subtitleImageView.hidden = YES;
+        self.subtitleButton.hidden = YES;
+    }else{
+        self.subtitleImageView.hidden = NO;
+        self.subtitleButton.hidden = NO;
+        if (noteModel.page) {
+            [self.subtitleButton setTitle:noteModel.page.title forState:(UIControlStateNormal)];
+        }else{
+            [self.subtitleButton setTitle:noteModel.book.title forState:(UIControlStateNormal)];
+        }
+    }
 }
 
 - (void)clickDeleteBtn:(UILongPressGestureRecognizer *)gesture{

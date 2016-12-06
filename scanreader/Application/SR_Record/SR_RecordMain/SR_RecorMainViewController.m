@@ -118,7 +118,7 @@
         }else if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){
             return 180;
         }else if ([noteModel.type isEqualToString:NOTE_TYPE_VOICE]){
-            return 180;
+            return 150;
         }else{
             return 106;
         }
@@ -160,19 +160,29 @@
             }];
             [cell addInterBlock:^{
                 SR_BookClubBookNoteModel * noteModel = weakSelf.noteList[indexPath.row];
-                SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
-                interPageModel.content = @"";
-                interPageModel.pageId = noteModel.page.page_id;
-                interPageModel.member_total = noteModel.member_total;
-                interPageModel.note_total = noteModel.note_total;
-                interPageModel.picture = @"";
-                interPageModel.time_create = noteModel.time_create;
-                interPageModel.time_create = noteModel.time_create;
-                SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
-                interPageDetailVC.pageListModel = interPageModel;
-                weakSelf.hidesBottomBarWhenPushed = YES;
-                [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
-                weakSelf.hidesBottomBarWhenPushed = NO;
+                if (noteModel.page) {//跳转到互动页
+                    SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+                    interPageModel.content = @"";
+                    interPageModel.pageId = noteModel.page.page_id;
+                    interPageModel.member_total = noteModel.member_total;
+                    interPageModel.note_total = noteModel.note_total;
+                    interPageModel.picture = @"";
+                    interPageModel.time_create = noteModel.time_create;
+                    interPageModel.time_create = noteModel.time_create;
+                    SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+                    interPageDetailVC.pageListModel = interPageModel;
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }else{//跳转到书籍对应的笔记列表
+                    SR_FoundMainBookClubBookNoteListViewController * bookMarkListVC = [[SR_FoundMainBookClubBookNoteListViewController alloc] init];
+                    SR_BookClubBookModel * bookModel = [[SR_BookClubBookModel alloc] init];
+                    bookModel.book_id = noteModel.book.book_id;
+                    bookModel.title = noteModel.book.title;
+                    bookMarkListVC.bookModel = bookModel;
+                    [weakSelf.navigationController pushViewController:bookMarkListVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }
             }];
 
             return cell;
@@ -201,19 +211,29 @@
             }];
             [cell addInterBlock:^{
                 SR_BookClubBookNoteModel * noteModel = weakSelf.noteList[indexPath.row];
-                SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
-                interPageModel.content = @"";
-                interPageModel.pageId = noteModel.page.page_id;
-                interPageModel.member_total = noteModel.member_total;
-                interPageModel.note_total = noteModel.note_total;
-                interPageModel.picture = @"";
-                interPageModel.time_create = noteModel.time_create;
-                interPageModel.time_create = noteModel.time_create;
-                SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
-                interPageDetailVC.pageListModel = interPageModel;
-                weakSelf.hidesBottomBarWhenPushed = YES;
-                [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
-                weakSelf.hidesBottomBarWhenPushed = NO;
+                if (noteModel.page) {//跳转到互动页
+                    SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+                    interPageModel.content = @"";
+                    interPageModel.pageId = noteModel.page.page_id;
+                    interPageModel.member_total = noteModel.member_total;
+                    interPageModel.note_total = noteModel.note_total;
+                    interPageModel.picture = @"";
+                    interPageModel.time_create = noteModel.time_create;
+                    interPageModel.time_create = noteModel.time_create;
+                    SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+                    interPageDetailVC.pageListModel = interPageModel;
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }else{//跳转到书籍对应的笔记列表
+                    SR_FoundMainBookClubBookNoteListViewController * bookMarkListVC = [[SR_FoundMainBookClubBookNoteListViewController alloc] init];
+                    SR_BookClubBookModel * bookModel = [[SR_BookClubBookModel alloc] init];
+                    bookModel.book_id = noteModel.book.book_id;
+                    bookModel.title = noteModel.book.title;
+                    bookMarkListVC.bookModel = bookModel;
+                    [weakSelf.navigationController pushViewController:bookMarkListVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }
             }];
             return cell;
             
@@ -251,19 +271,29 @@
             
             [cell addInterBlock:^{
                 SR_BookClubBookNoteModel * noteModel = weakSelf.noteList[indexPath.row];
-                SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
-                interPageModel.content = @"";
-                interPageModel.pageId = noteModel.page.page_id;
-                interPageModel.member_total = noteModel.member_total;
-                interPageModel.note_total = noteModel.note_total;
-                interPageModel.picture = @"";
-                interPageModel.time_create = noteModel.time_create;
-                interPageModel.time_create = noteModel.time_create;
-                SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
-                interPageDetailVC.pageListModel = interPageModel;
-                weakSelf.hidesBottomBarWhenPushed = YES;
-                [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
-                weakSelf.hidesBottomBarWhenPushed = NO;
+                if (noteModel.page) {//跳转到互动页
+                    SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+                    interPageModel.content = @"";
+                    interPageModel.pageId = noteModel.page.page_id;
+                    interPageModel.member_total = noteModel.member_total;
+                    interPageModel.note_total = noteModel.note_total;
+                    interPageModel.picture = @"";
+                    interPageModel.time_create = noteModel.time_create;
+                    interPageModel.time_create = noteModel.time_create;
+                    SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+                    interPageDetailVC.pageListModel = interPageModel;
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }else{//跳转到书籍对应的笔记列表
+                    SR_FoundMainBookClubBookNoteListViewController * bookMarkListVC = [[SR_FoundMainBookClubBookNoteListViewController alloc] init];
+                    SR_BookClubBookModel * bookModel = [[SR_BookClubBookModel alloc] init];
+                    bookModel.book_id = noteModel.book.book_id;
+                    bookModel.title = noteModel.book.title;
+                    bookMarkListVC.bookModel = bookModel;
+                    [weakSelf.navigationController pushViewController:bookMarkListVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }
             }];
             return cell;
         }else{
@@ -291,19 +321,29 @@
             }];
             [cell addInterBlock:^{
                 SR_BookClubBookNoteModel * noteModel = weakSelf.noteList[indexPath.row];
-                SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
-                interPageModel.content = @"";
-                interPageModel.pageId = noteModel.page.page_id;
-                interPageModel.member_total = noteModel.member_total;
-                interPageModel.note_total = noteModel.note_total;
-                interPageModel.picture = @"";
-                interPageModel.time_create = noteModel.time_create;
-                interPageModel.time_create = noteModel.time_create;
-                SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
-                interPageDetailVC.pageListModel = interPageModel;
-                weakSelf.hidesBottomBarWhenPushed = YES;
-                [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
-                weakSelf.hidesBottomBarWhenPushed = NO;
+                if (noteModel.page) {//跳转到互动页
+                    SR_InterPageListModel * interPageModel = [[SR_InterPageListModel alloc] init];
+                    interPageModel.content = @"";
+                    interPageModel.pageId = noteModel.page.page_id;
+                    interPageModel.member_total = noteModel.member_total;
+                    interPageModel.note_total = noteModel.note_total;
+                    interPageModel.picture = @"";
+                    interPageModel.time_create = noteModel.time_create;
+                    interPageModel.time_create = noteModel.time_create;
+                    SR_InterPageDetailViewController * interPageDetailVC = [[SR_InterPageDetailViewController alloc] init];
+                    interPageDetailVC.pageListModel = interPageModel;
+                    weakSelf.hidesBottomBarWhenPushed = YES;
+                    [weakSelf.navigationController pushViewController:interPageDetailVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }else{//跳转到书籍对应的笔记列表
+                    SR_FoundMainBookClubBookNoteListViewController * bookMarkListVC = [[SR_FoundMainBookClubBookNoteListViewController alloc] init];
+                    SR_BookClubBookModel * bookModel = [[SR_BookClubBookModel alloc] init];
+                    bookModel.book_id = noteModel.book.book_id;
+                    bookModel.title = noteModel.book.title;
+                    bookMarkListVC.bookModel = bookModel;
+                    [weakSelf.navigationController pushViewController:bookMarkListVC animated:YES];
+                    weakSelf.hidesBottomBarWhenPushed = NO;
+                }
             }];
             return cell;
         }

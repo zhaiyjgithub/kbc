@@ -100,13 +100,20 @@
     NSString * time = [NSDate compareCurrentTime:createData];//[NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
     self.timeLabel.text = time;
     self.bodyTextLabel.text = noteModel.content;
-    [self.subtitleButton setTitle:noteModel.page.title forState:(UIControlStateNormal)];
     self.messageLabel.text = [NSString stringWithFormat:@"互动(%@)",noteModel.note_total];
     self.bookFriendsLabel.text = [NSString stringWithFormat:@"读友(%@)",noteModel.member_total];
     [self.headerImageView setImageWithURL:[NSURL URLWithString:noteModel.user.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
-    if (!noteModel.page) {
+    if (!noteModel.page && !noteModel.book) { //没有互动页或者读书标题
         self.subtitleImageView.hidden = YES;
         self.subtitleButton.hidden = YES;
+    }else{
+        self.subtitleImageView.hidden = NO;
+        self.subtitleButton.hidden = NO;
+        if (noteModel.page) {
+            [self.subtitleButton setTitle:noteModel.page.title forState:(UIControlStateNormal)];
+        }else{
+            [self.subtitleButton setTitle:noteModel.book.title forState:(UIControlStateNormal)];
+        }
     }
 }
 
