@@ -19,8 +19,8 @@
 
 @interface SR_FoundSearchBookViewController ()<UISearchBarDelegate>
 @property(nonatomic,strong)UISearchBar * searchBar;
-@property(nonatomic,assign)NSInteger searchTag;
-@property(nonatomic,assign)NSInteger searchPageIndex;
+@property(nonatomic,assign)NSInteger bookSearchPageIndex;
+@property(nonatomic,strong)NSMutableArray * bookList;
 
 
 @end
@@ -42,7 +42,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.dataSource.count;
+    return self.bookList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -55,7 +55,7 @@
     if (!cell) {
         cell = [[SR_FoundMainDynamicViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
     }
-    cell.bookModel = self.dataSource[indexPath.row];
+    cell.bookModel = self.bookList[indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
@@ -63,7 +63,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     SR_FoundMainBookClubBookNoteListViewController * bookMarkListVC = [[SR_FoundMainBookClubBookNoteListViewController alloc] init];
-    bookMarkListVC.bookModel = self.dataSource[indexPath.row];
+    bookMarkListVC.bookModel = self.bookList[indexPath.row];
     [self.navigationController pushViewController:bookMarkListVC animated:YES];
 }
 
@@ -84,19 +84,12 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     NSLog(@"text:%@",searchBar.text);
     [self.searchBar resignFirstResponder];
-    [self.dataSource removeAllObjects];
-    [self getListAll:PAGE_NUM pageIndex:self.searchPageIndex q:self.searchBar.text];
+    [self.bookList removeAllObjects];
+    [self getListAll:PAGE_NUM pageIndex:self.bookSearchPageIndex q:self.searchBar.text];
 }
 
 - (void)loadData{
-    //[self getListAll:PAGE_NUM pageIndex:self.searchPageIndex + 1 q:self.searchBar.text];
-    if (self.dataSource.count < PAGE_NUM*(self.searchPageIndex + 1)) {
-        SSLog(@"已经是最后一条数据了");
-        [self.tableView.av_footer endFooterRefreshing];
-    }else{
-        [self getListAll:PAGE_NUM pageIndex:self.searchPageIndex + 1 q:self.searchBar.text];
-    }
-    
+    [self getListAll:PAGE_NUM pageIndex:self.bookSearchPageIndex + 1 q:self.searchBar.text];
 }
 ///获取笔记以及收藏列表,这个列表就是动态的列表
 - (void)getListAll:(NSInteger)pageNum pageIndex:(NSInteger)pageIndex q:(NSString *)q{
@@ -109,14 +102,21 @@
         for (NSDictionary * item in list) {
             SR_BookClubBookModel * model = [SR_BookClubBookModel modelWithDictionary:item];
             model.book_id = item[@"id"];
-            [self.dataSource addObject:model];
+            [self.bookList addObject:model];
         }
-        self.searchPageIndex = (self.dataSource.count/PAGE_NUM) + (self.dataSource.count%PAGE_NUM > 0 ? 1 : 0);
+        self.bookSearchPageIndex = (self.bookList.count/PAGE_NUM) + (self.bookList.count%PAGE_NUM > 0 ? 1 : 0);
         [self.tableView.av_footer endFooterRefreshing];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         SSLog(@"error:%@",error);
     }];
+}
+
+- (NSMutableArray *)bookList{
+    if (!_bookList) {
+        _bookList = [[NSMutableArray alloc] init];
+    }
+    return _bookList;
 }
 
 @end

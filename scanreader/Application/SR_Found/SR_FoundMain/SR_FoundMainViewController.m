@@ -57,7 +57,7 @@
 
 #import "ShareTool.h"
 
-@interface SR_FoundMainViewController ()<addBtnDelegate,UIAlertViewDelegate,textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate>
+@interface SR_FoundMainViewController ()<addBtnDelegate,UIAlertViewDelegate,textViewSendBtnDelegate,imageViewSendBtnDelegate,voiceViewSendBtnDelegate,SR_NoteDetailPageViewControllerDelegate>
 @property(nonatomic,assign)BOOL isSelectBookClub;
 @property(nonatomic,strong)NSMutableArray * bookClubs;
 @property(nonatomic,strong)NSMutableArray * dynamicInfos;
@@ -439,11 +439,17 @@
     }else{//动态->笔记详情页
         SR_BookClubBookNoteModel * noteModel = self.dynamicInfos[indexPath.row];
         SR_NoteDetailPageViewController * noteDetailVC = [[SR_NoteDetailPageViewController alloc] init];
+        noteDetailVC.delegate = self;
         noteDetailVC.noteModel = noteModel;
         self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:noteDetailVC animated:YES];
         self.hidesBottomBarWhenPushed = NO;
     }
+}
+
+- (void)deleteSelectedRowNote:(NSInteger)row{
+    [self.dynamicInfos removeObjectAtIndex:row];
+    [self.tableView reloadData];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -804,18 +810,18 @@
 }
 
 - (void)clickAddBtnView:(NSInteger)tag{
-    if (tag == 0) {
+    if (tag == 2) {
         SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:nil text:nil];
         textView.delegate = self;
         textView.requestType = NOTE_REQUSERT_TYPE_SAVE;
         [textView show];
-    }else if (tag == 1){
+    }else if (tag == 0){
         SR_ActionSheetImageView * imageView = [[SR_ActionSheetImageView alloc] initActionSheetWith:nil images:nil viewController:self];
         imageView.delegate = self;
         imageView.viewController = self;
         imageView.requestType = NOTE_REQUSERT_TYPE_SAVE;
         [imageView show];
-    }else if (tag == 2){
+    }else if (tag == 1){
         SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:nil voices:nil viewController:self];
         voiceView.delegate = self;
         voiceView.requestType = NOTE_REQUSERT_TYPE_SAVE;
@@ -860,23 +866,9 @@
 
 - (void)loadData{
     if (self.isSelectBookClub) {
-        //先判断是否已经请求到最后一了。
-        if (self.bookClubs.count < PAGE_NUM*(self.bookClubPageIndex + 1)) {
-            SSLog(@"已经是最后一条数据了");
-            [self.tableView.av_footer endFooterRefreshing];
-        }else{
-            [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex + 1];
-        }
-//        [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex];
+        [self getBookClubList:PAGE_NUM pageIndex:self.bookClubPageIndex + 1];
     }else{
-        //先判断是否已经请求到最后一了。
-        if (self.dynamicInfos.count < PAGE_NUM*(self.dynamicInfoPageIndex + 1)) {
-            SSLog(@"已经是最后一条数据了");
-            [self.tableView.av_footer endFooterRefreshing];
-        }else{
-            [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex + 1];
-        }
-//        [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex];
+        [self getListAll:PAGE_NUM pageIndex:self.dynamicInfoPageIndex + 1];
     }
 }
 

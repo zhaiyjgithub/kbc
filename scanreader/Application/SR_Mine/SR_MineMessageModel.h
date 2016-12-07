@@ -14,6 +14,12 @@
 @property(nonatomic,copy)NSString * username;
 @end
 
+@interface Recipient : SR_BaseModel
+@property(nonatomic,copy)NSString * avatar;
+@property(nonatomic,copy)NSString * recipient_id;
+@property(nonatomic,copy)NSString * username;
+@end
+
 @interface Target : SR_BaseModel
 @property(nonatomic,copy)NSString * target_id;
 @property(nonatomic,copy)NSString * picture;
@@ -26,6 +32,7 @@
 @property(nonatomic,copy)NSString * message_id;
 @property(nonatomic,copy)NSString * readed;
 @property(nonatomic,strong)Sender * sender;
+@property(nonatomic,strong)Recipient * recipient;
 @property(nonatomic,copy)NSString * sender_id;
 @property(nonatomic,strong)Target * target;
 @property(nonatomic,copy)NSString * target_type;

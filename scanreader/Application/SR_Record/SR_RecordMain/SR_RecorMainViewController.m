@@ -666,27 +666,11 @@
 
 - (void)loadData{
     if (self.selectedTagIndex == 0) {
-        if (self.noteList.count < PAGE_NUM*(self.notePageIndex + 1)) {
-            SSLog(@"已经是最后一条数据了");
-            [self.tableView.av_footer endFooterRefreshing];
-        }else{
-            [self getListAll:PAGE_NUM pageIndex:self.notePageIndex mode:NOTE_MODE_NOTE];
-        }
+        [self getListAll:PAGE_NUM pageIndex:self.notePageIndex mode:NOTE_MODE_NOTE];
     }else if (self.selectedTagIndex == 1){
-        if (self.collectionList.count < PAGE_NUM*(self.notePageIndex + 1)) {
-            SSLog(@"已经是最后一条数据了");
-            [self.tableView.av_footer endFooterRefreshing];
-        }else{
-            [self getListAll:PAGE_NUM pageIndex:self.notePageIndex mode:NOTE_MODE_COLLECTION];
-        }
+        [self getListAll:PAGE_NUM pageIndex:self.collectionPageIndex mode:NOTE_MODE_COLLECTION];
     }else{
-        //获取扫描列表
-        if (self.scanList.count < PAGE_NUM*(self.scanPageIndex + 1)) {
-            SSLog(@"已经是最后一条数据了");
-            [self.tableView.av_footer endFooterRefreshing];
-        }else{
-            [self getScanPageList:PAGE_NUM pageIndex:self.scanPageIndex];
-        }
+        [self getScanPageList:PAGE_NUM pageIndex:self.scanPageIndex];
     }
 }
 

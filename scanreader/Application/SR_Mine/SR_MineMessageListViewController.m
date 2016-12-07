@@ -24,6 +24,7 @@
 @interface SR_MineMessageListViewController ()<UIActionSheetDelegate>
 @property(nonatomic,assign)NSInteger messageListPageIndex;
 @property(nonatomic,strong)NSMutableArray * originalMessageList;
+@property(nonatomic,strong)NSMutableArray * myAllMessageList;
 @end
 
 @implementation SR_MineMessageListViewController
@@ -35,9 +36,8 @@
     self.tableView.av_footer = [AVFooterRefresh footerRefreshWithScrollView:self.tableView footerRefreshingBlock:^{
         [self loadData];
     }];
-
-    [self addHeaderRefresh];
-//    [self getMessageList:PAGE_NUM pageIndex:0];
+    [self getMessageList:PAGE_NUM pageIndex:self.messageListPageIndex];
+//    [self addHeaderRefresh];
 }
 
 - (void)addHeaderRefresh{
@@ -115,23 +115,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     self.hidesBottomBarWhenPushed = YES;
     SR_MineMessageSendViewController * sendVC = [[SR_MineMessageSendViewController alloc] init];
+    //先获取对方的所有发送消息 再挑选本人发送对方的消息，组成并分类
+    SR_MineMessageModel * friednMessageModel = [self.dataSource[indexPath.row] firstObject];
+    NSMutableArray * toFriendMessageModels = [[NSMutableArray alloc] init];
+    for (SR_MineMessageModel * myMessageModel in self.myAllMessageList) {
+        if ([myMessageModel.recipient.recipient_id isEqualToString:friednMessageModel.sender.sender_id]) {
+            [toFriendMessageModels addObject:myMessageModel];
+            myMessageModel.isMyAccount = YES;
+        }
+    }
+    NSMutableArray * dialogModels = [[NSMutableArray alloc] init];
+    [dialogModels addObjectsFromArray:toFriendMessageModels];
+    [dialogModels addObjectsFromArray:self.dataSource[indexPath.row]];
+    //    还要按时间排序
+    sendVC.messageModelsList = dialogModels;
     [self.navigationController pushViewController:sendVC animated:YES];
-    sendVC.messageModelsList = self.dataSource[indexPath.row];
     self.hidesBottomBarWhenPushed = NO;
 }
 
 - (void)loadData{
-    //先判断是否已经请求到最后一了。
-    if (self.dataSource.count < PAGE_NUM * (self.messageListPageIndex + 1)) {
-        SSLog(@"已经是最后一条数据了");
-        [self.tableView.av_footer endFooterRefreshing];
-    }else{
-        [self getMessageList:PAGE_NUM pageIndex:self.messageListPageIndex + 1];
-    }
-    
-    
+    [self getMessageList:PAGE_NUM pageIndex:self.messageListPageIndex + 1];
 }
 
 ///获取消息列表(包含了未读和已读消息)
@@ -144,10 +150,12 @@
     [httpTools post:GET_MESSAGE_LIST andParameters:param success:^(NSDictionary *dic) {
         NSLog(@"messageList:%@",dic);
         NSArray * list = dic[@"data"][@"list"];
-        [self.originalMessageList removeAllObjects];
         [self.originalMessageList addObjectsFromArray:list];
+        //数据源更新了
+        [self.dataSource removeAllObjects];
+        [self.myAllMessageList removeAllObjects];
         NSMutableSet * senderIdSet = [[NSMutableSet alloc] init];
-        for (NSDictionary * item in list) {
+        for (NSDictionary * item in self.originalMessageList) {
             [senderIdSet addObject:item[@"sender_id"]];
         }
         NSMutableDictionary * senderObj = [NSMutableDictionary new];
@@ -157,16 +165,29 @@
             NSMutableArray * messageList = [NSMutableArray new];
             [senderObj setObject:messageList forKey:senderId];
         }
-        for (NSDictionary * item in list) {
+        NSString * userId = [UserInfo getUserId];
+        for (NSDictionary * item in self.originalMessageList) {
             SR_MineMessageModel * model = [SR_MineMessageModel modelWithDictionary:item];
             model.message_id = item[@"id"];
             model.sender.sender_id = item[@"sender"][@"id"];
+            model.recipient.recipient_id = item[@"recipient"][@"id"];
             model.target.target_id = item[@"target"][@"id"];
-            NSMutableArray * senderObjMessageList = senderObj[model.sender_id];
-            [senderObjMessageList addObject:model];
+            if ([model.sender.sender_id isEqualToString:userId]) {
+                //本人的消息
+                [self.myAllMessageList addObject:model];
+            }else{
+                NSLog(@"send_id %@",model.sender_id);
+               NSMutableArray * senderObjMessageList = senderObj[model.sender_id];
+                [senderObjMessageList addObject:model];
+            }
         }
         [senderObj enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            [self.dataSource addObject:obj];
+            if ([userId isEqualToString:key]) {
+                
+            }else{
+               [self.dataSource addObject:obj];
+            }
+            
         }];
         self.messageListPageIndex = (self.dataSource.count/PAGE_NUM) + (self.dataSource.count%PAGE_NUM > 0 ? 1 : 0);
         [self.tableView.av_footer endFooterRefreshing];
@@ -196,6 +217,7 @@
     }];
 }
 
+//晴空消息
 - (void)clearAllMessageWithType:(NSString *)type{
     NSString * userId = [UserInfo getUserId];
     NSString * userToken = [UserInfo getUserToken];
@@ -212,7 +234,9 @@
         //重新分类并排序
         [self.originalMessageList removeAllObjects];
         self.originalMessageList = leftItems;
+        //数据源改变了，重新请求数据
         [self.dataSource removeAllObjects];
+        [self.myAllMessageList removeAllObjects];
         NSMutableSet * senderIdSet = [[NSMutableSet alloc] init];
         for (NSDictionary * item in self.originalMessageList) {
             [senderIdSet addObject:item[@"sender_id"]];
@@ -224,15 +248,25 @@
             NSMutableArray * messageList = [NSMutableArray new];
             [senderObj setObject:messageList forKey:senderId];
         }
+        NSString * userId = [UserInfo getUserId];
         for (NSDictionary * item in self.originalMessageList) {
             SR_MineMessageModel * model = [SR_MineMessageModel modelWithDictionary:item];
             model.message_id = item[@"id"];
             model.sender.sender_id = item[@"sender"][@"id"];
-            NSMutableArray * senderObjMessageList = senderObj[model.sender_id];
-            [senderObjMessageList addObject:model];
+            if ([model.sender.sender_id isEqualToString:userId]) {
+                //本人发送的消息
+                [self.myAllMessageList addObject:model];
+            }else{
+                NSMutableArray * senderObjMessageList = senderObj[model.sender_id];
+                [senderObjMessageList addObject:model];
+            }
         }
         [senderObj enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            [self.dataSource addObject:obj];
+            if ([userId isEqualToString:key]) {
+                
+            }else{
+                [self.dataSource addObject:obj];
+            }
         }];
         self.messageListPageIndex = (self.dataSource.count/PAGE_NUM) + (self.dataSource.count%PAGE_NUM > 0 ? 1 : 0);
         [self.tableView reloadData];
@@ -246,6 +280,13 @@
         _originalMessageList = [[NSMutableArray alloc] init];
     }
     return _originalMessageList;
+}
+
+- (NSMutableArray *)myAllMessageList{
+    if (!_myAllMessageList) {
+        _myAllMessageList = [[NSMutableArray alloc] init];
+    }
+    return _myAllMessageList;
 }
 
 @end

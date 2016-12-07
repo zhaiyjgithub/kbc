@@ -20,8 +20,8 @@
 
 @interface SR_FoundSearchInterPageViewController ()<UISearchBarDelegate>
 @property(nonatomic,strong)UISearchBar * searchBar;
-@property(nonatomic,assign)NSInteger searchTag;
-@property(nonatomic,assign)NSInteger searchPageIndex;
+@property(nonatomic,assign)NSInteger interPageSearchPageIndex;
+@property(nonatomic,strong)NSMutableArray * interPageList;
 @end
 
 @implementation SR_FoundSearchInterPageViewController
@@ -41,7 +41,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.dataSource.count;
+    return self.interPageList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -54,7 +54,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     SR_InterPageDetailViewController * pageDetailVC = [[SR_InterPageDetailViewController alloc] init];
-    pageDetailVC.pageListModel = self.dataSource[indexPath.row];
+    pageDetailVC.pageListModel = self.interPageList[indexPath.row];
     [self.navigationController pushViewController:pageDetailVC animated:YES];
 }
 
@@ -64,7 +64,7 @@
     if (!cell) {
         cell = [[SR_InterPageListViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
     }
-    cell.pageListModel = self.dataSource[indexPath.row];
+    cell.pageListModel = self.interPageList[indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
@@ -85,17 +85,13 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     NSLog(@"text:%@",searchBar.text);
     [self.searchBar resignFirstResponder];
-    [self.dataSource removeAllObjects];
-    [self getListAll:PAGE_NUM pageIndex:self.searchPageIndex q:self.searchBar.text];
+    
+    [self.interPageList removeAllObjects];
+    [self getListAll:PAGE_NUM pageIndex:self.interPageSearchPageIndex q:self.searchBar.text];
 }
 
 - (void)loadData{
-    if (self.dataSource.count < PAGE_NUM*(self.searchPageIndex + 1)) {
-        SSLog(@"已经是最后一条数据了");
-        [self.tableView.av_footer endFooterRefreshing];
-    }else{
-        [self getListAll:PAGE_NUM pageIndex:self.searchPageIndex + 1 q:self.searchBar.text];
-    }
+    [self getListAll:PAGE_NUM pageIndex:self.interPageSearchPageIndex + 1 q:self.searchBar.text];
 }
 
 - (void)getListAll:(NSInteger)pageNum  pageIndex:(NSInteger)pageIndex q:(NSString *)q{
@@ -110,16 +106,22 @@
         for (NSDictionary * item in list) {
             SR_InterPageListModel * pageListmodel = [SR_InterPageListModel modelWithDictionary:item];
             pageListmodel.pageId = item[@"id"];
-            [self.dataSource addObject:pageListmodel];
+            [self.interPageList addObject:pageListmodel];
         }
-        self.searchPageIndex = (self.dataSource.count/PAGE_NUM) + (self.dataSource.count%PAGE_NUM > 0 ? 1 : 0);
+        self.interPageSearchPageIndex = (self.interPageList.count/PAGE_NUM) + (self.interPageList.count%PAGE_NUM > 0 ? 1 : 0);
         [self.tableView.av_footer endFooterRefreshing];
         [self.tableView reloadData];
         
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
-    
+}
+
+- (NSMutableArray *)interPageList{
+    if (!_interPageList) {
+        _interPageList = [[NSMutableArray alloc] init];
+    }
+    return _interPageList;
 }
 
 @end

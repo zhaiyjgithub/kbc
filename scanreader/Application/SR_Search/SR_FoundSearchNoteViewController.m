@@ -26,15 +26,15 @@
 #import "SR_OthersMineViewController.h"
 #import "SR_MineViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import <MJRefresh.h>
 
 @interface SR_FoundSearchNoteViewController ()<UISearchBarDelegate>
 @property(nonatomic,strong)UISearchBar * searchBar;
-@property(nonatomic,assign)NSInteger searchTag;
-@property(nonatomic,assign)NSInteger searchPageIndex;
+@property(nonatomic,assign)NSInteger noteSearchPageIndex;
 @property(nonatomic,strong)AVPlayer * remotePlayer;
-@property(nonatomic,assign)NSInteger lastTag;
 @property(nonatomic,assign)BOOL isFinishedPlay;
 @property(nonatomic,strong)AVPlayerItem * playerItem;
+@property(nonatomic,strong)NSMutableArray * noteList;
 @end
 
 @implementation SR_FoundSearchNoteViewController
@@ -58,7 +58,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return  self.dataSource.count;
+    return  self.noteList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -70,7 +70,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    SR_BookClubBookNoteModel * noteModel = self.dataSource[indexPath.row];
+    SR_BookClubBookNoteModel * noteModel = self.noteList[indexPath.row];
     if ([noteModel.type isEqualToString:NOTE_TYPE_TEXT]) {
         return 146;
     }else if ([noteModel.type isEqualToString:NOTE_TYPE_PIX]){
@@ -86,14 +86,14 @@
     //        2图片
     //        3语音
     //        4收藏
-    SR_BookClubBookNoteModel * noteModel = self.dataSource[indexPath.row];
+    SR_BookClubBookNoteModel * noteModel = self.noteList[indexPath.row];
     if ([noteModel.type isEqualToString:NOTE_TYPE_TEXT]) {//文字信息
         NSString * cellId = @"SR_FoundMainTextViewCell";
         SR_FoundMainTextViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
             cell = [[SR_FoundMainTextViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
         }
-        cell.noteModel = self.dataSource[indexPath.row];
+        cell.noteModel = self.noteList[indexPath.row];
         __weak typeof(self) weakSelf = self;
         [cell addBlock:^{
             if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
@@ -101,7 +101,7 @@
                 [weakSelf.navigationController pushViewController:mineVC animated:YES];
             }else{
                 SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
-                SR_BookClubBookNoteModel * noteModel = weakSelf.dataSource[indexPath.row];
+                SR_BookClubBookNoteModel * noteModel = weakSelf.noteList[indexPath.row];
                 otherVC.userModel = noteModel.user;
                 [weakSelf.navigationController pushViewController:otherVC animated:YES];
             }
@@ -113,7 +113,7 @@
         if (!cell) {
             cell = [[SR_FoundMainImageViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
         }
-        cell.noteModel = self.dataSource[indexPath.row];
+        cell.noteModel = self.noteList[indexPath.row];
         __weak typeof(self) weakSelf = self;
         [cell addBlock:^{
             if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
@@ -122,7 +122,7 @@
                 [weakSelf.navigationController pushViewController:mineVC animated:YES];
             }else{
                 SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
-                SR_BookClubBookNoteModel * noteModel = weakSelf.dataSource[indexPath.row];
+                SR_BookClubBookNoteModel * noteModel = weakSelf.noteList[indexPath.row];
                 otherVC.userModel = noteModel.user;
                 [weakSelf.navigationController pushViewController:otherVC animated:YES];
             }
@@ -135,7 +135,7 @@
         if (!cell) {
             cell = [[SR_FoundMainVoiceViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
         }
-        cell.noteModel = self.dataSource[indexPath.row];
+        cell.noteModel = self.noteList[indexPath.row];
         __weak typeof(self) weakSelf = self;
         [cell addBlock:^{
             if ([noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {//自己的笔记跳转到自己的个人信息
@@ -143,7 +143,7 @@
                 [weakSelf.navigationController pushViewController:mineVC animated:YES];
             }else{
                 SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
-                SR_BookClubBookNoteModel * noteModel = weakSelf.dataSource[indexPath.row];
+                SR_BookClubBookNoteModel * noteModel = weakSelf.noteList[indexPath.row];
                 otherVC.userModel = noteModel.user;
                 [weakSelf.navigationController pushViewController:otherVC animated:YES];
             }
@@ -170,7 +170,7 @@
                 [weakSelf.navigationController pushViewController:mineVC animated:YES];
             }else{
                 SR_OthersMineViewController * otherVC = [[SR_OthersMineViewController alloc] init];
-                SR_BookClubBookNoteModel * noteModel = weakSelf.dataSource[indexPath.row];
+                SR_BookClubBookNoteModel * noteModel = weakSelf.noteList[indexPath.row];
                 otherVC.userModel = noteModel.user;
                 [weakSelf.navigationController pushViewController:otherVC animated:YES];
             }
@@ -182,7 +182,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    SR_BookClubBookNoteModel * noteModel = self.dataSource[indexPath.row];
+    SR_BookClubBookNoteModel * noteModel = self.noteList[indexPath.row];
     SR_NoteDetailPageViewController * noteDetailVC = [[SR_NoteDetailPageViewController alloc] init];
     noteDetailVC.noteModel = noteModel;
     [self.navigationController pushViewController:noteDetailVC animated:YES];
@@ -278,21 +278,17 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [self.searchBar resignFirstResponder];
-    [self.dataSource removeAllObjects];
+    [self.noteList removeAllObjects];
     NSLog(@"text:%@",searchBar.text);
     [searchBar resignFirstResponder];
-    [self.dataSource removeAllObjects];
-    [self getListAll:PAGE_NUM pageIndex:self.searchPageIndex q:self.searchBar.text];
+    
+    
+    [self.noteList removeAllObjects];
+    [self getListAll:PAGE_NUM pageIndex:self.noteSearchPageIndex q:self.searchBar.text];
 }
 
 - (void)loadData{
-    //先判断是否已经请求到最后一了。
-    if (self.dataSource.count < PAGE_NUM*(self.searchPageIndex + 1)) {
-        SSLog(@"已经是最后一条数据了");
-        [self.tableView.av_footer endFooterRefreshing];
-    }else{
-        [self getListAll:PAGE_NUM pageIndex:self.searchPageIndex + 1 q:self.searchBar.text];
-    }
+    [self getListAll:PAGE_NUM pageIndex:self.noteSearchPageIndex + 1 q:self.searchBar.text];
 }
 
 //笔记 /api/note/getList
@@ -320,14 +316,21 @@
                 noteModel.book.book_id = item[@"book"][@"id"];
             }
             noteModel.user.user_id = item[@"user"][@"id"];
-            [self.dataSource addObject:noteModel];
+            [self.noteList addObject:noteModel];
         }
-        self.searchPageIndex = (self.dataSource.count/PAGE_NUM) + (self.dataSource.count%PAGE_NUM > 0 ? 1 : 0);
+        self.noteSearchPageIndex = (self.noteList.count/PAGE_NUM) + (self.noteList.count%PAGE_NUM > 0 ? 1 : 0);
         [self.tableView.av_footer endFooterRefreshing];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         SSLog(@"error:%@",error);
     }];
+}
+
+- (NSMutableArray *)noteList{
+    if (!_noteList) {
+        _noteList = [[NSMutableArray alloc] init];
+    }
+    return _noteList;
 }
 
 @end

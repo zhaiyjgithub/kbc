@@ -49,7 +49,7 @@
 
 
 - (void)clickAddBtnView:(NSInteger)tag{
-    if (tag == 2) {
+    if (tag == 4) {
         SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:nil text:nil];
         textView.delegate = self;
         textView.requestType = NOTE_REQUSERT_TYPE_SAVE;
@@ -61,7 +61,7 @@
         imageView.requestType = NOTE_REQUSERT_TYPE_SAVE;
         imageView.book_id = self.bookModel.book_id;
         [imageView show];
-    }else if (tag == 4){
+    }else if (tag == 2){
         SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:nil voices:nil viewController:self];
         voiceView.delegate = self;
         voiceView.requestType = NOTE_REQUSERT_TYPE_SAVE;

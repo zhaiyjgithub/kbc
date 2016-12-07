@@ -51,6 +51,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.tableView scrollToBottomAnimated:YES];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count;
 }
@@ -168,9 +173,18 @@
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
 }
 
-- (void)setMessageModelsList:(NSMutableArray *)messageModelsList{
+- (void)setMessageModelsList:(NSArray *)messageModelsList{
     _messageModelsList = messageModelsList;
-    for (SR_MineMessageModel * messageModel in messageModelsList) {
+    NSArray * sort = [messageModelsList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        SR_MineMessageModel * messageModel1 = (SR_MineMessageModel *)obj1;
+        SR_MineMessageModel * messageModel2 = (SR_MineMessageModel *)obj2;
+        NSNumber * num1 = @(messageModel1.time_create);
+        NSNumber * num2  = @(messageModel2.time_create);
+        NSComparisonResult result = [num1 compare:num2];
+        return result == NSOrderedDescending;
+    }];
+    
+    for (SR_MineMessageModel * messageModel in sort) {
         SR_MineMessageFrameModel * frameModel = [[SR_MineMessageFrameModel alloc] init];
         frameModel.messageModel = messageModel;
         [self.dataSource addObject:frameModel];

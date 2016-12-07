@@ -36,8 +36,8 @@
 
 - (void)setupView{
     if ([self.btnType isEqualToString:@"share"]) {
-        NSArray * titles = @[@"收藏",@"分享",@"文字",@"拍照",@"语音"];
-        NSArray * imageNames = @[@"hdy_xuanfu_sc",@"hdy_xuanfu_fx",@"hdy_xuanfu_wz",@"hdy_xuanfu_pz",@"hdy_xuanfu_yy"];
+        NSArray * titles = @[@"收藏",@"分享",@"语音",@"拍照",@"文字"];
+        NSArray * imageNames = @[@"hdy_xuanfu_sc",@"hdy_xuanfu_fx",@"hdy_xuanfu_yy",@"hdy_xuanfu_pz",@"hdy_xuanfu_wz"];
         CGFloat upBoarder = (220 - titles.count* (18 + 15))/2 + 7.5;
         
         for (int i = 0; i < titles.count; i ++) {
@@ -61,8 +61,8 @@
         }
 
     }else{
-        NSArray * titles = @[@"文字",@"拍照",@"语音"];
-        NSArray * imageNames = @[@"hdy_xuanfu_wz",@"hdy_xuanfu_pz",@"hdy_xuanfu_yy"];
+        NSArray * titles = @[@"文字",@"语音",@"拍照"];
+        NSArray * imageNames = @[@"hdy_xuanfu_wz",@"hdy_xuanfu_yy",@"hdy_xuanfu_pz"];
         CGFloat boarder = (170 - 90 - 18 * 3)*1.0/2.0;
         for (int i = 0; i < 3; i ++) {
             SR_OAthouButton * btn = [[SR_OAthouButton alloc] initWithType:(BaseButtonTypeLeft) sizeType:(BaseButtonSizeTypeSmall)];

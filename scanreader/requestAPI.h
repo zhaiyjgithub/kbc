@@ -72,4 +72,7 @@
 
 #define LOG_MESSAGE_LIST @"/api/log/getList"
 #define GET_SCAN_PAGE_LIST @"/api/scan/getList"
+
+#define DELETE_ONE_NOTE  @"/api/note/delete"
+
 #endif /* requestAPI_h */

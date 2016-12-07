@@ -42,6 +42,7 @@
 @property(nonatomic,strong)SR_ActionSheetImageView * actionSheetImageView;
 @property(nonatomic,strong)SR_ActionSheetVoiceView * actionSheetVoiceView;
 @property(nonatomic,strong)UIButton * floatBtn;
+@property(nonatomic,assign)NSInteger numberOfRow;
 @end
 
 @implementation SR_NoteDetailPageViewController
@@ -50,6 +51,7 @@
     [super viewDidLoad];
     self.title = @"笔记详情";
     
+    self.numberOfRow = 1;
     self.lastTag = -1;
     
         //这里还有收藏人家的笔记，只是可以分享
@@ -205,7 +207,7 @@
     [self.navigationController pushViewController:pageDetailVC animated:YES];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return self.numberOfRow;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -421,6 +423,25 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ([self.noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {
+        return @"删除";
+    }else return nil;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        if ([self.noteModel.user.user_id isEqualToString:[UserInfo getUserId]]) {
+            self.numberOfRow = 0;
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            
+            [self deleteSelectedRowNote];
+        }else{
+            [tableView reloadRowAtIndexPath:indexPath withRowAnimation:(UITableViewRowAnimationNone)];
+        }
+    }
+}
+
 - (void)setNoteModel:(SR_BookClubBookNoteModel *)noteModel{
     _noteModel = noteModel;
     for (NSDictionary * item in self.noteModel.resourceList) {
@@ -627,12 +648,31 @@
     }];
 }
 
+- (void)deleteSelectedRowNote{
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"id":self.noteModel.note_id};
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    [httpTools post:DELETE_ONE_NOTE andParameters:param success:^(NSDictionary *dic) {
+        NSLog(@"delete one note:%@",dic);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if ([self.delegate conformsToProtocol:@protocol(SR_NoteDetailPageViewControllerDelegate)] && [self.delegate respondsToSelector:@selector(deleteSelectedRowNote:)]) {
+            [self.delegate deleteSelectedRowNote:self.selectedRow];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+}
+
 - (void)clickAddBtnView:(NSInteger)tag{
     if (tag == 0) {
         [self collectOneNote:self.noteModel.note_id];
     }else if (tag == 1){
         [ShareTool show];
-    }else if (tag == 2) {
+    }else if (tag == 4) {
         SR_ActionSheetTextView * textView = [[SR_ActionSheetTextView alloc] initActionSheetWith:nil text:nil];
         textView.delegate = self;
         textView.requestType = NOTE_REQUSERT_TYPE_SAVE;
@@ -643,7 +683,7 @@
         imageView.viewController = self;
         imageView.requestType = NOTE_REQUSERT_TYPE_SAVE;
         [imageView show];
-    }else if (tag == 4){
+    }else if (tag == 2){
         SR_ActionSheetVoiceView * voiceView = [[SR_ActionSheetVoiceView alloc] initActionSheetWith:nil voices:nil viewController:self];
         voiceView.delegate = self;
         voiceView.requestType = NOTE_REQUSERT_TYPE_SAVE;
