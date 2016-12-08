@@ -44,6 +44,7 @@
 @property(nonatomic,assign)NSInteger voiceTimeLength;
 @property(nonatomic,strong)NSMutableArray * voiceTimeLengthArray;
 @property(nonatomic,strong)AVPlayer * localPlayer;
+@property(nonatomic,strong)UIView * recordingView;
 
 - (id)initActionSheetWith:(NSString *)title voices:(NSArray *)voices viewController:(UIViewController *)viewController;
 - (void)show;

@@ -29,6 +29,9 @@
         self.backgroundColor = [UIColor whiteColor];
         [self setupView];
         
+        
+        
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     }
@@ -209,6 +212,7 @@
         //停止录音
         [self.recorder stop];
         NSLog(@"停止录音");
+        self.recordingView.hidden = YES;
        // NSURL * url = [NSURL fileURLWithPath:self.recordFilePath];
         NSString * targetFilePath = [[NSString alloc] initWithString:self.recordFilePath];
         [self.filePathsDataSource addObject:targetFilePath];
@@ -252,6 +256,7 @@
         //开始录音
         if ([self.recorder record]){
             NSLog(@"开始录音");
+            self.recordingView.hidden = NO;
         }
     }
 }
@@ -407,6 +412,8 @@
     [_handerView addTarget:self action:@selector(clickHandleView) forControlEvents:(UIControlEventTouchUpInside)];
     [_handerView addSubview:self];
     
+    [_handerView addSubview:self.recordingView];
+    
     UIWindow * window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:_handerView];
     
@@ -558,6 +565,30 @@
         _voiceTimeLengthArray = [[NSMutableArray alloc] init];
     }
     return _voiceTimeLengthArray;
+}
+
+- (UIView *)recordingView{
+    if (!_recordingView) {
+        _recordingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 150)];
+        _recordingView.center = _handerView.center;
+        _recordingView.layer.cornerRadius = 5.0;
+        _recordingView.backgroundColor = kColorAlpha(0, 0, 0, 0.3);
+        
+        UIImageView * icon = [[UIImageView alloc] initWithFrame:CGRectMake(40, 10, 70, 70)];
+        icon.image = [UIImage imageNamed:@"mic"];
+        [_recordingView addSubview:icon];
+        
+        UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 150 - 10 - 30, 150, 30)];
+        titleLabel.text = @"手指上滑，取消发送";
+        titleLabel.textColor = [UIColor whiteColor];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.font = [UIFont systemFontOfSize:14.0];
+        [_recordingView addSubview:titleLabel];
+
+        _recordingView.hidden = YES;
+        
+    }
+    return _recordingView;
 }
 
 @end

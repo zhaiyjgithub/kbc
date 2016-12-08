@@ -58,9 +58,10 @@
     __weak typeof(self) weakSelf = self;
     [cell addBlock:^(UIButton *btn) {
         if (btn.tag == 103) {
+            weakSelf.hidesBottomBarWhenPushed = YES;
             SR_MineMessageListViewController * messageListVC = [[SR_MineMessageListViewController alloc] init];
-            [weakSelf.navigationController pushViewController:messageListVC animated:YES
-             ];
+            [weakSelf.navigationController pushViewController:messageListVC animated:YES];
+            weakSelf.hidesBottomBarWhenPushed = NO;
         }else if (btn.tag == 100 || btn.tag == 101){
             NSString * isPublic = [UserInfo getUserPublic];
             if ([isPublic isEqualToString:@"1"]) {

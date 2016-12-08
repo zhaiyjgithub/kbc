@@ -53,7 +53,10 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self.tableView scrollToBottomAnimated:YES];
+    
+    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:(UITableViewScrollPositionBottom) animated:YES];
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

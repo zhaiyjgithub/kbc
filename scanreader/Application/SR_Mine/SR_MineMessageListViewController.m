@@ -20,6 +20,7 @@
 
 #define MESSAGE_TYPE_SYSTEM @"2"
 #define MESSAGE_TYPE_USER @"1"
+#define MESSAGE_PAGE_NUM  1000
 
 @interface SR_MineMessageListViewController ()<UIActionSheetDelegate>
 @property(nonatomic,assign)NSInteger messageListPageIndex;
@@ -36,7 +37,7 @@
     self.tableView.av_footer = [AVFooterRefresh footerRefreshWithScrollView:self.tableView footerRefreshingBlock:^{
         [self loadData];
     }];
-    [self getMessageList:PAGE_NUM pageIndex:self.messageListPageIndex];
+    [self getMessageList:MESSAGE_PAGE_NUM pageIndex:self.messageListPageIndex];
 //    [self addHeaderRefresh];
 }
 
@@ -54,7 +55,7 @@
     [self.originalMessageList removeAllObjects];
     [self.dataSource removeAllObjects];
     self.messageListPageIndex = 0;
-    [self getMessageList:PAGE_NUM pageIndex:0];
+    [self getMessageList:MESSAGE_PAGE_NUM pageIndex:0];
 }
 
 
@@ -137,7 +138,7 @@
 }
 
 - (void)loadData{
-    [self getMessageList:PAGE_NUM pageIndex:self.messageListPageIndex + 1];
+    [self getMessageList:MESSAGE_PAGE_NUM pageIndex:self.messageListPageIndex + 1];
 }
 
 ///获取消息列表(包含了未读和已读消息)
@@ -189,7 +190,7 @@
             }
             
         }];
-        self.messageListPageIndex = (self.dataSource.count/PAGE_NUM) + (self.dataSource.count%PAGE_NUM > 0 ? 1 : 0);
+        self.messageListPageIndex = (self.dataSource.count/MESSAGE_PAGE_NUM) + (self.dataSource.count%MESSAGE_PAGE_NUM > 0 ? 1 : 0);
         [self.tableView.av_footer endFooterRefreshing];
         [self.tableView.mj_header endRefreshing];
         [self.tableView reloadData];
@@ -268,7 +269,7 @@
                 [self.dataSource addObject:obj];
             }
         }];
-        self.messageListPageIndex = (self.dataSource.count/PAGE_NUM) + (self.dataSource.count%PAGE_NUM > 0 ? 1 : 0);
+        self.messageListPageIndex = (self.dataSource.count/MESSAGE_PAGE_NUM) + (self.dataSource.count%MESSAGE_PAGE_NUM > 0 ? 1 : 0);
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
