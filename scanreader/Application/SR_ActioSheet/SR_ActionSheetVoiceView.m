@@ -29,9 +29,6 @@
         self.backgroundColor = [UIColor whiteColor];
         [self setupView];
         
-        
-        
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     }
@@ -79,6 +76,7 @@
     [btn setTitleColor:[UIColor whiteColor] forState:(UIControlStateHighlighted)];
     [btn addTarget:self action:@selector(clickVoice) forControlEvents:(UIControlEventTouchUpInside)];
     [btn addTarget:self action:@selector(touchdown) forControlEvents:(UIControlEventTouchDown)];
+    [btn addTarget:self action:@selector(touchCancel) forControlEvents:(UIControlEventTouchDragExit)];
     self.voiceBtn = btn;
     [voiceView addSubview:btn];
     
@@ -92,68 +90,6 @@
     
 }
 
-- (void)clickSendBtn:(UIButton *)sendBtn{
-    if (!self.titleTextField.text.length) {
-        [SVProgressHUD showErrorWithStatus:@"请输入笔记标题"];
-        return;
-    }
-    
-    if (!self.filePathsDataSource.count) {
-        [SVProgressHUD showErrorWithStatus:@"请添加至少一条语音笔记"];
-        return;
-    }
-    
-    [sendBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
-    sendBtn.enabled = NO;
-    
-    NSString * userId = [UserInfo getUserId];
-    NSString * userToken = [UserInfo getUserToken];
-    NSDictionary * baseParam = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_VOICE,
-                             @"title":self.titleTextField.text};
-    NSMutableDictionary * param = [[NSMutableDictionary alloc] initWithDictionary:baseParam];
-
-    NSString * baseUrl = SAVE_NOTE;
-    if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_SAVE]) {
-        baseUrl = SAVE_NOTE;
-        if (self.book_id) {//创建有对象
-            param[@"book_id"] = self.book_id;
-        }
-    }else if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_UPDATE]){
-        baseUrl = UPDATE_NOTE;
-        if (self.noteId) {//更新笔记
-            param[@"id"] = self.noteId;
-        }
-    }else if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_SAVE]) {
-        baseUrl = SAVE_NOTE;
-        if (self.page_id) {//创建有对象
-            param[@"page_id"] = self.page_id;
-        }
-    }
-    
-    [MBProgressHUD showHUDAddedTo:self.handerView animated:YES];
-    [httpTools uploadVoice:baseUrl parameters:param voicesUrl:self.filePathsDataSource success:^(NSDictionary *dic) {
-        [sendBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
-        sendBtn.enabled = YES;
-        [MBProgressHUD hideHUDForView:self.handerView animated:YES];
-        if ([dic[@"show"] isEqualToString:@"1"]) {
-            [SVProgressHUD showSuccessWithStatus:dic[@"msg"]];
-        }
-        for (NSString * filePath in self.filePathsDataSource) {
-            [self deleteFile:filePath];
-        }
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if ([self.delegate conformsToProtocol:@protocol(voiceViewSendBtnDelegate)] && [self.delegate respondsToSelector:@selector(clickVoiceViewSendBtn:text:)]) {
-                [self.delegate clickVoiceViewSendBtn:self.titleTextField.text text:@"none"];
-            }
-            [self dismiss];
-        });
-    } failure:^(NSError *error) {
-        [sendBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
-        sendBtn.enabled = YES;
-        [SVProgressHUD showErrorWithStatus:@"笔记创建失败"];
-        [MBProgressHUD hideHUDForView:self.handerView animated:YES];
-    }];
-}
 
 - (void)CountvoiceTimeLength{
     self.voiceTimeLength +=1;
@@ -179,6 +115,9 @@
     [self.voiceBtn setEnabled:NO];
     [self removeTimer];
     SSLog(@"timeout");
+    NSURL * soundUrl = [[NSBundle mainBundle] URLForResource:@"sound.caf" withExtension:nil];
+    self.localPlayer = [[AVPlayer alloc] initWithURL:soundUrl];
+    [self.localPlayer play];
     [self stopRecord];
     self.isTimeOut = YES;
 }
@@ -188,6 +127,9 @@
     [self.voiceBtn setEnabled:YES];
     [self removeTimer];
     if (!self.isTimeOut) {
+        NSURL * soundUrl = [[NSBundle mainBundle] URLForResource:@"sound.caf" withExtension:nil];
+        self.localPlayer = [[AVPlayer alloc] initWithURL:soundUrl];
+        [self.localPlayer play];
         [self stopRecord];
     }
     NSLog(@"song shou");
@@ -195,30 +137,45 @@
 
 ///按下
 - (void)touchdown{
-    NSURL * soundUrl = [[NSBundle mainBundle] URLForResource:@"sound.caf" withExtension:nil];
-    self.localPlayer = [[AVPlayer alloc] initWithURL:soundUrl];
-    [self.localPlayer play];
     [self addTimer];
     SSLog(@"touch down");
+    self.isCancel = NO;
     [self beginRecord];
+}
+
+///取消
+- (void)touchCancel{
+    NSLog(@"cancel...");
+    self.isCancel = YES;
+    [self.voiceBtn setEnabled:YES];
+    [self removeTimer];
+    [self stopRecord];
 }
 
 ///录音完成
 - (void)stopRecord{
-    NSURL * soundUrl = [[NSBundle mainBundle] URLForResource:@"sound.caf" withExtension:nil];
-    self.localPlayer = [[AVPlayer alloc] initWithURL:soundUrl];
-    [self.localPlayer play];
+
     if (self.recorder.isRecording){//录音中
         //停止录音
         [self.recorder stop];
         NSLog(@"停止录音");
+        
         self.recordingView.hidden = YES;
-       // NSURL * url = [NSURL fileURLWithPath:self.recordFilePath];
+        
         NSString * targetFilePath = [[NSString alloc] initWithString:self.recordFilePath];
-        [self.filePathsDataSource addObject:targetFilePath];
-        NSIndexPath * indexpath = [NSIndexPath indexPathForRow:self.filePathsDataSource.count - 1 inSection:0];
-        [self.tableView insertRowsAtIndexPaths:@[indexpath] withRowAnimation:(UITableViewRowAnimationBottom)];
-        [self.tableView scrollToRowAtIndexPath:indexpath atScrollPosition:(UITableViewScrollPositionBottom) animated:YES];
+        
+        if (self.isCancel) { //滑动取消就删除文件即可。
+            [self deleteFile:targetFilePath];
+        }else{
+            NSURL * soundUrl = [[NSBundle mainBundle] URLForResource:@"sound.caf" withExtension:nil];
+            self.localPlayer = [[AVPlayer alloc] initWithURL:soundUrl];
+            [self.localPlayer play];
+            
+            [self.filePathsDataSource addObject:targetFilePath];
+            NSIndexPath * indexpath = [NSIndexPath indexPathForRow:self.filePathsDataSource.count - 1 inSection:0];
+            [self.tableView insertRowsAtIndexPaths:@[indexpath] withRowAnimation:(UITableViewRowAnimationBottom)];
+            [self.tableView scrollToRowAtIndexPath:indexpath atScrollPosition:(UITableViewScrollPositionBottom) animated:YES];
+        }
     }
 }
 
@@ -443,6 +400,70 @@
         [self.handerView removeFromSuperview];
     }];
 }
+
+- (void)clickSendBtn:(UIButton *)sendBtn{
+    if (!self.titleTextField.text.length) {
+        [SVProgressHUD showErrorWithStatus:@"请输入笔记标题"];
+        return;
+    }
+    
+    if (!self.filePathsDataSource.count) {
+        [SVProgressHUD showErrorWithStatus:@"请添加至少一条语音笔记"];
+        return;
+    }
+    
+    [sendBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+    sendBtn.enabled = NO;
+    
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSDictionary * baseParam = @{@"user_id":userId,@"user_token":userToken,@"type":NOTE_TYPE_VOICE,
+                                 @"title":self.titleTextField.text};
+    NSMutableDictionary * param = [[NSMutableDictionary alloc] initWithDictionary:baseParam];
+    
+    NSString * baseUrl = SAVE_NOTE;
+    if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_SAVE]) {
+        baseUrl = SAVE_NOTE;
+        if (self.book_id) {//创建有对象
+            param[@"book_id"] = self.book_id;
+        }
+    }else if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_UPDATE]){
+        baseUrl = UPDATE_NOTE;
+        if (self.noteId) {//更新笔记
+            param[@"id"] = self.noteId;
+        }
+    }else if ([self.requestType isEqualToString:NOTE_REQUSERT_TYPE_SAVE]) {
+        baseUrl = SAVE_NOTE;
+        if (self.page_id) {//创建有对象
+            param[@"page_id"] = self.page_id;
+        }
+    }
+    
+    [MBProgressHUD showHUDAddedTo:self.handerView animated:YES];
+    [httpTools uploadVoice:baseUrl parameters:param voicesUrl:self.filePathsDataSource success:^(NSDictionary *dic) {
+        [sendBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
+        sendBtn.enabled = YES;
+        [MBProgressHUD hideHUDForView:self.handerView animated:YES];
+        if ([dic[@"show"] isEqualToString:@"1"]) {
+            [SVProgressHUD showSuccessWithStatus:dic[@"msg"]];
+        }
+        for (NSString * filePath in self.filePathsDataSource) {
+            [self deleteFile:filePath];
+        }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if ([self.delegate conformsToProtocol:@protocol(voiceViewSendBtnDelegate)] && [self.delegate respondsToSelector:@selector(clickVoiceViewSendBtn:text:)]) {
+                [self.delegate clickVoiceViewSendBtn:self.titleTextField.text text:@"none"];
+            }
+            [self dismiss];
+        });
+    } failure:^(NSError *error) {
+        [sendBtn setTitleColor:baseblackColor forState:(UIControlStateNormal)];
+        sendBtn.enabled = YES;
+        [SVProgressHUD showErrorWithStatus:@"笔记创建失败"];
+        [MBProgressHUD hideHUDForView:self.handerView animated:YES];
+    }];
+}
+
 
     #pragma mark Responding to keyboard events
 - (void)keyboardWillShow:(NSNotification *)notification {

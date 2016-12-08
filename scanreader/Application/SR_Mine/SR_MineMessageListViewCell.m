@@ -68,7 +68,7 @@
 - (void)setMessageModel:(SR_MineMessageModel *)messageModel{
     _messageModel = messageModel;
     [self.hub setCount:[messageModel.readed intValue]];
-        [self.headerImageView setImageWithURL:[NSURL URLWithString:messageModel.sender.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
+    [self.headerImageView setImageWithURL:[NSURL URLWithString:messageModel.sender.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
     NSDate * createData = [NSDate dateWithTimeIntervalSince1970:messageModel.time_create];
     NSString * time = [NSDate compareCurrentTime:createData];//[NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
     self.timeLabel.text = time;

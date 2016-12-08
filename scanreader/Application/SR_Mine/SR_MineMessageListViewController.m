@@ -17,6 +17,7 @@
 #import "AVRefreshExtension.h"
 #import <MBProgressHUD.h>
 #import <MJRefresh.h>
+#import "NSDate+JJ.h"
 
 #define MESSAGE_TYPE_SYSTEM @"2"
 #define MESSAGE_TYPE_USER @"1"
@@ -32,13 +33,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"我的私信";
+    self.title = @"私信";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"清空" style:(UIBarButtonItemStyleDone) target:self action:@selector(clickRightBarItem)];
     self.tableView.av_footer = [AVFooterRefresh footerRefreshWithScrollView:self.tableView footerRefreshingBlock:^{
         [self loadData];
     }];
     [self getMessageList:MESSAGE_PAGE_NUM pageIndex:self.messageListPageIndex];
-//    [self addHeaderRefresh];
 }
 
 - (void)addHeaderRefresh{
@@ -90,6 +90,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString * cellId = @"SR_MineMessageListViewCell";
+
     SR_MineMessageListViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
         cell = [[SR_MineMessageListViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
@@ -101,10 +102,30 @@
             unreadMessageCont +=1;
         }
     }
-    SR_MineMessageModel * firstMessageModel= [self.dataSource[indexPath.row] lastObject];
-    cell.unreadMessageCount = unreadMessageCont;
-    cell.messageModel = firstMessageModel;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    if (indexPath.row == 0) {
+        SR_MineMessageModel * firstMessageModel= [self.dataSource[indexPath.row] firstObject];
+        
+        
+        [cell.headerImageView setImageWithURL:[NSURL URLWithString:firstMessageModel.recipient.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
+        cell.nameLabel.text = firstMessageModel.recipient.username;
+        
+        NSDate * createData = [NSDate dateWithTimeIntervalSince1970:firstMessageModel.time_create];
+        NSString * time = [NSDate compareCurrentTime:createData];
+        cell.timeLabel.text = time;
+        cell.messageLabel.text = firstMessageModel.content;
+        cell.unreadMessageCount = unreadMessageCont;
+        
+        [cell.hub setCount:unreadMessageCont];
+      //  cell.messageModel = firstMessageModel;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }else{
+        SR_MineMessageModel * firstMessageModel= [self.dataSource[indexPath.row] lastObject];
+        cell.unreadMessageCount = unreadMessageCont;
+        cell.messageModel = firstMessageModel;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
+    
     return cell;
 }
 
@@ -114,25 +135,38 @@
     }
 }
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     self.hidesBottomBarWhenPushed = YES;
     SR_MineMessageSendViewController * sendVC = [[SR_MineMessageSendViewController alloc] init];
     //先获取对方的所有发送消息 再挑选本人发送对方的消息，组成并分类
+    NSString * userId = [UserInfo getUserId];
     SR_MineMessageModel * friednMessageModel = [self.dataSource[indexPath.row] firstObject];
-    NSMutableArray * toFriendMessageModels = [[NSMutableArray alloc] init];
-    for (SR_MineMessageModel * myMessageModel in self.myAllMessageList) {
-        if ([myMessageModel.recipient.recipient_id isEqualToString:friednMessageModel.sender.sender_id]) {
-            [toFriendMessageModels addObject:myMessageModel];
-            myMessageModel.isMyAccount = YES;
+    if ([friednMessageModel.sender.sender_id isEqualToString:userId]) {//对话人
+        for (SR_MineMessageModel * model in self.myAllMessageList) {
+            model.isMyAccount = YES;
         }
+        
+        sendVC.messageModelsList = self.myAllMessageList;
+        sendVC.title = @"我的";
+    }else{//好友对话
+        NSMutableArray * toFriendMessageModels = [[NSMutableArray alloc] init];
+        for (SR_MineMessageModel * myMessageModel in self.myAllMessageList) {
+            if ([myMessageModel.recipient.recipient_id isEqualToString:friednMessageModel.sender.sender_id]) {
+                [toFriendMessageModels addObject:myMessageModel];
+                myMessageModel.isMyAccount = YES;
+            }
+        }
+        NSMutableArray * dialogModels = [[NSMutableArray alloc] init];
+        [dialogModels addObjectsFromArray:toFriendMessageModels];
+        [dialogModels addObjectsFromArray:self.dataSource[indexPath.row]];
+        //    还要按时间排序
+        sendVC.messageModelsList = dialogModels;
+        sendVC.title = [[[self.dataSource[indexPath.row] firstObject] sender] username];
+        
     }
-    NSMutableArray * dialogModels = [[NSMutableArray alloc] init];
-    [dialogModels addObjectsFromArray:toFriendMessageModels];
-    [dialogModels addObjectsFromArray:self.dataSource[indexPath.row]];
-    //    还要按时间排序
-    sendVC.messageModelsList = dialogModels;
     [self.navigationController pushViewController:sendVC animated:YES];
     self.hidesBottomBarWhenPushed = NO;
 }
@@ -173,23 +207,30 @@
             model.sender.sender_id = item[@"sender"][@"id"];
             model.recipient.recipient_id = item[@"recipient"][@"id"];
             model.target.target_id = item[@"target"][@"id"];
+     
+            NSMutableArray * senderObjMessageList = senderObj[model.sender_id];
+            [senderObjMessageList addObject:model];
+            
             if ([model.sender.sender_id isEqualToString:userId]) {
                 //本人的消息
                 [self.myAllMessageList addObject:model];
-            }else{
-                NSLog(@"send_id %@",model.sender_id);
-               NSMutableArray * senderObjMessageList = senderObj[model.sender_id];
-                [senderObjMessageList addObject:model];
             }
         }
         [senderObj enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            if ([userId isEqualToString:key]) {
-                
-            }else{
-               [self.dataSource addObject:obj];
-            }
-            
+            NSLog(@"key:%@",key);
+            [self.dataSource addObject:obj];
         }];
+        int i = 0;
+        for (; i < self.dataSource.count; i ++) {
+            SR_MineMessageModel * messageModel = [self.dataSource[i] firstObject];
+            if ([messageModel.sender.sender_id isEqualToString:userId]) {
+                break;
+            }
+        }
+        if (i < self.dataSource.count) {
+            [self.dataSource exchangeObjectAtIndex:0 withObjectAtIndex:i];
+        }
+        
         self.messageListPageIndex = (self.dataSource.count/MESSAGE_PAGE_NUM) + (self.dataSource.count%MESSAGE_PAGE_NUM > 0 ? 1 : 0);
         [self.tableView.av_footer endFooterRefreshing];
         [self.tableView.mj_header endRefreshing];
@@ -254,21 +295,32 @@
             SR_MineMessageModel * model = [SR_MineMessageModel modelWithDictionary:item];
             model.message_id = item[@"id"];
             model.sender.sender_id = item[@"sender"][@"id"];
+          
+            NSMutableArray * senderObjMessageList = senderObj[model.sender_id];
+            [senderObjMessageList addObject:model];
+            
             if ([model.sender.sender_id isEqualToString:userId]) {
                 //本人发送的消息
                 [self.myAllMessageList addObject:model];
-            }else{
-                NSMutableArray * senderObjMessageList = senderObj[model.sender_id];
-                [senderObjMessageList addObject:model];
             }
         }
         [senderObj enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            if ([userId isEqualToString:key]) {
-                
-            }else{
-                [self.dataSource addObject:obj];
-            }
+            
+            [self.dataSource addObject:obj];
         }];
+        
+        int i = 0;
+        for (; i < self.dataSource.count; i ++) {
+            SR_MineMessageModel * messageModel = [self.dataSource[i] firstObject];
+            if ([messageModel.sender.sender_id isEqualToString:userId]) {
+                break;
+            }
+        }
+        if (i < self.dataSource.count) {
+            [self.dataSource exchangeObjectAtIndex:0 withObjectAtIndex:i];
+        }
+
+        
         self.messageListPageIndex = (self.dataSource.count/MESSAGE_PAGE_NUM) + (self.dataSource.count%MESSAGE_PAGE_NUM > 0 ? 1 : 0);
         [self.tableView reloadData];
     } failure:^(NSError *error) {
