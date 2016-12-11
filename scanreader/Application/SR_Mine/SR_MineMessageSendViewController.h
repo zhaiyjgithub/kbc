@@ -11,4 +11,5 @@
 @interface SR_MineMessageSendViewController : UIViewController
 @property(nonatomic,strong)SR_MineMessageModel * messageModel;
 @property (nonatomic,copy)NSArray * messageModelsList;
+@property(nonatomic,copy)NSString * sender_id;
 @end

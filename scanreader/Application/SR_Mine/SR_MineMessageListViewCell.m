@@ -41,7 +41,7 @@
     UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickHeaderImageView)];
     [self.headerImageView addGestureRecognizer:gesture];
     
-    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.headerImageView.frame.origin.x + self.headerImageView.frame.size.width + 10, self.headerImageView.center.y - 8, 100, 16)];
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.headerImageView.frame.origin.x + self.headerImageView.frame.size.width + 10, self.headerImageView.center.y - 8, 200, 16)];
     self.nameLabel.text = @"--";
     self.nameLabel.textAlignment = NSTextAlignmentLeft;
     self.nameLabel.textColor = baseblackColor;
@@ -62,18 +62,18 @@
     self.messageLabel.font = [UIFont systemFontOfSize:14.0];
     self.messageLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.messageLabel];
-    
 }
 
-- (void)setMessageModel:(SR_MineMessageModel *)messageModel{
-    _messageModel = messageModel;
-    [self.hub setCount:[messageModel.readed intValue]];
-    [self.headerImageView setImageWithURL:[NSURL URLWithString:messageModel.sender.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
-    NSDate * createData = [NSDate dateWithTimeIntervalSince1970:messageModel.time_create];
+- (void)setMessagePeopleModel:(SR_MineMessagePeopleModel *)messagePeopleModel{
+    _messagePeopleModel = messagePeopleModel;
+    
+    [self.hub setCount:[messagePeopleModel.readed intValue]];
+    [self.headerImageView setImageWithURL:[NSURL URLWithString:messagePeopleModel.sender.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
+    NSDate * createData = [NSDate dateWithTimeIntervalSince1970:messagePeopleModel.time_create];
     NSString * time = [NSDate compareCurrentTime:createData];//[NSDate getRealDateTime:createData withFormat:@"yyyy-MM-dd HH:mm"];
     self.timeLabel.text = time;
-    self.messageLabel.text = messageModel.content;
-    self.nameLabel.text = messageModel.sender.username;
+    self.messageLabel.text = messagePeopleModel.content;
+    self.nameLabel.text = messagePeopleModel.sender.username;
     
     [self.hub setCount:self.unreadMessageCount];
     [self.hub pop];

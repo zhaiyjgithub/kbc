@@ -24,6 +24,8 @@
 #import "SR_OthersMineViewController.h"
 #import "SR_BookClubBookNoteModel.h"
 #import "SR_MineMessageOpenUrlViewController.h"
+#import <MBProgressHUD.h>
+#import <MJRefresh.h>
 
 @interface SR_MineMessageSendViewController ()<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong)UITableView * tableView;
@@ -31,16 +33,16 @@
 @property(nonatomic,strong)UIView * toolBar;
 @property(nonatomic,strong)UITextView * toolBarTextView;
 @property(nonatomic,strong)UIButton * toolBarSendBtn;
-
-//@property(nonatomic,assign)NSInteger numOfRows;
 @property(nonatomic,assign)NSInteger messageListPageIndex;
+@property(nonatomic,assign)BOOL isFirstReq;
+@property(nonatomic,assign)NSInteger longPressRow;
 @end
 
 @implementation SR_MineMessageSendViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //self.title = @"对话";
+
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = [UIColor whiteColor];
@@ -49,13 +51,31 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    self.isFirstReq = YES;
+    self.messageListPageIndex = 0;
+    [self addHeaderRefresh];
+}
+
+- (void)addHeaderRefresh{
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    header.automaticallyChangeAlpha = YES;
+    header.lastUpdatedTimeLabel.hidden = YES;
+    [header beginRefreshing];
+    self.tableView.mj_header = header;
+}
+
+- (void)loadNewData{
+    self.messageListPageIndex += 1;
+    [self getDialogList];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:(UITableViewScrollPositionBottom) animated:YES];
+//    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
+//    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:(UITableViewScrollPositionBottom) animated:YES];
     
 }
 
@@ -86,6 +106,10 @@
         }
         cell.frameModel = self.dataSource[indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.userInteractionEnabled = YES;
+        
+        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressMyMessageCell:)];
+        [cell addGestureRecognizer:recognizer];
         
         return cell;
     }else{//如果是创建的消息，就要区分跳转,当消息返回的内容包含了type这个字段才可以发生跳转
@@ -97,10 +121,152 @@
         cell.frameModel = self.dataSource[indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        cell.userInteractionEnabled = YES;
+        
+        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressFriendMessageCell:)];
+        [cell addGestureRecognizer:recognizer];
+        
         return cell;
     }
 }
 
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender{
+    if(action == @selector(copyMessage:) || action == @selector(deleteMessage:)) return YES;
+    return NO;
+}
+
+- (void)longPressMyMessageCell:(UILongPressGestureRecognizer *)recognizer{
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        SR_MineMessageSendDialogMineViewCell *cell = (SR_MineMessageSendDialogMineViewCell *)recognizer.view;
+        
+        NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+        self.longPressRow = indexPath.row;
+        
+        UIMenuController *menu = [UIMenuController sharedMenuController];
+        [menu setMenuVisible:NO animated:YES];
+        
+        [self becomeFirstResponder];
+        UIMenuItem * copy = [[UIMenuItem alloc] initWithTitle:@"复制"action:@selector(copyMessage:)];
+        UIMenuItem * delete = [[UIMenuItem alloc] initWithTitle:@"撤回"action:@selector(deleteMessage:)];
+    
+        
+
+        [menu setMenuItems:[NSArray arrayWithObjects:copy, delete, nil]];
+        
+        [menu setTargetRect:cell.frame inView:cell.superview];
+        [menu setMenuVisible:YES animated:YES];
+    }
+}
+
+- (void)longPressFriendMessageCell:(UILongPressGestureRecognizer *)recognizer{
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        SR_MineMessageSendDialogMineViewCell *cell = (SR_MineMessageSendDialogMineViewCell *)recognizer.view;
+        
+        NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+        self.longPressRow = indexPath.row;
+        
+        [self becomeFirstResponder];
+        UIMenuItem * copy = [[UIMenuItem alloc] initWithTitle:@"复制"action:@selector(copyMessage:)];
+        
+        UIMenuController *menu = [UIMenuController sharedMenuController];
+        
+        [menu setMenuItems:[NSArray arrayWithObjects:copy, nil]];
+        
+        [menu setTargetRect:cell.frame inView:cell.superview];
+        [menu setMenuVisible:YES animated:YES];
+    }
+}
+
+- (void)copyMessage:(id)item{
+    NSString * content = [[self.dataSource[self.longPressRow] messageModel] content];
+    [UIPasteboard generalPasteboard].string = content;
+}
+
+- (void)deleteMessage:(id)sender{
+    [self deleteSessionMessagesWithRow:self.longPressRow];
+}
+
+- (void)deleteSessionMessagesWithRow:(NSInteger)row{
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    NSString * messageId = [[self.dataSource[row] messageModel] message_id];
+   
+    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken,@"id":@[messageId]};
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [httpTools post:DELETE_SESSION_MESSAGE_LIST andParameters:param success:^(NSDictionary *dic) {
+        NSLog(@"delete message by id resutl:%@",dic);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.dataSource removeObjectAtIndex:row];
+        [self.tableView deleteRow:row inSection:0 withRowAnimation:(UITableViewRowAnimationFade)];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+}
+
+- (BOOL)canBecomeFirstResponder{
+    return YES;
+}
+
+- (void)getDialogList{
+    NSString * userId = [UserInfo getUserId];
+    NSString * userToken = [UserInfo getUserToken];
+    
+    NSString * page = [NSString stringWithFormat:@"%d",self.messageListPageIndex];
+    
+    NSDictionary * param = @{@"limit":[NSString stringWithFormat:@"%d",PAGE_NUM],@"page":page,@"user_id":userId,@"user_token":userToken,@"people_id":self.sender_id};
+    
+    [httpTools post:GET_DIALOG_MESSAGE_LIST andParameters:param success:^(NSDictionary *dic) {
+        NSArray * list = dic[@"data"][@"list"];
+        NSString * userId = [UserInfo getUserId];
+        
+        NSMutableArray * unsortList = [[NSMutableArray alloc] init];
+        for (NSDictionary * item in list) {
+
+            SR_MineMessageModel * messageModel = [SR_MineMessageModel modelWithDictionary:item];
+            messageModel.message_id = item[@"id"];
+            messageModel.sender.sender_id = item[@"sender"][@"id"];
+            messageModel.recipient.recipient_id = item[@"recipient"][@"id"];
+            messageModel.target.target_id = item[@"target"][@"id"];
+            
+            if ([messageModel.sender.sender_id isEqualToString:userId]) {
+                messageModel.isMyAccount = YES;
+            }else{
+                messageModel.isMyAccount = NO;
+            }
+            
+            [unsortList addObject:messageModel];
+        }
+        
+        NSArray * sort = [unsortList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            SR_MineMessageModel * messageModel1 = (SR_MineMessageModel *)obj1;
+            SR_MineMessageModel * messageModel2 = (SR_MineMessageModel *)obj2;
+            NSNumber * num1 = @(messageModel1.time_create);
+            NSNumber * num2  = @(messageModel2.time_create);
+            NSComparisonResult result = [num2 compare:num1];
+            return result == NSOrderedDescending;
+        }];
+        
+        for (SR_MineMessageModel * messageModel in sort) {
+            SR_MineMessageFrameModel * frameModel = [[SR_MineMessageFrameModel alloc] init];
+            frameModel.messageModel = messageModel;
+            [self.dataSource insertObject:frameModel atIndex:0];
+        }
+        self.messageListPageIndex = self.dataSource.count/PAGE_NUM + (self.dataSource.count%PAGE_NUM > 0 ? 1: 0);
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView reloadData];
+        
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0];
+        if (self.isFirstReq) {
+            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:(UITableViewScrollPositionBottom) animated:YES];
+            self.isFirstReq = NO;
+        }else{
+            [self.tableView scrollToTop];
+        }
+
+    } failure:^(NSError *error) {
+        
+    }];
+}
 //返回值说明：
 //type: url为跳转链接， app为客户端跳转对象（如打开互动页）
 //
@@ -174,6 +340,14 @@
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
+    
+//    UIMenuController * menu = [UIMenuController sharedMenuController];
+//    [menu setMenuVisible:NO animated:YES];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+//    UIMenuController *menu = [UIMenuController sharedMenuController];
+//    [menu setMenuVisible:NO animated:NO];
 }
 
 - (void)setMessageModelsList:(NSArray *)messageModelsList{

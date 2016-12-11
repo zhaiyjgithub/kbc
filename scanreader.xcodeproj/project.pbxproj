@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		140C055E1DFC06360060F596 /* SR_MineMessagePeopleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 140C055D1DFC06360060F596 /* SR_MineMessagePeopleModel.m */; };
 		8443ACEA1D46563A00634BC3 /* DDQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8443ACE91D46563A00634BC3 /* DDQRCodeViewController.m */; };
 		846C6DE01D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DDF1D44AD2800401A35 /* SR_ActionSheetImageCollectionViewCell.m */; };
 		846C6DE31D44B06D00401A35 /* SR_ActionSheetImageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C6DE21D44B06D00401A35 /* SR_ActionSheetImageLayout.m */; };
@@ -140,6 +141,8 @@
 
 /* Begin PBXFileReference section */
 		0607A39CD5C3930A77C71A15 /* Pods-scanreader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scanreader.release.xcconfig"; path = "Pods/Target Support Files/Pods-scanreader/Pods-scanreader.release.xcconfig"; sourceTree = "<group>"; };
+		140C055C1DFC06360060F596 /* SR_MineMessagePeopleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SR_MineMessagePeopleModel.h; path = Application/SR_Mine/SR_MineMessagePeopleModel.h; sourceTree = "<group>"; };
+		140C055D1DFC06360060F596 /* SR_MineMessagePeopleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SR_MineMessagePeopleModel.m; path = Application/SR_Mine/SR_MineMessagePeopleModel.m; sourceTree = "<group>"; };
 		4F7A3B784229D292DC0FC5F6 /* libPods-scanreader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-scanreader.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8443ACE81D46563A00634BC3 /* DDQRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDQRCodeViewController.h; path = Application/SR_Scan/SR_Scan/DDQRCodeViewController.h; sourceTree = "<group>"; };
 		8443ACE91D46563A00634BC3 /* DDQRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDQRCodeViewController.m; path = Application/SR_Scan/SR_Scan/DDQRCodeViewController.m; sourceTree = "<group>"; };
@@ -568,6 +571,8 @@
 				CB186EF71D72C61A00C16705 /* SR_MineMessageFrameModel.m */,
 				CBD0FC4F1D9517DB009B9E62 /* SR_UserInfoModel.h */,
 				CBD0FC501D9517DB009B9E62 /* SR_UserInfoModel.m */,
+				140C055C1DFC06360060F596 /* SR_MineMessagePeopleModel.h */,
+				140C055D1DFC06360060F596 /* SR_MineMessagePeopleModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1326,6 +1331,7 @@
 				CB1659161D63688500E17303 /* SR_BookClubBookModel.m in Sources */,
 				CBE47E111D40A93D0046C89C /* SR_FoundMainBookClubItemDetailViewController.m in Sources */,
 				CB03F58E1D771BF800D19B0F /* videoViewController.m in Sources */,
+				140C055E1DFC06360060F596 /* SR_MineMessagePeopleModel.m in Sources */,
 				CB04080B1D78119C00490862 /* UIImage+help.m in Sources */,
 				CB74117E1D347B14002B8FB5 /* AppDelegate.m in Sources */,
 				CBE47DF41D4067180046C89C /* SR_ForgotPasswordViewController.m in Sources */,

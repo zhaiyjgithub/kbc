@@ -48,6 +48,7 @@
     [self.contentView addSubview:self.timeLabel];
 }
 
+
 - (void)setFrameModel:(SR_MineMessageFrameModel *)frameModel{
     _frameModel = frameModel;
     [self.headerImageView setImageWithURL:[NSURL URLWithString:frameModel.messageModel.sender.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
@@ -60,5 +61,7 @@
     
     self.timeLabel.frame = CGRectMake(kScreenWidth - 15 - 120, self.messageLabel.frame.origin.y + self.messageLabel.frame.size.height + 5, 120, 14);
 }
+
+
 
 @end

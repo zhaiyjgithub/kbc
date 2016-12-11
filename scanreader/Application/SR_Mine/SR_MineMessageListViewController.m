@@ -18,6 +18,7 @@
 #import <MBProgressHUD.h>
 #import <MJRefresh.h>
 #import "NSDate+JJ.h"
+#import "SR_MineMessagePeopleModel.h"
 
 #define MESSAGE_TYPE_SYSTEM @"2"
 #define MESSAGE_TYPE_USER @"1"
@@ -35,29 +36,9 @@
     [super viewDidLoad];
     self.title = @"私信";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"清空" style:(UIBarButtonItemStyleDone) target:self action:@selector(clickRightBarItem)];
-    self.tableView.av_footer = [AVFooterRefresh footerRefreshWithScrollView:self.tableView footerRefreshingBlock:^{
-        [self loadData];
-    }];
-    [self getMessageList:MESSAGE_PAGE_NUM pageIndex:self.messageListPageIndex];
+ 
+    [self getMessageList];
 }
-
-- (void)addHeaderRefresh{
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
-    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
-    header.automaticallyChangeAlpha = YES;
-    header.lastUpdatedTimeLabel.hidden = YES;
-    [header beginRefreshing];
-    self.tableView.mj_header = header;
-}
-
-- (void)loadNewData
-{
-    [self.originalMessageList removeAllObjects];
-    [self.dataSource removeAllObjects];
-    self.messageListPageIndex = 0;
-    [self getMessageList:MESSAGE_PAGE_NUM pageIndex:0];
-}
-
 
 - (void)clickRightBarItem{
     UIActionSheet * sheet =[[UIActionSheet alloc] initWithTitle:@"请选择要清空的消息类型" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"用户消息" otherButtonTitles:@"系统消息", nil];
@@ -95,45 +76,16 @@
     if (!cell) {
         cell = [[SR_MineMessageListViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellId];
     }
-    int unreadMessageCont = 0;
-    NSArray * messageModelList = self.dataSource[indexPath.row];
-    for (SR_MineMessageModel * messageModel in messageModelList) {
-        if ([messageModel.readed isEqualToString:@"1"]) {//计算未读的数量
-            unreadMessageCont +=1;
-        }
-    }
-    if (indexPath.row == 0) {
-        SR_MineMessageModel * firstMessageModel= [self.dataSource[indexPath.row] firstObject];
-        
-        
-        [cell.headerImageView setImageWithURL:[NSURL URLWithString:firstMessageModel.recipient.avatar] placeholder:[UIImage imageNamed:@"headerIcon"]];
-        cell.nameLabel.text = firstMessageModel.recipient.username;
-        
-        NSDate * createData = [NSDate dateWithTimeIntervalSince1970:firstMessageModel.time_create];
-        NSString * time = [NSDate compareCurrentTime:createData];
-        cell.timeLabel.text = time;
-        cell.messageLabel.text = firstMessageModel.content;
-        cell.unreadMessageCount = unreadMessageCont;
-        
-        [cell.hub setCount:unreadMessageCont];
-      //  cell.messageModel = firstMessageModel;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }else{
-        SR_MineMessageModel * firstMessageModel= [self.dataSource[indexPath.row] lastObject];
-        cell.unreadMessageCount = unreadMessageCont;
-        cell.messageModel = firstMessageModel;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    
+    cell.messagePeopleModel = self.dataSource[indexPath.row];
     
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self deleteSessionMessages:self.dataSource[indexPath.row] row:indexPath.row];
-    }
-}
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//        [self deleteSessionMessages:self.dataSource[indexPath.row] row:indexPath.row];
+//    }
+//}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -141,104 +93,34 @@
     
     self.hidesBottomBarWhenPushed = YES;
     SR_MineMessageSendViewController * sendVC = [[SR_MineMessageSendViewController alloc] init];
-    //先获取对方的所有发送消息 再挑选本人发送对方的消息，组成并分类
-    NSString * userId = [UserInfo getUserId];
-    SR_MineMessageModel * friednMessageModel = [self.dataSource[indexPath.row] firstObject];
-    if ([friednMessageModel.sender.sender_id isEqualToString:userId]) {//对话人
-        for (SR_MineMessageModel * model in self.myAllMessageList) {
-            model.isMyAccount = YES;
-        }
-        
-        sendVC.messageModelsList = self.myAllMessageList;
-        sendVC.title = @"我的";
-    }else{//好友对话
-        NSMutableArray * toFriendMessageModels = [[NSMutableArray alloc] init];
-        for (SR_MineMessageModel * myMessageModel in self.myAllMessageList) {
-            if ([myMessageModel.recipient.recipient_id isEqualToString:friednMessageModel.sender.sender_id]) {
-                [toFriendMessageModels addObject:myMessageModel];
-                myMessageModel.isMyAccount = YES;
-            }
-        }
-        NSMutableArray * dialogModels = [[NSMutableArray alloc] init];
-        [dialogModels addObjectsFromArray:toFriendMessageModels];
-        [dialogModels addObjectsFromArray:self.dataSource[indexPath.row]];
-        //    还要按时间排序
-        sendVC.messageModelsList = dialogModels;
-        sendVC.title = [[[self.dataSource[indexPath.row] firstObject] sender] username];
-        
-    }
+    sendVC.sender_id = [[self.dataSource[indexPath.row] sender] sender_id];
+    sendVC.title = [[self.dataSource[indexPath.row] sender] username];
     [self.navigationController pushViewController:sendVC animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
 }
 
-- (void)loadData{
-    [self getMessageList:MESSAGE_PAGE_NUM pageIndex:self.messageListPageIndex + 1];
-}
-
-///获取消息列表(包含了未读和已读消息)
-- (void)getMessageList:(NSInteger)pageNum  pageIndex:(NSInteger)pageIndex{
-    NSString * limit = [NSString stringWithFormat:@"%d",pageNum];
-    NSString * page = [NSString stringWithFormat:@"%d",pageIndex];
+- (void)getMessageList{
     NSString * userId = [UserInfo getUserId];
     NSString * userToken = [UserInfo getUserToken];
-    NSDictionary * param = @{@"limit":limit,@"page":page,@"user_id":userId,@"user_token":userToken};
-    [httpTools post:GET_MESSAGE_LIST andParameters:param success:^(NSDictionary *dic) {
-        NSLog(@"messageList:%@",dic);
-        NSArray * list = dic[@"data"][@"list"];
-        [self.originalMessageList addObjectsFromArray:list];
-        //数据源更新了
-        [self.dataSource removeAllObjects];
-        [self.myAllMessageList removeAllObjects];
-        NSMutableSet * senderIdSet = [[NSMutableSet alloc] init];
-        for (NSDictionary * item in self.originalMessageList) {
-            [senderIdSet addObject:item[@"sender_id"]];
-        }
-        NSMutableDictionary * senderObj = [NSMutableDictionary new];
-
-        NSArray * senderIds = [senderIdSet allObjects];
-        for (NSString * senderId in senderIds) {
-            NSMutableArray * messageList = [NSMutableArray new];
-            [senderObj setObject:messageList forKey:senderId];
-        }
-        NSString * userId = [UserInfo getUserId];
-        for (NSDictionary * item in self.originalMessageList) {
-            SR_MineMessageModel * model = [SR_MineMessageModel modelWithDictionary:item];
-            model.message_id = item[@"id"];
-            model.sender.sender_id = item[@"sender"][@"id"];
-            model.recipient.recipient_id = item[@"recipient"][@"id"];
-            model.target.target_id = item[@"target"][@"id"];
-     
-            NSMutableArray * senderObjMessageList = senderObj[model.sender_id];
-            [senderObjMessageList addObject:model];
-            
-            if ([model.sender.sender_id isEqualToString:userId]) {
-                //本人的消息
-                [self.myAllMessageList addObject:model];
-            }
-        }
-        [senderObj enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            NSLog(@"key:%@",key);
-            [self.dataSource addObject:obj];
+    
+    NSDictionary * param = @{@"user_id":userId,@"user_token":userToken};
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [httpTools post:@"/api/message/getPeopleList" andParameters:param success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        NSDictionary * list = dic[@"data"][@"list"];
+        [list enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            SR_MineMessagePeopleModel * peopleModel = [SR_MineMessagePeopleModel modelWithJSON:obj];
+            peopleModel.sender.sender_id = obj[@"sender"][@"id"];
+            NSLog(@"sender id:%@",peopleModel.sender.sender_id);
+            [self.dataSource addObject:peopleModel];
         }];
-        int i = 0;
-        for (; i < self.dataSource.count; i ++) {
-            SR_MineMessageModel * messageModel = [self.dataSource[i] firstObject];
-            if ([messageModel.sender.sender_id isEqualToString:userId]) {
-                break;
-            }
-        }
-        if (i < self.dataSource.count) {
-            [self.dataSource exchangeObjectAtIndex:0 withObjectAtIndex:i];
-        }
-        
-        self.messageListPageIndex = (self.dataSource.count/MESSAGE_PAGE_NUM) + (self.dataSource.count%MESSAGE_PAGE_NUM > 0 ? 1 : 0);
-        [self.tableView.av_footer endFooterRefreshing];
-        [self.tableView.mj_header endRefreshing];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        SSLog(@"error:%@",error);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
 }
+
+
 
 - (void)deleteSessionMessages:(NSArray *)messageList row:(NSInteger)row{
     NSString * userId = [UserInfo getUserId];
@@ -259,7 +141,7 @@
     }];
 }
 
-//晴空消息
+//清空消息
 - (void)clearAllMessageWithType:(NSString *)type{
     NSString * userId = [UserInfo getUserId];
     NSString * userToken = [UserInfo getUserToken];
