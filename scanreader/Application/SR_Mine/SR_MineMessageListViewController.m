@@ -107,13 +107,14 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [httpTools post:@"/api/message/getPeopleList" andParameters:param success:^(NSDictionary *dic) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        NSDictionary * list = dic[@"data"][@"list"];
-        [list enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            SR_MineMessagePeopleModel * peopleModel = [SR_MineMessagePeopleModel modelWithJSON:obj];
-            peopleModel.sender.sender_id = obj[@"sender"][@"id"];
+        NSArray * list = dic[@"data"][@"list"];
+        for (NSDictionary * item in list) {
+            SR_MineMessagePeopleModel * peopleModel = [SR_MineMessagePeopleModel modelWithJSON:item];
+            peopleModel.sender.sender_id = item[@"sender"][@"id"];
             NSLog(@"sender id:%@",peopleModel.sender.sender_id);
             [self.dataSource addObject:peopleModel];
-        }];
+        }
+        
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];

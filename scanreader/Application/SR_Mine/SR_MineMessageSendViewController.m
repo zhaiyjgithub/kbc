@@ -448,6 +448,8 @@
         newMessageModel.sender = sender;
         newMessageModel.isMyAccount = YES;
         
+        self.toolBarTextView.text = @"";
+        
         SR_MineMessageFrameModel * newFrameModel = [[SR_MineMessageFrameModel alloc] init];
         newFrameModel.messageModel = newMessageModel;
         [self.dataSource addObject:newFrameModel];
