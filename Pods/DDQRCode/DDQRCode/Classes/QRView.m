@@ -33,17 +33,35 @@ static NSTimeInterval kQrLineanimateDuration = 0.02;
 - (void)layoutSubviews {
     
     [super layoutSubviews];
-   // if (!qrLine) {
-        
-        [self initQRLine];
-        
-        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:kQrLineanimateDuration target:self selector:@selector(show) userInfo:nil repeats:YES];
-        [timer fire];
-  //  }
+    [self initQRLine];
     
-//    if (!qrMenu) {
-//        [self initQrMenu];
-//    }
+    CGSize screenSize =[QRUtil screenBounds].size;
+    CGRect screenDrawRect =CGRectMake(0, 0, screenSize.width,screenSize.height);
+    
+    CGRect clearDrawRect = CGRectMake(screenDrawRect.size.width / 2 - self.transparentArea.width / 2,
+                                      screenDrawRect.size.height / 2 - self.transparentArea.height / 2,
+                                      self.transparentArea.width,self.transparentArea.height);
+
+    UILabel * tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, clearDrawRect.origin.y + clearDrawRect.size.height + 10, [UIScreen mainScreen].bounds.size.width, 16)];
+    tipsLabel.text = @"将图形放进框内，即可自动扫描";
+    tipsLabel.textColor = [UIColor whiteColor];
+    tipsLabel.textAlignment = NSTextAlignmentCenter;
+    tipsLabel.font = [UIFont systemFontOfSize:14.0];
+    tipsLabel.backgroundColor = [UIColor clearColor];
+    [self addSubview:tipsLabel];
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+    
+    // 动画选项的设定
+    animation.duration = 1.0; // 持续时间
+    animation.repeatCount = HUGE_VAL; // 重复次数
+    
+    // 起始帧和终了帧的设定
+    animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(self.frame.size.width/2.0, clearDrawRect.origin.y + 1)];
+    animation.toValue = [NSValue valueWithCGPoint:CGPointMake(self.frame.size.width/2.0, clearDrawRect.origin.y + 260 - 1)]; // 终了帧
+    
+    // 添加动画
+    [qrLine.layer addAnimation:animation forKey:@"move-layer"];
 }
 
 - (void)initQRLine {
@@ -78,21 +96,36 @@ static NSTimeInterval kQrLineanimateDuration = 0.02;
 
 - (void)show {
     
-    [UIView animateWithDuration:kQrLineanimateDuration animations:^{
-        
-        CGRect rect = qrLine.frame;
-        rect.origin.y = qrLineY;
-        qrLine.frame = rect;
-        
-    } completion:^(BOOL finished) {
-        
-        CGFloat maxBorder = self.frame.size.height / 2 + self.transparentArea.height / 2 - 4;
-        if (qrLineY > maxBorder) {
-            
-            qrLineY = self.frame.size.height / 2 - self.transparentArea.height /2;
-        }
-        qrLineY++;
-    }];
+    /* 移动 */
+//    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+//    
+//    // 动画选项的设定
+//    animation.duration = 1.0; // 持续时间
+//    animation.repeatCount = HUGE_VAL; // 重复次数
+//    
+//    // 起始帧和终了帧的设定
+//    animation.fromValue = [NSValue valueWithCGPoint:qrLine.layer.position]; // 起始帧
+//    animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(self.frame.size.width/2.0, 1)];
+//    animation.toValue = [NSValue valueWithCGPoint:CGPointMake(self.frame.size.width/2.0, self.frame.size.height - 1)]; // 终了帧
+//    
+//    // 添加动画
+//    [qrLine.layer addAnimation:animation forKey:@"move-layer"];
+    
+//    [UIView animateWithDuration:kQrLineanimateDuration animations:^{
+//        
+//        CGRect rect = qrLine.frame;
+//        rect.origin.y = qrLineY;
+//        qrLine.frame = rect;
+//        
+//    } completion:^(BOOL finished) {
+//        
+//        CGFloat maxBorder = self.frame.size.height / 2 + self.transparentArea.height / 2 - 4;
+//        if (qrLineY > maxBorder) {
+//            
+//            qrLineY = self.frame.size.height / 2 - self.transparentArea.height /2;
+//        }
+//        qrLineY++;
+//    }];
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -115,13 +148,7 @@ static NSTimeInterval kQrLineanimateDuration = 0.02;
     
     [self addCornerLineWithContext:ctx rect:clearDrawRect];
     
-    UILabel * tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, clearDrawRect.origin.y + clearDrawRect.size.height + 10, [UIScreen mainScreen].bounds.size.width, 16)];
-    tipsLabel.text = @"将图形放进框内，即可自动扫描";
-    tipsLabel.textColor = [UIColor whiteColor];
-    tipsLabel.textAlignment = NSTextAlignmentCenter;
-    tipsLabel.font = [UIFont systemFontOfSize:14.0];
-    tipsLabel.backgroundColor = [UIColor clearColor];
-    [self addSubview:tipsLabel];
+    
 }
 
 - (void)addScreenFillRect:(CGContextRef)ctx rect:(CGRect)rect {

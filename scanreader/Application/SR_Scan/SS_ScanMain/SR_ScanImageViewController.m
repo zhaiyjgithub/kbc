@@ -410,7 +410,7 @@
     for (int i = 0; i < 2; i ++) {
         UIButton *button = [[UIButton alloc] init];
         button.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 150.0f, 51, 49.0f);
-        button.center = CGPointMake(i*(width/2) + width/4, [UIScreen mainScreen].bounds.size.height - 120.0f);
+        button.center = CGPointMake(i*(width/2) + width/4, [UIScreen mainScreen].bounds.size.height - 110.0f);
         button.tag = 11 + i;
         [button addTarget:self action:@selector(scanMenuChange:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
