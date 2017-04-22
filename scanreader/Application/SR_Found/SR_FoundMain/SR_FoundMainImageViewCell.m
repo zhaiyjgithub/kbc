@@ -115,9 +115,9 @@
     }else{
         self.subtitleImageView.hidden = NO;
         self.subtitleButton.hidden = NO;
-        if (noteModel.page) {
+        if (noteModel.page) {//如果有互动页
             [self.subtitleButton setTitle:noteModel.page.title forState:(UIControlStateNormal)];
-        }else{
+        }else{//那么就显示书籍
             [self.subtitleButton setTitle:noteModel.book.title forState:(UIControlStateNormal)];
         }
         
